@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSP Icon-Bibliothek - FINAL (Duplikatfrei)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0080C9 0%, #005a91 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #0080C9;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: #4caf50;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            margin-left: 10px;
+        }
+        
+        .search-box {
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 16px;
+            border: 2px solid #0080C9;
+            border-radius: 8px;
+            outline: none;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: #444;
+            border-bottom: 2px solid #0080C9;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+        }
+        
+        .icon-card {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .icon-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,128,201,0.2);
+            border-color: #0080C9;
+        }
+        
+        .icon-display {
+            font-size: 32px;
+            margin-bottom: 8px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .icon-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 4px;
+            font-size: 11px;
+        }
+        
+        .icon-tag {
+            color: #0080C9;
+            font-family: 'Courier New', monospace;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #0080C9;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .icon-card:hover .copy-btn {
+            opacity: 1;
+        }
+        
+        .copy-btn:hover {
+            background: #005a91;
+        }
+        
+        .copied {
+            background: #4caf50 !important;
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #4caf50;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 1000;
+        }
+        
+        .cluster-badge {
+            display: inline-block;
+            background: #0080C9;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 9px;
+            margin-left: 8px;
+        }
+        
+        .stats {
+            background: #e3f2fd;
+            border-left: 4px solid #0080C9;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+    </style>
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:xd_Signature msdt:dt="string"></mso:xd_Signature>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor msdt:dt="string">Andreas L�hr</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor>
+<mso:Order msdt:dt="string">29400.0000000000</mso:Order>
+<mso:xd_ProgID msdt:dt="string"></mso:xd_ProgID>
+<mso:_ExtendedDescription msdt:dt="string"></mso:_ExtendedDescription>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Author msdt:dt="string">Andreas L�hr</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Author>
+<mso:ComplianceAssetId msdt:dt="string"></mso:ComplianceAssetId>
+<mso:TemplateUrl msdt:dt="string"></mso:TemplateUrl>
+<mso:ContentTypeId msdt:dt="string">0x010100F66B8A20D8F3B94685B8DFE7FACE6DC5</mso:ContentTypeId>
+<mso:TriggerFlowInfo msdt:dt="string"></mso:TriggerFlowInfo>
+<mso:_SourceUrl msdt:dt="string"></mso:_SourceUrl>
+<mso:_SharedFileIndex msdt:dt="string"></mso:_SharedFileIndex>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏭 OSP Icon-Bibliothek<span class="badge">✅ 100% DUPLIKATFREI</span></h1>
+            <div style="color: #666; margin-top: 10px;">Rainer Schneider Kabelsatzbau GmbH & Co. KG</div>
+        </div>
+        
+        <div class="stats">
+            <strong>📊 Statistik:</strong> 94 einzigartige Icons | 16 Hauptmodule + 78 Sub-TAGs | Keine Duplikate
+        </div>
+        
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 Suche nach TAG, Name oder Icon..." onkeyup="filterIcons()">
+        </div>
+
+        <!-- HAUPTMODULE -->
+        <div class="section">
+            <h2>🏢 Hauptmodule (16)</h2>
+            <div class="icon-grid">
+                <div class="icon-card" onclick="copyToClipboard('🏢')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🏢</div>
+                    <div class="icon-name">UNTERNEHMEN</div>
+                    <div class="icon-tag">[ORG]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('✅')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">✅</div>
+                    <div class="icon-name">QUALITÄTSMANAGEMENT</div>
+                    <div class="icon-tag">[QM]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🏭')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🏭</div>
+                    <div class="icon-name">KOSTENSTELLEN</div>
+                    <div class="icon-tag">[KST]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('📋')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">📋</div>
+                    <div class="icon-name">ARBEITSVORBEREITUNG</div>
+                    <div class="icon-tag">[AV]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🛒')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🛒</div>
+                    <div class="icon-name">EINKAUF</div>
+                    <div class="icon-tag">[EK]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('📊')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">📊</div>
+                    <div class="icon-name">VERTRIEB</div>
+                    <div class="icon-tag">[VT]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('👥')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">👥</div>
+                    <div class="icon-name">HUMAN RESOURCES</div>
+                    <div class="icon-tag">[HR]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('⚙️')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">⚙️</div>
+                    <div class="icon-name">TECHNIK & MASCHINEN</div>
+                    <div class="icon-tag">[TM]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('💻')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">💻</div>
+                    <div class="icon-name">IT-INFRASTRUKTUR</div>
+                    <div class="icon-tag">[IT]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('⚖️')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">⚖️</div>
+                    <div class="icon-name">COMPLIANCE MS</div>
+                    <div class="icon-tag">[CMS]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('💬')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">💬</div>
+                    <div class="icon-name">KOMMUNIKATION</div>
+                    <div class="icon-tag">[KOM]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🎯')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🎯</div>
+                    <div class="icon-name">PROJEKTMANAGEMENT</div>
+                    <div class="icon-tag">[PM]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('📜')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">📜</div>
+                    <div class="icon-name">QM-SYSTEM</div>
+                    <div class="icon-tag">[QMS]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('👔')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">👔</div>
+                    <div class="icon-name">GESCHÄFTSFÜHRUNG</div>
+                    <div class="icon-tag">[GF]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('📚')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">📚</div>
+                    <div class="icon-name">RESSOURCEN/WISSEN</div>
+                    <div class="icon-tag">[RES]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('👤')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">👤</div>
+                    <div class="icon-name">BENUTZER</div>
+                    <div class="icon-tag">[BN]</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ORG -->
+        <div class="section">
+            <h2>🏢 [ORG] UNTERNEHMEN <span class="cluster-badge">Cluster 1</span></h2>
+            <div class="icon-grid">
+                <div class="icon-card" onclick="copyToClipboard('🌱')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🌱</div>
+                    <div class="icon-name">PHILOSOPHIE & HISTORIE</div>
+                    <div class="icon-tag">[ORG][CORE]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🧭')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🧭</div>
+                    <div class="icon-name">LEITBILD & VISION</div>
+                    <div class="icon-tag">[ORG][LEIT]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🏗️')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🏗️</div>
+                    <div class="icon-name">UNTERNEHMENSSTRUKTUR</div>
+                    <div class="icon-tag">[ORG][ORGA]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🤝')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🤝</div>
+                    <div class="icon-name">SOZIALES ENGAGEMENT</div>
+                    <div class="icon-tag">[ORG][SOZ]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('📖')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">📖</div>
+                    <div class="icon-name">MANAGEMENT HANDBUCH</div>
+                    <div class="icon-tag">[ORG][MHB]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('📝')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">📝</div>
+                    <div class="icon-name">GLOSSAR</div>
+                    <div class="icon-tag">[ORG][GLO]</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- QM -->
+        <div class="section">
+            <h2>✅ [QM] QUALITÄTSMANAGEMENT <span class="cluster-badge">Cluster 2</span></h2>
+            <div class="icon-grid">
+                <div class="icon-card" onclick="copyToClipboard('🎖️')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🎖️</div>
+                    <div class="icon-name">QUALITÄTSPOLITIK</div>
+                    <div class="icon-tag">[QM][CORE]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🔧')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🔧</div>
+                    <div class="icon-name">NACH-/ZUSATZARBEITEN</div>
+                    <div class="icon-tag">[QM][NZA]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('📢')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">📢</div>
+                    <div class="icon-name">REKLAMATIONSMANAGEMENT</div>
+                    <div class="icon-tag">[QM][REK]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🔍')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🔍</div>
+                    <div class="icon-name">AUDITIERUNG</div>
+                    <div class="icon-tag">[QM][AUD]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('📏')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">📏</div>
+                    <div class="icon-name">PRÜFMITTEL VERWALTUNG</div>
+                    <div class="icon-tag">[QM][PMV]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🎨')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🎨</div>
+                    <div class="icon-name">ERSTBEMUSTERUNG (FAI)</div>
+                    <div class="icon-tag">[QM][FAI]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🔬')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🔬</div>
+                    <div class="icon-name">SCHLIFFBILDLABOR</div>
+                    <div class="icon-tag">[QM][SBL]</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KST -->
+        <div class="section">
+            <h2>🏭 [KST] KOSTENSTELLEN <span class="cluster-badge">Cluster 3</span></h2>
+            <div class="icon-grid">
+                <div class="icon-card" onclick="copyToClipboard('🗺️')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🗺️</div>
+                    <div class="icon-name">LAYOUT FERTIGUNG</div>
+                    <div class="icon-tag">[KST][CORE]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('✂️')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">✂️</div>
+                    <div class="icon-name">ZUSCHNITT (1000)</div>
+                    <div class="icon-tag">[KST][1000]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🤖')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🤖</div>
+                    <div class="icon-name">HALBAUTOMATEN (2000)</div>
+                    <div class="icon-tag">[KST][2000]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('✋')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">✋</div>
+                    <div class="icon-name">HANDARBEITEN (3000)</div>
+                    <div class="icon-tag">[KST][3000]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('⚡')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">⚡</div>
+                    <div class="icon-name">SONDERFERTIGUNG (5000)</div>
+                    <div class="icon-tag">[KST][5000]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('📦')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">📦</div>
+                    <div class="icon-name">LAGER/VERSAND</div>
+                    <div class="icon-tag">[KST][LAG]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🏛️')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🏛️</div>
+                    <div class="icon-name">VERWALTUNG</div>
+                    <div class="icon-tag">[KST][VW]</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AV -->
+        <div class="section">
+            <h2>📋 [AV] ARBEITSVORBEREITUNG <span class="cluster-badge">Cluster 3</span></h2>
+            <div class="icon-grid">
+                <div class="icon-card" onclick="copyToClipboard('📐')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">📐</div>
+                    <div class="icon-name">DEFINITION AV</div>
+                    <div class="icon-tag">[AV][CORE]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('📑')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">📑</div>
+                    <div class="icon-name">ARBEITSGANG KATALOG</div>
+                    <div class="icon-tag">[AV][AGK]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('💰')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">💰</div>
+                    <div class="icon-name">KALKULATIONSSCHEMA</div>
+                    <div class="icon-tag">[AV][KALK]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('📄')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">📄</div>
+                    <div class="icon-name">FERTIGUNGSUNTERLAGEN</div>
+                    <div class="icon-tag">[AV][AA]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🔩')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🔩</div>
+                    <div class="icon-name">STANDARDISIERUNG</div>
+                    <div class="icon-tag">[AV][STD]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('⏱️')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">⏱️</div>
+                    <div class="icon-name">ZEITABWEICHUNGEN</div>
+                    <div class="icon-tag">[AV][ZA]</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EK -->
+        <div class="section">
+            <h2>🛒 [EK] EINKAUF <span class="cluster-badge">Cluster 4</span></h2>
+            <div class="icon-grid">
+                <div class="icon-card" onclick="copyToClipboard('🎪')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🎪</div>
+                    <div class="icon-name">DEFINITION EINKAUF</div>
+                    <div class="icon-tag">[EK][CORE]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('📈')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">📈</div>
+                    <div class="icon-name">STRATEGISCHER EINKAUF</div>
+                    <div class="icon-tag">[EK][SEK]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🔄')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🔄</div>
+                    <div class="icon-name">OPERATIVER EINKAUF</div>
+                    <div class="icon-tag">[EK][OEK]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('⭐')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">⭐</div>
+                    <div class="icon-name">LIEFERANTENBEWERTUNG</div>
+                    <div class="icon-tag">[EK][LIBW]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('📃')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">📃</div>
+                    <div class="icon-name">RAHMENVERTRÄGE</div>
+                    <div class="icon-tag">[EK][RV]</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VT -->
+        <div class="section">
+            <h2>📊 [VT] VERTRIEB <span class="cluster-badge">Cluster 4</span></h2>
+            <div class="icon-grid">
+                <div class="icon-card" onclick="copyToClipboard('🎲')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🎲</div>
+                    <div class="icon-name">VERTRIEBSKONZEPT</div>
+                    <div class="icon-tag">[VT][CORE]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🌟')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🌟</div>
+                    <div class="icon-name">KUNDENBEWERTUNG</div>
+                    <div class="icon-tag">[VT][KDBW]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🔃')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🔃</div>
+                    <div class="icon-name">AUFTRAGSABWICKLUNG</div>
+                    <div class="icon-tag">[VT][ABW]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('📨')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">📨</div>
+                    <div class="icon-name">ANGEBOTSWESEN</div>
+                    <div class="icon-tag">[VT][ANG]</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HR -->
+        <div class="section">
+            <h2>👥 [HR] HUMAN RESOURCES <span class="cluster-badge">Cluster 2</span></h2>
+            <div class="icon-grid">
+                <div class="icon-card" onclick="copyToClipboard('👨‍👩‍👧‍👦')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">👨‍👩‍👧‍👦</div>
+                    <div class="icon-name">PERSONALSTAMM</div>
+                    <div class="icon-tag">[HR][CORE]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🎓')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🎓</div>
+                    <div class="icon-name">KOMPETENZ-MATRIX</div>
+                    <div class="icon-tag">[HR][KM]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🌻')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🌻</div>
+                    <div class="icon-name">PERSONALENTWICKLUNG</div>
+                    <div class="icon-tag">[HR][ENT]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🏫')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🏫</div>
+                    <div class="icon-name">SCHULUNGEN</div>
+                    <div class="icon-tag">[HR][FORT]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🔀')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🔀</div>
+                    <div class="icon-name">LEIHARBEITER</div>
+                    <div class="icon-tag">[HR][LEIH]</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TM -->
+        <div class="section">
+            <h2>⚙️ [TM] TECHNIK & MASCHINEN <span class="cluster-badge">Cluster 3</span></h2>
+            <div class="icon-grid">
+                <div class="icon-card" onclick="copyToClipboard('🎛️')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🎛️</div>
+                    <div class="icon-name">MASCHINEN & ANLAGEN</div>
+                    <div class="icon-tag">[TM][CORE]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🔨')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🔨</div>
+                    <div class="icon-name">WERKZEUGE</div>
+                    <div class="icon-tag">[TM][WKZ]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🛞')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🛞</div>
+                    <div class="icon-name">VERSCHLEISSTEILE</div>
+                    <div class="icon-tag">[TM][VT]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🛠️')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🛠️</div>
+                    <div class="icon-name">WARTUNG/INSTANDHALTUNG</div>
+                    <div class="icon-tag">[TM][WAR]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('📘')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">📘</div>
+                    <div class="icon-name">TECHN. DOKUMENTATION</div>
+                    <div class="icon-tag">[TM][TDOK]</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- IT -->
+        <div class="section">
+            <h2>💻 [IT] IT-INFRASTRUKTUR <span class="cluster-badge">Cluster 4</span></h2>
+            <div class="icon-grid">
+                <div class="icon-card" onclick="copyToClipboard('🖥️')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🖥️</div>
+                    <div class="icon-name">CLIENT/SERVER STRUKTUR</div>
+                    <div class="icon-tag">[IT][CORE]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🌐')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🌐</div>
+                    <div class="icon-name">DSL/LAN/WLAN</div>
+                    <div class="icon-tag">[IT][NET]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('💾')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">💾</div>
+                    <div class="icon-name">TIMELINE ERP-SYSTEM</div>
+                    <div class="icon-tag">[IT][ERP]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('📕')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">📕</div>
+                    <div class="icon-name">IT-DOKUMENTATION</div>
+                    <div class="icon-tag">[IT][DOKU]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('☁️')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">☁️</div>
+                    <div class="icon-name">MICROSOFT 365</div>
+                    <div class="icon-tag">[IT][M365]</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CMS -->
+        <div class="section">
+            <h2>⚖️ [CMS] COMPLIANCE MANAGEMENTSYSTEM <span class="cluster-badge">Cluster 2</span></h2>
+            <div class="icon-grid">
+                <div class="icon-card" onclick="copyToClipboard('🛡️')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🛡️</div>
+                    <div class="icon-name">CMS-STRUKTUR</div>
+                    <div class="icon-tag">[CMS][CORE]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🦺')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🦺</div>
+                    <div class="icon-name">ARBEITSSCHUTZ</div>
+                    <div class="icon-tag">[CMS][ASU]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🌳')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🌳</div>
+                    <div class="icon-name">UMWELTSCHUTZ</div>
+                    <div class="icon-tag">[CMS][UWS]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('💊')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">💊</div>
+                    <div class="icon-name">GESUNDHEITSMANAGEMENT</div>
+                    <div class="icon-tag">[CMS][GES]</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KOM -->
+        <div class="section">
+            <h2>💬 [KOM] KOMMUNIKATION <span class="cluster-badge">Cluster 1</span></h2>
+            <div class="icon-grid">
+                <div class="icon-card" onclick="copyToClipboard('🎭')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🎭</div>
+                    <div class="icon-name">CORPORATE IDENTITY</div>
+                    <div class="icon-tag">[KOM][CORE]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🤷')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🤷</div>
+                    <div class="icon-name">KI-INTERAKTIONSREGELN</div>
+                    <div class="icon-tag">[KOM][AIR]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('📧')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">📧</div>
+                    <div class="icon-name">BRIEF-/MAIL VORLAGEN</div>
+                    <div class="icon-tag">[KOM][TPL]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('✍️')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">✍️</div>
+                    <div class="icon-name">KOMMUNIKATIONSSTIL</div>
+                    <div class="icon-tag">[KOM][STIL]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🌍')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🌍</div>
+                    <div class="icon-name">SOCIAL MEDIA & WEBSITE</div>
+                    <div class="icon-tag">[KOM][SOC]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🧠')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🧠</div>
+                    <div class="icon-name">KONTEXT-GEDÄCHTNIS-SYSTEM</div>
+                    <div class="icon-tag">[KOM][KGS]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('📅')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">📅</div>
+                    <div class="icon-name">MEETINGS & SITZUNGEN</div>
+                    <div class="icon-tag">[KOM][MEE]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🕰️')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🕰️</div>
+                    <div class="icon-name">HISTORIE</div>
+                    <div class="icon-tag">[KOM][HIS]</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PM -->
+        <div class="section">
+            <h2>🎯 [PM] PROJEKTMANAGEMENT <span class="cluster-badge">Cluster 1</span></h2>
+            <div class="icon-grid">
+                <div class="icon-card" onclick="copyToClipboard('💡')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">💡</div>
+                    <div class="icon-name">AKTUELLE PROJEKTE</div>
+                    <div class="icon-tag">[PM][CORE]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('📂')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">📂</div>
+                    <div class="icon-name">PROJEKTHISTORIE</div>
+                    <div class="icon-tag">[PM][PMH]</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- QMS -->
+        <div class="section">
+            <h2>📜 [QMS] QUALITÄTSMANAGEMENTSYSTEM <span class="cluster-badge">Cluster 2</span></h2>
+            <div class="icon-grid">
+                <div class="icon-card" onclick="copyToClipboard('🗂️')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🗂️</div>
+                    <div class="icon-name">QMS-STRUKTUR</div>
+                    <div class="icon-tag">[QMS][CORE]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('📌')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">📌</div>
+                    <div class="icon-name">ANWEISUNGEN/RICHTLINIEN</div>
+                    <div class="icon-tag">[QMS][ARI]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('📁')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">📁</div>
+                    <div class="icon-name">DOCUWARE</div>
+                    <div class="icon-tag">[QMS][DW]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🗒️')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🗒️</div>
+                    <div class="icon-name">FORMBLÄTTER</div>
+                    <div class="icon-tag">[QMS][FORM]</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GF -->
+        <div class="section">
+            <h2>👔 [GF] GESCHÄFTSFÜHRUNG <span class="cluster-badge">Cluster 1</span></h2>
+            <div class="icon-grid">
+                <div class="icon-card" onclick="copyToClipboard('🎩')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🎩</div>
+                    <div class="icon-name">GESCHÄFTSLEITUNG</div>
+                    <div class="icon-tag">[GF][CORE]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🗺')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🗺</div>
+                    <div class="icon-name">STRATEGISCHE AUSRICHTUNG</div>
+                    <div class="icon-tag">[GF][STR]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('⚠️')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">⚠️</div>
+                    <div class="icon-name">RISIKEN & CHANCEN</div>
+                    <div class="icon-tag">[GF][RISK]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🚀')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🚀</div>
+                    <div class="icon-name">ZIELE & PROJEKTE</div>
+                    <div class="icon-tag">[GF][ZIEL]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('💹')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">💹</div>
+                    <div class="icon-name">MANAGEMENTBEWERTUNG</div>
+                    <div class="icon-tag">[GF][MB]</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RES -->
+        <div class="section">
+            <h2>📚 [RES] RESSOURCEN/WISSEN <span class="cluster-badge">Cluster 4</span></h2>
+            <div class="icon-grid">
+                <div class="icon-card" onclick="copyToClipboard('🗄️')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🗄️</div>
+                    <div class="icon-name">WISSENSMANAGEMENT</div>
+                    <div class="icon-tag">[RES][CORE]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🗨️')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🗨️</div>
+                    <div class="icon-name">KABEL FORUM</div>
+                    <div class="icon-tag">[RES][KF]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🔖')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🔖</div>
+                    <div class="icon-name">NORMEN/STANDARDS</div>
+                    <div class="icon-tag">[RES][NORM]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🏆')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🏆</div>
+                    <div class="icon-name">BEST PRACTICE</div>
+                    <div class="icon-tag">[RES][BP]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🔌')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🔌</div>
+                    <div class="icon-name">KABEL BASE</div>
+                    <div class="icon-tag">[RES][KB]</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BN -->
+        <div class="section">
+            <h2>👤 [BN] BENUTZER <span class="cluster-badge">Cluster 1</span></h2>
+            <div class="icon-grid">
+                <div class="icon-card" onclick="copyToClipboard('🆔')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🆔</div>
+                    <div class="icon-name">IDENTITÄT</div>
+                    <div class="icon-tag">[BN][CORE]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('👨‍💼')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">👨‍💼</div>
+                    <div class="icon-name">POSITION/VERANTWORTUNG</div>
+                    <div class="icon-tag">[BN][POS]</div>
+                </div>
+                <div class="icon-card" onclick="copyToClipboard('🗃️')">
+                    <button class="copy-btn">✓</button>
+                    <div class="icon-display">🗃️</div>
+                    <div class="icon-name">BENUTZER KONTEXT</div>
+                    <div class="icon-tag">[BN][KON]</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="toast" id="toast">✅ Icon kopiert!</div>
+    
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                showToast();
+                event.stopPropagation();
+                const btn = event.currentTarget.querySelector('.copy-btn');
+                if (btn) {
+                    btn.classList.add('copied');
+                    btn.textContent = '✅';
+                    setTimeout(() => {
+                        btn.classList.remove('copied');
+                        btn.textContent = '✓';
+                    }, 1000);
+                }
+            });
+        }
+        
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 1500);
+        }
+        
+        function filterIcons() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toUpperCase();
+            const cards = document.getElementsByClassName('icon-card');
+            
+            for (let i = 0; i < cards.length; i++) {
+                const name = cards[i].getElementsByClassName('icon-name')[0].textContent;
+                const tag = cards[i].getElementsByClassName('icon-tag')[0].textContent;
+                const icon = cards[i].getElementsByClassName('icon-display')[0].textContent;
+                
+                if (name.toUpperCase().indexOf(filter) > -1 || 
+                    tag.toUpperCase().indexOf(filter) > -1 ||
+                    icon.indexOf(filter) > -1) {
+                    cards[i].style.display = '';
+                } else {
+                    cards[i].style.display = 'none';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

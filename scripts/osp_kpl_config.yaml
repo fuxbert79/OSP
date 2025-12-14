@@ -1,0 +1,182 @@
+# OSP_KPL Collection Konfiguration
+# =================================
+# Version: 1.0
+# Server: Hetzner CX33 (46.224.102.30)
+# ChromaDB: http://localhost:8000
+
+collection:
+  name: "osp_kpl"
+  description: "OSP Komplett - Alle OSP Markdown-Dokumente (58 Dateien)"
+  created: "2025-12-13"
+  strategy: "hybrid_full_doc_chunked"
+
+# ChromaDB Settings
+chromadb:
+  path: "/opt/osp/chromadb/data"
+  host: "localhost"
+  port: 8000
+
+# Embedding Configuration
+embedding:
+  model: "sentence-transformers/all-MiniLM-L6-v2"
+  dimension: 384
+  device: "cpu"
+
+# HNSW Index Configuration (Small Dataset ~100-1K Docs)
+hnsw:
+  space: "cosine"
+  M: 16
+  ef_construction: 200
+
+# Chunking Parameters
+chunking:
+  chunk_size_tokens: 1200
+  chunk_overlap_tokens: 150
+  chars_per_token: 4
+
+# Layer 1: Full-Document Mode (Tabellen-kritisch)
+# Diese Dateien werden als Ganzes importiert, um Tabellen nicht zu zerreißen
+full_document_files:
+  - filename: "TM_CORE_Maschinen_Anlagen.md"
+    reason: "Maschinen-Inventarliste mit kritischen Nummern"
+    estimated_tokens: 15000
+    
+  - filename: "TM_WKZ_Werkzeuge.md"
+    reason: "Werkzeug-Katalog mit WKZ-Nummern und Kontaktzuordnung"
+    estimated_tokens: 15000
+    
+  - filename: "HR_CORE_Personalstamm.md"
+    reason: "Personalstamm mit MA-Kürzeln und Level-Zuordnungen"
+    estimated_tokens: 7000
+    
+  - filename: "AV_AGK_Arbeitsgang_Katalog.md"
+    reason: "Arbeitsgang-Katalog mit AGK-Nummern"
+    estimated_tokens: 8000
+
+# Layer 2: Chunked Documents (Standard RAG)
+# Alle anderen 53+ Dateien werden in Chunks aufgeteilt
+chunked_document_categories:
+  - category: "Cluster 1 - Kontext"
+    modules: ["ORG", "KOM"]
+    file_count: 13
+    priority: "standard"
+    
+  - category: "Cluster 2 - Führung"
+    modules: ["QM", "PM", "AV", "GF"]
+    file_count: 11
+    priority: "high"
+    
+  - category: "Cluster 3 - Betrieb"
+    modules: ["VT", "EK", "KST"]
+    file_count: 11
+    priority: "standard"
+    
+  - category: "Cluster 4 - Support"
+    modules: ["TM", "IT", "HR", "CMS"]
+    file_count: 12
+    priority: "standard"
+    
+  - category: "Dokumentation"
+    modules: ["OSP"]
+    file_count: 7
+    priority: "high"
+
+# Metadata Schema
+metadata_schema:
+  required:
+    - filename
+    - tag
+    - subtag
+    - cluster
+    - access_level
+    - import_mode
+    - chunk_index
+    - total_chunks
+    - import_date
+    
+  optional:
+    - version
+    - created
+    - updated
+    - status
+    - keywords
+    - description
+    - start_char
+    - end_char
+    - char_count
+
+# Access Level Mapping
+access_levels:
+  L1:
+    name: "Public"
+    description: "Öffentliche TAGs für alle Mitarbeiter"
+    modules: ["ORG", "KOM", "RES", "DMS"]
+    
+  L2:
+    name: "Abteilung"
+    description: "Abteilungsbezogene TAGs"
+    modules: ["QM", "AV", "VT", "EK", "KST", "TM", "IT", "CMS", "PM"]
+    
+  L3:
+    name: "Vertraulich"
+    description: "Vertrauliche TAGs nur für Führung"
+    modules: ["GF", "FIN", "HR", "STR"]
+
+# Test Queries für Validierung
+test_queries:
+  - query: "Komax Alpha 530"
+    expected_file: "TM_CORE_Maschinen_Anlagen.md"
+    expected_mode: "full_document"
+    description: "Maschinen-Inventar"
+    
+  - query: "Wer ist MD?"
+    expected_file: "HR_CORE_Personalstamm.md"
+    expected_mode: "full_document"
+    description: "Personalstamm-Abfrage"
+    
+  - query: "Werkzeug für 0-0170360-1"
+    expected_file: "TM_WKZ_Werkzeuge.md"
+    expected_mode: "full_document"
+    description: "Werkzeug-Kontakt-Zuordnung"
+    
+  - query: "NULL-FEHLER-POLITIK"
+    expected_file: "KOM_AIR_KI_Kommunikationsregeln.md"
+    expected_mode: "chunked"
+    description: "KI-Regeln"
+    
+  - query: "ISO 9001 Kapitel"
+    expected_file: "QM_CORE_Qualitaetspolitik.md"
+    expected_mode: "chunked"
+    description: "Qualitätsmanagement"
+    
+  - query: "Zugriffslevel L1 L2 L3"
+    expected_file: "KOM_AIR_KI_Kommunikationsregeln.md"
+    expected_mode: "chunked"
+    description: "Berechtigungen"
+
+# Server Paths
+paths:
+  local_source: "C:\\Users\\andre\\OneDrive - Rainer Schneider Kabelsatzbau und Konfektion\\Kommunikationswebsite - OSP Schneider Kabelsatzbau"
+  server_documents: "/opt/osp/documents_kpl"
+  server_chromadb: "/opt/osp/chromadb/data"
+  sharepoint: "https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP"
+
+# Sync Configuration
+sync:
+  source: "sharepoint"
+  target: "server"
+  frequency: "daily"
+  method: "rsync_via_onedrive"
+
+# Performance Targets
+performance:
+  query_time_target: "< 2s"
+  embedding_time_target: "< 5s per file"
+  total_import_time_target: "< 5 min"
+
+# Backup Configuration
+backup:
+  enabled: true
+  schedule: "daily"
+  retention_days: 30
+  path: "/opt/osp/backups/chromadb"

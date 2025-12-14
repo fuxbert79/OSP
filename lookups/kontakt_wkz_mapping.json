@@ -1,0 +1,3998 @@
+{
+  "meta": {
+    "version": "1.0",
+    "stand": "2025-12-13",
+    "eintraege_gesamt": 340,
+    "kontakte_unique": 292,
+    "quelle": "TM_WKZ_Werkzeuge.md",
+    "pattern": "Kontaktnummer -> WKZ Zuordnung(en)",
+    "erstellt_von": "AL + Claude",
+    "hinweis": "Eine Kontaktnummer kann mehrere WKZ-Zuordnungen haben (Array)"
+  },
+  "mappings": {
+    "0010129205": [
+      {
+        "wkz": "WKZ 532",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "0010129205",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "2tes WKZ 535 mit Distanzplatte 0,5mm",
+        "standort": "F1/1"
+      }
+    ],
+    "0010916001": [
+      {
+        "wkz": "WKZ 549/740",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "0010916001",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "2tes WKZ 740",
+        "standort": "F1/1 & F1/3"
+      }
+    ],
+    "0011111201": [
+      {
+        "wkz": "WKZ 588",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Distanzplatte 1,5mm; Messer 0,5mm",
+        "standort": "F1"
+      }
+    ],
+    "0011116101": [
+      {
+        "wkz": "WKZ 658",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      },
+      {
+        "wkz": "WKZ 9706/1259",
+        "wkz_typ": "Beistellung",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "WKZ ist Beistellung von Fa. Kötting",
+        "standort": null
+      }
+    ],
+    "0011332101": [
+      {
+        "wkz": "WKZ 588",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Distanzplatte 2,0mm; Messer 1,5mm",
+        "standort": "F1/1"
+      }
+    ],
+    "0-0141075-2": [
+      {
+        "wkz": "WKZ 583",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "0-0163081-7/8": [
+      {
+        "wkz": "WKZ 634",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "0-0163083-7/8": [
+      {
+        "wkz": "WKZ 634",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "0-0163085-8/9": [
+      {
+        "wkz": "WKZ 635",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "0-0163087-8/9": [
+      {
+        "wkz": "WKZ 635",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "0-0164161-3": [
+      {
+        "wkz": "WKZ 634",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "0-0166500-2": [
+      {
+        "wkz": "WKZ 742",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "0-0170360-1": [
+      {
+        "wkz": "WKZ 602/606",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "1740360/362",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      },
+      {
+        "wkz": "WKZ 737",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "1740360/362",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "0-0170361-1": [
+      {
+        "wkz": "WKZ 605",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "0-0170362-1": [
+      {
+        "wkz": "WKZ 602/606",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "1740360/362",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      },
+      {
+        "wkz": "WKZ 737",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "1740360/362",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "0-0173681-2": [
+      {
+        "wkz": "WKZ 707",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "0-0282110-1": [
+      {
+        "wkz": "WKZ 627",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "282110-1",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "0-0282403-1": [
+      {
+        "wkz": "WKZ 627",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "282403-1",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Distanzplatte vor Crimper tauschen",
+        "standort": "F1/2"
+      }
+    ],
+    "0-0350415-1": [
+      {
+        "wkz": "WKZ 600",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "926887",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      },
+      {
+        "wkz": "WKZ 601/633",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "926887",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "0-0350536-6": [
+      {
+        "wkz": "WKZ 600",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "926887",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      },
+      {
+        "wkz": "WKZ 601/633",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "926887",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "0-0350566-7": [
+      {
+        "wkz": "WKZ 607/608",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Für doppelt isolierte Leitung (O-Crimp)",
+        "standort": "F1/2"
+      },
+      {
+        "wkz": "WKZ 610",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Für kleine Querschnitte (B-Crimp)",
+        "standort": "F1/2"
+      }
+    ],
+    "0-0350654-1": [
+      {
+        "wkz": "WKZ 600",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "926887",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      },
+      {
+        "wkz": "WKZ 601/633",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "926887",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "0-0350699-7": [
+      {
+        "wkz": "WKZ 744",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "0-0350851-7": [
+      {
+        "wkz": "WKZ 744",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "0-0794407-1": [
+      {
+        "wkz": "WKZ 602/606",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "0-0794407-1",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "0-0926868-1": [
+      {
+        "wkz": "WKZ 732",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      },
+      {
+        "wkz": "WKZ 735",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "0-0926869-1": [
+      {
+        "wkz": "WKZ 732",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      },
+      {
+        "wkz": "WKZ 735",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "0-0926882-1/3": [
+      {
+        "wkz": "WKZ 600",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      },
+      {
+        "wkz": "WKZ 601/633",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "926887",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "0-0926883-1": [
+      {
+        "wkz": "WKZ 600",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "926887",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      },
+      {
+        "wkz": "WKZ 601/633",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "0-0926884-3/4": [
+      {
+        "wkz": "WKZ 744",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "0-0926886-1/7": [
+      {
+        "wkz": "WKZ 744",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "0-0926887-1/3": [
+      {
+        "wkz": "WKZ 600",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      },
+      {
+        "wkz": "WKZ 601/633",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "0-0926899-1": [
+      {
+        "wkz": "WKZ 732",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      },
+      {
+        "wkz": "WKZ 735",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "0-0927770-3": [
+      {
+        "wkz": "WKZ 627",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "43375-0001",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "0-0927886-1": [
+      {
+        "wkz": "WKZ 634",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "0-0929939-3": [
+      {
+        "wkz": "WKZ 627",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "929939",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "0-0962943-1": [
+      {
+        "wkz": "WKZ 695",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "962943",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "0-1241390-1": [
+      {
+        "wkz": "WKZ 697",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "1241390",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "0-1241396-1": [
+      {
+        "wkz": "WKZ 697",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "1241396-1",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "0-160759-1/3": [
+      {
+        "wkz": "WKZ 653",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "160759",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "0170362-3": [
+      {
+        "wkz": "WKZ 602/606",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "1740360/362",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "02-06-1101": [
+      {
+        "wkz": "WKZ 614",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "02-06-2101": [
+      {
+        "wkz": "WKZ 614",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "02-08-1001": [
+      {
+        "wkz": "WKZ 600/601/633",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "926887",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "02-09-2116": [
+      {
+        "wkz": "WKZ 654",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "030-2410-001": [
+      {
+        "wkz": "WKZ 644",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "030-2410-001",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Lose Ware",
+        "standort": "F2"
+      }
+    ],
+    "08-50-0031": [
+      {
+        "wkz": "WKZ 624",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "08-50-0105": [
+      {
+        "wkz": "WKZ 625/626",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "08-50-0187": [
+      {
+        "wkz": "WKZ 625/626",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "0906 000 6481": [
+      {
+        "wkz": "WKZ 705",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "0932 000 6107": [
+      {
+        "wkz": "WKZ 715",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "0932 000 6108": [
+      {
+        "wkz": "WKZ 715",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "0932 000 6207": [
+      {
+        "wkz": "WKZ 715",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "0932 000 6208": [
+      {
+        "wkz": "WKZ 715",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "0967 000 7158": [
+      {
+        "wkz": "WKZ 631",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "166054",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "0967 000 7258": [
+      {
+        "wkz": "WKZ 631",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "166054",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "0967 000 8158": [
+      {
+        "wkz": "WKZ 638",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "166053",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "0967 000 8167": [
+      {
+        "wkz": "WKZ 638",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "166053",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "0967 000 8258": [
+      {
+        "wkz": "WKZ 638",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "166053",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "1062-16-0622": [
+      {
+        "wkz": "WKZ 581",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "1062-12-0166",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "1-104479-0": [
+      {
+        "wkz": "WKZ 719",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "1-104480-3": [
+      {
+        "wkz": "WKZ 719",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "1-1241418-3": [
+      {
+        "wkz": "WKZ 698",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "1241418-4",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Tisch und Vorschub ändern",
+        "standort": "F2"
+      }
+    ],
+    "1241374-1": [
+      {
+        "wkz": "WKZ 695",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "1241374-1",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "1241380-1": [
+      {
+        "wkz": "WKZ 695",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "1241380-1",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "1241396-3": [
+      {
+        "wkz": "WKZ 697",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "1241396-1",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "1241408-1": [
+      {
+        "wkz": "WKZ 698",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "1241408-1",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Tisch und Vorschub ändern",
+        "standort": "F2"
+      }
+    ],
+    "1241418-4": [
+      {
+        "wkz": "WKZ 698",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "1241418-4",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Tisch und Vorschub ändern",
+        "standort": "F2"
+      }
+    ],
+    "1375819-1": [
+      {
+        "wkz": "WKZ 604",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "154717-6": [
+      {
+        "wkz": "WKZ 653",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "154717",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "163301-6": [
+      {
+        "wkz": "WKZ 634",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "171662-1": [
+      {
+        "wkz": "WKZ 627",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "171662-1",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "175019-1": [
+      {
+        "wkz": "WKZ 908992-2",
+        "wkz_typ": "Beistellung",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "WKZ ist Beistellung von Fa. Kötting",
+        "standort": null
+      }
+    ],
+    "175180-2": [
+      {
+        "wkz": "WKZ 707",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "0-0173681-3",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "1-794406-0": [
+      {
+        "wkz": "WKZ 602/606",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "794407",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "188744-1": [
+      {
+        "wkz": "WKZ 710",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "1-968857-3": [
+      {
+        "wkz": "WKZ 697",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "1-968857-3",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "21010119": [
+      {
+        "wkz": "WKZ 730",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "21010129": [
+      {
+        "wkz": "WKZ 730",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "21600110": [
+      {
+        "wkz": "WKZ 526",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "3-fach Clip",
+        "standort": "F2"
+      },
+      {
+        "wkz": "WKZ 589",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "4-fach Clip",
+        "standort": "F2"
+      }
+    ],
+    "22.803.110": [
+      {
+        "wkz": "WKZ 621",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "228 181 27",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "hintere Distanzplatte 0,5mm entfernen",
+        "standort": "F1/2"
+      }
+    ],
+    "22.810.110": [
+      {
+        "wkz": "WKZ 640/652",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "25036",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "22124472970": [
+      {
+        "wkz": "WKZ 745/746",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "22124472970",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "22140472960": [
+      {
+        "wkz": "WKZ 745",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "22140472980": [
+      {
+        "wkz": "WKZ 733",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "228 181 17": [
+      {
+        "wkz": "WKZ 621",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "228 181 27",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "228 181 27": [
+      {
+        "wkz": "WKZ 621",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "22-811-115": [
+      {
+        "wkz": "WKZ 548",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "23715127": [
+      {
+        "wkz": "WKZ 571",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "23715",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "24.810.115": [
+      {
+        "wkz": "WKZ 549/740",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "24.810.115",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "24310128": [
+      {
+        "wkz": "WKZ 553",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25203-25205",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Messerdistanz 4,5mm, Vorschub einstellen",
+        "standort": "F1/1"
+      }
+    ],
+    "24801120": [
+      {
+        "wkz": "WKZ 549",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "24801120",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25004": [
+      {
+        "wkz": "WKZ 590",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25016": [
+      {
+        "wkz": "WKZ 561",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25019": [
+      {
+        "wkz": "WKZ 556",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25696",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25022": [
+      {
+        "wkz": "WKZ 571",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25296",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25029": [
+      {
+        "wkz": "WKZ 640/652",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "25039": [
+      {
+        "wkz": "WKZ 659",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Wenn 2. WKZ benötigt, bitte 660 verwenden",
+        "standort": "F1/2"
+      }
+    ],
+    "25044": [
+      {
+        "wkz": "WKZ 571",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25296",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25077": [
+      {
+        "wkz": "WKZ 522",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "25077",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Wenn 2. WKZ benötigt, bitte 525 od. 546",
+        "standort": "F1/1"
+      }
+    ],
+    "25093": [
+      {
+        "wkz": "WKZ 544",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25213-25223",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Messer & Vorschub einstellen",
+        "standort": "F1/1"
+      }
+    ],
+    "25116": [
+      {
+        "wkz": "WKZ 632",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "25116/25117",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "25117": [
+      {
+        "wkz": "WKZ 632",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "25116/25117",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "25128": [
+      {
+        "wkz": "WKZ 647",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "WKZ 647 von GHW (Luftwerkzeug)",
+        "standort": "F1/2"
+      },
+      {
+        "wkz": "WKZ 702/706",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25128",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "25131 1-fach": [
+      {
+        "wkz": "WKZ 521",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25131 1-fach",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25131 2-fach": [
+      {
+        "wkz": "WKZ 519/558",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25131 2-fach",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25131 3-fach": [
+      {
+        "wkz": "WKZ 519/521/558",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25131 3-fach",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25131 4-fach": [
+      {
+        "wkz": "WKZ 518/520",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25131 4-fach",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25131 5-fach": [
+      {
+        "wkz": "WKZ 520",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25131 2-fach & 3-fach",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25136": [
+      {
+        "wkz": "WKZ 702/706",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25136",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "25139": [
+      {
+        "wkz": "WKZ 657",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "25144": [
+      {
+        "wkz": "WKZ 618",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "25149": [
+      {
+        "wkz": "WKZ 574",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Wenn 2. WKZ benötigt, bitte 571 verwenden",
+        "standort": "F1/1"
+      }
+    ],
+    "25165": [
+      {
+        "wkz": "WKZ 579",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25201": [
+      {
+        "wkz": "WKZ 579",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25203": [
+      {
+        "wkz": "WKZ 553/579",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25204": [
+      {
+        "wkz": "WKZ 568",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25203-25205",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "2,3er Messer einbauen",
+        "standort": "F1/1"
+      }
+    ],
+    "25205": [
+      {
+        "wkz": "WKZ 579",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25209": [
+      {
+        "wkz": "WKZ 553",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25203-25205",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Messerdistanz 11,8mm",
+        "standort": "F1/1"
+      }
+    ],
+    "25211": [
+      {
+        "wkz": "WKZ 568",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25203-25205",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "anderes Messerpaket",
+        "standort": "F1/1"
+      }
+    ],
+    "25213": [
+      {
+        "wkz": "WKZ 544",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25213-25223",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Messer & Vorschub einstellen",
+        "standort": "F1/1"
+      }
+    ],
+    "25215": [
+      {
+        "wkz": "WKZ 572",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "25213-25223",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Handkurve eingebaut",
+        "standort": "F2"
+      },
+      {
+        "wkz": "WKZ 544/577",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25213-25223",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25217": [
+      {
+        "wkz": "WKZ 572",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "25213-25223",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Handkurve eingebaut",
+        "standort": "F2"
+      },
+      {
+        "wkz": "WKZ 544/577",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25213-25223",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25218": [
+      {
+        "wkz": "WKZ 544/577",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25213-25223",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Messer 2,3 einbauen",
+        "standort": "F1/1"
+      }
+    ],
+    "25219": [
+      {
+        "wkz": "WKZ 564",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25213-25223",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      },
+      {
+        "wkz": "WKZ 568/578",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25213-25223",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25221": [
+      {
+        "wkz": "WKZ 564",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25213-25223",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      },
+      {
+        "wkz": "WKZ 568/578",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25213-25223",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25223": [
+      {
+        "wkz": "WKZ 568",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25213-25223",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "anderes Messerpaket",
+        "standort": "F1/1"
+      }
+    ],
+    "25229": [
+      {
+        "wkz": "WKZ 559/567",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "24359120",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25231": [
+      {
+        "wkz": "WKZ 545",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "24359120",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      },
+      {
+        "wkz": "WKZ 559/567",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "24359120",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25233": [
+      {
+        "wkz": "WKZ 575/576",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      },
+      {
+        "wkz": "WKZ 749",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "25235": [
+      {
+        "wkz": "WKZ 575/576",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      },
+      {
+        "wkz": "WKZ 749",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "25258 2-fach": [
+      {
+        "wkz": "WKZ 523/524",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25258 2-fach",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25258 3-fach": [
+      {
+        "wkz": "WKZ 523/524",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25258 3-fach",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25258 4-fach": [
+      {
+        "wkz": "WKZ 525/557",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25258 4-fach",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      },
+      {
+        "wkz": "WKZ 546",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25258 4-fach",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "25258 5-fach": [
+      {
+        "wkz": "WKZ 546",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25258 5-fach",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "25272": [
+      {
+        "wkz": "WKZ 574",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25149",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25312/25315": [
+      {
+        "wkz": "WKZ 540",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25312",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      },
+      {
+        "wkz": "WKZ 541",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25312",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "25313/25314": [
+      {
+        "wkz": "WKZ 540/549/740",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25313",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1 & F1/3"
+      },
+      {
+        "wkz": "WKZ 541",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25313",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "25361": [
+      {
+        "wkz": "WKZ 565",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      },
+      {
+        "wkz": "WKZ 566",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25362": [
+      {
+        "wkz": "WKZ 738",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "WKZ von GHW (Luftwerkzeug)",
+        "standort": "F1/3"
+      },
+      {
+        "wkz": "WKZ 510",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25362",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25365": [
+      {
+        "wkz": "WKZ 548/552",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      },
+      {
+        "wkz": "WKZ 550",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "WKZ 550 von GHW",
+        "standort": "F1/1"
+      }
+    ],
+    "25431": [
+      {
+        "wkz": "WKZ 585",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25440": [
+      {
+        "wkz": "WKZ 523",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25440 (Krah)",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25505": [
+      {
+        "wkz": "WKZ 584",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25568": [
+      {
+        "wkz": "WKZ 510",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      },
+      {
+        "wkz": "WKZ 702/706",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25568",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "25696": [
+      {
+        "wkz": "WKZ 556",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25696",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "2tes WKZ 2150046-2-F von Fa. Kötting",
+        "standort": "F1/1"
+      }
+    ],
+    "25697": [
+      {
+        "wkz": "WKZ 556",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25697",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25698": [
+      {
+        "wkz": "WKZ 556",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25698",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25722": [
+      {
+        "wkz": "WKZ 536",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      },
+      {
+        "wkz": "WKZ 538/587",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "WKZ 538 nur mit Automatenkurve betreiben!",
+        "standort": "F1/1"
+      }
+    ],
+    "25733": [
+      {
+        "wkz": "WKZ 531",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "WKZ 531 von GHW",
+        "standort": "F1/1"
+      },
+      {
+        "wkz": "WKZ 569",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      },
+      {
+        "wkz": "WKZ 535",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25733",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1 & F1/2"
+      },
+      {
+        "wkz": "WKZ 586",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1 & F1/2"
+      }
+    ],
+    "25737": [
+      {
+        "wkz": "WKZ 539",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25737",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25744": [
+      {
+        "wkz": "WKZ 539",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25744",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      },
+      {
+        "wkz": "WKZ 539",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25744",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Extra für Doppelanschlag",
+        "standort": "F1/1"
+      }
+    ],
+    "25757": [
+      {
+        "wkz": "WKZ 573",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "25768": [
+      {
+        "wkz": "WKZ 664",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "25773": [
+      {
+        "wkz": "WKZ 663",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "25775": [
+      {
+        "wkz": "WKZ 721",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "25775",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Wenn 2. WKZ benötigt, bitte 603",
+        "standort": "F1/3"
+      }
+    ],
+    "25783": [
+      {
+        "wkz": "WKZ 505/512/527",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      },
+      {
+        "wkz": "WKZ 516",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "25787": [
+      {
+        "wkz": "WKZ 501/517/528",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      },
+      {
+        "wkz": "WKZ 515",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "25789": [
+      {
+        "wkz": "WKZ 548/552",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      },
+      {
+        "wkz": "WKZ 550",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "WKZ 550 von GHW",
+        "standort": "F1/1"
+      }
+    ],
+    "25863": [
+      {
+        "wkz": "WKZ 644",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "25906": [
+      {
+        "wkz": "WKZ 536",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      },
+      {
+        "wkz": "WKZ 538/587",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25914": [
+      {
+        "wkz": "WKZ 531",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "WKZ 531 von GHW",
+        "standort": "F1/1"
+      },
+      {
+        "wkz": "WKZ 535",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "25733",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "25931": [
+      {
+        "wkz": "WKZ 603",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "25931",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Wenn 2. WKZ benötigt, bitte 721",
+        "standort": "F1/2"
+      }
+    ],
+    "26.310.120": [
+      {
+        "wkz": "WKZ 536",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "25722",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      },
+      {
+        "wkz": "WKZ 538/587",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "25722",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "WKZ 538 nur mit Automatenkurve!",
+        "standort": "F1/1"
+      }
+    ],
+    "26.325.120": [
+      {
+        "wkz": "WKZ 665",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "26.325.120",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Wenn 2. WKZ benötigt, bitte 535",
+        "standort": "F1/1&F1/2"
+      }
+    ],
+    "26.526.120": [
+      {
+        "wkz": "WKZ 544/577",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25213-25223",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Distanzplatte 0,5 od. 0,8 vor DC",
+        "standort": "F1/2"
+      }
+    ],
+    "26.305.110": [
+      {
+        "wkz": "WKZ 537",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "26365": [
+      {
+        "wkz": "WKZ 548/552",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      },
+      {
+        "wkz": "WKZ 550",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "WKZ 550 von GHW",
+        "standort": "F1/1"
+      }
+    ],
+    "26851": [
+      {
+        "wkz": "WKZ 628",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "26906": [
+      {
+        "wkz": "WKZ 0190/SB11",
+        "wkz_typ": "Beistellung",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "WKZ ist Beistellung von Fa. Kötting",
+        "standort": null
+      }
+    ],
+    "26980": [
+      {
+        "wkz": "WKZ 601",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "926887",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Tisch und Kontaktposition einstellen",
+        "standort": "F1/2"
+      }
+    ],
+    "280530-1": [
+      {
+        "wkz": "WKZ 615",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "2-927771-1": [
+      {
+        "wkz": "WKZ 651",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "927827",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Distanzblech ausbauen, Tisch und Vorschub",
+        "standort": "F1/2"
+      }
+    ],
+    "2951123-00-3": [
+      {
+        "wkz": "WKZ 560",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "3-0350980-1": [
+      {
+        "wkz": "WKZ 699",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "350980",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "3111 03 G": [
+      {
+        "wkz": "WKZ 637",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "32124734000": [
+      {
+        "wkz": "WKZ 726",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "32124734010": [
+      {
+        "wkz": "WKZ 727",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "32124734020": [
+      {
+        "wkz": "WKZ 728",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "35072391": [
+      {
+        "wkz": "WKZ 695",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "35072391",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "35088739": [
+      {
+        "wkz": "WKZ 696",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "350788739",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "3-770060-1": [
+      {
+        "wkz": "WKZ 611",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "3-794037-1": [
+      {
+        "wkz": "WKZ 714",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "794037 AWG12",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      },
+      {
+        "wkz": "WKZ 714",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "794037 6,0mm²",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "39-00-0021": [
+      {
+        "wkz": "WKZ 723",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "870002",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Tisch und Vorschub einstellen",
+        "standort": "F1/3"
+      }
+    ],
+    "39-00-0038": [
+      {
+        "wkz": "WKZ 718",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "39-00-0038",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "39-00-0040": [
+      {
+        "wkz": "WKZ 718",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "39-00-0038",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "39-00-0046": [
+      {
+        "wkz": "WKZ 718",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "39-00-0038",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "39-00-0059": [
+      {
+        "wkz": "WKZ 718",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "39-00-0038",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "39-00-0077": [
+      {
+        "wkz": "WKZ 636",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "39-00-0428": [
+      {
+        "wkz": "WKZ 718",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "39-00-0038",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "39-00-0430": [
+      {
+        "wkz": "WKZ 718",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "39-00-0038",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "42460-1": [
+      {
+        "wkz": "WKZ 2150046-2-F",
+        "wkz_typ": "Beistellung",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "WKZ ist Beistellung von Fa. Kötting",
+        "standort": null
+      }
+    ],
+    "43030": [
+      {
+        "wkz": "WKZ 701/724",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2 & F1/3"
+      }
+    ],
+    "43031": [
+      {
+        "wkz": "WKZ 701/724",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2 & F1/3"
+      }
+    ],
+    "439026": [
+      {
+        "wkz": "WKZ 661",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "439027": [
+      {
+        "wkz": "WKZ 661",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "439029": [
+      {
+        "wkz": "WKZ 661",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "46235-0001": [
+      {
+        "wkz": "WKZ 701/724",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "43030",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2 & F1/3"
+      }
+    ],
+    "50011-8000": [
+      {
+        "wkz": "WKZ 743",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "5-0104505-6": [
+      {
+        "wkz": "WKZ 717",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "50253226088": [
+      {
+        "wkz": "WKZ 733",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "22140472980",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      },
+      {
+        "wkz": "WKZ 746",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "22140472980",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "50394-8051": [
+      {
+        "wkz": "WKZ 731",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "50394-8052": [
+      {
+        "wkz": "WKZ 731",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "505431-1300": [
+      {
+        "wkz": "WKZ 729",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "50802-8000": [
+      {
+        "wkz": "WKZ 709",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "50802-8000",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "61900113722": [
+      {
+        "wkz": "WKZ 707",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "61900113722",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Führungsschiene Tisch, Vorschub",
+        "standort": "F2"
+      }
+    ],
+    "66200313722": [
+      {
+        "wkz": "WKZ 724",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "43030",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Tisch und Vorschub einstellen",
+        "standort": "F1/3"
+      }
+    ],
+    "66210113722": [
+      {
+        "wkz": "WKZ 617",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "70311-02": [
+      {
+        "wkz": "WKZ 627",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "70311-02",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "7116-5625-06": [
+      {
+        "wkz": "WKZ 750",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "7-1452656-1": [
+      {
+        "wkz": "WKZ 696",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "1452656-1",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "7-1452665-1": [
+      {
+        "wkz": "WKZ 696",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "1452665-1",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "7-1452665-3": [
+      {
+        "wkz": "WKZ 696",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "1452665-1",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "7-1452668-1": [
+      {
+        "wkz": "WKZ 696",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "1452668-1",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "720926": [
+      {
+        "wkz": "WKZ 719",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "104480",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "hinteres Messer entfernen, Tisch & Vorschub",
+        "standort": "F2"
+      }
+    ],
+    "721770": [
+      {
+        "wkz": "WKZ 699",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "U24228BS-2",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "721934": [
+      {
+        "wkz": "WKZ 712",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "DC 75-125-2,0 / IC 77-180-1,5 / Amboss 6-1,7-1,2 K1",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "722046": [
+      {
+        "wkz": "WKZ 707",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "76823-0321": [
+      {
+        "wkz": "WKZ 704",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "76823-0321",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "790319-3": [
+      {
+        "wkz": "WKZ 1528526-2-B",
+        "wkz_typ": "Beistellung",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "WKZ ist Beistellung von Fa. Kötting",
+        "standort": null
+      }
+    ],
+    "79107000034000": [
+      {
+        "wkz": "WKZ 577",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "25213-25223",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "79107000041501": [
+      {
+        "wkz": "WKZ 567",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "24359120",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "79107000067001": [
+      {
+        "wkz": "WKZ 577",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "25213-25223",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "8700002": [
+      {
+        "wkz": "WKZ 723",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "881-396-203": [
+      {
+        "wkz": "WKZ 701",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "43030",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Kontaktführung unterlegen, Tisch und Vorschub",
+        "standort": "F1/2 & F1/3"
+      }
+    ],
+    "90119-0110": [
+      {
+        "wkz": "WKZ 1201-5921-KS",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F3"
+      }
+    ],
+    "91.403.120": [
+      {
+        "wkz": "WKZ 720",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "925819-3": [
+      {
+        "wkz": "WKZ 609",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "926770-1": [
+      {
+        "wkz": "WKZ 677831-1",
+        "wkz_typ": "Beistellung",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "WKZ ist Beistellung von Fa. Kötting",
+        "standort": null
+      }
+    ],
+    "927827-2": [
+      {
+        "wkz": "WKZ 629",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      },
+      {
+        "wkz": "WKZ 651/655",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "927865-2": [
+      {
+        "wkz": "WKZ 651",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "927827-2",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "9900020": [
+      {
+        "wkz": "WKZ 745",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "22140472960",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "9900179": [
+      {
+        "wkz": "WKZ 653",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "9900183": [
+      {
+        "wkz": "WKZ 602/606",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "1740360/362",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      },
+      {
+        "wkz": "WKZ 737",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "9900268": [
+      {
+        "wkz": "WKZ 0190/SB 11",
+        "wkz_typ": "Beistellung",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "WKZ ist Beistellung von Fa. Kötting, Kontakt 26906.123.178",
+        "standort": null
+      }
+    ],
+    "9900280": [
+      {
+        "wkz": "WKZ 878063-4",
+        "wkz_typ": "Beistellung",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "WKZ ist Beistellung von Fa. Kötting, Kontakt 141352-4",
+        "standort": null
+      }
+    ],
+    "9900281": [
+      {
+        "wkz": "WKZ 0510-3768-K",
+        "wkz_typ": "Beistellung",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "WKZ ist Beistellung von Fa. Kötting, Kontakt SEH-001T-P0.6",
+        "standort": null
+      }
+    ],
+    "9900550": [
+      {
+        "wkz": "WKZ 745",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "22124472970",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      },
+      {
+        "wkz": "WKZ 746",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "22124472970",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "9900708": [
+      {
+        "wkz": "WKZ 718",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "39-00-0038",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "9900967": [
+      {
+        "wkz": "WKZ 634",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "163081",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "9901047": [
+      {
+        "wkz": "WKZ 587",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "25722",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "A2V00156015204": [
+      {
+        "wkz": "WKZ 638",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "A2V00156018561": [
+      {
+        "wkz": "WKZ 638",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "DF3-2428-SCF": [
+      {
+        "wkz": "WKZ 716",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "H101.404.012": [
+      {
+        "wkz": "WKZ 619",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "HS 24 359 120": [
+      {
+        "wkz": "WKZ 559/567",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "HS 24 360 110": [
+      {
+        "wkz": "WKZ 563",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Wenn 2. WKZ benötigt, bitte 571 verwenden",
+        "standort": "F1/1"
+      }
+    ],
+    "HS 50110120": [
+      {
+        "wkz": "WKZ 602/606/737",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "1740360/362",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "RBB 7786": [
+      {
+        "wkz": "WKZ 561",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "RFB 7808": [
+      {
+        "wkz": "WKZ 700",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "RSB 7603 MS": [
+      {
+        "wkz": "WKZ 555",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "RSB 7630.158 X 6,3-1,5": [
+      {
+        "wkz": "WKZ 632",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "25117",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "RSB 7791 1-fach": [
+      {
+        "wkz": "WKZ 513",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "RSB 7791 2-fach": [
+      {
+        "wkz": "WKZ 503/514",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/1"
+      }
+    ],
+    "RSB 7918.002 V 1,6-0,8": [
+      {
+        "wkz": "WKZ 53807261",
+        "wkz_typ": "Beistellung",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "WKZ ist Beistellung von Fa. Kötting",
+        "standort": null
+      }
+    ],
+    "RSB 8028 F 4,8-1": [
+      {
+        "wkz": "WKZ S3805063",
+        "wkz_typ": "Beistellung",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "WKZ ist Beistellung von Fa. Kötting",
+        "standort": null
+      }
+    ],
+    "RSB7727A4-1": [
+      {
+        "wkz": "WKZ 570",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Wenn 2. WKZ benötigt, bitte 571 verwenden",
+        "standort": "F1/1"
+      }
+    ],
+    "S0.102.104": [
+      {
+        "wkz": "WKZ 659",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Wenn 2. WKZ benötigt, bitte 660 verwenden",
+        "standort": "F1/2"
+      }
+    ],
+    "S0.102.198": [
+      {
+        "wkz": "WKZ 660",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Wenn 2. WKZ benötigt, bitte 659 verwenden",
+        "standort": "F1/2"
+      }
+    ],
+    "S0.106.604": [
+      {
+        "wkz": "WKZ 650",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "S0.108.730": [
+      {
+        "wkz": "WKZ S3807261 4956 SMC",
+        "wkz_typ": "Beistellung",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "WKZ ist Beistellung von Fa. Kötting",
+        "standort": null
+      }
+    ],
+    "S0.283.145": [
+      {
+        "wkz": "WKZ 702/706",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25128",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "S0.365.824": [
+      {
+        "wkz": "WKZ 577",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "25213-25223",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "SEH-001T-P0.6": [
+      {
+        "wkz": "WKZ 734",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "SIN-01T-1.2": [
+      {
+        "wkz": "WKZ 747",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "SO.102.105": [
+      {
+        "wkz": "WKZ 659",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Wenn 2. WKZ benötigt, bitte 660 verwenden",
+        "standort": "F1/2"
+      }
+    ],
+    "SO.102.106": [
+      {
+        "wkz": "WKZ 659",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "Wenn 2. WKZ benötigt, bitte 660 verwenden",
+        "standort": "F1/2"
+      }
+    ],
+    "SPH-001GW-P0.5S": [
+      {
+        "wkz": "WKZ 748",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "SPH-002GW-P0.5S": [
+      {
+        "wkz": "WKZ 711",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "SPH-002T-P0.5",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "SPH-002T-P0.5": [
+      {
+        "wkz": "WKZ 711",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      },
+      {
+        "wkz": "WKZ 712",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "SPS-91T-250S": [
+      {
+        "wkz": "WKZ 547",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "SVH-21T-P1.1": [
+      {
+        "wkz": "WKZ 699",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "U24228BS-2",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "SVH-41T-P1.1": [
+      {
+        "wkz": "WKZ 0031/LS 13906",
+        "wkz_typ": "Beistellung",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "WKZ ist Beistellung von Fa. Kötting",
+        "standort": null
+      },
+      {
+        "wkz": "WKZ 699",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "SVH-41T-P1.1",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "SXH-001T-P0.6": [
+      {
+        "wkz": "WKZ 580",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "SXH-001T-P0.6",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F2"
+      }
+    ],
+    "SZH-002T-P0.5": [
+      {
+        "wkz": "WKZ 736",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "TN01 015 0046-1": [
+      {
+        "wkz": "WKZ 739",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "TN01/0201600032",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "angeschliffene Stempel, Vorschub",
+        "standort": "F1/3"
+      }
+    ],
+    "TN01 016  0003 2": [
+      {
+        "wkz": "WKZ 739",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "TN01 016 0002 1": [
+      {
+        "wkz": "WKZ 616/703",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "TN01 016 0004 1": [
+      {
+        "wkz": "WKZ 616/703",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "TN01/0201600021",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "TN01 016 0005 1": [
+      {
+        "wkz": "WKZ 708",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "TN01/0202500101",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "TN01 025 0001 1": [
+      {
+        "wkz": "WKZ 616",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "TN01/0201600021",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "TN01 025 0010 1": [
+      {
+        "wkz": "WKZ 708",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "TN01 025 0043 1": [
+      {
+        "wkz": "WKZ 713",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "TN01/0202500101",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "TN02 015 0046-1": [
+      {
+        "wkz": "WKZ 739",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "TN01/0201600032",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": "angeschliffene Stempel, Vorschub",
+        "standort": "F1/3"
+      }
+    ],
+    "TN02 016  0003 2": [
+      {
+        "wkz": "WKZ 739",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "TN02 016 0002 1": [
+      {
+        "wkz": "WKZ 616/703",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "TN02 016 0004 1": [
+      {
+        "wkz": "WKZ 616/703",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "TN01/0201600021",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "TN02 016 0005 1": [
+      {
+        "wkz": "WKZ 708",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": "TN01/02025000101",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "TN02 025 0001 1": [
+      {
+        "wkz": "WKZ 616",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "TN01/0201600021",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ],
+    "TN02 025 0010 1": [
+      {
+        "wkz": "WKZ 708",
+        "wkz_typ": "Umbauwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "TN02 025 0043 1": [
+      {
+        "wkz": "WKZ 713",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": "TN01/0202500101",
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/3"
+      }
+    ],
+    "U24228BS-2": [
+      {
+        "wkz": "WKZ 699",
+        "wkz_typ": "Festwerkzeug",
+        "vt_satz": null,
+        "hersteller": null,
+        "kontakt_bezeichnung": null,
+        "querschnitt": null,
+        "bemerkung": null,
+        "standort": "F1/2"
+      }
+    ]
+  }
+}

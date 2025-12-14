@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(docker ps:*)",
+      "Bash(docker exec:*)",
+      "Bash(docker inspect:*)",
+      "Bash(sqlite3:*)",
+      "Bash(ls:*)",
+      "Bash(docker-compose stop:*)",
+      "Bash(docker stop:*)",
+      "Bash(docker start:*)",
+      "Bash(curl:*)",
+      "Bash(docker logs:*)",
+      "Bash(docker restart:*)",
+      "Bash(docker volume inspect:*)",
+      "Bash(docker rm:*)",
+      "Bash(docker pull:*)",
+      "Bash(docker run:*)",
+      "Bash(chromadb/chroma:1.0.0)",
+      "Bash(tar:*)",
+      "Bash(pip3 install --upgrade chromadb==1.0.0)",
+      "Bash(pip3 install:*)",
+      "Bash(rsync:*)",
+      "Bash(pip3 show:*)",
+      "Bash(docker-compose restart:*)",
+      "Bash(cat:*)",
+      "Bash(timeout 60 cat:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}
