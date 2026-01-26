@@ -38,6 +38,58 @@
 
 ---
 
+## RMS (Reklamationsmanagementsystem)
+
+### Übersicht
+| Parameter | Wert |
+|-----------|------|
+| **Status** | 🟡 In Entwicklung |
+| **Pfad** | `/mnt/HC_Volume_104189729/osp/rms/` |
+| **ID-Format** | QA-JJNNN (z.B. QA-26001) |
+| **Erwartete Einträge** | ~150/Jahr |
+| **Hauptnutzer** | AL, TS, GF (CS, CA, SV) |
+
+### RMS-Verzeichnisse
+| Pfad | Inhalt |
+|------|--------|
+| `rms/backend/` | FastAPI Backend (geplant) |
+| `rms/dashboard/` | HTML-Dashboard für alle MA |
+| `rms/workflows/` | n8n Workflow-Exports |
+| `rms/formulare/` | QM-Formblätter (F-QM-02, 03, 04, 14) |
+| `rms/docs/` | Strategie & Dokumentation |
+| `rms/prompts/` | RMS-spezifische Prompts |
+
+### RMS-Formblätter
+| Formular | Zweck | Dateien |
+|----------|-------|---------|
+| **F-QM-02** | Qualitätsabweichung (Lieferanten) | .md, .json, RMS_Prompt |
+| **F-QM-03** | 8D-Report (extern, vollständig) | .md, .json, RMS_Prompt |
+| **F-QM-04** | NZA (Nach-/Zusatzarbeiten) | .md, .json, RMS_Prompt |
+| **F-QM-14** | Korrekturmaßnahme (8D-Light, intern) | .md, .json, RMS_Prompt |
+
+### RMS Slash Commands
+| Befehl | Beschreibung |
+|--------|--------------|
+| `/rms-status` | RMS System-Status prüfen |
+| `/rms-new [TYP]` | Neue Reklamation anlegen (INTERN/KUNDE/LIEFERANT) |
+| `/rms-fill [FORMULAR]` | Formblatt mit KI ausfüllen |
+| `/rms-dashboard` | Dashboard-Status prüfen |
+
+### RMS-Integration mit OSP
+- **ChromaDB:** Ähnliche Reklamationen finden (geplant)
+- **n8n:** E-Mail-Import, Formblatt-Generator, Alarme
+- **HR_CORE:** MA-Kürzel Validierung, KST-Zuordnung
+- **SharePoint:** Dokumenten-Ablage (/sites/RMS/)
+
+### RMS Phasen
+| Phase | Features | Status |
+|-------|----------|--------|
+| MVP | SharePoint Listen, Power Automate, Dashboard | ⏳ Offen |
+| Phase 2 | KI-Formblatt-Generator (n8n + Claude) | ⏳ Offen |
+| Phase 3 | Charts, Teams-App, ChromaDB-Suche | ⏳ Offen |
+
+---
+
 ## OSP_KERN Dateien (12 Stück)
 
 Alle KERN-Dateien liegen FLACH in `documents/`:
