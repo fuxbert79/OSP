@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @page {
+      size: A4;
+      margin: 1.5cm 2cm;
+      @bottom-center { content: "Seite " counter(page) " von " counter(pages); font-size: 8pt; }
+    }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 10pt;
+      line-height: 1.4;
+      color: #333;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2px solid #003366;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
+    .logo { height: 45px; }
+    .doc-info {
+      text-align: right;
+      font-size: 9pt;
+      color: #666;
+    }
+    .doc-info strong {
+      font-size: 14pt;
+      color: #003366;
+      display: block;
+    }
+
+    /* Title */
+    .title {
+      background: linear-gradient(135deg, #003366, #004080);
+      color: white;
+      padding: 12px 15px;
+      margin: 15px 0;
+      font-size: 14pt;
+      font-weight: bold;
+    }
+    .title-en {
+      font-size: 10pt;
+      font-weight: normal;
+      font-style: italic;
+    }
+
+    /* Sections */
+    .section {
+      margin: 15px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .section-header {
+      background: #f5f5f5;
+      padding: 8px 12px;
+      font-weight: bold;
+      color: #003366;
+      border-bottom: 1px solid #ddd;
+      font-size: 11pt;
+    }
+    .section-content {
+      padding: 12px;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    td {
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    .label {
+      font-weight: bold;
+      color: #003366;
+      width: 35%;
+      background: #fafafa;
+    }
+    .value {
+      border-bottom: 1px solid #ccc;
+    }
+
+    /* Grid Layout */
+    .grid-2 {
+      display: flex;
+      gap: 15px;
+    }
+    .grid-2 > * {
+      flex: 1;
+    }
+
+    /* Beschreibung */
+    .beschreibung {
+      min-height: 120px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      background: #fafafa;
+      white-space: pre-wrap;
+    }
+
+    /* Checkboxen */
+    .checkbox-list { padding: 0; margin: 0; list-style: none; }
+    .checkbox-item {
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: flex-start;
+    }
+    .checkbox-item:last-child { border-bottom: none; }
+    .checkbox {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #003366;
+      margin-right: 10px;
+      text-align: center;
+      line-height: 14px;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+    .checkbox.checked {
+      background: #003366;
+      color: white;
+    }
+    .checkbox-text { flex: 1; }
+    .checkbox-text-en {
+      font-size: 9pt;
+      color: #666;
+      font-style: italic;
+    }
+
+    /* Priority Badge */
+    .priority {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 3px;
+      font-weight: bold;
+      font-size: 9pt;
+    }
+    .priority-kritisch { background: #dc3545; color: white; }
+    .priority-hoch { background: #fd7e14; color: white; }
+    .priority-mittel { background: #ffc107; color: #333; }
+    .priority-niedrig { background: #28a745; color: white; }
+
+    /* Footer */
+    .footer {
+      margin-top: 20px;
+      padding-top: 10px;
+      border-top: 1px solid #ccc;
+      font-size: 8pt;
+      color: #666;
+      text-align: center;
+    }
+
+    /* Signatures */
+    .signatures {
+      display: flex;
+      gap: 30px;
+      margin-top: 20px;
+    }
+    .signatures > * {
+      flex: 1;
+    }
+    .signature-box {
+      border-top: 1px solid #333;
+      padding-top: 5px;
+      text-align: center;
+      font-size: 9pt;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <img src="/opt/osp/templates/schneider_logo.svg" class="logo" alt="Schneider Kabelsatzbau">
+    <div class="doc-info">
+      <strong>F-QM-02</strong>
+      Qualitaetsabweichung<br>
+      Version: 3.0<br>
+      {{ abweichungs_nr }}
+    </div>
+  </div>
+
+  <!-- Title -->
+  <div class="title">
+    QUALITAETSABWEICHUNG / REKLAMATION
+    <span class="title-en">Quality Deviation / Complaint</span>
+  </div>
+
+  <!-- Absender & Empfaenger -->
+  <div class="grid-2">
+    <div class="section">
+      <div class="section-header">Absender / Sender</div>
+      <div class="section-content">
+        <strong>Rainer Schneider Kabelsatzbau GmbH & Co. KG</strong><br>
+        Alte Huette 3<br>
+        57537 Wissen<br><br>
+        <strong>Ansprechpartner:</strong> Andreas Loehr<br>
+        <strong>Tel:</strong> +49 2742 9336-28<br>
+        <strong>E-Mail:</strong> a.loehr@schneider-kabelsatzbau.de
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">Lieferant / Supplier</div>
+      <div class="section-content">
+        <strong>{{ lieferant_firma }}</strong><br><br>
+        <strong>Ansprechpartner:</strong> {{ lieferant_ansprechpartner }}<br>
+        {% if lieferant_telefon %}<strong>Tel:</strong> {{ lieferant_telefon }}<br>{% endif %}
+        {% if lieferant_email %}<strong>E-Mail:</strong> {{ lieferant_email }}{% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Artikeldaten -->
+  <div class="section">
+    <div class="section-header">Artikeldaten / Part Data</div>
+    <div class="section-content">
+      <table>
+        <tr>
+          <td class="label">Abweichungs-Nr. / Deviation No.</td>
+          <td class="value"><strong>{{ abweichungs_nr }}</strong></td>
+          <td class="label">Datum / Date</td>
+          <td class="value">{{ datum }}</td>
+        </tr>
+        <tr>
+          <td class="label">Artikel-Nr. Schneider</td>
+          <td class="value">{{ artikel_nr_schneider }}</td>
+          <td class="label">Artikel-Nr. Lieferant</td>
+          <td class="value">{{ artikel_nr_lieferant }}</td>
+        </tr>
+        <tr>
+          <td class="label">Artikelbezeichnung / Description</td>
+          <td class="value" colspan="3">{{ artikel_bezeichnung }}</td>
+        </tr>
+        <tr>
+          <td class="label">Lieferschein-Nr. / Delivery Note</td>
+          <td class="value">{{ lieferschein_nr }}</td>
+          <td class="label">Lieferdatum / Delivery Date</td>
+          <td class="value">{{ lieferdatum }}</td>
+        </tr>
+        <tr>
+          <td class="label">Liefermenge / Delivered Qty</td>
+          <td class="value">{{ liefermenge }}</td>
+          <td class="label">Beanstandungsmenge / Defect Qty</td>
+          <td class="value"><strong style="color: #dc3545;">{{ beanstandungsmenge }}</strong></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Beschreibung -->
+  <div class="section">
+    <div class="section-header">Beschreibung der Qualitaetsabweichung / Description of Quality Deviation</div>
+    <div class="section-content">
+      <div class="beschreibung">{{ beschreibung }}</div>
+    </div>
+  </div>
+
+  <!-- Massnahmen -->
+  <div class="section">
+    <div class="section-header">Geforderte Massnahmen / Required Actions</div>
+    <div class="section-content">
+      <p><em>Wir bitten um Stellungnahme und fordern Sie zur Nachbesserung auf:</em></p>
+      <ul class="checkbox-list">
+        <li class="checkbox-item">
+          <span class="checkbox {{ 'checked' if 'untersuchung_abstellen' in massnahmen else '' }}">{{ 'X' if 'untersuchung_abstellen' in massnahmen else '' }}</span>
+          <span class="checkbox-text">
+            Untersuchen Sie Ihren Prozess und stellen Sie die Maengel ab<br>
+            <span class="checkbox-text-en">Examine your process and remedy the defects</span>
+          </span>
+        </li>
+        <li class="checkbox-item">
+          <span class="checkbox {{ 'checked' if 'untersuchung_8d' in massnahmen else '' }}">{{ 'X' if 'untersuchung_8d' in massnahmen else '' }}</span>
+          <span class="checkbox-text">
+            Untersuchen Sie Ihren Prozess mittels 8D-Report<br>
+            <span class="checkbox-text-en">Examine your process using 8D report</span>
+          </span>
+        </li>
+        <li class="checkbox-item">
+          <span class="checkbox {{ 'checked' if 'ersatzlieferung' in massnahmen else '' }}">{{ 'X' if 'ersatzlieferung' in massnahmen else '' }}</span>
+          <span class="checkbox-text">
+            Wir benoetigen schnellstmoeglich eine Ersatzlieferung<br>
+            <span class="checkbox-text-en">We need a replacement delivery as soon as possible</span>
+          </span>
+        </li>
+        <li class="checkbox-item">
+          <span class="checkbox {{ 'checked' if 'ruecksendung_nacharbeit' in massnahmen else '' }}">{{ 'X' if 'ruecksendung_nacharbeit' in massnahmen else '' }}</span>
+          <span class="checkbox-text">
+            Wir senden die Artikel zur Nacharbeit zurueck<br>
+            <span class="checkbox-text-en">We will send the items back for rework</span>
+          </span>
+        </li>
+        <li class="checkbox-item">
+          <span class="checkbox {{ 'checked' if 'gutschrift' in massnahmen else '' }}">{{ 'X' if 'gutschrift' in massnahmen else '' }}</span>
+          <span class="checkbox-text">
+            Wir benoetigen eine Gutschrift<br>
+            <span class="checkbox-text-en">We need a credit note</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Unterschriften -->
+  <div class="signatures">
+    <div class="signature-box">
+      <strong>{{ ersteller }}</strong><br>
+      Erstellt von / Created by
+    </div>
+    <div class="signature-box">
+      {{ datum }}<br>
+      Datum / Date
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    Rainer Schneider Kabelsatzbau GmbH & Co. KG | Alte Huette 3 | 57537 Wissen | ISO 9001:2015<br>
+    Formblatt F-QM-02 | Qualitaetsabweichung | {{ abweichungs_nr }}
+  </div>
+
+</body>
+</html>

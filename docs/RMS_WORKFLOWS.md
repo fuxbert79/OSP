@@ -1,6 +1,6 @@
 # RMS Workflows - Übersicht
 
-**Stand:** 2026-01-27
+**Stand:** 2026-01-27 (aktualisiert: Phase 3+5)
 **Erstellt von:** Claude Code
 **Verantwortlich:** AL (QM & KI-Manager)
 
@@ -44,36 +44,42 @@
 8. Rekla existiert? → Merge / Neue QA-ID
    ↓
 9. Reklamation erstellen (SharePoint)
-   ↓
-10. Config updaten?
-   ↓
-11. Als gelesen markieren
-   ↓
-12. Ins Archiv verschieben
-   ↓
---- Phase 2 ---
-13. Anhänge laden (Graph API)
+   ├──────────────────────────────────┐
+   ↓                                  ↓
+10. Config updaten?              --- Phase 3 (parallel) ---
+   ↓                             17. PDF generieren (localhost:5001)
+11. Als gelesen markieren           ↓
+   ↓                             18. PDF vorbereiten (Base64 decode)
+12. Ins Archiv verschieben          ↓
+   ├────────────────────────┐    19. PDF nach SharePoint
+   ↓                        ↓
+--- Phase 2 ---        --- Phase 5 (parallel) ---
+13. Anhänge laden      16. Schriftverkehr erstellen
    ↓
 14. SharePoint Upload (/Reklamationen/{Jahr}/{Monat}/{QA-ID}/)
    ↓
-15. Teams Benachrichtigung (bei Priorität hoch/kritisch)
+15. Teams Benachrichtigung (bei Prioritaet hoch/kritisch)
 ```
 
 ### Nodes mit Credentials
 
-| Node | Credential Type |
-|------|----------------|
-| 2. E-Mails abrufen | Microsoft OAuth2 |
-| 5a. In Junk verschieben | Microsoft OAuth2 |
-| 7a. Rekla suchen | Microsoft OAuth2 |
-| 7b. Config laden | Microsoft OAuth2 |
-| 9. Reklamation erstellen | Microsoft OAuth2 |
-| 10a. Config aktualisieren | Microsoft OAuth2 |
-| 11. Als gelesen markieren | Microsoft OAuth2 |
-| 12. Ins Archiv | Microsoft OAuth2 |
-| 13. Anhänge laden | Microsoft OAuth2 |
-| 14. SharePoint Upload | Microsoft OAuth2 |
-| 15. Teams Benachrichtigung | Microsoft OAuth2 |
+| Node | Credential Type | Phase |
+|------|----------------|-------|
+| 2. E-Mails abrufen | Microsoft OAuth2 | 1 |
+| 5a. In Junk verschieben | Microsoft OAuth2 | 1 |
+| 7a. Rekla suchen | Microsoft OAuth2 | 1 |
+| 7b. Config laden | Microsoft OAuth2 | 1 |
+| 9. Reklamation erstellen | Microsoft OAuth2 | 1 |
+| 10a. Config aktualisieren | Microsoft OAuth2 | 1 |
+| 11. Als gelesen markieren | Microsoft OAuth2 | 1 |
+| 12. Ins Archiv | Microsoft OAuth2 | 1 |
+| 13. Anhänge laden | Microsoft OAuth2 | 2 |
+| 14. SharePoint Upload | Microsoft OAuth2 | 2 |
+| 15. Teams Benachrichtigung | Microsoft OAuth2 | 2 |
+| 16. Schriftverkehr erstellen | Microsoft OAuth2 | 5 |
+| 17. PDF generieren | - (localhost) | 3 |
+| 18. PDF vorbereiten | - (Code) | 3 |
+| 19. PDF nach SharePoint | Microsoft OAuth2 | 3 |
 
 ---
 
@@ -164,6 +170,43 @@ Um den Error Handler mit einem Workflow zu verknüpfen:
 | Site ID | 2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c |
 | Reklamations-Liste | e9b1d926-085a-4435-a012-114ca9ba59a8 |
 | Config-Liste | f89562e1-e566-42d7-a58b-917b739c3a38 |
+| Schriftverkehr-Liste | 741c6ae8-88bb-406b-bf85-2e11192a528f |
+
+---
+
+## RMS PDF Generator Service
+
+**Port:** 5001
+**Service:** rms-pdf-generator.service
+**Pfade:**
+- Templates: /opt/osp/templates/
+- Output: /opt/osp/output/
+- Script: /opt/osp/scripts/rms_pdf_generator.py
+
+### Endpoints
+
+| Endpoint | Methode | Beschreibung |
+|----------|---------|--------------|
+| /health | GET | Status pruefen |
+| /schema | GET | JSON-Schema abrufen |
+| /generate-pdf | POST | PDF generieren |
+| /validate | POST | Daten validieren |
+
+### Service-Befehle
+
+```bash
+# Status pruefen
+systemctl status rms-pdf-generator
+
+# Neustart
+systemctl restart rms-pdf-generator
+
+# Logs
+journalctl -u rms-pdf-generator -f
+
+# Health Check
+curl http://localhost:5001/health
+```
 
 ---
 
