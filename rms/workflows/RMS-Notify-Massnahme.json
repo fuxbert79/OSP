@@ -1,0 +1,63 @@
+{
+  "name": "RMS-Notify-Massnahme",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "rms-notify-massnahme",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "rms-notify-massnahme",
+      "id": "notify-webhook-1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.microsoft.com/v1.0/me/sendMail",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ message: { subject: '[RMS] Neue Massnahme: ' + $json.body.massnahme.title, body: { contentType: 'HTML', content: '<h2>Neue Massnahme im RMS</h2><p>Hallo ' + $json.body.verantwortlich.name + ',</p><p>Ihnen wurde eine neue Massnahme zugewiesen:</p><table border=\"1\" cellpadding=\"8\"><tr><td><b>Reklamation</b></td><td>' + $json.body.qaId + ' - ' + $json.body.reklaTitle + '</td></tr><tr><td><b>Massnahme</b></td><td>' + $json.body.massnahme.title + '</td></tr><tr><td><b>Typ</b></td><td>' + $json.body.massnahme.typ + '</td></tr><tr><td><b>Termin</b></td><td>' + $json.body.massnahme.termin + '</td></tr><tr><td><b>Beschreibung</b></td><td>' + ($json.body.massnahme.beschreibung || '-') + '</td></tr></table><p><a href=\"' + $json.body.dashboardUrl + '\">Zum RMS Dashboard</a></p><p>Erstellt von: ' + $json.body.ersteller + '</p>' }, toRecipients: [{ emailAddress: { address: $json.body.verantwortlich.email } }] } }) }}",
+        "options": {}
+      },
+      "name": "Send Email",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [500, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      },
+      "id": "send-email-1"
+    },
+    {
+      "parameters": {
+        "jsCode": "return { success: true, message: 'Benachrichtigung gesendet', recipient: $input.first().json.body?.verantwortlich?.email };"
+      },
+      "name": "Success Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [750, 300],
+      "id": "success-resp-1"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{"node": "Send Email", "type": "main", "index": 0}]]
+    },
+    "Send Email": {
+      "main": [[{"node": "Success Response", "type": "main", "index": 0}]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

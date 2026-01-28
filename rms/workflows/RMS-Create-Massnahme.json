@@ -1,0 +1,63 @@
+{
+  "name": "RMS-Create-Massnahme",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "rms-massnahmen",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "rms-massnahmen",
+      "id": "massnahmen-webhook-1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/3768f2d8-878c-4a5f-bd52-7486fe93289d/items",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ fields: { Title: $json.body.title, Typ: $json.body.typ, Termin: $json.body.termin, Beschreibung: $json.body.beschreibung || '', Verantwortlich: $json.body.verantwortlich, Status: 'Offen', ReklamationLookupId: $json.body.reklaId } }) }}",
+        "options": {}
+      },
+      "name": "Create Massnahme",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [500, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      },
+      "id": "create-massnahme-1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const result = $input.first().json;\nreturn {\n  success: true,\n  id: result.id,\n  message: 'Massnahme erstellt'\n};"
+      },
+      "name": "Success Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [750, 300],
+      "id": "success-massnahme-1"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{"node": "Create Massnahme", "type": "main", "index": 0}]]
+    },
+    "Create Massnahme": {
+      "main": [[{"node": "Success Response", "type": "main", "index": 0}]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

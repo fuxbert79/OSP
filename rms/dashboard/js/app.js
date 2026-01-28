@@ -459,12 +459,19 @@ async function showDetail(id) {
             schriftverkehrTbody.innerHTML = '<tr><td colspan="4" class="no-data">Kein Schriftverkehr erfasst</td></tr>';
         }
 
-        // Modal anzeigen
-        document.getElementById('detail-modal').style.display = 'flex';
-
         // Speichere aktuelle ID fuer Actions
         window.currentReklamationId = id;
         window.currentReklamationData = data;
+
+        // Modal anzeigen
+        document.getElementById('detail-modal').style.display = 'flex';
+
+        // Fotos & Dokumente laden (async im Hintergrund)
+        if (r.QA_ID) {
+            loadAllFilesForDetail(r.QA_ID).catch(err => {
+                console.warn('Dateien konnten nicht geladen werden:', err);
+            });
+        }
     } finally {
         showLoading(false);
     }
@@ -485,52 +492,301 @@ function openInSharePoint() {
 
 async function generatePDF() {
     const data = window.currentReklamationData;
-    if (!data) return;
+    if (!data?.reklamation) {
+        alert('Keine Reklamation geladen');
+        return;
+    }
 
-    const r = data.reklamation || data;
+    // Formular-Dialog anzeigen
+    const formularTyp = await showFormularTypeDialog();
+    if (!formularTyp) return;
 
     try {
-        const response = await fetch('/api/rms/pdf', {
+        showLoading(true);
+
+        const response = await fetch('/api/rms/generate-formblatt', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                abweichungs_nr: r.QA_ID,
-                datum: new Date().toISOString().split('T')[0],
-                artikel_bezeichnung: r.Title,
-                beschreibung: r.Beschreibung || 'Keine Beschreibung',
-                massnahmen: ['untersuchung_abstellen'],
-                ersteller: 'Dashboard'
+                qaId: data.reklamation.QA_ID,
+                formularTyp: formularTyp,
+                reklamationsDaten: data.reklamation
             })
         });
 
         const result = await response.json();
+
         if (result.success) {
-            alert(`PDF erstellt: ${result.filename}`);
+            alert(`${formularTyp} wurde erstellt!\n\nPDF: ${result.pdfUrl || 'Wird generiert...'}`);
+            // Dokumente neu laden
+            if (data.reklamation.QA_ID) {
+                await loadAllFilesForDetail(data.reklamation.QA_ID);
+            }
         } else {
-            alert('PDF-Erstellung fehlgeschlagen');
+            alert('Fehler: ' + (result.error || 'Unbekannter Fehler'));
         }
     } catch (error) {
         console.error('PDF-Fehler:', error);
         alert('PDF-Erstellung fehlgeschlagen (Server nicht erreichbar)');
+    } finally {
+        showLoading(false);
+    }
+}
+
+function showFormularTypeDialog() {
+    return new Promise((resolve) => {
+        const modal = document.getElementById('formular-dialog');
+        modal.style.display = 'flex';
+
+        window.selectFormular = () => {
+            const typ = document.getElementById('formular-typ-select').value;
+            modal.style.display = 'none';
+            resolve(typ);
+        };
+
+        window.cancelFormular = () => {
+            modal.style.display = 'none';
+            resolve(null);
+        };
+    });
+}
+
+// ============================================
+// DATEIEN & FOTOS
+// ============================================
+
+async function loadFiles(qaId, folder = '') {
+    try {
+        const response = await fetch(`/api/rms/files?qaId=${qaId}&folder=${folder}`);
+        if (!response.ok) return { files: [] };
+        return await response.json();
+    } catch (error) {
+        console.error('Fehler beim Laden der Dateien:', error);
+        return { files: [] };
+    }
+}
+
+async function loadAllFilesForDetail(qaId) {
+    // Fotos laden
+    const fotosData = await loadFiles(qaId, 'Fotos');
+    renderFotos(fotosData.files || []);
+
+    // Dokumente laden (Root + Schriftverkehr)
+    const docsData = await loadFiles(qaId, '');
+    const svData = await loadFiles(qaId, 'Schriftverkehr');
+
+    const allDocs = [
+        ...(docsData.files || []).filter(f => !f.isFolder),
+        ...(svData.files || [])
+    ];
+    renderDokumente(allDocs);
+}
+
+function renderFotos(files) {
+    const container = document.getElementById('detail-fotos');
+    if (!container) return;
+
+    if (!files || files.length === 0) {
+        container.innerHTML = '<p class="empty-state">Keine Fotos vorhanden</p>';
+        return;
+    }
+
+    container.innerHTML = files.map(file => `
+        <div class="file-thumbnail" onclick="showFilePreview('${file.id}', '${escapeHtml(file.name)}', '${file.webUrl}', '${file.downloadUrl || ''}', '${file.mimeType}')">
+            ${file.thumbnailUrl
+                ? `<img src="${file.thumbnailUrl}" alt="${escapeHtml(file.name)}">`
+                : `<div class="file-icon">📷</div>`
+            }
+            <span class="file-name">${truncateFilename(file.name, 20)}</span>
+        </div>
+    `).join('');
+}
+
+function renderDokumente(files) {
+    const container = document.getElementById('detail-dokumente');
+    if (!container) return;
+
+    if (!files || files.length === 0) {
+        container.innerHTML = '<p class="empty-state">Keine Dokumente vorhanden</p>';
+        return;
+    }
+
+    // Nach Typ gruppieren
+    const formblattFiles = files.filter(f => f.name.startsWith('F_QM_') || f.name.startsWith('F-QM-'));
+    const otherFiles = files.filter(f => !f.name.startsWith('F_QM_') && !f.name.startsWith('F-QM-'));
+
+    let html = '';
+
+    if (formblattFiles.length > 0) {
+        html += '<h4>Formblaetter</h4>';
+        html += formblattFiles.map(f => renderFileRow(f)).join('');
+    }
+
+    if (otherFiles.length > 0) {
+        html += '<h4>Sonstige Dokumente</h4>';
+        html += otherFiles.map(f => renderFileRow(f)).join('');
+    }
+
+    container.innerHTML = html;
+}
+
+function renderFileRow(file) {
+    const icon = getFileIcon(file.mimeType, file.name);
+    const size = formatFileSize(file.size);
+    const date = formatDate(file.lastModifiedDateTime);
+
+    return `
+        <div class="file-row" onclick="showFilePreview('${file.id}', '${escapeHtml(file.name)}', '${file.webUrl}', '${file.downloadUrl || ''}', '${file.mimeType}')">
+            <span class="file-icon">${icon}</span>
+            <span class="file-name">${escapeHtml(file.name)}</span>
+            <span class="file-meta">${size} • ${date}</span>
+        </div>
+    `;
+}
+
+function getFileIcon(mimeType, filename) {
+    if (filename.endsWith('.pdf')) return '📕';
+    if (filename.endsWith('.xlsx') || filename.endsWith('.xls')) return '📊';
+    if (filename.endsWith('.docx') || filename.endsWith('.doc')) return '📘';
+    if (mimeType?.startsWith('image/')) return '🖼️';
+    return '📄';
+}
+
+function formatFileSize(bytes) {
+    if (!bytes) return '';
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+}
+
+function truncateFilename(name, maxLen) {
+    if (!name || name.length <= maxLen) return name || '';
+    const ext = name.split('.').pop();
+    return name.substring(0, maxLen - ext.length - 4) + '...' + ext;
+}
+
+// ============================================
+// DATEI-VORSCHAU
+// ============================================
+
+function showFilePreview(fileId, filename, webUrl, downloadUrl, mimeType) {
+    const modal = document.getElementById('file-preview-modal');
+    const content = document.getElementById('preview-content');
+    if (!modal || !content) return;
+
+    document.getElementById('preview-filename').textContent = filename;
+    document.getElementById('preview-download').href = downloadUrl || webUrl;
+    document.getElementById('preview-sharepoint').href = webUrl;
+
+    // Vorschau basierend auf Dateityp
+    if (mimeType?.startsWith('image/') && downloadUrl) {
+        content.innerHTML = `<img src="${downloadUrl}" alt="${escapeHtml(filename)}" style="max-width:100%; max-height:70vh;">`;
+    } else if (filename.endsWith('.pdf') && downloadUrl) {
+        content.innerHTML = `<iframe src="${downloadUrl}#toolbar=0" style="width:100%; height:70vh; border:none;"></iframe>`;
+    } else {
+        // Keine Vorschau moeglich
+        content.innerHTML = `
+            <div class="no-preview">
+                <span style="font-size:64px;">${getFileIcon(mimeType, filename)}</span>
+                <p>Keine Vorschau verfuegbar</p>
+                <p>Klicken Sie auf "Herunterladen" oder "In SharePoint oeffnen"</p>
+            </div>
+        `;
+    }
+
+    modal.style.display = 'flex';
+}
+
+function closeFilePreview() {
+    const modal = document.getElementById('file-preview-modal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.getElementById('preview-content').innerHTML = '';
+    }
+}
+
+async function refreshFiles(folder) {
+    const qaId = window.currentReklamationData?.reklamation?.QA_ID;
+    if (!qaId) return;
+
+    if (folder === 'Fotos') {
+        const data = await loadFiles(qaId, 'Fotos');
+        renderFotos(data.files || []);
+    } else {
+        await loadAllFilesForDetail(qaId);
     }
 }
 
 // ============================================
-// MASSNAHMEN-MANAGEMENT
+// MASSNAHMEN-MANAGEMENT (erweitert mit Templates)
 // ============================================
 
 function showMassnahmeModal() {
-    // Standard-Termin auf heute + 7 Tage setzen
-    const defaultDate = new Date();
-    defaultDate.setDate(defaultDate.getDate() + 7);
-    document.getElementById('m-termin').value = defaultDate.toISOString().split('T')[0];
-
     // Form zuruecksetzen
     document.getElementById('massnahme-form').reset();
-    document.getElementById('m-termin').value = defaultDate.toISOString().split('T')[0];
+
+    // Template-Dropdown befuellen
+    const templateSelect = document.getElementById('m-template');
+    if (typeof MASSNAHMEN_TEMPLATES !== 'undefined') {
+        const kategorien = getAllKategorien();
+        templateSelect.innerHTML = '<option value="">-- Eigene Massnahme eingeben --</option>';
+
+        kategorien.forEach(kat => {
+            const optgroup = document.createElement('optgroup');
+            optgroup.label = kat;
+            MASSNAHMEN_TEMPLATES.forEach((t, idx) => {
+                if (t.kategorie === kat) {
+                    const opt = document.createElement('option');
+                    opt.value = idx;
+                    opt.textContent = t.titel;
+                    optgroup.appendChild(opt);
+                }
+            });
+            templateSelect.appendChild(optgroup);
+        });
+    }
+
+    // Verantwortliche-Dropdown befuellen
+    const verantwSelect = document.getElementById('m-verantwortlich');
+    if (typeof VERANTWORTLICHE !== 'undefined') {
+        verantwSelect.innerHTML = '<option value="">-- Auswaehlen --</option>';
+        VERANTWORTLICHE.forEach(v => {
+            const opt = document.createElement('option');
+            opt.value = v.kuerzel;
+            opt.textContent = `${v.kuerzel} - ${v.name} (${v.rolle})`;
+            verantwSelect.appendChild(opt);
+        });
+    }
+
+    // Standard-Termin: Morgen
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    document.getElementById('m-termin').value = tomorrow.toISOString().split('T')[0];
 
     // Modal anzeigen
     document.getElementById('massnahme-modal').style.display = 'flex';
+}
+
+function applyMassnahmeTemplate() {
+    const idx = document.getElementById('m-template').value;
+    if (idx === '' || typeof MASSNAHMEN_TEMPLATES === 'undefined') return;
+
+    const template = MASSNAHMEN_TEMPLATES[parseInt(idx)];
+    if (!template) return;
+
+    document.getElementById('m-title').value = template.titel;
+    document.getElementById('m-beschreibung').value = template.beschreibung;
+    document.getElementById('m-typ').value = template.kategorie === '8D-Report' ? '8D-Report' : template.kategorie;
+
+    // Termin berechnen
+    const termin = new Date();
+    termin.setDate(termin.getDate() + template.standardTermin);
+    document.getElementById('m-termin').value = termin.toISOString().split('T')[0];
+
+    // Verantwortlichen vorbelegen
+    if (template.empfohlenerVerantwortlicher) {
+        document.getElementById('m-verantwortlich').value = template.empfohlenerVerantwortlicher;
+    }
 }
 
 function closeMassnahmeModal() {
@@ -539,24 +795,64 @@ function closeMassnahmeModal() {
 
 async function handleMassnahmeSubmit(e) {
     e.preventDefault();
+    await createMassnahmeWithNotification();
+}
 
-    const data = {
+async function createMassnahmeWithNotification() {
+    const reklaData = window.currentReklamationData?.reklamation;
+    const verantwortlichKuerzel = document.getElementById('m-verantwortlich').value;
+    const benachrichtigen = document.getElementById('m-benachrichtigen')?.checked || false;
+
+    const massnahmeData = {
         reklaId: window.currentReklamationId,
         title: document.getElementById('m-title').value,
         typ: document.getElementById('m-typ').value,
         termin: document.getElementById('m-termin').value,
-        verantwortlich: document.getElementById('m-verantwortlich').value
+        beschreibung: document.getElementById('m-beschreibung')?.value || '',
+        verantwortlich: verantwortlichKuerzel
     };
 
-    showLoading(true);
-
     try {
-        await createMassnahme(data);
+        showLoading(true);
+
+        // 1. Massnahme in SharePoint erstellen
+        await createMassnahme(massnahmeData);
+
+        // 2. Benachrichtigung senden (wenn aktiviert)
+        if (benachrichtigen && verantwortlichKuerzel && typeof VERANTWORTLICHE !== 'undefined') {
+            const verantwortlicher = VERANTWORTLICHE.find(v => v.kuerzel === verantwortlichKuerzel);
+
+            if (verantwortlicher?.email) {
+                try {
+                    await fetch('/api/rms/notify-massnahme', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            qaId: reklaData?.QA_ID || 'Unbekannt',
+                            reklaTitle: reklaData?.Title || 'Unbekannt',
+                            massnahme: {
+                                title: massnahmeData.title,
+                                typ: massnahmeData.typ,
+                                termin: massnahmeData.termin,
+                                beschreibung: massnahmeData.beschreibung
+                            },
+                            verantwortlich: verantwortlicher,
+                            ersteller: 'AL',
+                            dashboardUrl: window.location.href
+                        })
+                    });
+                } catch (notifyError) {
+                    console.warn('Benachrichtigung konnte nicht gesendet werden:', notifyError);
+                }
+            }
+        }
+
         closeMassnahmeModal();
-        // Detail-View aktualisieren
         await showDetail(window.currentReklamationId);
-        alert('Massnahme erfolgreich erstellt!');
+        alert('Massnahme erfolgreich erstellt!' + (benachrichtigen ? ' Benachrichtigung gesendet.' : ''));
+
     } catch (error) {
+        console.error('Fehler:', error);
         alert('Fehler beim Erstellen der Massnahme: ' + error.message);
     } finally {
         showLoading(false);

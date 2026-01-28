@@ -262,6 +262,26 @@
                 </table>
             </div>
 
+            <div class="detail-section">
+                <div class="section-header">
+                    <h3>Fotos</h3>
+                    <button class="btn btn-sm" onclick="refreshFiles('Fotos')">Aktualisieren</button>
+                </div>
+                <div id="detail-fotos" class="file-grid">
+                    <p class="empty-state">Lade Fotos...</p>
+                </div>
+            </div>
+
+            <div class="detail-section">
+                <div class="section-header">
+                    <h3>Dokumente / Formulare</h3>
+                    <button class="btn btn-sm" onclick="refreshFiles('Dokumente')">Aktualisieren</button>
+                </div>
+                <div id="detail-dokumente" class="file-list">
+                    <p class="empty-state">Lade Dokumente...</p>
+                </div>
+            </div>
+
             <div class="detail-actions">
                 <button onclick="openInSharePoint()" class="btn-primary">In SharePoint oeffnen</button>
                 <button onclick="generatePDF()" class="btn-secondary">PDF erstellen</button>
@@ -269,32 +289,63 @@
         </div>
     </div>
 
-    <!-- Massnahme erstellen Modal -->
+    <!-- Massnahme erstellen Modal (erweitert mit Templates) -->
     <div id="massnahme-modal" class="modal" style="display: none;">
-        <div class="modal-content modal-small">
+        <div class="modal-content" style="max-width:600px;">
             <span class="close-btn" onclick="closeMassnahmeModal()">&times;</span>
             <h2>Neue Massnahme</h2>
+
+            <div class="form-group">
+                <label>Vorlage waehlen (optional)</label>
+                <select id="m-template" class="form-control" onchange="applyMassnahmeTemplate()">
+                    <option value="">-- Eigene Massnahme eingeben --</option>
+                </select>
+            </div>
+
+            <hr style="margin: 20px 0; border: none; border-top: 1px solid #eee;">
+
             <form id="massnahme-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="m-typ">Typ *</label>
+                        <select id="m-typ" class="form-control" required>
+                            <option value="Sofortmassnahme">Sofortmassnahme</option>
+                            <option value="Korrekturmassnahme">Korrekturmassnahme</option>
+                            <option value="Vorbeugemassnahme">Vorbeugemassnahme</option>
+                            <option value="8D-Report">8D-Report</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="m-termin">Termin *</label>
+                        <input type="date" id="m-termin" class="form-control" required>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label for="m-title">Massnahme *</label>
-                    <input type="text" id="m-title" required placeholder="Beschreibung der Massnahme">
+                    <input type="text" id="m-title" class="form-control" required placeholder="Bezeichnung der Massnahme">
                 </div>
+
                 <div class="form-group">
-                    <label for="m-typ">Typ *</label>
-                    <select id="m-typ" required>
-                        <option value="Sofortmassnahme">Sofortmassnahme</option>
-                        <option value="Korrekturmassnahme">Korrekturmassnahme</option>
-                        <option value="Vorbeugemassnahme">Vorbeugemassnahme</option>
-                    </select>
+                    <label for="m-beschreibung">Beschreibung</label>
+                    <textarea id="m-beschreibung" class="form-control" rows="3" placeholder="Details zur Massnahme"></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="m-termin">Termin *</label>
-                    <input type="date" id="m-termin" required>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="m-verantwortlich">Verantwortlich *</label>
+                        <select id="m-verantwortlich" class="form-control" required>
+                            <option value="">-- Auswaehlen --</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="display: flex; align-items: center; padding-top: 25px;">
+                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                            <input type="checkbox" id="m-benachrichtigen" checked>
+                            Per E-Mail benachrichtigen
+                        </label>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="m-verantwortlich">Verantwortlich</label>
-                    <input type="text" id="m-verantwortlich" placeholder="Kuerzel (z.B. AL)">
-                </div>
+
                 <div class="form-actions">
                     <button type="button" onclick="closeMassnahmeModal()" class="btn-secondary">Abbrechen</button>
                     <button type="submit" class="btn-primary">Speichern</button>
@@ -303,10 +354,45 @@
         </div>
     </div>
 
+    <!-- Datei-Vorschau Modal -->
+    <div id="file-preview-modal" class="modal" style="display:none;">
+        <div class="modal-content modal-large">
+            <span class="close-btn" onclick="closeFilePreview()">&times;</span>
+            <h2 id="preview-filename">Datei</h2>
+            <div id="preview-content"></div>
+            <div class="preview-actions">
+                <a id="preview-download" href="#" class="btn-primary" target="_blank">Herunterladen</a>
+                <a id="preview-sharepoint" href="#" class="btn-secondary" target="_blank">In SharePoint oeffnen</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formular-Auswahl Modal -->
+    <div id="formular-dialog" class="modal" style="display:none;">
+        <div class="modal-content modal-small">
+            <span class="close-btn" onclick="cancelFormular()">&times;</span>
+            <h2>Formular erstellen</h2>
+            <div class="form-group">
+                <label>Formular-Typ waehlen:</label>
+                <select id="formular-typ-select" class="form-control">
+                    <option value="F_QM_02">F-QM-02 Qualitaetsabweichung</option>
+                    <option value="F_QM_03">F-QM-03 8D-Report</option>
+                    <option value="F_QM_04">F-QM-04 NZA</option>
+                    <option value="F_QM_14">F-QM-14 Korrekturmassnahme</option>
+                </select>
+            </div>
+            <div class="form-actions">
+                <button class="btn-secondary" onclick="cancelFormular()">Abbrechen</button>
+                <button class="btn-primary" onclick="selectFormular()">Erstellen</button>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <p>OSP-System | NULL-FEHLER-POLITIK | Stand: 2026-01-28</p>
     </footer>
 
+    <script src="js/massnahmen-templates.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

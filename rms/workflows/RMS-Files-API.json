@@ -1,0 +1,66 @@
+{
+  "name": "RMS-Files-API",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "rms-files",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "rms-files",
+      "id": "files-webhook-1"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/drive/root:/2026/{{ $json.query.qaId }}{{ $json.query.folder ? '/' + $json.query.folder : '' }}:/children?$select=id,name,size,file,webUrl,createdDateTime,lastModifiedDateTime,@microsoft.graph.downloadUrl&$expand=thumbnails",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "name": "Get Files",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [500, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      },
+      "id": "get-files-1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.first().json.value || [];\nconst query = $('Webhook').first().json.query || {};\n\nreturn {\n  files: items.map(item => ({\n    id: item.id,\n    name: item.name,\n    size: item.size,\n    mimeType: item.file?.mimeType || 'folder',\n    isFolder: !item.file,\n    webUrl: item.webUrl,\n    thumbnailUrl: item.thumbnails?.[0]?.medium?.url || null,\n    downloadUrl: item['@microsoft.graph.downloadUrl'] || null,\n    createdDateTime: item.createdDateTime,\n    lastModifiedDateTime: item.lastModifiedDateTime\n  })),\n  folder: query.folder || 'root',\n  qaId: query.qaId\n};"
+      },
+      "name": "Transform Results",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [750, 300],
+      "id": "transform-1"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{"node": "Get Files", "type": "main", "index": 0}]]
+    },
+    "Get Files": {
+      "main": [[{"node": "Transform Results", "type": "main", "index": 0}]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
