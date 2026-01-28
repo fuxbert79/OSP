@@ -11,6 +11,12 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <span>Lade Daten...</span>
+    </div>
+
     <header>
         <h1>RMS - Reklamationsmanagementsystem</h1>
         <p>Rainer Schneider Kabelsatzbau GmbH & Co. KG</p>
@@ -28,17 +34,20 @@
                 <span class="kpi-value" id="kpi-kritisch">--</span>
             </div>
             <div class="kpi-card kpi-warning">
-                <h3>Überfällig</h3>
+                <h3>Ueberfaellig</h3>
                 <span class="kpi-value" id="kpi-ueberfaellig">--</span>
             </div>
             <div class="kpi-card">
-                <h3>Ø Bearbeitungszeit</h3>
+                <h3>Durchschnitt Bearbeitungszeit</h3>
                 <span class="kpi-value" id="kpi-durchschnitt">-- Tage</span>
             </div>
         </section>
 
-        <!-- Filter -->
+        <!-- Filter & Suche -->
         <section class="filter-section">
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Suchen (QA-ID, Titel, Beschreibung...)" class="search-input">
+            </div>
             <select id="filter-typ">
                 <option value="">Alle Typen</option>
                 <option value="INTERN">Intern (NZA)</option>
@@ -49,7 +58,7 @@
                 <option value="">Alle Status</option>
                 <option value="Neu">Neu</option>
                 <option value="In Bearbeitung">In Bearbeitung</option>
-                <option value="Maßnahmen">Maßnahmen</option>
+                <option value="Massnahmen">Massnahmen</option>
                 <option value="Abgeschlossen">Abgeschlossen</option>
             </select>
             <select id="filter-kst">
@@ -57,11 +66,13 @@
                 <option value="F1">F1 - Fertigung 1</option>
                 <option value="F2">F2 - Fertigung 2</option>
                 <option value="F3">F3 - Fertigung 3</option>
-                <option value="QM">QM - Qualitätsmanagement</option>
+                <option value="QM">QM - Qualitaetsmanagement</option>
                 <option value="EK">EK - Einkauf</option>
                 <option value="VT">VT - Vertrieb</option>
             </select>
-            <button id="btn-refresh" class="btn-refresh" title="Daten aktualisieren">&#x21bb;</button>
+            <button id="btn-refresh" class="btn-icon" title="Daten aktualisieren">&#x21bb;</button>
+            <button id="btn-export" class="btn-secondary" title="CSV Export">CSV Export</button>
+            <span id="filtered-count" class="count-badge"></span>
         </section>
 
         <!-- Tabelle -->
@@ -69,12 +80,12 @@
             <table id="reklamationen-table">
                 <thead>
                     <tr>
-                        <th>QA-ID</th>
-                        <th>Typ</th>
-                        <th>Titel</th>
-                        <th>Status</th>
-                        <th>Priorität</th>
-                        <th>Erstellt</th>
+                        <th data-sort="QA_ID" class="sortable">QA-ID <span class="sort-icon"></span></th>
+                        <th data-sort="Rekla_Typ" class="sortable">Typ <span class="sort-icon"></span></th>
+                        <th data-sort="Title" class="sortable">Titel <span class="sort-icon"></span></th>
+                        <th data-sort="Rekla_Status" class="sortable">Status <span class="sort-icon"></span></th>
+                        <th data-sort="Prioritaet" class="sortable">Prioritaet <span class="sort-icon"></span></th>
+                        <th data-sort="Erfassungsdatum" class="sortable sort-desc">Erstellt <span class="sort-icon"></span></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -99,6 +110,14 @@
                 <h3>Verteilung nach KST</h3>
                 <canvas id="chart-kst"></canvas>
             </div>
+            <div class="chart-container">
+                <h3>Nach Status</h3>
+                <canvas id="chart-status"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Nach Prioritaet</h3>
+                <canvas id="chart-priority"></canvas>
+            </div>
         </section>
     </main>
 
@@ -109,8 +128,101 @@
             <h2 id="detail-qa-id">QA-XXXXX</h2>
 
             <div class="detail-section">
-                <h3>Stammdaten</h3>
-                <table id="detail-stammdaten"></table>
+                <div class="section-header">
+                    <h3>Stammdaten</h3>
+                    <button id="btn-edit-toggle" class="btn btn-sm" onclick="toggleEditMode()">
+                        Bearbeiten
+                    </button>
+                </div>
+
+                <div id="detail-view-mode">
+                    <table id="detail-stammdaten"></table>
+                </div>
+
+                <div id="detail-edit-mode" style="display:none;">
+                    <form id="edit-reklamation-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Typ</label>
+                                <select id="edit-typ" class="form-control">
+                                    <option value="Intern">Intern</option>
+                                    <option value="Kunde">Kunde</option>
+                                    <option value="Lieferant">Lieferant</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select id="edit-status" class="form-control">
+                                    <option value="Neu">Neu</option>
+                                    <option value="In Bearbeitung">In Bearbeitung</option>
+                                    <option value="Massnahmen">Massnahmen</option>
+                                    <option value="Abgeschlossen">Abgeschlossen</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Prioritaet</label>
+                                <select id="edit-prioritaet" class="form-control">
+                                    <option value="kritisch">Kritisch</option>
+                                    <option value="hoch">Hoch</option>
+                                    <option value="mittel">Mittel</option>
+                                    <option value="niedrig">Niedrig</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Kostenstelle (KST)</label>
+                                <select id="edit-kst" class="form-control">
+                                    <option value="">-- Auswaehlen --</option>
+                                    <option value="F1">F1 - Fertigung 1</option>
+                                    <option value="F2">F2 - Fertigung 2</option>
+                                    <option value="F3">F3 - Fertigung 3</option>
+                                    <option value="QM">QM - Qualitaetsmanagement</option>
+                                    <option value="EK">EK - Einkauf</option>
+                                    <option value="VT">VT - Vertrieb</option>
+                                    <option value="IT">IT - Informationstechnik</option>
+                                    <option value="VW">VW - Verwaltung</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Verantwortlich</label>
+                                <select id="edit-verantwortlich" class="form-control">
+                                    <option value="">-- Auswaehlen --</option>
+                                    <option value="AL">AL - Andreas Loehr</option>
+                                    <option value="CS">CS - Geschaeftsfuehrung</option>
+                                    <option value="CA">CA - Geschaeftsfuehrung</option>
+                                    <option value="SV">SV - Prokurist</option>
+                                    <option value="TS">TS - Einkauf</option>
+                                    <option value="SK">SK - Prueffeld</option>
+                                    <option value="MD">MD - Technik</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Zieldatum</label>
+                                <input type="date" id="edit-zieldatum" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Titel</label>
+                            <input type="text" id="edit-title" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Beschreibung</label>
+                            <textarea id="edit-beschreibung" class="form-control" rows="4"></textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn-secondary" onclick="toggleEditMode()">Abbrechen</button>
+                            <button type="submit" class="btn-primary">Speichern</button>
+                        </div>
+                    </form>
+                </div>
             </div>
 
             <div class="detail-section">
@@ -119,17 +231,20 @@
             </div>
 
             <div class="detail-section">
-                <h3>Maßnahmen</h3>
+                <h3>Massnahmen</h3>
                 <table id="detail-massnahmen">
                     <thead>
                         <tr>
-                            <th>Maßnahme</th>
+                            <th>Massnahme</th>
+                            <th>Typ</th>
                             <th>Termin</th>
                             <th>Status</th>
+                            <th>Aktion</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
                 </table>
+                <button id="btn-add-massnahme" class="btn-primary btn-small">+ Massnahme hinzufuegen</button>
             </div>
 
             <div class="detail-section">
@@ -140,6 +255,7 @@
                             <th>Datum</th>
                             <th>Typ</th>
                             <th>Betreff</th>
+                            <th>Richtung</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -147,9 +263,43 @@
             </div>
 
             <div class="detail-actions">
-                <button onclick="openInSharePoint()">In SharePoint öffnen</button>
-                <button onclick="generatePDF()">PDF erstellen</button>
+                <button onclick="openInSharePoint()" class="btn-primary">In SharePoint oeffnen</button>
+                <button onclick="generatePDF()" class="btn-secondary">PDF erstellen</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Massnahme erstellen Modal -->
+    <div id="massnahme-modal" class="modal" style="display: none;">
+        <div class="modal-content modal-small">
+            <span class="close-btn" onclick="closeMassnahmeModal()">&times;</span>
+            <h2>Neue Massnahme</h2>
+            <form id="massnahme-form">
+                <div class="form-group">
+                    <label for="m-title">Massnahme *</label>
+                    <input type="text" id="m-title" required placeholder="Beschreibung der Massnahme">
+                </div>
+                <div class="form-group">
+                    <label for="m-typ">Typ *</label>
+                    <select id="m-typ" required>
+                        <option value="Sofortmassnahme">Sofortmassnahme</option>
+                        <option value="Korrekturmassnahme">Korrekturmassnahme</option>
+                        <option value="Vorbeugemassnahme">Vorbeugemassnahme</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="m-termin">Termin *</label>
+                    <input type="date" id="m-termin" required>
+                </div>
+                <div class="form-group">
+                    <label for="m-verantwortlich">Verantwortlich</label>
+                    <input type="text" id="m-verantwortlich" placeholder="Kuerzel (z.B. AL)">
+                </div>
+                <div class="form-actions">
+                    <button type="button" onclick="closeMassnahmeModal()" class="btn-secondary">Abbrechen</button>
+                    <button type="submit" class="btn-primary">Speichern</button>
+                </div>
+            </form>
         </div>
     </div>
 
