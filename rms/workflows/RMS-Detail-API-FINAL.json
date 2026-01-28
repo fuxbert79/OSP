@@ -1,0 +1,176 @@
+{
+  "name": "RMS-Detail-API",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "rms-detail",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 200],
+      "webhookId": "rms-detail",
+      "id": "webhook-1"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/e9b1d926-085a-4435-a012-114ca9ba59a8/items/{{ $json.query.id }}?expand=fields",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "options": {}
+      },
+      "name": "Load Reklamation",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [220, 200],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      },
+      "id": "load-rekla-1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Store Reklamation data\nconst reklaData = $json;\nconst reklaId = reklaData.id;\nconst reklamation = reklaData.fields || {};\nreklamation.id = reklaId;\n\nreturn {\n    reklaId,\n    reklamation\n};"
+      },
+      "name": "Store Reklamation",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [440, 200],
+      "id": "store-rekla-1"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/3768f2d8-878c-4a5f-bd52-7486fe93289d/items?$expand=fields&$filter=fields/ReklamationLookupId eq {{ $json.reklaId }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Prefer",
+              "value": "HonorNonIndexedQueriesWarningMayFailRandomly"
+            }
+          ]
+        }
+      },
+      "name": "Load Massnahmen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [660, 200],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      },
+      "id": "load-massn-1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Store Massnahmen\nconst massnahmenData = $json;\nconst reklaData = $('Store Reklamation').item.json;\n\nconst massnahmen = (massnahmenData.value || []).map(m => ({\n    id: m.id,\n    ...m.fields\n}));\n\nreturn {\n    reklaId: reklaData.reklaId,\n    reklamation: reklaData.reklamation,\n    massnahmen\n};"
+      },
+      "name": "Store Massnahmen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [880, 200],
+      "id": "store-massn-1"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/741c6ae8-88bb-406b-bf85-2e11192a528f/items?$expand=fields&$filter=fields/QA_IDLookupId eq {{ $json.reklaId }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Prefer",
+              "value": "HonorNonIndexedQueriesWarningMayFailRandomly"
+            }
+          ]
+        }
+      },
+      "name": "Load Schriftverkehr",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1100, 200],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      },
+      "id": "load-sv-1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Build final response\nconst svData = $json;\nconst prevData = $('Store Massnahmen').item.json;\n\nconst schriftverkehr = (svData.value || []).map(s => ({\n    id: s.id,\n    ...s.fields\n}));\n\nreturn {\n    reklamation: prevData.reklamation,\n    massnahmen: prevData.massnahmen,\n    schriftverkehr,\n    sharePointUrl: `https://rainerschneiderkabelsatz.sharepoint.com/sites/RMS/Lists/RMSReklamationen/DispForm.aspx?ID=${prevData.reklaId}`\n};"
+      },
+      "name": "Build Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1320, 200],
+      "id": "build-resp-1"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}"
+      },
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1540, 200],
+      "id": "respond-1"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{"node": "Load Reklamation", "type": "main", "index": 0}]]
+    },
+    "Load Reklamation": {
+      "main": [[{"node": "Store Reklamation", "type": "main", "index": 0}]]
+    },
+    "Store Reklamation": {
+      "main": [[{"node": "Load Massnahmen", "type": "main", "index": 0}]]
+    },
+    "Load Massnahmen": {
+      "main": [[{"node": "Store Massnahmen", "type": "main", "index": 0}]]
+    },
+    "Store Massnahmen": {
+      "main": [[{"node": "Load Schriftverkehr", "type": "main", "index": 0}]]
+    },
+    "Load Schriftverkehr": {
+      "main": [[{"node": "Build Response", "type": "main", "index": 0}]]
+    },
+    "Build Response": {
+      "main": [[{"node": "Respond to Webhook", "type": "main", "index": 0}]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
