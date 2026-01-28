@@ -1,0 +1,673 @@
+/* RMS Dashboard - Schneider Kabelsatzbau
+   Corporate Design: Blau #0080C9 | Orange #DC500F */
+
+:root {
+    --primary-blue: #0080C9;
+    --primary-dark: #006699;
+    --accent-orange: #DC500F;
+    --success-green: #28a745;
+    --warning-yellow: #ffc107;
+    --danger-red: #dc3545;
+    --info-cyan: #17a2b8;
+    --purple: #6f42c1;
+    --text-dark: #333;
+    --text-muted: #666;
+    --bg-light: #f5f5f5;
+    --bg-white: #ffffff;
+    --border-color: #ddd;
+    --border-radius: 10px;
+    --shadow: 0 2px 10px rgba(0,0,0,0.1);
+    --shadow-hover: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', 'Segoe UI', Arial, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+
+header {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
+    color: white;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+header h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-bottom: 0.25rem;
+}
+
+header p {
+    opacity: 0.9;
+    font-size: 0.95rem;
+}
+
+/* ============================================
+   MAIN
+   ============================================ */
+
+main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* ============================================
+   KPI CARDS
+   ============================================ */
+
+.kpi-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.kpi-card {
+    background: var(--bg-white);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--primary-blue);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kpi-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+.kpi-card h3 {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.kpi-value {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+}
+
+.kpi-critical {
+    border-left-color: var(--danger-red);
+}
+
+.kpi-critical .kpi-value {
+    color: var(--danger-red);
+}
+
+.kpi-warning {
+    border-left-color: var(--warning-yellow);
+}
+
+.kpi-warning .kpi-value {
+    color: var(--accent-orange);
+}
+
+/* Pulse-Animation für kritische KPIs */
+.kpi-card.pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: var(--shadow);
+    }
+    50% {
+        box-shadow: 0 2px 20px rgba(220, 53, 69, 0.4);
+    }
+}
+
+/* ============================================
+   FILTER SECTION
+   ============================================ */
+
+.filter-section {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.filter-section select {
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 0.95rem;
+    min-width: 160px;
+    background: var(--bg-white);
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+.filter-section select:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+}
+
+.btn-refresh {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: var(--border-radius);
+    background: var(--primary-blue);
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.3s ease;
+}
+
+.btn-refresh:hover {
+    background: var(--primary-dark);
+}
+
+.btn-refresh.spinning {
+    animation: spin 0.5s linear;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ============================================
+   TABLE SECTION
+   ============================================ */
+
+.table-section {
+    background: var(--bg-white);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background: var(--primary-blue);
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+tbody tr {
+    transition: background 0.15s ease;
+}
+
+tbody tr:hover {
+    background: #f0f7fc;
+}
+
+.clickable-row {
+    cursor: pointer;
+}
+
+.no-data {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 2rem !important;
+}
+
+/* ============================================
+   BADGES (Typ)
+   ============================================ */
+
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.badge-kunde {
+    background: #e3f2fd;
+    color: #1565c0;
+}
+
+.badge-lieferant {
+    background: #fff3e0;
+    color: #e65100;
+}
+
+.badge-intern {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+/* ============================================
+   STATUS
+   ============================================ */
+
+.status {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.status-Neu {
+    background: var(--info-cyan);
+    color: white;
+}
+
+.status-In-Bearbeitung {
+    background: var(--warning-yellow);
+    color: #333;
+}
+
+.status-Maßnahmen {
+    background: var(--purple);
+    color: white;
+}
+
+.status-Abgeschlossen {
+    background: var(--success-green);
+    color: white;
+}
+
+/* ============================================
+   PRIORITY
+   ============================================ */
+
+.priority {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.priority-kritisch {
+    background: var(--danger-red);
+    color: white;
+}
+
+.priority-hoch {
+    background: var(--accent-orange);
+    color: white;
+}
+
+.priority-mittel {
+    background: var(--warning-yellow);
+    color: #333;
+}
+
+.priority-niedrig {
+    background: var(--success-green);
+    color: white;
+}
+
+/* ============================================
+   CHARTS SECTION
+   ============================================ */
+
+.charts-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.chart-container {
+    background: var(--bg-white);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    min-height: 280px;
+}
+
+.chart-container h3 {
+    color: var(--primary-blue);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--bg-light);
+}
+
+.chart-container canvas {
+    max-height: 220px;
+}
+
+/* ============================================
+   MODAL
+   ============================================ */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    animation: fadeIn 0.2s forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background: var(--bg-white);
+    border-radius: var(--border-radius);
+    max-width: 800px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 2rem;
+    position: relative;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+    line-height: 1;
+}
+
+.close-btn:hover {
+    color: var(--danger-red);
+}
+
+.modal-content h2 {
+    color: var(--primary-blue);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid var(--primary-blue);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.detail-section {
+    margin-bottom: 1.5rem;
+}
+
+.detail-section h3 {
+    color: var(--primary-dark);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.detail-section h3::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 16px;
+    background: var(--primary-blue);
+    border-radius: 2px;
+}
+
+.detail-section table {
+    width: 100%;
+    font-size: 0.95rem;
+}
+
+.detail-section td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid #eee;
+}
+
+.detail-section td:first-child {
+    font-weight: 500;
+    width: 140px;
+    color: var(--text-muted);
+}
+
+.detail-section p {
+    background: var(--bg-light);
+    padding: 1rem;
+    border-radius: 5px;
+    line-height: 1.7;
+}
+
+#detail-massnahmen,
+#detail-schriftverkehr {
+    border: 1px solid #eee;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#detail-massnahmen th,
+#detail-schriftverkehr th {
+    background: var(--bg-light);
+    color: var(--text-dark);
+    font-size: 0.85rem;
+    padding: 0.75rem;
+}
+
+#detail-massnahmen td,
+#detail-schriftverkehr td {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.detail-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+}
+
+.detail-actions button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.detail-actions button:active {
+    transform: scale(0.98);
+}
+
+.detail-actions button:first-child {
+    background: var(--primary-blue);
+    color: white;
+}
+
+.detail-actions button:first-child:hover {
+    background: var(--primary-dark);
+}
+
+.detail-actions button:last-child {
+    background: var(--text-muted);
+    color: white;
+}
+
+.detail-actions button:last-child:hover {
+    background: #555;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border-color);
+    margin-top: 1rem;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    main {
+        padding: 1rem;
+    }
+
+    header {
+        padding: 1rem;
+    }
+
+    header h1 {
+        font-size: 1.4rem;
+    }
+
+    .kpi-cards {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+    }
+
+    .kpi-card {
+        padding: 1rem;
+    }
+
+    .kpi-value {
+        font-size: 1.8rem;
+    }
+
+    .filter-section {
+        flex-direction: column;
+    }
+
+    .filter-section select {
+        width: 100%;
+    }
+
+    .charts-section {
+        grid-template-columns: 1fr;
+    }
+
+    .table-section {
+        overflow-x: auto;
+    }
+
+    table {
+        min-width: 600px;
+    }
+
+    .modal-content {
+        padding: 1.5rem;
+        width: 95%;
+    }
+
+    .detail-actions {
+        flex-direction: column;
+    }
+
+    .detail-actions button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .kpi-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .kpi-card h3 {
+        font-size: 0.75rem;
+    }
+
+    .kpi-value {
+        font-size: 1.6rem;
+    }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+    header {
+        background: none;
+        color: var(--text-dark);
+        border-bottom: 2px solid var(--primary-blue);
+    }
+
+    .filter-section,
+    .btn-refresh,
+    .detail-actions,
+    footer {
+        display: none;
+    }
+
+    .kpi-card,
+    .chart-container,
+    .table-section {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+
+    .modal {
+        position: static;
+        background: none;
+    }
+
+    .modal-content {
+        max-width: 100%;
+        max-height: none;
+        box-shadow: none;
+    }
+}

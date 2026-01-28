@@ -1,0 +1,135 @@
+[
+  {
+    "name": "RMS-Dashboard-Mock-API",
+    "active": true,
+    "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "GET",
+          "path": "rms/kpis",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "webhook-kpis",
+        "name": "Webhook KPIs",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [250, 100],
+        "webhookId": "rms-kpis"
+      },
+      {
+        "parameters": {
+          "values": {
+            "number": [
+              {"name": "offen", "value": 12},
+              {"name": "kritisch", "value": 3},
+              {"name": "ueberfaellig", "value": 2},
+              {"name": "durchschnitt", "value": 5.4}
+            ]
+          },
+          "options": {}
+        },
+        "id": "set-kpis",
+        "name": "Set KPIs",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [500, 100]
+      },
+      {
+        "parameters": {
+          "httpMethod": "GET",
+          "path": "rms/reklamationen",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "webhook-reklamationen",
+        "name": "Webhook Reklamationen",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [250, 300],
+        "webhookId": "rms-reklamationen"
+      },
+      {
+        "parameters": {
+          "mode": "raw",
+          "jsonOutput": "[{\"id\":\"1\",\"QA_ID\":\"QA-26001\",\"Rekla_Typ\":\"KUNDE\",\"Title\":\"Falsche Steckerlänge geliefert\",\"Rekla_Status\":\"Neu\",\"Prioritaet\":\"hoch\",\"KST\":\"F1\",\"Erfassungsdatum\":\"2026-01-26\"},{\"id\":\"2\",\"QA_ID\":\"QA-26002\",\"Rekla_Typ\":\"LIEFERANT\",\"Title\":\"Materialqualität mangelhaft\",\"Rekla_Status\":\"In Bearbeitung\",\"Prioritaet\":\"kritisch\",\"KST\":\"EK\",\"Erfassungsdatum\":\"2026-01-25\"},{\"id\":\"3\",\"QA_ID\":\"QA-26003\",\"Rekla_Typ\":\"INTERN\",\"Title\":\"Crimphöhe außerhalb Toleranz\",\"Rekla_Status\":\"Maßnahmen\",\"Prioritaet\":\"mittel\",\"KST\":\"F2\",\"Erfassungsdatum\":\"2026-01-24\"}]",
+          "options": {}
+        },
+        "id": "set-reklamationen",
+        "name": "Set Reklamationen",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [500, 300]
+      },
+      {
+        "parameters": {
+          "httpMethod": "GET",
+          "path": "rms/reklamation/:id",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "webhook-detail",
+        "name": "Webhook Detail",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [250, 500],
+        "webhookId": "rms-detail"
+      },
+      {
+        "parameters": {
+          "mode": "raw",
+          "jsonOutput": "{\"id\":\"1\",\"QA_ID\":\"QA-26001\",\"Rekla_Typ\":\"KUNDE\",\"Title\":\"Falsche Steckerlänge geliefert\",\"Rekla_Status\":\"Neu\",\"Prioritaet\":\"hoch\",\"KST\":\"F1\",\"Erfassungsdatum\":\"2026-01-26\",\"Zieldatum\":\"2026-02-02\",\"Verantwortlich\":\"AL\",\"Beschreibung\":\"Kunde meldet, dass die gelieferten Kabelsätze 15cm kürzer sind als spezifiziert. Betrifft Auftrag A-2026-0142.\",\"massnahmen\":[{\"Title\":\"Ursachenanalyse durchführen\",\"Termin\":\"2026-01-28\",\"Status\":\"Offen\"},{\"Title\":\"Nachlieferung veranlassen\",\"Termin\":\"2026-01-30\",\"Status\":\"Offen\"}],\"schriftverkehr\":[{\"Datum\":\"2026-01-26\",\"Typ\":\"E-Mail Eingang\",\"Betreff\":\"Reklamation Auftrag A-2026-0142\"}],\"sharePointUrl\":\"https://rainerschneiderkabelsatz.sharepoint.com/sites/RMS\"}",
+          "options": {}
+        },
+        "id": "set-detail",
+        "name": "Set Detail",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [500, 500]
+      },
+      {
+        "parameters": {
+          "httpMethod": "GET",
+          "path": "rms/charts",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "webhook-charts",
+        "name": "Webhook Charts",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [250, 700],
+        "webhookId": "rms-charts"
+      },
+      {
+        "parameters": {
+          "mode": "raw",
+          "jsonOutput": "{\"trend\":{\"labels\":[\"Aug\",\"Sep\",\"Okt\",\"Nov\",\"Dez\",\"Jan\"],\"values\":[8,12,6,15,9,12]},\"typ\":[5,4,3],\"kst\":{\"labels\":[\"F1\",\"F2\",\"F3\",\"QM\",\"EK\",\"VT\"],\"values\":[4,3,2,1,1,1]}}",
+          "options": {}
+        },
+        "id": "set-charts",
+        "name": "Set Charts",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [500, 700]
+      }
+    ],
+    "connections": {
+      "Webhook KPIs": {
+        "main": [[{"node": "Set KPIs", "type": "main", "index": 0}]]
+      },
+      "Webhook Reklamationen": {
+        "main": [[{"node": "Set Reklamationen", "type": "main", "index": 0}]]
+      },
+      "Webhook Detail": {
+        "main": [[{"node": "Set Detail", "type": "main", "index": 0}]]
+      },
+      "Webhook Charts": {
+        "main": [[{"node": "Set Charts", "type": "main", "index": 0}]]
+      }
+    },
+    "settings": {
+      "executionOrder": "v1"
+    }
+  }
+]

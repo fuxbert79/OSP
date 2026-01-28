@@ -1,0 +1,564 @@
+{
+  "name": "RMS-Dashboard-API",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "rms/kpis",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "id": "webhook-kpis",
+      "name": "Webhook KPIs",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        250,
+        100
+      ],
+      "webhookId": "rms-kpis"
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "rms/reklamationen",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "id": "webhook-reklamationen",
+      "name": "Webhook Reklamationen",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        250,
+        300
+      ],
+      "webhookId": "rms-reklamationen"
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "rms/reklamation/:id",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "id": "webhook-detail",
+      "name": "Webhook Detail",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        250,
+        500
+      ],
+      "webhookId": "rms-detail"
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "rms/charts",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "id": "webhook-charts",
+      "name": "Webhook Charts",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        250,
+        700
+      ],
+      "webhookId": "rms-charts"
+    },
+    {
+      "parameters": {
+        "resource": "listItem",
+        "operation": "getAll",
+        "siteId": "rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c",
+        "listId": "e9b1d926-085a-4435-a012-114ca9ba59a8",
+        "returnAll": true,
+        "options": {}
+      },
+      "id": "sp-kpis",
+      "name": "SP Get All for KPIs",
+      "type": "n8n-nodes-base.microsoftSharePoint",
+      "typeVersion": 1,
+      "position": [
+        500,
+        100
+      ],
+      "credentials": {
+        "microsoftSharePointOAuth2Api": {
+          "id": "sharepoint-cred",
+          "name": "SharePoint OAuth2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst items = $input.all();\nconst today = new Date();\n\nlet offen = 0;\nlet kritisch = 0;\nlet ueberfaellig = 0;\nlet totalDays = 0;\nlet closedCount = 0;\n\nfor (const item of items) {\n    const fields = item.json.fields || item.json;\n    const status = fields.Rekla_Status || '';\n    const prioritaet = fields.Prioritaet || '';\n    const zieldatum = fields.Zieldatum ? new Date(fields.Zieldatum) : null;\n    const erfassung = fields.Erfassungsdatum ? new Date(fields.Erfassungsdatum) : null;\n    const abschluss = fields.Abschlussdatum ? new Date(fields.Abschlussdatum) : null;\n\n    if (status !== 'Abgeschlossen') {\n        offen++;\n        if (prioritaet === 'kritisch') kritisch++;\n        if (zieldatum && zieldatum < today) ueberfaellig++;\n    } else if (erfassung && abschluss) {\n        const days = (abschluss - erfassung) / (1000 * 60 * 60 * 24);\n        totalDays += days;\n        closedCount++;\n    }\n}\n\nconst durchschnitt = closedCount > 0 ? totalDays / closedCount : 0;\n\nreturn [{\n    json: {\n        offen,\n        kritisch,\n        ueberfaellig,\n        durchschnitt: Math.round(durchschnitt * 10) / 10\n    }\n}];\n"
+      },
+      "id": "calc-kpis",
+      "name": "Calculate KPIs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        750,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "id": "response-kpis",
+      "name": "Response KPIs",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "listItem",
+        "operation": "getAll",
+        "siteId": "rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c",
+        "listId": "e9b1d926-085a-4435-a012-114ca9ba59a8",
+        "returnAll": true,
+        "options": {
+          "orderBy": "Erfassungsdatum desc"
+        }
+      },
+      "id": "sp-reklamationen",
+      "name": "SP Get Reklamationen",
+      "type": "n8n-nodes-base.microsoftSharePoint",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "credentials": {
+        "microsoftSharePointOAuth2Api": {
+          "id": "sharepoint-cred",
+          "name": "SharePoint OAuth2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst items = $input.all();\nconst query = $('Webhook Reklamationen').first().json.query || {};\n\nlet result = items.map(item => {\n    const fields = item.json.fields || item.json;\n    return {\n        id: item.json.id || fields.ID,\n        QA_ID: fields.QA_ID || fields.Title,\n        Rekla_Typ: fields.Rekla_Typ,\n        Title: fields.Title || fields.Betreff,\n        Rekla_Status: fields.Rekla_Status,\n        Prioritaet: fields.Prioritaet,\n        KST: fields.KST,\n        Erfassungsdatum: fields.Erfassungsdatum\n    };\n});\n\n// Filter anwenden\nif (query.typ) {\n    result = result.filter(r => r.Rekla_Typ === query.typ);\n}\nif (query.status) {\n    result = result.filter(r => r.Rekla_Status === query.status);\n}\nif (query.kst) {\n    result = result.filter(r => r.KST === query.kst);\n}\n\nreturn [{ json: result }];\n"
+      },
+      "id": "format-reklamationen",
+      "name": "Format Reklamationen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        750,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "id": "response-reklamationen",
+      "name": "Response Reklamationen",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "listItem",
+        "operation": "get",
+        "siteId": "rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c",
+        "listId": "e9b1d926-085a-4435-a012-114ca9ba59a8",
+        "itemId": "={{ $json.params.id }}"
+      },
+      "id": "sp-detail",
+      "name": "SP Get Detail",
+      "type": "n8n-nodes-base.microsoftSharePoint",
+      "typeVersion": 1,
+      "position": [
+        500,
+        500
+      ],
+      "credentials": {
+        "microsoftSharePointOAuth2Api": {
+          "id": "sharepoint-cred",
+          "name": "SharePoint OAuth2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "listItem",
+        "operation": "getAll",
+        "siteId": "rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c",
+        "listId": "3768f2d8-878c-4a5f-bd52-7486fe93289d",
+        "returnAll": true,
+        "options": {
+          "filter": "ReklamationId eq {{ $json.params.id }}"
+        }
+      },
+      "id": "sp-massnahmen",
+      "name": "SP Get Massnahmen",
+      "type": "n8n-nodes-base.microsoftSharePoint",
+      "typeVersion": 1,
+      "position": [
+        500,
+        600
+      ],
+      "credentials": {
+        "microsoftSharePointOAuth2Api": {
+          "id": "sharepoint-cred",
+          "name": "SharePoint OAuth2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "listItem",
+        "operation": "getAll",
+        "siteId": "rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c",
+        "listId": "741c6ae8-88bb-406b-bf85-2e11192a528f",
+        "returnAll": true,
+        "options": {
+          "filter": "ReklamationId eq {{ $json.params.id }}"
+        }
+      },
+      "id": "sp-schriftverkehr",
+      "name": "SP Get Schriftverkehr",
+      "type": "n8n-nodes-base.microsoftSharePoint",
+      "typeVersion": 1,
+      "position": [
+        500,
+        700
+      ],
+      "credentials": {
+        "microsoftSharePointOAuth2Api": {
+          "id": "sharepoint-cred",
+          "name": "SharePoint OAuth2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst reklamation = $('SP Get Detail').first().json;\nconst massnahmen = $('SP Get Massnahmen').all();\nconst schriftverkehr = $('SP Get Schriftverkehr').all();\n\nconst fields = reklamation.fields || reklamation;\n\nreturn [{\n    json: {\n        id: reklamation.id || fields.ID,\n        QA_ID: fields.QA_ID || fields.Title,\n        Rekla_Typ: fields.Rekla_Typ,\n        Title: fields.Title || fields.Betreff,\n        Rekla_Status: fields.Rekla_Status,\n        Prioritaet: fields.Prioritaet,\n        KST: fields.KST,\n        Erfassungsdatum: fields.Erfassungsdatum,\n        Zieldatum: fields.Zieldatum,\n        Verantwortlich: fields.Verantwortlich,\n        Beschreibung: fields.Beschreibung,\n        sharePointUrl: `https://rainerschneiderkabelsatz.sharepoint.com/sites/RMS/Lists/Reklamationen/DispForm.aspx?ID=${reklamation.id}`,\n        massnahmen: massnahmen.map(m => ({\n            Title: m.json.fields?.Title || m.json.Title,\n            Termin: m.json.fields?.Termin || m.json.Termin,\n            Status: m.json.fields?.Status || m.json.Status\n        })),\n        schriftverkehr: schriftverkehr.map(s => ({\n            Datum: s.json.fields?.Datum || s.json.Datum,\n            Typ: s.json.fields?.Typ || s.json.Typ,\n            Betreff: s.json.fields?.Betreff || s.json.Betreff\n        }))\n    }\n}];\n"
+      },
+      "id": "combine-detail",
+      "name": "Combine Detail",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        750,
+        550
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "id": "response-detail",
+      "name": "Response Detail",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        550
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "listItem",
+        "operation": "getAll",
+        "siteId": "rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c",
+        "listId": "e9b1d926-085a-4435-a012-114ca9ba59a8",
+        "returnAll": true,
+        "options": {}
+      },
+      "id": "sp-charts",
+      "name": "SP Get All for Charts",
+      "type": "n8n-nodes-base.microsoftSharePoint",
+      "typeVersion": 1,
+      "position": [
+        500,
+        800
+      ],
+      "credentials": {
+        "microsoftSharePointOAuth2Api": {
+          "id": "sharepoint-cred",
+          "name": "SharePoint OAuth2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst items = $input.all();\nconst monthNames = ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];\n\n// Trend: Letzte 6 Monate\nconst trendData = {};\nconst typData = { KUNDE: 0, LIEFERANT: 0, INTERN: 0 };\nconst kstData = {};\n\nfor (const item of items) {\n    const fields = item.json.fields || item.json;\n    const typ = fields.Rekla_Typ || 'INTERN';\n    const kst = fields.KST || 'Unbekannt';\n    const datum = fields.Erfassungsdatum ? new Date(fields.Erfassungsdatum) : null;\n\n    // Typ\n    if (typData.hasOwnProperty(typ)) {\n        typData[typ]++;\n    }\n\n    // KST\n    kstData[kst] = (kstData[kst] || 0) + 1;\n\n    // Trend (letzte 6 Monate)\n    if (datum) {\n        const key = `${datum.getFullYear()}-${String(datum.getMonth() + 1).padStart(2, '0')}`;\n        trendData[key] = (trendData[key] || 0) + 1;\n    }\n}\n\n// Trend sortieren und letzte 6 Monate nehmen\nconst sortedMonths = Object.keys(trendData).sort().slice(-6);\nconst trendLabels = sortedMonths.map(m => {\n    const [year, month] = m.split('-');\n    return monthNames[parseInt(month) - 1];\n});\nconst trendValues = sortedMonths.map(m => trendData[m]);\n\n// KST sortieren\nconst sortedKst = Object.entries(kstData).sort((a, b) => b[1] - a[1]);\n\nreturn [{\n    json: {\n        trend: {\n            labels: trendLabels,\n            values: trendValues\n        },\n        typ: [typData.KUNDE, typData.LIEFERANT, typData.INTERN],\n        kst: {\n            labels: sortedKst.map(k => k[0]),\n            values: sortedKst.map(k => k[1])\n        }\n    }\n}];\n"
+      },
+      "id": "calc-charts",
+      "name": "Calculate Charts",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        750,
+        800
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "id": "response-charts",
+      "name": "Response Charts",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        800
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook KPIs": {
+      "main": [
+        [
+          {
+            "node": "SP Get All for KPIs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SP Get All for KPIs": {
+      "main": [
+        [
+          {
+            "node": "Calculate KPIs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate KPIs": {
+      "main": [
+        [
+          {
+            "node": "Response KPIs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook Reklamationen": {
+      "main": [
+        [
+          {
+            "node": "SP Get Reklamationen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SP Get Reklamationen": {
+      "main": [
+        [
+          {
+            "node": "Format Reklamationen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Reklamationen": {
+      "main": [
+        [
+          {
+            "node": "Response Reklamationen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook Detail": {
+      "main": [
+        [
+          {
+            "node": "SP Get Detail",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "SP Get Massnahmen",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "SP Get Schriftverkehr",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SP Get Detail": {
+      "main": [
+        [
+          {
+            "node": "Combine Detail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SP Get Massnahmen": {
+      "main": [
+        [
+          {
+            "node": "Combine Detail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SP Get Schriftverkehr": {
+      "main": [
+        [
+          {
+            "node": "Combine Detail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine Detail": {
+      "main": [
+        [
+          {
+            "node": "Response Detail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook Charts": {
+      "main": [
+        [
+          {
+            "node": "SP Get All for Charts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SP Get All for Charts": {
+      "main": [
+        [
+          {
+            "node": "Calculate Charts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate Charts": {
+      "main": [
+        [
+          {
+            "node": "Response Charts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
