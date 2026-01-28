@@ -1,0 +1,203 @@
+[
+  {
+    "name": "RMS-KPIs",
+    "id": "ybUNZLNA0YqVJYpu",
+    "description": "Dashboard KPIs aus SharePoint Reklamationen berechnen",
+    "active": true,
+    "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "GET",
+          "path": "rms-kpis",
+          "responseMode": "responseNode",
+          "options": {}
+        },
+        "name": "Webhook",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [250, 300],
+        "id": "webhook-kpis"
+      },
+      {
+        "parameters": {
+          "url": "https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/e9b1d926-085a-4435-a012-114ca9ba59a8/items",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "microsoftOAuth2Api",
+          "sendQuery": true,
+          "queryParameters": {
+            "parameters": [
+              {"name": "$expand", "value": "fields"},
+              {"name": "$top", "value": "500"}
+            ]
+          },
+          "options": {}
+        },
+        "name": "SharePoint Reklamationen",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [500, 300],
+        "id": "sp-reklamationen",
+        "credentials": {
+          "microsoftOAuth2Api": {
+            "id": "Fm3IuAbVYBYDIA4U",
+            "name": "Microsoft account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "mode": "runOnceForAllItems",
+          "jsCode": "// KPI-Berechnung aus SharePoint Daten\nconst items = $input.all();\nconst reklamationen = items[0]?.json?.value || [];\n\nconst heute = new Date();\nheute.setHours(0, 0, 0, 0);\n\nlet offen = 0;\nlet kritisch = 0;\nlet ueberfaellig = 0;\nlet totalDays = 0;\nlet abgeschlossen = 0;\n\nfor (const item of reklamationen) {\n  const fields = item.fields || {};\n  const status = fields.Rekla_Status || '';\n  const prioritaet = fields.Prioritaet || '';\n  const zieldatum = fields.Zieldatum ? new Date(fields.Zieldatum) : null;\n  const erfassung = fields.Erfassungsdatum ? new Date(fields.Erfassungsdatum) : null;\n  const abschluss = fields.Abschlussdatum ? new Date(fields.Abschlussdatum) : null;\n  \n  if (status !== 'Abgeschlossen') {\n    offen++;\n    if (prioritaet.toLowerCase() === 'kritisch') kritisch++;\n    if (zieldatum && zieldatum < heute) ueberfaellig++;\n  }\n  \n  if (status === 'Abgeschlossen' && erfassung && abschluss) {\n    const diffDays = Math.ceil(Math.abs(abschluss - erfassung) / (1000 * 60 * 60 * 24));\n    totalDays += diffDays;\n    abgeschlossen++;\n  }\n}\n\nconst durchschnitt = abgeschlossen > 0 ? (totalDays / abgeschlossen) : 0;\n\nreturn [{\n  json: {\n    offen: offen,\n    kritisch: kritisch,\n    ueberfaellig: ueberfaellig,\n    durchschnitt: Math.round(durchschnitt * 10) / 10,\n    gesamt: reklamationen.length,\n    abgeschlossen: abgeschlossen\n  }\n}];"
+        },
+        "name": "KPI Berechnung",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [750, 300],
+        "id": "kpi-calc"
+      },
+      {
+        "parameters": {
+          "respondWith": "json",
+          "responseBody": "={{ $json }}",
+          "options": {}
+        },
+        "name": "Response",
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1.1,
+        "position": [1000, 300],
+        "id": "response-kpis"
+      }
+    ],
+    "connections": {
+      "Webhook": {"main": [[{"node": "SharePoint Reklamationen", "type": "main", "index": 0}]]},
+      "SharePoint Reklamationen": {"main": [[{"node": "KPI Berechnung", "type": "main", "index": 0}]]},
+      "KPI Berechnung": {"main": [[{"node": "Response", "type": "main", "index": 0}]]}
+    }
+  },
+  {
+    "name": "RMS-Reklamationen",
+    "id": "TU48Qxw2nQ638DNg",
+    "description": "Reklamationen-Liste aus SharePoint für Dashboard",
+    "active": true,
+    "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "GET",
+          "path": "rms-reklamationen",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "name": "Webhook",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [250, 300],
+        "id": "webhook-rekla"
+      },
+      {
+        "parameters": {
+          "url": "https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/e9b1d926-085a-4435-a012-114ca9ba59a8/items",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "microsoftOAuth2Api",
+          "sendQuery": true,
+          "queryParameters": {
+            "parameters": [
+              {"name": "$expand", "value": "fields"},
+              {"name": "$top", "value": "100"}
+            ]
+          },
+          "options": {}
+        },
+        "name": "SharePoint",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [500, 300],
+        "id": "sp-rekla",
+        "credentials": {
+          "microsoftOAuth2Api": {
+            "id": "Fm3IuAbVYBYDIA4U",
+            "name": "Microsoft account"
+          }
+        }
+      }
+    ],
+    "connections": {
+      "Webhook": {"main": [[{"node": "SharePoint", "type": "main", "index": 0}]]}
+    },
+    "note": "Datentransformation erfolgt clientseitig im Dashboard"
+  },
+  {
+    "name": "RMS-Charts",
+    "id": "7q0bGtiRYpVmbATe",
+    "description": "Chart-Daten aus SharePoint aggregieren",
+    "active": true,
+    "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "GET",
+          "path": "rms-charts",
+          "responseMode": "responseNode",
+          "options": {}
+        },
+        "name": "Webhook",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [250, 300],
+        "id": "webhook-charts"
+      },
+      {
+        "parameters": {
+          "url": "https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/e9b1d926-085a-4435-a012-114ca9ba59a8/items",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "microsoftOAuth2Api",
+          "sendQuery": true,
+          "queryParameters": {
+            "parameters": [
+              {"name": "$expand", "value": "fields"},
+              {"name": "$top", "value": "500"}
+            ]
+          },
+          "options": {}
+        },
+        "name": "SharePoint Reklamationen",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [500, 300],
+        "id": "sp-charts-data",
+        "credentials": {
+          "microsoftOAuth2Api": {
+            "id": "Fm3IuAbVYBYDIA4U",
+            "name": "Microsoft account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "mode": "runOnceForAllItems",
+          "jsCode": "// Chart-Daten aggregieren\nconst items = $input.all();\nconst reklamationen = items[0]?.json?.value || [];\n\nconst monate = ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];\nconst heute = new Date();\nconst trendData = {};\n\nfor (let i = 5; i >= 0; i--) {\n  const d = new Date(heute.getFullYear(), heute.getMonth() - i, 1);\n  const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;\n  trendData[key] = 0;\n}\n\nconst typCount = { 'Kunde': 0, 'Lieferant': 0, 'Intern': 0 };\nconst kstCount = {};\n\nfor (const item of reklamationen) {\n  const f = item.fields || {};\n  const erfassung = f.Erfassungsdatum ? new Date(f.Erfassungsdatum) : null;\n  const typ = f.Rekla_Typ || 'Kunde';\n  const kst = f.KST || 'Unbekannt';\n  \n  if (erfassung) {\n    const key = `${erfassung.getFullYear()}-${String(erfassung.getMonth() + 1).padStart(2, '0')}`;\n    if (trendData.hasOwnProperty(key)) trendData[key]++;\n  }\n  \n  if (typCount.hasOwnProperty(typ)) typCount[typ]++;\n  else typCount['Kunde']++;\n  \n  kstCount[kst] = (kstCount[kst] || 0) + 1;\n}\n\nconst trendLabels = Object.keys(trendData).map(k => monate[parseInt(k.split('-')[1]) - 1]);\nconst kstSorted = Object.entries(kstCount).sort((a, b) => b[1] - a[1]).slice(0, 6);\n\nreturn [{\n  json: {\n    trend: { labels: trendLabels, values: Object.values(trendData) },\n    typ: [typCount['Kunde'], typCount['Lieferant'], typCount['Intern']],\n    kst: { labels: kstSorted.map(k => k[0]), values: kstSorted.map(k => k[1]) }\n  }\n}];"
+        },
+        "name": "Chart Aggregation",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [750, 300],
+        "id": "chart-calc"
+      },
+      {
+        "parameters": {
+          "respondWith": "json",
+          "responseBody": "={{ $json }}",
+          "options": {}
+        },
+        "name": "Response",
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1.1,
+        "position": [1000, 300],
+        "id": "response-charts"
+      }
+    ],
+    "connections": {
+      "Webhook": {"main": [[{"node": "SharePoint Reklamationen", "type": "main", "index": 0}]]},
+      "SharePoint Reklamationen": {"main": [[{"node": "Chart Aggregation", "type": "main", "index": 0}]]},
+      "Chart Aggregation": {"main": [[{"node": "Response", "type": "main", "index": 0}]]}
+    }
+  }
+]

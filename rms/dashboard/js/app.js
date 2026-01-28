@@ -47,15 +47,42 @@ async function fetchKPIs() {
 
 async function fetchReklamationen(filters = {}) {
     try {
-        const params = new URLSearchParams();
-        if (filters.typ) params.append('typ', filters.typ);
-        if (filters.status) params.append('status', filters.status);
-        if (filters.kst) params.append('kst', filters.kst);
-
-        const url = `${API_BASE}/reklamationen${params.toString() ? '?' + params : ''}`;
-        const response = await fetch(url);
+        const response = await fetch(`${API_BASE}/reklamationen`);
         if (!response.ok) throw new Error('Reklamationen-Abruf fehlgeschlagen');
-        return await response.json();
+        const data = await response.json();
+
+        // SharePoint-Daten transformieren
+        let reklamationen = [];
+        if (data.value && Array.isArray(data.value)) {
+            // SharePoint-Format: { value: [{ fields: {...} }, ...] }
+            reklamationen = data.value.map(item => {
+                const f = item.fields || {};
+                return {
+                    id: item.id,
+                    QA_ID: f.QA_ID || '',
+                    Rekla_Typ: f.Rekla_Typ || 'Kunde',
+                    Title: f.Title || 'Ohne Titel',
+                    Rekla_Status: f.Rekla_Status || 'Neu',
+                    Prioritaet: f.Prioritaet || 'mittel',
+                    KST: f.KST || '',
+                    Erfassungsdatum: f.Erfassungsdatum || '',
+                    Zieldatum: f.Zieldatum || '',
+                    Verantwortlich: f.Verantwortlich || '',
+                    Beschreibung: f.Beschreibung || ''
+                };
+            });
+        } else if (Array.isArray(data)) {
+            // Bereits transformiertes Format
+            reklamationen = data;
+        }
+
+        // Client-seitiges Filtern
+        return reklamationen.filter(r => {
+            if (filters.typ && r.Rekla_Typ.toLowerCase() !== filters.typ.toLowerCase()) return false;
+            if (filters.status && r.Rekla_Status.toLowerCase() !== filters.status.toLowerCase()) return false;
+            if (filters.kst && r.KST.toLowerCase() !== filters.kst.toLowerCase()) return false;
+            return true;
+        });
     } catch (error) {
         console.error('Fehler beim Reklamationen-Abruf:', error);
         // Fallback: Mock-Daten
@@ -65,12 +92,38 @@ async function fetchReklamationen(filters = {}) {
 
 async function fetchReklamationDetail(id) {
     try {
-        const response = await fetch(`${API_BASE}/reklamation/${id}`);
+        // Detail-Daten aus der Reklamationen-Liste laden
+        const response = await fetch(`${API_BASE}/reklamationen`);
         if (!response.ok) throw new Error('Detail-Abruf fehlgeschlagen');
-        return await response.json();
+        const data = await response.json();
+
+        // Reklamation mit passender ID finden
+        let rekla = null;
+        if (data.value && Array.isArray(data.value)) {
+            const item = data.value.find(i => i.id === id);
+            if (item) {
+                const f = item.fields || {};
+                rekla = {
+                    id: item.id,
+                    QA_ID: f.QA_ID || '',
+                    Rekla_Typ: f.Rekla_Typ || 'Kunde',
+                    Title: f.Title || 'Ohne Titel',
+                    Rekla_Status: f.Rekla_Status || 'Neu',
+                    Prioritaet: f.Prioritaet || 'mittel',
+                    KST: f.KST || '',
+                    Erfassungsdatum: f.Erfassungsdatum || '',
+                    Zieldatum: f.Zieldatum || '',
+                    Verantwortlich: f.Verantwortlich || '',
+                    Beschreibung: f.Beschreibung || '',
+                    massnahmen: [], // TODO: Aus SharePoint laden
+                    schriftverkehr: [], // TODO: Aus SharePoint laden
+                    sharePointUrl: `https://rainerschneiderkabelsatz.sharepoint.com/sites/RMS/Lists/Reklamationen/DispForm.aspx?ID=${item.id}`
+                };
+            }
+        }
+        return rekla || getMockDetail(id);
     } catch (error) {
         console.error('Fehler beim Detail-Abruf:', error);
-        // Fallback: Mock-Detail
         return getMockDetail(id);
     }
 }
