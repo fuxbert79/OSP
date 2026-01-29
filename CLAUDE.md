@@ -1,9 +1,8 @@
-# OSP Projekt-Kontext für Claude Code (Server)
+# OSP Projekt-Kontext für Claude Code
 
-**Projekt:** OSP (Organisations-System-Prompt)  
-**Unternehmen:** Rainer Schneider Kabelsatzbau GmbH & Co. KG  
-**Server:** Hetzner CX33 (46.224.102.30)  
-**Stack:** ChromaDB | Open WebUI v0.6.41 | Claude API  
+**Projekt:** OSP (Organisations-System-Prompt)
+**Unternehmen:** Rainer Schneider Kabelsatzbau GmbH & Co. KG
+**Stack:** Hetzner CX43 (8 vCPU, 32GB RAM) | ChromaDB v1.0.0 | Open WebUI v0.6.41 | Claude API
 **Verantwortlich:** AL (Andreas Löhr) - QM-Manager & KI-Manager
 
 ---
@@ -18,102 +17,201 @@
 5. **KABELKONFEKTION-EXPERTISE**: Bei Crimpdaten IMMER verifizieren
 
 ### KRITISCHE WARNUNGEN
-- **KEINE FALSCHEN CRIMPHÖHEN** - Existenzbedrohend!
-- **KEINE ERFUNDENEN MA-KÜRZEL** - Niemals!
-- **KEINE PHANTASIE-TAGs** - Immer prüfen!
+- **KEINE FALSCHEN CRIMPHÖHEN** - Existenzbedrohend für das Unternehmen!
+- **KEINE ERFUNDENEN MA-KÜRZEL** - Niemals! Immer gegen HR_CORE prüfen!
+- **KEINE PHANTASIE-TAGs** - Immer gegen OSP_Navigator validieren!
 
 ---
 
-## Verzeichnisstruktur (Server)
+## Verzeichnisstruktur
 
+### Lokal (OneDrive - dieses Verzeichnis)
 | Pfad | Inhalt |
 |------|--------|
-| `/opt/osp/documents/` | OSP_KERN (12 MD) - FLACHE Struktur |
+| `Main/` | Alle OSP-Dateien inkl. KERN (in Unterordnern) |
+| `Main/OSP_Navigator.md` | Wissens-Routing - KRITISCH! |
+| `Lookups/` | KPL JSON-Dateien für exakte Suchen |
+| `pipelines/` | Open WebUI Pipeline-Dateien |
+| `Analysen/` | RAG-Analysen und Tests |
+| `Templates/` | Vorlagen für neue Dateien |
+| `Tools/` | Hilfsskripte und Utilities |
+
+### Server (Hetzner CX43 - 8 vCPU, 32GB RAM)
+| Pfad | Inhalt |
+|------|--------|
+| `/opt/osp/documents/` | OSP_KERN (12 MD) - flache Struktur |
 | `/opt/osp/documents_erweitert/` | OSP_ERWEITERT (~46 MD) |
 | `/opt/osp/lookups/` | KPL JSON-Dateien |
-| `/opt/osp/pipelines/` | Open WebUI Pipelines |
+| `/opt/osp/pipelines/` | Aktive Pipelines |
 | `/opt/osp/chromadb/` | Vektor-Datenbank |
 | `/opt/osp/logs/` | Validierungs-Logs |
-| `/opt/osp/scripts/` | Python-Scripts |
+
+---
+
+## RMS (Reklamationsmanagementsystem)
+
+### Übersicht
+| Parameter | Wert |
+|-----------|------|
+| **Status** | 🟡 In Entwicklung |
+| **Pfad** | /mnt/HC_Volume_104189729/osp/rms/ |
+| **ID-Format** | QA-JJNNN (z.B. QA-26001) |
+| **Erwartete Einträge** | ~150/Jahr |
+| **Hauptnutzer** | AL, TS, GF (CS, CA, SV) |
+
+### RMS-Verzeichnisse
+| Pfad | Inhalt |
+|------|--------|
+| rms/backend/ | FastAPI Backend (geplant) |
+| rms/dashboard/ | HTML-Dashboard für alle MA |
+| rms/workflows/ | n8n Workflow-Exports |
+| rms/formulare/ | QM-Formblätter (F-QM-02, 03, 04, 14) |
+| rms/docs/ | Strategie & Dokumentation |
+| rms/prompts/ | RMS-spezifische Prompts |
+
+### RMS-Formblätter
+| Formular | Zweck | Dateien |
+|----------|-------|---------|
+| **F-QM-02** | Qualitätsabweichung (Lieferanten) | .md, .json, RMS_Prompt |
+| **F-QM-03** | 8D-Report (extern, vollständig) | .md, .json, RMS_Prompt |
+| **F-QM-04** | NZA (Nach-/Zusatzarbeiten) | .md, .json, RMS_Prompt |
+| **F-QM-14** | Korrekturmaßnahme (8D-Light, intern) | .md, .json, RMS_Prompt |
+
+### RMS-Integration mit OSP
+- **ChromaDB:** Ähnliche Reklamationen finden (geplant)
+- **n8n:** E-Mail-Import, Formblatt-Generator, Alarme
+- **HR_CORE:** MA-Kürzel Validierung, KST-Zuordnung
+- **SharePoint:** Dokumenten-Ablage (/sites/RMS/)
+
+### Microsoft Graph API Berechtigungen (Azure Portal)
+
+App-Registrierung: **OSP-n8n-Integration**
+
+#### Kalender
+| Berechtigung | Typ | Beschreibung |
+|--------------|-----|--------------|
+| Calendars.Read | Delegiert | Lesezugriff auf Benutzerkalender |
+| Calendars.Read | Anwendung | Read calendars in all mailboxes |
+| Calendars.ReadBasic.All | Anwendung | Read basic details of calendars in all mailboxes |
+| Calendars.ReadWrite | Delegiert | Vollzugriff auf Benutzerkalender |
+| Calendars.ReadWrite | Anwendung | Read and write calendars in all mailboxes |
+
+#### Channels & Chat
+| Berechtigung | Typ | Beschreibung |
+|--------------|-----|--------------|
+| Channel.ReadBasic.All | Anwendung | Read the names and descriptions of all channels |
+| ChannelMessage.Read.All | Delegiert | Read user channel messages |
+| ChannelMessage.Read.All | Anwendung | Read all channel messages |
+| Chat.Read | Delegiert | Benutzerchatnachrichten lesen |
+| Chat.Read.All | Anwendung | Read all chat messages |
+| Chat.ReadWrite.All | Anwendung | Read and write all chat messages |
+
+#### Files & Sites
+| Berechtigung | Typ | Beschreibung |
+|--------------|-----|--------------|
+| Files.Read.All | Anwendung | Read files in all site collections |
+| Files.ReadWrite.All | Anwendung | Read and write files in all site collections |
+| Sites.Manage.All | Anwendung | Create, edit, and delete items and lists in all site collections |
+| Sites.ReadWrite.All | Delegiert | Elemente in allen Websitesammlungen bearbeiten |
+| Sites.ReadWrite.All | Anwendung | Read and write items in all site collections |
+
+#### Mail
+| Berechtigung | Typ | Beschreibung |
+|--------------|-----|--------------|
+| Mail.Read | Delegiert | Lesezugriff auf Benutzer-E-Mails |
+| Mail.Read | Anwendung | Read mail in all mailboxes |
+| Mail.Read.Shared | Delegiert | Benutzer und freigegebene E-Mails lesen |
+| Mail.ReadBasic | Delegiert | Grundlegende Benutzer-E-Mail lesen |
+| Mail.ReadWrite | Delegiert | Lese- und Schreibzugriff auf Benutzer-E-Mails |
+| Mail.ReadWrite.Shared | Delegiert | Benutzer und freigegebene E-Mails lesen und schreiben |
+| Mail.Send | Delegiert | E-Mails unter einem anderen Benutzernamen senden |
+
+#### Meetings & Teams
+| Berechtigung | Typ | Beschreibung |
+|--------------|-----|--------------|
+| OnlineMeetings.Read.All | Anwendung | Read online meeting details |
+| Team.ReadBasic.All | Anwendung | Get a list of all teams |
+| TeamsActivity.Send | Anwendung | Send a teamwork activity to any user |
+
+#### User & Auth
+| Berechtigung | Typ | Beschreibung |
+|--------------|-----|--------------|
+| User.Read | Delegiert | Anmelden und Benutzerprofil lesen |
+| User.Read.All | Anwendung | Read all users' full profiles |
+| offline_access | Delegiert | Zugriff auf Daten beibehalten |
+| openid | Delegiert | Benutzer anmelden |
+| profile | Delegiert | Grundlegendes Profil von Benutzern anzeigen |
 
 ---
 
 ## OSP_KERN Dateien (12 Stück)
 
-Alle KERN-Dateien liegen FLACH in `documents/`:
+Die KERN-Dateien liegen in Unterordnern von `Main/`:
 
 ```
-documents/HR_CORE_Personalstamm.md       # 54 MA - KRITISCH!
-documents/TM_CORE_Maschinen_Anlagen.md   # ~220 Maschinen - KRITISCH!
-documents/TM_WKZ_Werkzeuge.md            # ~342 Werkzeuge - KRITISCH!
-documents/AV_AGK_Arbeitsgang_Katalog.md
-documents/KST_CORE_Layout_Fertigung.md
-documents/QM_CORE_Qualitaetspolitik.md
-documents/QM_PMV_Prüfmittelverwaltung.md
-documents/QM_REK_Reklamationsmanagement.md
-documents/KOM_CORE_Corporate_Identity.md
-documents/DMS_CORE_Dokumentenstruktur.md
-documents/IT_OSP_KI_Chatbot.md
-documents/OSP_Navigator.md               # KRITISCH!
+Main/HR_Human_Resources/HR_CORE_Personalstamm.md       # 54 MA - KRITISCH!
+Main/TM_Technik_Maschinen/TM_CORE_Maschinen_Anlagen.md # ~220 Maschinen - KRITISCH!
+Main/TM_Technik_Maschinen/TM_WKZ_Werkzeuge.md          # ~342 Werkzeuge - KRITISCH!
+Main/AV_Arbeitsvorbereitung/AV_AGK_Arbeitsgang_Katalog.md
+Main/KST_Kostenstellen/KST_CORE_Layout_Fertigung.md
+Main/QM_Qualitaetsmanagement/QM_CORE_Qualitaetspolitik.md
+Main/QM_Qualitaetsmanagement/QM_PMV_Prüfmittelverwaltung.md
+Main/QM_Qualitaetsmanagement/QM_REK_Reklamationsmanagement.md
+Main/KOM_Kommunikation/KOM_CORE_Corporate_Identity.md
+Main/DMS_Dokumentenmanagement/DMS_CORE_Dokumentenstruktur.md
+Main/IT_Infrastruktur/IT_OSP_KI_Chatbot.md
+Main/OSP_Navigator.md                                   # KRITISCH!
 ```
+
+**Hinweis:** Auf dem Server liegen die Dateien FLACH in `/opt/osp/documents/` (ohne Unterordner).
 
 ---
 
-## Docker-Befehle
+## Custom Slash Commands
 
-```bash
-# Status prüfen
-docker ps
+Verfügbare Befehle in `.claude/commands/`:
 
-# Logs anzeigen
-docker-compose logs -f open-webui
-docker-compose logs -f chromadb
-
-# Neustart
-docker-compose restart open-webui
-docker-compose restart chromadb
-
-# Alle Services neustarten
-docker-compose down && docker-compose up -d
-```
+| Befehl | Beschreibung |
+|--------|--------------|
+| `/kern-check` | Alle 12 KERN-Dateien prüfen |
+| `/validate-rag` | RAG-Validierung (7 Query-Typen) |
+| `/analyze-file [DATEI]` | Datei analysieren |
+| `/kst-update [BATCH]` | KST-Querverweise updaten |
+| `/formblatt-fill [QM-XX]` | Formblatt ausfüllen |
+| `/navigator-validate [TAG]` | TAG validieren |
+| `/sync-server` | Dateien auf Server synchronisieren |
 
 ---
 
-## ChromaDB Befehle
+## Server-Befehle (SSH auf Hetzner)
 
 ```bash
-# Collections auflisten
-curl http://localhost:8000/api/v1/collections
+# SSH-Verbindung
+ssh root@46.224.102.30
 
-# Collection-Details
-curl http://localhost:8000/api/v1/collections/osp_kern
+# Docker Services
+docker-compose -f /opt/osp/docker-compose.yml logs -f open-webui
+docker-compose -f /opt/osp/docker-compose.yml restart open-webui
 
-# Healthcheck
-curl http://localhost:8000/api/v1/heartbeat
+# RAG Validierung
+cd /opt/osp && python3 scripts/validate_rag.py
 
-# Python-Zugriff
-python3 -c "
-import chromadb
-client = chromadb.HttpClient(host='localhost', port=8000)
-print(client.list_collections())
-"
-```
+# ChromaDB Status (v1.0.0 - NEUE API!)
+./scripts/chromadb_status.sh           # Übersicht
+./scripts/chromadb_status.sh count     # Document Counts
+./scripts/chromadb_status.sh details   # Detaillierte Infos
 
----
+# ChromaDB REST API (v1.0.0)
+# WICHTIG: /api/v1/ ist DEPRECATED! Nutze /api/v2/ mit Tenant/Database Pfad:
+curl -s "http://localhost:8000/api/v2/heartbeat"
+curl -s "http://localhost:8000/api/v2/tenants/default_tenant/databases/default_database/collections" | python3 -m json.tool
 
-## RAG-Validierung
+# Dokumente importieren
+python3 scripts/import_to_chromadb.py --collection osp_kern --path /opt/osp/documents
+python3 scripts/import_to_chromadb.py --collection osp_erweitert --path /opt/osp/documents_erweitert --clear
 
-```bash
-# Vollständige Validierung
-python3 scripts/validate_rag.py
-
-# Einzelne Query testen
-python3 scripts/validate_rag.py -q "Wer ist AL?"
-
-# Performance-Test
-time curl -X POST http://localhost:3000/api/chat \
-  -H 'Content-Type: application/json' \
-  -d '{"messages":[{"role":"user","content":"Wer ist AL?"}]}'
+# Logs prüfen
+tail -100 /opt/osp/logs/validation_latest.md
 ```
 
 ---
@@ -122,18 +220,28 @@ time curl -X POST http://localhost:3000/api/chat \
 
 ### Python
 - Python 3.11+
-- Type Hints
+- Type Hints für alle Funktionen
 - Docstrings (Google Style)
-- `logging` statt `print()`
+- `logging` statt `print()` in Produktion
+- UTF-8 Encoding
 
-### Markdown
-- UTF-8 (ohne BOM)
-- YAML Frontmatter
-- `[TAG]` Notation
+### Markdown (OSP-Dateien)
+- UTF-8 Encoding (ohne BOM)
+- YAML Frontmatter für Metadaten
+- `[TAG]` Notation für Modul-Zuordnung
+- Tabellen für strukturierte Daten
+- Keine Leerzeilen in Tabellen
+
+### Dateinamen
+- Format: `MODULE_BEREICH_Beschreibung.md`
+- Beispiel: `QM_PMV_Prüfmittelverwaltung.md`
+- Keine Umlaute, keine Leerzeichen
 
 ---
 
 ## Corporate Identity
+
+Bei HTML, React oder Dokumenten beachten:
 
 | Element | Wert |
 |---------|------|
@@ -141,27 +249,69 @@ time curl -X POST http://localhost:3000/api/chat \
 | **Akzent-Orange** | `#DC500F` |
 | **Headlines** | Montserrat Bold |
 | **Fließtext** | Open Sans |
+| **Code** | Fira Code |
+| **Border-Radius** | 10px |
 
 ---
 
 ## TAG-System (15 Module)
 
-| Cluster | TAGs |
-|---------|------|
+| Cluster | Module |
+|---------|--------|
 | C1 Kontext | [ORG], [KOM] |
 | C2 Führung | [QM], [GF], [PM], [AV], [VT], [EK] |
 | C3 Kernprozesse | [KST] |
 | C4 Support | [DMS], [TM], [IT], [HR], [RES], [CMS] |
 
+**Wichtig:** Vor Verwendung eines TAGs IMMER gegen `Main/OSP_Navigator.md` validieren!
+
 ---
 
 ## Berechtigungssystem
 
-| Level | Zugriff |
-|-------|---------|
-| L1 🟢 | Öffentlich (alle MA) |
-| L2 🟡 | Führung (~10) |
-| L3 🔴 | GF + Prokura (CS, CA, SV) |
+| Level | Zugriff | Beschreibung |
+|-------|---------|--------------|
+| L1 🟢 | Öffentlich | Alle MA (~54) |
+| L2 🟡 | Führung | Abteilungsleiter (~10) |
+| L3 🔴 | Vertraulich | GF + Prokura (CS, CA, SV) |
+
+**OSP-Level (KI-Kompetenz):** STD, PRO, EXP
+
+---
+
+## Testing
+
+### RAG-Validierung (7 Query-Typen)
+1. MA-Lookup: "Wer ist AL?"
+2. Maschinen: "Komax Alpha 530"
+3. Werkzeuge: "WKZ für Kontakt 1234"
+4. Qualität: "NULL-FEHLER-POLITIK"
+5. Kombination: "Welche Maschinen betreut MD?"
+6. Negativ: "Gibt es MA XY?" (darf nicht erfinden!)
+7. Performance: Response < 10s
+
+### Lokale Tests
+```bash
+# Markdown-Syntax prüfen
+find Main/ -name "*.md" -exec markdownlint {} \;
+
+# UTF-8 prüfen
+find Main/ -name "*.md" -exec file -i {} \; | grep -v utf-8
+
+# KERN-Dateien zählen
+find Main/ -name "*CORE*.md" -o -name "*WKZ*.md" -o -name "*AGK*.md" -o -name "*PMV*.md" -o -name "*REK*.md" -o -name "OSP_Navigator.md" | wc -l
+```
+
+---
+
+## KST-Querverweise Update Status
+
+| Batch | Module | Status |
+|-------|--------|--------|
+| 1-4 | QM_NZA, QM_REK, AV_CORE, AV_AGK | ✅ DONE |
+| 5 | VT | 🔄 NÄCHSTER |
+| 6 | EK | ⏳ GEPLANT |
+| 7-8 | HR/FIN/IT/CMS/PM/ORG/STR/KOM/BN/RES | ⏳ GEPLANT |
 
 ---
 
@@ -174,71 +324,30 @@ time curl -X POST http://localhost:3000/api/chat \
 | CA | Technischer GF | L3 |
 | SV | Prokurist | L3 |
 | MD | Technik/Maschinen | L2 |
+| SK | Prüffeld | L2 |
+| TS | Einkauf | L2 |
 
 ---
 
-## Wichtige Regeln
+## Links & Ressourcen
 
-1. **VOR Änderungen:** Backup erstellen
-2. **NIEMALS** erfinden → NACHFRAGEN!
-3. **IMMER** technische Daten verifizieren
-4. **Nach Änderungen:** RAG-Validierung!
-5. **Docker** nach Pipeline-Änderungen neustarten
-
----
-
-## Quick Commands
-
-```bash
-# KERN-Dateien zählen
-ls -la documents/*.md | wc -l
-
-# Dateigröße prüfen
-du -h documents/
-
-# Logs der letzten Stunde
-journalctl --since "1 hour ago" | grep -i osp
-
-# Backup erstellen
-tar -czvf backup_$(date +%Y%m%d).tar.gz documents/
-
-# ChromaDB Collection neu indizieren
-python3 scripts/reindex_chromadb.py
-```
+| Ressource | URL/Pfad |
+|-----------|----------|
+| Open WebUI | http://46.224.102.30:3000 |
+| ChromaDB API | http://46.224.102.30:8000 |
+| Server Logs | /opt/osp/logs/ |
+| Claude API Docs | https://docs.anthropic.com |
+| OSP-RAG-Skill | Claude Desktop Project |
 
 ---
 
-## Häufige Tasks
+## Wichtige Regeln für Claude Code
 
-### KERN-Datei bearbeiten
-```bash
-# 1. Backup
-cp documents/HR_CORE_Personalstamm.md documents/HR_CORE_Personalstamm.md.bak
-
-# 2. Bearbeiten
-nano documents/HR_CORE_Personalstamm.md
-
-# 3. Validieren
-python3 scripts/validate_rag.py -q "Wer ist AL?"
-
-# 4. Bei Erfolg: Backup löschen
-rm documents/HR_CORE_Personalstamm.md.bak
-```
-
-### Pipeline ändern
-```bash
-# 1. Backup
-cp pipelines/osp_rag.py pipelines/osp_rag.py.bak
-
-# 2. Bearbeiten
-nano pipelines/osp_rag.py
-
-# 3. Docker neustarten
-docker-compose restart open-webui
-
-# 4. Testen
-curl -X POST http://localhost:3000/api/chat ...
-```
+1. **VOR jeder Änderung** an KERN-Dateien: Backup erstellen
+2. **NIEMALS** erfinden wenn unsicher → NACHFRAGEN!
+3. **IMMER** bei technischen Daten (Crimphöhen, Inventar-Nr.) verifizieren
+4. **UTF-8** ohne BOM für alle Markdown-Dateien
+5. **Validierung** vor jedem Commit durchführen
 
 ---
 
@@ -247,5 +356,7 @@ curl -X POST http://localhost:3000/api/chat ...
 
 ---
 
-**Erstellt:** 2025-12-14  
-**Version:** 1.0 (Server)
+**Erstellt:** 2025-12-14
+**Version:** 1.3
+**Autor:** AL (via Claude)
+**Änderung:** Microsoft Graph API Berechtigungen für RMS/n8n-Integration dokumentiert
