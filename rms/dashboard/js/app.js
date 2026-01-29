@@ -525,7 +525,7 @@ function getFilters() {
     };
 }
 
-function applyFilters() {
+function applyFilters(resetPage = true) {
     let filtered = [...allReklamationen];
     const filters = getFilters();
 
@@ -572,8 +572,10 @@ function applyFilters() {
     // Sortierung anwenden
     filtered = sortData(filtered);
 
-    // Pagination anwenden - reset auf Seite 1 bei Filteraenderung
-    currentPage = 1;
+    // Pagination anwenden - reset auf Seite 1 nur bei Filteraenderung
+    if (resetPage !== false) {
+        currentPage = 1;
+    }
     const paginatedData = paginateData(filtered);
 
     updateTable(paginatedData);
@@ -648,7 +650,7 @@ function renderPaginationControls(totalItems) {
 function changePage(page) {
     if (page < 1 || page > totalPages) return;
     currentPage = page;
-    applyFilters(); // Neu rendern mit aktueller Seite
+    applyFilters(false); // Neu rendern ohne Seite zurueckzusetzen
 }
 
 function handleSort(field) {
@@ -1292,43 +1294,72 @@ async function saveTracking() {
     const rueckDatum = document.getElementById('tracking-ruecksendung-datum')?.value || null;
     const gutDatum = document.getElementById('tracking-gutschrift-datum')?.value || null;
 
-    // Tracking-Status ermitteln
-    let trackingStatus = 'Offen';
-    if (ersatz) trackingStatus = 'Ersatzlieferung angefordert';
-    else if (ruecksendung) trackingStatus = 'Ruecksendung';
-    else if (gutschrift) trackingStatus = 'Gutschrift angefordert';
-
-    const fields = {
-        Tracking_Status: trackingStatus,
-        Tracking_Ersatzlieferung: ersatz,
-        Tracking_Ruecksendung: ruecksendung,
-        Tracking_Gutschrift: gutschrift,
-        Tracking_Gutschrift_Betrag: betrag,
-        Tracking_Bemerkung: bemerkung,
-        Tracking_Ersatz_Datum: ersatz && ersatzDatum ? ersatzDatum : null,
-        Tracking_Rueck_Datum: ruecksendung && rueckDatum ? rueckDatum : null,
-        Tracking_Gut_Datum: gutschrift && gutDatum ? gutDatum : null
-    };
-
     try {
         showLoading(true);
+        let savedCount = 0;
+        let errorCount = 0;
 
-        const response = await fetch('/api/rms/update', {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id, fields })
-        });
+        // Hilfsfunktion: Einzelnes Feld speichern (ignoriert Fehler bei fehlenden Spalten)
+        async function saveField(fieldName, value) {
+            if (value === null || value === undefined || value === '') return true;
+            try {
+                const response = await fetch('/api/rms/update', {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id, fields: { [fieldName]: value } })
+                });
+                if (response.ok) {
+                    savedCount++;
+                    return true;
+                }
+                console.warn(`Feld ${fieldName} konnte nicht gespeichert werden (Spalte existiert evtl. nicht)`);
+                errorCount++;
+                return false;
+            } catch (e) {
+                console.warn(`Fehler bei ${fieldName}:`, e);
+                errorCount++;
+                return false;
+            }
+        }
 
-        const result = await response.json();
+        // Bekannte existierende Felder zuerst (Tracking_Ersatzlieferung existiert)
+        await saveField('Tracking_Ersatzlieferung', ersatz);
 
-        if (response.ok && (result.success || result.id || result['@odata.etag'])) {
-            alert('Tracking gespeichert!');
+        // Weitere Felder versuchen (werden uebersprungen wenn Spalte nicht existiert)
+        await saveField('Tracking_Ruecksendung', ruecksendung);
+        await saveField('Tracking_Gutschrift', gutschrift);
+        await saveField('Tracking_Gutschrift_Betrag', betrag);
+        await saveField('Tracking_Bemerkung', bemerkung);
+
+        // Datum-Felder nur wenn Checkbox aktiv
+        if (ersatz && ersatzDatum) {
+            await saveField('Tracking_Ersatz_Datum', ersatzDatum);
+        }
+        if (ruecksendung && rueckDatum) {
+            await saveField('Tracking_Rueck_Datum', rueckDatum);
+        }
+        if (gutschrift && gutDatum) {
+            await saveField('Tracking_Gut_Datum', gutDatum);
+        }
+
+        // Status-Feld
+        let trackingStatus = 'Offen';
+        if (ersatz) trackingStatus = 'Ersatzlieferung angefordert';
+        else if (ruecksendung) trackingStatus = 'Ruecksendung';
+        else if (gutschrift) trackingStatus = 'Gutschrift angefordert';
+        await saveField('Tracking_Status', trackingStatus);
+
+        if (savedCount > 0) {
+            const msg = errorCount > 0
+                ? `Tracking teilweise gespeichert (${savedCount} Felder). ${errorCount} Felder konnten nicht gespeichert werden (Spalten fehlen in SharePoint).`
+                : 'Tracking gespeichert!';
+            alert(msg);
             // Detail-View aktualisieren
             await showDetail(id);
             // Tabelle aktualisieren (fuer Icons)
             await loadData();
         } else {
-            alert('Fehler: ' + (result.error || result.message || 'Unbekannter Fehler'));
+            alert('Keine Aenderungen gespeichert.');
         }
     } catch (error) {
         console.error('Tracking speichern fehlgeschlagen:', error);
@@ -1339,6 +1370,10 @@ async function saveTracking() {
 }
 
 // Tracking-Icons fuer Tabelle generieren
+// Nur aktive Icons anzeigen mit farbiger Umrandung:
+// - Gruen: Datum in der Zukunft oder kein Datum (in Ordnung)
+// - Orange: Datum ist heute (Aktion noetig)
+// - Rot: Datum ueberschritten (ueberfaellig)
 function getTrackingIcons(rekla) {
     const typ = (rekla.Rekla_Typ || '').toLowerCase();
     if (!typ.includes('lieferant')) return '';
@@ -1346,29 +1381,47 @@ function getTrackingIcons(rekla) {
     const heute = new Date();
     heute.setHours(0, 0, 0, 0);
 
-    let icons = '<div class="tracking-icons">';
+    const icons = [];
 
-    // Ersatzlieferung
-    const ersatzActive = rekla.Tracking_Ersatzlieferung;
-    const ersatzDate = rekla.Tracking_Ersatz_Datum ? new Date(rekla.Tracking_Ersatz_Datum) : null;
-    const ersatzOverdue = ersatzActive && ersatzDate && ersatzDate < heute;
-    icons += `<span class="${ersatzActive ? 'active' : ''} ${ersatzOverdue ? 'overdue' : ''}" title="Ersatzlieferung${ersatzDate ? ': ' + formatDate(ersatzDate) : ''}">📦</span>`;
+    // Hilfsfunktion fuer Status-Klasse
+    function getStatusClass(datum) {
+        if (!datum) return 'status-ok'; // Kein Datum = gruen
+        const d = new Date(datum);
+        d.setHours(0, 0, 0, 0);
+        if (d.getTime() < heute.getTime()) return 'status-overdue'; // Rot
+        if (d.getTime() === heute.getTime()) return 'status-due'; // Orange
+        return 'status-ok'; // Gruen
+    }
 
-    // Ruecksendung
-    const rueckActive = rekla.Tracking_Ruecksendung;
-    const rueckDate = rekla.Tracking_Rueck_Datum ? new Date(rekla.Tracking_Rueck_Datum) : null;
-    const rueckOverdue = rueckActive && rueckDate && rueckDate < heute;
-    icons += `<span class="${rueckActive ? 'active' : ''} ${rueckOverdue ? 'overdue' : ''}" title="Ruecksendung${rueckDate ? ': ' + formatDate(rueckDate) : ''}">↩️</span>`;
+    // Ersatzlieferung - nur wenn aktiv
+    if (rekla.Tracking_Ersatzlieferung) {
+        const ersatzDate = rekla.Tracking_Ersatz_Datum;
+        const statusClass = getStatusClass(ersatzDate);
+        const tooltip = 'Ersatzlieferung' + (ersatzDate ? ': ' + formatDate(new Date(ersatzDate)) : '');
+        icons.push(`<span class="tracking-icon ${statusClass}" title="${tooltip}">📦</span>`);
+    }
 
-    // Gutschrift
-    const gutActive = rekla.Tracking_Gutschrift;
-    const gutDate = rekla.Tracking_Gut_Datum ? new Date(rekla.Tracking_Gut_Datum) : null;
-    const gutOverdue = gutActive && gutDate && gutDate < heute;
-    const gutBetrag = rekla.Tracking_Gutschrift_Betrag;
-    icons += `<span class="${gutActive ? 'active' : ''} ${gutOverdue ? 'overdue' : ''}" title="Gutschrift${gutBetrag ? ': ' + gutBetrag + ' EUR' : ''}${gutDate ? ' bis ' + formatDate(gutDate) : ''}">💰</span>`;
+    // Ruecksendung - nur wenn aktiv
+    if (rekla.Tracking_Ruecksendung) {
+        const rueckDate = rekla.Tracking_Rueck_Datum;
+        const statusClass = getStatusClass(rueckDate);
+        const tooltip = 'Ruecksendung' + (rueckDate ? ': ' + formatDate(new Date(rueckDate)) : '');
+        icons.push(`<span class="tracking-icon ${statusClass}" title="${tooltip}">↩️</span>`);
+    }
 
-    icons += '</div>';
-    return icons;
+    // Gutschrift - nur wenn aktiv
+    if (rekla.Tracking_Gutschrift) {
+        const gutDate = rekla.Tracking_Gut_Datum;
+        const gutBetrag = rekla.Tracking_Gutschrift_Betrag;
+        const statusClass = getStatusClass(gutDate);
+        let tooltip = 'Gutschrift';
+        if (gutBetrag) tooltip += ': ' + gutBetrag + ' EUR';
+        if (gutDate) tooltip += ' bis ' + formatDate(new Date(gutDate));
+        icons.push(`<span class="tracking-icon ${statusClass}" title="${tooltip}">💰</span>`);
+    }
+
+    if (icons.length === 0) return '';
+    return '<div class="tracking-icons">' + icons.join('') + '</div>';
 }
 
 // ============================================

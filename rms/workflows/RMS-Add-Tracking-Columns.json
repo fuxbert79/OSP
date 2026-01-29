@@ -1,0 +1,274 @@
+{
+  "name": "RMS-Add-Tracking-Columns",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "add-tracking-columns",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "add-tracking-columns"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/e9b1d926-085a-4435-a012-114ca9ba59a8/columns",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"name\": \"Tracking_Ruecksendung\",\n  \"displayName\": \"Tracking Ruecksendung\",\n  \"boolean\": {}\n}",
+        "options": {}
+      },
+      "id": "add-rueck-bool",
+      "name": "Add Ruecksendung Bool",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [500, 100],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/e9b1d926-085a-4435-a012-114ca9ba59a8/columns",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"name\": \"Tracking_Gutschrift\",\n  \"displayName\": \"Tracking Gutschrift\",\n  \"boolean\": {}\n}",
+        "options": {}
+      },
+      "id": "add-gut-bool",
+      "name": "Add Gutschrift Bool",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [500, 200],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/e9b1d926-085a-4435-a012-114ca9ba59a8/columns",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"name\": \"Tracking_Gutschrift_Betrag\",\n  \"displayName\": \"Tracking Gutschrift Betrag\",\n  \"number\": {}\n}",
+        "options": {}
+      },
+      "id": "add-gut-betrag",
+      "name": "Add Gutschrift Betrag",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [500, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/e9b1d926-085a-4435-a012-114ca9ba59a8/columns",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"name\": \"Tracking_Bemerkung\",\n  \"displayName\": \"Tracking Bemerkung\",\n  \"text\": {\n    \"allowMultipleLines\": true,\n    \"maxLength\": 5000\n  }\n}",
+        "options": {}
+      },
+      "id": "add-bemerkung",
+      "name": "Add Bemerkung",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [500, 400],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/e9b1d926-085a-4435-a012-114ca9ba59a8/columns",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"name\": \"Tracking_Status\",\n  \"displayName\": \"Tracking Status\",\n  \"text\": {\n    \"maxLength\": 255\n  }\n}",
+        "options": {}
+      },
+      "id": "add-status",
+      "name": "Add Status",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [500, 500],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/e9b1d926-085a-4435-a012-114ca9ba59a8/columns",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"name\": \"Tracking_Ersatz_Datum\",\n  \"displayName\": \"Tracking Ersatz Datum\",\n  \"dateTime\": {\n    \"displayAs\": \"default\",\n    \"format\": \"dateOnly\"\n  }\n}",
+        "options": {}
+      },
+      "id": "add-ersatz-datum",
+      "name": "Add Ersatz Datum",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [750, 200],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/e9b1d926-085a-4435-a012-114ca9ba59a8/columns",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"name\": \"Tracking_Rueck_Datum\",\n  \"displayName\": \"Tracking Rueck Datum\",\n  \"dateTime\": {\n    \"displayAs\": \"default\",\n    \"format\": \"dateOnly\"\n  }\n}",
+        "options": {}
+      },
+      "id": "add-rueck-datum",
+      "name": "Add Rueck Datum",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [750, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/e9b1d926-085a-4435-a012-114ca9ba59a8/columns",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"name\": \"Tracking_Gut_Datum\",\n  \"displayName\": \"Tracking Gut Datum\",\n  \"dateTime\": {\n    \"displayAs\": \"default\",\n    \"format\": \"dateOnly\"\n  }\n}",
+        "options": {}
+      },
+      "id": "add-gut-datum",
+      "name": "Add Gut Datum",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [750, 400],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "return {\n  success: true,\n  message: 'Tracking-Spalten erstellt',\n  columns: [\n    'Tracking_Ruecksendung',\n    'Tracking_Gutschrift',\n    'Tracking_Gutschrift_Betrag',\n    'Tracking_Bemerkung',\n    'Tracking_Status',\n    'Tracking_Ersatz_Datum',\n    'Tracking_Rueck_Datum',\n    'Tracking_Gut_Datum'\n  ]\n};"
+      },
+      "id": "response",
+      "name": "Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1000, 300]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "respond",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1250, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {"node": "Add Ruecksendung Bool", "type": "main", "index": 0},
+          {"node": "Add Gutschrift Bool", "type": "main", "index": 0},
+          {"node": "Add Gutschrift Betrag", "type": "main", "index": 0},
+          {"node": "Add Bemerkung", "type": "main", "index": 0},
+          {"node": "Add Status", "type": "main", "index": 0}
+        ]
+      ]
+    },
+    "Add Ruecksendung Bool": {
+      "main": [[{"node": "Add Ersatz Datum", "type": "main", "index": 0}]]
+    },
+    "Add Gutschrift Bool": {
+      "main": [[{"node": "Add Rueck Datum", "type": "main", "index": 0}]]
+    },
+    "Add Gutschrift Betrag": {
+      "main": [[{"node": "Add Gut Datum", "type": "main", "index": 0}]]
+    },
+    "Add Bemerkung": {
+      "main": [[{"node": "Response", "type": "main", "index": 0}]]
+    },
+    "Add Status": {
+      "main": [[{"node": "Response", "type": "main", "index": 0}]]
+    },
+    "Add Ersatz Datum": {
+      "main": [[{"node": "Response", "type": "main", "index": 0}]]
+    },
+    "Add Rueck Datum": {
+      "main": [[{"node": "Response", "type": "main", "index": 0}]]
+    },
+    "Add Gut Datum": {
+      "main": [[{"node": "Response", "type": "main", "index": 0}]]
+    },
+    "Response": {
+      "main": [[{"node": "Respond to Webhook", "type": "main", "index": 0}]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

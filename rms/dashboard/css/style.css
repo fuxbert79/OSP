@@ -1332,26 +1332,50 @@ footer {
 /* Tracking Icons in Tabelle */
 .tracking-icons {
     display: flex;
-    gap: 3px;
+    gap: 4px;
     font-size: 0.9rem;
 }
 
-.tracking-icons span {
-    opacity: 0.3;
+.tracking-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
     cursor: help;
+    border: 2px solid;
+    background: white;
 }
 
-.tracking-icons span.active {
-    opacity: 1;
+/* Gruen - in Ordnung (Datum in Zukunft oder kein Datum) */
+.tracking-icon.status-ok {
+    border-color: #28a745;
+    background: rgba(40, 167, 69, 0.1);
 }
 
-.tracking-icons span.overdue {
-    animation: pulse 1s infinite;
+/* Orange - heute faellig */
+.tracking-icon.status-due {
+    border-color: #fd7e14;
+    background: rgba(253, 126, 20, 0.1);
+    animation: pulse-orange 1.5s infinite;
 }
 
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+/* Rot - ueberfaellig */
+.tracking-icon.status-overdue {
+    border-color: #dc3545;
+    background: rgba(220, 53, 69, 0.15);
+    animation: pulse-red 1s infinite;
+}
+
+@keyframes pulse-orange {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(253, 126, 20, 0.4); }
+    50% { box-shadow: 0 0 0 4px rgba(253, 126, 20, 0); }
+}
+
+@keyframes pulse-red {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.5); }
+    50% { box-shadow: 0 0 0 5px rgba(220, 53, 69, 0); }
 }
 
 /* Responsive Tracking */
