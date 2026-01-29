@@ -144,6 +144,8 @@ async function loadStammdaten() {
 function setupStammdatenAutocomplete(inputId, datalistId, typ = null) {
     const input = document.getElementById(inputId);
     const datalist = document.getElementById(datalistId);
+    const nrInput = document.getElementById(inputId + '-nr');
+    const nrDatalist = document.getElementById('debkred-datalist');
 
     if (!input || !datalist) return;
 
@@ -155,42 +157,55 @@ function setupStammdatenAutocomplete(inputId, datalistId, typ = null) {
         stammdaten = stammdatenCache.lieferanten;
     }
 
-    // Datalist befuellen - sowohl Name als auch DebKredNr als Suchoptionen
-    // Jeder Eintrag kann über Name ODER DebKredNr gefunden werden
-    let options = [];
+    // Datalist fuer Namen befuellen
+    let nameOptions = [];
+    let nrOptions = [];
     stammdaten.forEach(s => {
-        // Option mit Name als Wert
-        options.push(`<option value="${escapeHtml(s.name)}" data-id="${s.id}" data-debkred="${s.debKredNr}">${s.debKredNr || ''} - ${escapeHtml(s.name)}</option>`);
-        // Option mit DebKredNr als Wert (falls vorhanden)
+        // Option mit Name als Wert (zeigt DebKredNr als Hinweis)
+        nameOptions.push(`<option value="${escapeHtml(s.name)}">${s.debKredNr || ''} - ${escapeHtml(s.name)}</option>`);
+        // Option mit DebKredNr als Wert
         if (s.debKredNr) {
-            options.push(`<option value="${s.debKredNr}" data-id="${s.id}" data-name="${escapeHtml(s.name)}">${s.debKredNr} - ${escapeHtml(s.name)}</option>`);
+            nrOptions.push(`<option value="${s.debKredNr}">${escapeHtml(s.name)}</option>`);
         }
     });
-    datalist.innerHTML = options.join('');
+    datalist.innerHTML = nameOptions.join('');
+    if (nrDatalist) {
+        nrDatalist.innerHTML = nrOptions.join('');
+    }
 
-    // Bei Auswahl zusaetzliche Daten setzen
-    input.addEventListener('change', (e) => {
-        const value = e.target.value;
-        // Suche nach Name ODER DebKredNr
-        const selected = stammdaten.find(s => s.name === value || s.debKredNr === value);
-        if (selected) {
-            // Wenn DebKredNr eingegeben wurde, setze den Namen ins Feld
-            if (selected.debKredNr === value) {
+    // Event-Listener fuer Absender-Name (nur einmal hinzufuegen)
+    if (!input.dataset.listenerAdded) {
+        input.addEventListener('change', (e) => {
+            const value = e.target.value;
+            const currentTyp = document.getElementById('edit-typ')?.value || typ;
+            const currentStammdaten = getStammdatenByTyp(currentTyp);
+            const selected = currentStammdaten.find(s => s.name === value);
+            if (selected) {
+                const hiddenId = document.getElementById(inputId + '-id');
+                const nrField = document.getElementById(inputId + '-nr');
+                if (hiddenId) hiddenId.value = selected.id;
+                if (nrField) nrField.value = selected.debKredNr || '';
+            }
+        });
+        input.dataset.listenerAdded = 'true';
+    }
+
+    // Event-Listener fuer DebKredNr (nur einmal hinzufuegen)
+    if (nrInput && !nrInput.dataset.listenerAdded) {
+        nrInput.addEventListener('change', (e) => {
+            const value = e.target.value;
+            const currentTyp = document.getElementById('edit-typ')?.value || typ;
+            const currentStammdaten = getStammdatenByTyp(currentTyp);
+            const selected = currentStammdaten.find(s => s.debKredNr === value);
+            if (selected) {
+                // Name automatisch setzen
                 input.value = selected.name;
+                const hiddenId = document.getElementById(inputId + '-id');
+                if (hiddenId) hiddenId.value = selected.id;
             }
-            // Felder mit ID/DebKredNr fuellen
-            const hiddenId = document.getElementById(inputId + '-id');
-            const nrField = document.getElementById(inputId + '-nr');
-            if (hiddenId) hiddenId.value = selected.id;
-            if (nrField) nrField.value = selected.debKredNr || '';
-
-            // Optional: Adressdaten in separate Felder
-            const adresseField = document.getElementById(inputId + '-adresse');
-            if (adresseField && selected.adresse) {
-                adresseField.value = `${selected.adresse}, ${selected.plz} ${selected.ort}`;
-            }
-        }
-    });
+        });
+        nrInput.dataset.listenerAdded = 'true';
+    }
 }
 
 function getStammdatenByTyp(typ) {
@@ -247,7 +262,14 @@ async function fetchReklamationen() {
                     Absender: f.Absender || '',
                     DebKredNr: f.DebKredNr || '',
                     hasNZA: f.hasNZA || false,
-                    Modified: item.lastModifiedDateTime || f.Modified || ''
+                    Modified: item.lastModifiedDateTime || f.Modified || '',
+                    // Tracking-Felder
+                    Tracking_Status: f.Tracking_Status || 'Offen',
+                    Tracking_Ersatzlieferung: f.Tracking_Ersatzlieferung || false,
+                    Tracking_Ruecksendung: f.Tracking_Ruecksendung || false,
+                    Tracking_Gutschrift: f.Tracking_Gutschrift || false,
+                    Tracking_Gutschrift_Betrag: f.Tracking_Gutschrift_Betrag || null,
+                    Tracking_Bemerkung: f.Tracking_Bemerkung || ''
                 };
             });
         } else if (Array.isArray(data)) {
@@ -267,7 +289,18 @@ async function fetchReklamationDetail(id) {
         // Versuche Detail-API (mit Massnahmen und Schriftverkehr)
         const response = await fetch(`${API_BASE}/detail?id=${id}`);
         if (response.ok) {
-            return await response.json();
+            const data = await response.json();
+            // Tracking-Felder aus Cache ergaenzen falls nicht von API geliefert
+            const cachedRekla = allReklamationen.find(r => r.id === id);
+            if (cachedRekla && data.reklamation) {
+                data.reklamation.Tracking_Status = data.reklamation.Tracking_Status || cachedRekla.Tracking_Status || 'Offen';
+                data.reklamation.Tracking_Ersatzlieferung = data.reklamation.Tracking_Ersatzlieferung ?? cachedRekla.Tracking_Ersatzlieferung ?? false;
+                data.reklamation.Tracking_Ruecksendung = data.reklamation.Tracking_Ruecksendung ?? cachedRekla.Tracking_Ruecksendung ?? false;
+                data.reklamation.Tracking_Gutschrift = data.reklamation.Tracking_Gutschrift ?? cachedRekla.Tracking_Gutschrift ?? false;
+                data.reklamation.Tracking_Gutschrift_Betrag = data.reklamation.Tracking_Gutschrift_Betrag || cachedRekla.Tracking_Gutschrift_Betrag || null;
+                data.reklamation.Tracking_Bemerkung = data.reklamation.Tracking_Bemerkung || cachedRekla.Tracking_Bemerkung || '';
+            }
+            return data;
         }
 
         // Fallback: Basis-Daten aus Cache + Mock fuer Massnahmen
