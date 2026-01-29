@@ -24,9 +24,17 @@
                 <p class="header-subtitle">QM-Tool zur Bearbeitung und Visualisierung von externen Reklamationen</p>
                 <p class="header-company">Rainer Schneider Kabelsatzbau GmbH & Co. KG</p>
             </div>
-            <button id="btn-neue-rekla" class="btn-header" onclick="showNeueReklamationModal()">
-                + Neue Reklamation
-            </button>
+            <div class="header-actions">
+                <select id="filter-jahr" class="filter-jahr" onchange="applyFilters()">
+                    <option value="2026" selected>2026</option>
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="">Alle Jahre</option>
+                </select>
+                <button id="btn-neue-rekla" class="btn-header" onclick="showNeueReklamationModal()">
+                    + Neue Reklamation
+                </button>
+            </div>
         </div>
     </header>
 
@@ -84,6 +92,7 @@
                         <th data-sort="Rekla_Status" class="sortable">Status <span class="sort-icon"></span></th>
                         <th data-sort="Prioritaet" class="sortable">Prioritaet <span class="sort-icon"></span></th>
                         <th>NZA</th>
+                        <th title="Tracking: Ersatz/Ruecksendung/Gutschrift">Track</th>
                         <th data-sort="Erfassungsdatum" class="sortable sort-desc">Erstellt <span class="sort-icon"></span></th>
                     </tr>
                 </thead>
@@ -256,29 +265,44 @@
 
             <!-- Tracking-Sektion (nur fuer Lieferanten-Reklas) -->
             <div id="tracking-section" class="detail-section" style="display: none;">
-                <h3>Tracking</h3>
-                <div class="tracking-options">
-                    <label class="checkbox-inline">
-                        <input type="checkbox" id="tracking-ersatz" onchange="updateTrackingVisibility()">
-                        Ersatzlieferung angefordert
-                    </label>
-                    <label class="checkbox-inline">
-                        <input type="checkbox" id="tracking-ruecksendung" onchange="updateTrackingVisibility()">
-                        Ruecksendung
-                    </label>
-                    <label class="checkbox-inline">
-                        <input type="checkbox" id="tracking-gutschrift" onchange="updateTrackingVisibility()">
-                        Gutschrift
-                    </label>
-                </div>
-                <div id="gutschrift-betrag-container" style="display: none; margin-top: 15px;">
-                    <div class="form-group" style="max-width: 200px;">
-                        <label for="tracking-gutschrift-betrag">Gutschrift-Betrag (EUR)</label>
-                        <input type="number" id="tracking-gutschrift-betrag" class="form-control" step="0.01" placeholder="0.00">
+                <h3>Tracking Lieferantenreklamation</h3>
+                <div class="tracking-grid">
+                    <!-- Ersatzlieferung -->
+                    <div class="tracking-item">
+                        <label class="tracking-checkbox">
+                            <input type="checkbox" id="tracking-ersatz" onchange="updateTrackingVisibility()">
+                            <span class="tracking-icon">📦</span> Ersatzlieferung
+                        </label>
+                        <div class="tracking-date-row" id="ersatz-date-container" style="display: none;">
+                            <input type="date" id="tracking-ersatz-datum" class="form-control form-control-sm">
+                            <span class="date-hint">Erinnerung</span>
+                        </div>
+                    </div>
+                    <!-- Ruecksendung -->
+                    <div class="tracking-item">
+                        <label class="tracking-checkbox">
+                            <input type="checkbox" id="tracking-ruecksendung" onchange="updateTrackingVisibility()">
+                            <span class="tracking-icon">↩️</span> Ruecksendung
+                        </label>
+                        <div class="tracking-date-row" id="ruecksendung-date-container" style="display: none;">
+                            <input type="date" id="tracking-ruecksendung-datum" class="form-control form-control-sm">
+                            <span class="date-hint">Erinnerung</span>
+                        </div>
+                    </div>
+                    <!-- Gutschrift -->
+                    <div class="tracking-item">
+                        <label class="tracking-checkbox">
+                            <input type="checkbox" id="tracking-gutschrift" onchange="updateTrackingVisibility()">
+                            <span class="tracking-icon">💰</span> Gutschrift
+                        </label>
+                        <div class="tracking-date-row" id="gutschrift-date-container" style="display: none;">
+                            <input type="date" id="tracking-gutschrift-datum" class="form-control form-control-sm">
+                            <input type="number" id="tracking-gutschrift-betrag" class="form-control form-control-sm" step="0.01" placeholder="Betrag EUR" style="width: 120px;">
+                        </div>
                     </div>
                 </div>
                 <div class="form-group" style="margin-top: 15px;">
-                    <label for="tracking-bemerkung">Tracking-Bemerkung</label>
+                    <label for="tracking-bemerkung">Bemerkung</label>
                     <textarea id="tracking-bemerkung" class="form-control" rows="2" placeholder="Optionale Bemerkung..."></textarea>
                 </div>
                 <button class="btn btn-sm btn-primary" onclick="saveTracking()" style="margin-top: 10px;">Tracking speichern</button>

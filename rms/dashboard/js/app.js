@@ -122,8 +122,8 @@ async function loadStammdaten() {
     try {
         const response = await fetch('/api/rms/stammdaten');
         if (!response.ok) {
-            console.warn('Stammdaten API nicht verfuegbar');
-            return [];
+            console.warn('Stammdaten API nicht verfuegbar, verwende Fallback aus Reklamationen');
+            return extractStammdatenFromReklamationen();
         }
         const data = await response.json();
         const stammdaten = data.stammdaten || [];
@@ -136,9 +136,39 @@ async function loadStammdaten() {
         console.log(`Stammdaten geladen: ${stammdaten.length} (${stammdatenCache.kunden.length} Kunden, ${stammdatenCache.lieferanten.length} Lieferanten)`);
         return stammdaten;
     } catch (error) {
-        console.error('Stammdaten laden fehlgeschlagen:', error);
-        return [];
+        console.error('Stammdaten laden fehlgeschlagen, verwende Fallback:', error);
+        return extractStammdatenFromReklamationen();
     }
+}
+
+// Fallback: Extrahiere eindeutige Absender aus vorhandenen Reklamationen
+function extractStammdatenFromReklamationen() {
+    const uniqueMap = new Map();
+
+    allReklamationen.forEach(rekla => {
+        const absender = rekla.Absender || '';
+        const debKredNr = rekla.DebKredNr || '';
+        const reklaTyp = (rekla.Rekla_Typ || '').toLowerCase();
+        const typ = reklaTyp.includes('lieferant') ? 'Lieferant' : 'Kunde';
+
+        if (absender && !uniqueMap.has(absender)) {
+            uniqueMap.set(absender, {
+                name: absender,
+                debKredNr: debKredNr,
+                typ: typ
+            });
+        }
+    });
+
+    const stammdaten = Array.from(uniqueMap.values());
+
+    // Cache aufteilen
+    stammdatenCache.alle = stammdaten;
+    stammdatenCache.kunden = stammdaten.filter(s => s.typ === 'Kunde');
+    stammdatenCache.lieferanten = stammdaten.filter(s => s.typ === 'Lieferant');
+
+    console.log(`Stammdaten aus Reklamationen extrahiert: ${stammdaten.length} (${stammdatenCache.kunden.length} Kunden, ${stammdatenCache.lieferanten.length} Lieferanten)`);
+    return stammdaten;
 }
 
 function setupStammdatenAutocomplete(inputId, datalistId, typ = null) {
@@ -150,10 +180,11 @@ function setupStammdatenAutocomplete(inputId, datalistId, typ = null) {
     if (!input || !datalist) return;
 
     // Stammdaten basierend auf Typ waehlen
+    const normalizedTyp = (typ || '').toLowerCase();
     let stammdaten = stammdatenCache.alle;
-    if (typ === 'Kunde' || typ === 'KUNDE') {
+    if (normalizedTyp.includes('kunde')) {
         stammdaten = stammdatenCache.kunden;
-    } else if (typ === 'Lieferant' || typ === 'LIEFERANT') {
+    } else if (normalizedTyp.includes('lieferant')) {
         stammdaten = stammdatenCache.lieferanten;
     }
 
@@ -209,9 +240,10 @@ function setupStammdatenAutocomplete(inputId, datalistId, typ = null) {
 }
 
 function getStammdatenByTyp(typ) {
-    if (typ === 'Kunde' || typ === 'KUNDE') {
+    const normalizedTyp = (typ || '').toLowerCase();
+    if (normalizedTyp.includes('kunde')) {
         return stammdatenCache.kunden;
-    } else if (typ === 'Lieferant' || typ === 'LIEFERANT') {
+    } else if (normalizedTyp.includes('lieferant')) {
         return stammdatenCache.lieferanten;
     }
     return stammdatenCache.alle;
@@ -269,7 +301,11 @@ async function fetchReklamationen() {
                     Tracking_Ruecksendung: f.Tracking_Ruecksendung || false,
                     Tracking_Gutschrift: f.Tracking_Gutschrift || false,
                     Tracking_Gutschrift_Betrag: f.Tracking_Gutschrift_Betrag || null,
-                    Tracking_Bemerkung: f.Tracking_Bemerkung || ''
+                    Tracking_Bemerkung: f.Tracking_Bemerkung || '',
+                    // Tracking-Daten (Erinnerungen)
+                    Tracking_Ersatz_Datum: f.Tracking_Ersatz_Datum || null,
+                    Tracking_Rueck_Datum: f.Tracking_Rueck_Datum || null,
+                    Tracking_Gut_Datum: f.Tracking_Gut_Datum || null
                 };
             });
         } else if (Array.isArray(data)) {
@@ -354,11 +390,12 @@ async function createMassnahme(data) {
 
 function getMockReklamationen() {
     return [
-        { id: '1', QA_ID: 'QA-26001', Rekla_Typ: 'KUNDE', Title: 'Falsche Steckerlaenge geliefert', Rekla_Status: 'Neu', Prioritaet: 'hoch', KST: 'F1', Erfassungsdatum: '2026-01-26', Beschreibung: 'Kunde meldet, dass die gelieferten Kabelsaetze 15cm kuerzer sind als spezifiziert.' },
-        { id: '2', QA_ID: 'QA-26002', Rekla_Typ: 'LIEFERANT', Title: 'Materialqualitaet mangelhaft', Rekla_Status: 'In Bearbeitung', Prioritaet: 'kritisch', KST: 'EK', Erfassungsdatum: '2026-01-25', Beschreibung: 'Isoliermaterial weist Risse auf.' },
+        { id: '1', QA_ID: 'QA-26001', Rekla_Typ: 'KUNDE', Title: 'Falsche Steckerlaenge geliefert', Rekla_Status: 'Neu', Prioritaet: 'hoch', KST: 'F1', Erfassungsdatum: '2026-01-26', Absender: 'BMW AG', DebKredNr: '10001', Beschreibung: 'Kunde meldet, dass die gelieferten Kabelsaetze 15cm kuerzer sind als spezifiziert.' },
+        { id: '2', QA_ID: 'QA-26002', Rekla_Typ: 'LIEFERANT', Title: 'Materialqualitaet mangelhaft', Rekla_Status: 'In Bearbeitung', Prioritaet: 'kritisch', KST: 'EK', Erfassungsdatum: '2026-01-25', Absender: 'Leoni AG', DebKredNr: '70001', Beschreibung: 'Isoliermaterial weist Risse auf.', Tracking_Status: 'Offen', Tracking_Ersatzlieferung: false, Tracking_Ruecksendung: false, Tracking_Gutschrift: false },
         { id: '3', QA_ID: 'QA-26003', Rekla_Typ: 'INTERN', Title: 'Crimphoehe ausserhalb Toleranz', Rekla_Status: 'Massnahmen', Prioritaet: 'mittel', KST: 'F2', Erfassungsdatum: '2026-01-24', Beschreibung: 'Crimphoehe bei Kontakt 123456 ausserhalb der Spezifikation.' },
-        { id: '4', QA_ID: 'QA-26004', Rekla_Typ: 'KUNDE', Title: 'Beschaedigung beim Transport', Rekla_Status: 'Abgeschlossen', Prioritaet: 'niedrig', KST: 'VT', Erfassungsdatum: '2026-01-20', Beschreibung: 'Verpackung beschaedigt, Ware unbeschaedigt.' },
-        { id: '5', QA_ID: 'QA-26005', Rekla_Typ: 'INTERN', Title: 'Pruefprotokoll fehlerhaft', Rekla_Status: 'Neu', Prioritaet: 'hoch', KST: 'QM', Erfassungsdatum: '2026-01-27', Beschreibung: 'Pruefprotokoll nicht vollstaendig ausgefuellt.' }
+        { id: '4', QA_ID: 'QA-26004', Rekla_Typ: 'KUNDE', Title: 'Beschaedigung beim Transport', Rekla_Status: 'Abgeschlossen', Prioritaet: 'niedrig', KST: 'VT', Erfassungsdatum: '2026-01-20', Absender: 'Audi AG', DebKredNr: '10002', Beschreibung: 'Verpackung beschaedigt, Ware unbeschaedigt.' },
+        { id: '5', QA_ID: 'QA-26005', Rekla_Typ: 'INTERN', Title: 'Pruefprotokoll fehlerhaft', Rekla_Status: 'Neu', Prioritaet: 'hoch', KST: 'QM', Erfassungsdatum: '2026-01-27', Beschreibung: 'Pruefprotokoll nicht vollstaendig ausgefuellt.' },
+        { id: '6', QA_ID: 'QA-26006', Rekla_Typ: 'LIEFERANT', Title: 'Falsche Teilenummer geliefert', Rekla_Status: 'Neu', Prioritaet: 'hoch', KST: 'EK', Erfassungsdatum: '2026-01-28', Absender: 'TE Connectivity', DebKredNr: '70002', Beschreibung: 'Gelieferte Kontakte haben falsche Teilenummer.', Tracking_Status: 'Offen' }
     ];
 }
 
@@ -436,7 +473,7 @@ function updateTable(reklamationen) {
     const tbody = document.querySelector('#reklamationen-table tbody');
 
     if (!reklamationen || reklamationen.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" class="no-data">Keine Reklamationen gefunden</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="9" class="no-data">Keine Reklamationen gefunden</td></tr>';
         return;
     }
 
@@ -449,6 +486,7 @@ function updateTable(reklamationen) {
             <td><span class="status status-${(r.Rekla_Status || '').replace(/\s/g, '-').replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue')}">${escapeHtml(r.Rekla_Status || '--')}</span></td>
             <td><span class="priority priority-${(r.Prioritaet || '').toLowerCase()}">${escapeHtml(r.Prioritaet || '--')}</span></td>
             <td>${r.hasNZA ? '<span class="badge badge-nza" title="NZA-Formular vorhanden">NZA</span>' : ''}</td>
+            <td>${getTrackingIcons(r)}</td>
             <td>${formatDate(r.Erfassungsdatum)}</td>
         </tr>
     `).join('');
@@ -491,6 +529,17 @@ function applyFilters() {
     let filtered = [...allReklamationen];
     const filters = getFilters();
 
+    // Jahres-Filter (neu)
+    const jahrFilter = document.getElementById('filter-jahr')?.value;
+    if (jahrFilter) {
+        filtered = filtered.filter(r => {
+            const erfassung = r.Erfassungsdatum || r.Created || '';
+            if (!erfassung) return false;
+            const jahr = new Date(erfassung).getFullYear();
+            return jahr === parseInt(jahrFilter);
+        });
+    }
+
     // Typ-Filter
     if (filters.typ) {
         filtered = filtered.filter(r =>
@@ -514,14 +563,17 @@ function applyFilters() {
             (r.Beschreibung || '').toLowerCase().includes(search) ||
             (r.Rekla_Typ || '').toLowerCase().includes(search) ||
             (r.KST || '').toLowerCase().includes(search) ||
-            (r.Verantwortlich || '').toLowerCase().includes(search)
+            (r.Verantwortlich || '').toLowerCase().includes(search) ||
+            (r.Absender || '').toLowerCase().includes(search) ||
+            (r.DebKredNr || '').toLowerCase().includes(search)
         );
     }
 
     // Sortierung anwenden
     filtered = sortData(filtered);
 
-    // Pagination anwenden
+    // Pagination anwenden - reset auf Seite 1 bei Filteraenderung
+    currentPage = 1;
     const paginatedData = paginateData(filtered);
 
     updateTable(paginatedData);
@@ -1177,7 +1229,9 @@ function showTrackingSection(rekla) {
     if (!trackingSection) return;
 
     // Nur fuer Lieferanten-Reklamationen anzeigen
-    if (rekla.Rekla_Typ === 'Lieferant' || rekla.Rekla_Typ === 'LIEFERANT') {
+    const typ = (rekla.Rekla_Typ || '').toLowerCase();
+    const isLieferant = typ.includes('lieferant');
+    if (isLieferant) {
         trackingSection.style.display = 'block';
 
         // Tracking-Werte aus Reklamation laden
@@ -1187,7 +1241,16 @@ function showTrackingSection(rekla) {
         document.getElementById('tracking-gutschrift-betrag').value = rekla.Tracking_Gutschrift_Betrag || '';
         document.getElementById('tracking-bemerkung').value = rekla.Tracking_Bemerkung || '';
 
-        // Gutschrift-Betrag-Feld anzeigen wenn Gutschrift aktiviert
+        // Datumsfelder laden
+        const ersatzDatum = document.getElementById('tracking-ersatz-datum');
+        const rueckDatum = document.getElementById('tracking-ruecksendung-datum');
+        const gutDatum = document.getElementById('tracking-gutschrift-datum');
+
+        if (ersatzDatum) ersatzDatum.value = rekla.Tracking_Ersatz_Datum ? rekla.Tracking_Ersatz_Datum.split('T')[0] : '';
+        if (rueckDatum) rueckDatum.value = rekla.Tracking_Rueck_Datum ? rekla.Tracking_Rueck_Datum.split('T')[0] : '';
+        if (gutDatum) gutDatum.value = rekla.Tracking_Gut_Datum ? rekla.Tracking_Gut_Datum.split('T')[0] : '';
+
+        // Felder anzeigen/ausblenden
         updateTrackingVisibility();
     } else {
         trackingSection.style.display = 'none';
@@ -1195,11 +1258,20 @@ function showTrackingSection(rekla) {
 }
 
 function updateTrackingVisibility() {
-    const gutschriftChecked = document.getElementById('tracking-gutschrift')?.checked;
-    const betragContainer = document.getElementById('gutschrift-betrag-container');
-    if (betragContainer) {
-        betragContainer.style.display = gutschriftChecked ? 'block' : 'none';
-    }
+    // Ersatz
+    const ersatzChecked = document.getElementById('tracking-ersatz')?.checked;
+    const ersatzContainer = document.getElementById('ersatz-date-container');
+    if (ersatzContainer) ersatzContainer.style.display = ersatzChecked ? 'flex' : 'none';
+
+    // Ruecksendung
+    const rueckChecked = document.getElementById('tracking-ruecksendung')?.checked;
+    const rueckContainer = document.getElementById('ruecksendung-date-container');
+    if (rueckContainer) rueckContainer.style.display = rueckChecked ? 'flex' : 'none';
+
+    // Gutschrift
+    const gutChecked = document.getElementById('tracking-gutschrift')?.checked;
+    const gutContainer = document.getElementById('gutschrift-date-container');
+    if (gutContainer) gutContainer.style.display = gutChecked ? 'flex' : 'none';
 }
 
 async function saveTracking() {
@@ -1215,6 +1287,11 @@ async function saveTracking() {
     const betrag = parseFloat(document.getElementById('tracking-gutschrift-betrag')?.value) || null;
     const bemerkung = document.getElementById('tracking-bemerkung')?.value || '';
 
+    // Datumsfelder
+    const ersatzDatum = document.getElementById('tracking-ersatz-datum')?.value || null;
+    const rueckDatum = document.getElementById('tracking-ruecksendung-datum')?.value || null;
+    const gutDatum = document.getElementById('tracking-gutschrift-datum')?.value || null;
+
     // Tracking-Status ermitteln
     let trackingStatus = 'Offen';
     if (ersatz) trackingStatus = 'Ersatzlieferung angefordert';
@@ -1227,7 +1304,10 @@ async function saveTracking() {
         Tracking_Ruecksendung: ruecksendung,
         Tracking_Gutschrift: gutschrift,
         Tracking_Gutschrift_Betrag: betrag,
-        Tracking_Bemerkung: bemerkung
+        Tracking_Bemerkung: bemerkung,
+        Tracking_Ersatz_Datum: ersatz && ersatzDatum ? ersatzDatum : null,
+        Tracking_Rueck_Datum: ruecksendung && rueckDatum ? rueckDatum : null,
+        Tracking_Gut_Datum: gutschrift && gutDatum ? gutDatum : null
     };
 
     try {
@@ -1245,6 +1325,8 @@ async function saveTracking() {
             alert('Tracking gespeichert!');
             // Detail-View aktualisieren
             await showDetail(id);
+            // Tabelle aktualisieren (fuer Icons)
+            await loadData();
         } else {
             alert('Fehler: ' + (result.error || result.message || 'Unbekannter Fehler'));
         }
@@ -1254,6 +1336,39 @@ async function saveTracking() {
     } finally {
         showLoading(false);
     }
+}
+
+// Tracking-Icons fuer Tabelle generieren
+function getTrackingIcons(rekla) {
+    const typ = (rekla.Rekla_Typ || '').toLowerCase();
+    if (!typ.includes('lieferant')) return '';
+
+    const heute = new Date();
+    heute.setHours(0, 0, 0, 0);
+
+    let icons = '<div class="tracking-icons">';
+
+    // Ersatzlieferung
+    const ersatzActive = rekla.Tracking_Ersatzlieferung;
+    const ersatzDate = rekla.Tracking_Ersatz_Datum ? new Date(rekla.Tracking_Ersatz_Datum) : null;
+    const ersatzOverdue = ersatzActive && ersatzDate && ersatzDate < heute;
+    icons += `<span class="${ersatzActive ? 'active' : ''} ${ersatzOverdue ? 'overdue' : ''}" title="Ersatzlieferung${ersatzDate ? ': ' + formatDate(ersatzDate) : ''}">📦</span>`;
+
+    // Ruecksendung
+    const rueckActive = rekla.Tracking_Ruecksendung;
+    const rueckDate = rekla.Tracking_Rueck_Datum ? new Date(rekla.Tracking_Rueck_Datum) : null;
+    const rueckOverdue = rueckActive && rueckDate && rueckDate < heute;
+    icons += `<span class="${rueckActive ? 'active' : ''} ${rueckOverdue ? 'overdue' : ''}" title="Ruecksendung${rueckDate ? ': ' + formatDate(rueckDate) : ''}">↩️</span>`;
+
+    // Gutschrift
+    const gutActive = rekla.Tracking_Gutschrift;
+    const gutDate = rekla.Tracking_Gut_Datum ? new Date(rekla.Tracking_Gut_Datum) : null;
+    const gutOverdue = gutActive && gutDate && gutDate < heute;
+    const gutBetrag = rekla.Tracking_Gutschrift_Betrag;
+    icons += `<span class="${gutActive ? 'active' : ''} ${gutOverdue ? 'overdue' : ''}" title="Gutschrift${gutBetrag ? ': ' + gutBetrag + ' EUR' : ''}${gutDate ? ' bis ' + formatDate(gutDate) : ''}">💰</span>`;
+
+    icons += '</div>';
+    return icons;
 }
 
 // ============================================
@@ -1963,9 +2078,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     // M365-Benutzer laden BEVOR andere Initialisierung
     await loadM365Users();
 
-    // Stammdaten laden (Kunden/Lieferanten fuer Autocomplete)
-    await loadStammdaten();
-
     // Event-Listener fuer Filter
     document.getElementById('filter-typ')?.addEventListener('change', applyFilters);
     document.getElementById('filter-status')?.addEventListener('change', applyFilters);
@@ -2026,6 +2138,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     showLoading(true);
     try {
         await loadData();
+
+        // Stammdaten laden NACH Reklamationen (Fallback extrahiert aus Reklamationen)
+        await loadStammdaten();
 
         // Charts initialisieren
         if (typeof Chart !== 'undefined') {

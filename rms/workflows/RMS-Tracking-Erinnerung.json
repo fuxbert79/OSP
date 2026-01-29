@@ -1,0 +1,148 @@
+{
+  "name": "RMS-Tracking-Erinnerung",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 * * 1-5"
+            }
+          ]
+        }
+      },
+      "name": "Taeglich 8 Uhr (Mo-Fr)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300],
+      "id": "schedule-trigger"
+    },
+    {
+      "parameters": {
+        "url": "https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/e9b1d926-085a-4435-a012-114ca9ba59a8/items?$expand=fields&$top=500",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "options": {}
+      },
+      "name": "Get Reklamationen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [500, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      },
+      "id": "get-reklamationen"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const items = $input.all();\nconst reklamationen = items[0]?.json?.value || [];\nconst heute = new Date();\nheute.setHours(0, 0, 0, 0);\n\nconst erinnerungen = [];\n\nfor (const item of reklamationen) {\n  const f = item.fields || {};\n  const typ = (f.Rekla_Typ || '').toLowerCase();\n  \n  // Nur Lieferanten-Reklamationen\n  if (!typ.includes('lieferant')) continue;\n  \n  const qaId = f.QA_ID || item.id;\n  const title = f.Title || 'Ohne Titel';\n  const verantwortlich = f.Verantwortlich || '';\n  \n  // Ersatzlieferung pruefen\n  if (f.Tracking_Ersatzlieferung && f.Tracking_Ersatz_Datum) {\n    const datum = new Date(f.Tracking_Ersatz_Datum);\n    datum.setHours(0, 0, 0, 0);\n    if (datum <= heute) {\n      erinnerungen.push({\n        qaId,\n        title,\n        verantwortlich,\n        typ: 'Ersatzlieferung',\n        icon: '📦',\n        datum: f.Tracking_Ersatz_Datum,\n        ueberfaellig: datum < heute\n      });\n    }\n  }\n  \n  // Ruecksendung pruefen\n  if (f.Tracking_Ruecksendung && f.Tracking_Rueck_Datum) {\n    const datum = new Date(f.Tracking_Rueck_Datum);\n    datum.setHours(0, 0, 0, 0);\n    if (datum <= heute) {\n      erinnerungen.push({\n        qaId,\n        title,\n        verantwortlich,\n        typ: 'Ruecksendung',\n        icon: '↩️',\n        datum: f.Tracking_Rueck_Datum,\n        ueberfaellig: datum < heute\n      });\n    }\n  }\n  \n  // Gutschrift pruefen\n  if (f.Tracking_Gutschrift && f.Tracking_Gut_Datum) {\n    const datum = new Date(f.Tracking_Gut_Datum);\n    datum.setHours(0, 0, 0, 0);\n    if (datum <= heute) {\n      erinnerungen.push({\n        qaId,\n        title,\n        verantwortlich,\n        typ: 'Gutschrift',\n        icon: '💰',\n        betrag: f.Tracking_Gutschrift_Betrag,\n        datum: f.Tracking_Gut_Datum,\n        ueberfaellig: datum < heute\n      });\n    }\n  }\n}\n\nif (erinnerungen.length === 0) {\n  return [{ json: { noReminders: true } }];\n}\n\nreturn erinnerungen.map(e => ({ json: e }));"
+      },
+      "name": "Filter Faellige",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [750, 300],
+      "id": "filter-faellige"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "check-reminders",
+              "leftValue": "={{ $json.noReminders }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "name": "Hat Erinnerungen?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1000, 300],
+      "id": "if-reminders"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\n// Nach Verantwortlichen gruppieren\nconst grouped = {};\nfor (const item of items) {\n  const v = item.json.verantwortlich || 'Unbekannt';\n  if (!grouped[v]) grouped[v] = [];\n  grouped[v].push(item.json);\n}\n\n// Pro Verantwortlichen eine E-Mail\nconst result = [];\nfor (const [verantwortlich, erinnerungen] of Object.entries(grouped)) {\n  let body = `Guten Morgen,\\n\\nfolgende Tracking-Termine benoetigen Ihre Aufmerksamkeit:\\n\\n`;\n  \n  for (const e of erinnerungen) {\n    const status = e.ueberfaellig ? '⚠️ UEBERFAELLIG' : '📅 Heute faellig';\n    body += `${e.icon} ${e.typ} - ${e.qaId}: ${e.title}\\n`;\n    body += `   Termin: ${new Date(e.datum).toLocaleDateString('de-DE')} (${status})\\n`;\n    if (e.betrag) body += `   Betrag: ${e.betrag} EUR\\n`;\n    body += `\\n`;\n  }\n  \n  body += `\\nBitte pruefen Sie die Vorgaenge im RMS-Dashboard:\\nhttps://osp.schneider-kabelsatzbau.de/rms/\\n\\nMit freundlichen Gruessen\\nRMS Tracking-System`;\n  \n  result.push({\n    json: {\n      verantwortlich,\n      anzahl: erinnerungen.length,\n      subject: `RMS Tracking-Erinnerung: ${erinnerungen.length} Termin(e) faellig`,\n      body,\n      erinnerungen\n    }\n  });\n}\n\nreturn result;"
+      },
+      "name": "Gruppieren & E-Mail erstellen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1250, 200],
+      "id": "group-email"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.microsoft.com/v1.0/users/a.loehr@schneider-kabelsatzbau.de/sendMail",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"message\": {\n    \"subject\": \"{{ $json.subject }}\",\n    \"body\": {\n      \"contentType\": \"Text\",\n      \"content\": {{ JSON.stringify($json.body) }}\n    },\n    \"toRecipients\": [\n      {\n        \"emailAddress\": {\n          \"address\": \"a.loehr@schneider-kabelsatzbau.de\"\n        }\n      }\n    ]\n  },\n  \"saveToSentItems\": false\n}",
+        "options": {}
+      },
+      "name": "Send Email",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1500, 200],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      },
+      "id": "send-email",
+      "continueOnFail": true
+    },
+    {
+      "parameters": {},
+      "name": "Keine Erinnerungen",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [1250, 400],
+      "id": "no-reminders"
+    }
+  ],
+  "connections": {
+    "Taeglich 8 Uhr (Mo-Fr)": {
+      "main": [[{"node": "Get Reklamationen", "type": "main", "index": 0}]]
+    },
+    "Get Reklamationen": {
+      "main": [[{"node": "Filter Faellige", "type": "main", "index": 0}]]
+    },
+    "Filter Faellige": {
+      "main": [[{"node": "Hat Erinnerungen?", "type": "main", "index": 0}]]
+    },
+    "Hat Erinnerungen?": {
+      "main": [
+        [{"node": "Gruppieren & E-Mail erstellen", "type": "main", "index": 0}],
+        [{"node": "Keine Erinnerungen", "type": "main", "index": 0}]
+      ]
+    },
+    "Gruppieren & E-Mail erstellen": {
+      "main": [[{"node": "Send Email", "type": "main", "index": 0}]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner"
+  }
+}
