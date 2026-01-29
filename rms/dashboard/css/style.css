@@ -94,6 +94,19 @@ header p {
     font-size: 0.95rem;
 }
 
+.header-subtitle {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+    opacity: 1;
+}
+
+.header-company {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    margin-top: 0.25rem;
+}
+
 /* ============================================
    MAIN
    ============================================ */
@@ -399,6 +412,13 @@ tbody tr:hover {
 .badge-intern {
     background: #e8f5e9;
     color: #2e7d32;
+}
+
+.badge-nza {
+    background: #fff8e1;
+    color: #f57c00;
+    font-weight: 600;
+    font-size: 0.75rem;
 }
 
 /* ============================================

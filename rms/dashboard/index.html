@@ -18,8 +18,9 @@
     </div>
 
     <header>
-        <h1>RMS - Reklamationsmanagementsystem</h1>
-        <p>Rainer Schneider Kabelsatzbau GmbH & Co. KG</p>
+        <h1>RMS Dashboard</h1>
+        <p class="header-subtitle">QM-Tool zur Bearbeitung und Visualisierung von externen Reklamationen</p>
+        <p class="header-company">Rainer Schneider Kabelsatzbau GmbH & Co. KG</p>
     </header>
 
     <main>
@@ -50,9 +51,8 @@
             </div>
             <select id="filter-typ">
                 <option value="">Alle Typen</option>
-                <option value="INTERN">Intern (NZA)</option>
-                <option value="KUNDE">Kunde</option>
-                <option value="LIEFERANT">Lieferant</option>
+                <option value="KUNDE">Kundenreklamation</option>
+                <option value="LIEFERANT">Lieferantenreklamation</option>
             </select>
             <select id="filter-status">
                 <option value="">Alle Status</option>
@@ -61,17 +61,7 @@
                 <option value="Massnahmen">Massnahmen</option>
                 <option value="Abgeschlossen">Abgeschlossen</option>
             </select>
-            <select id="filter-kst">
-                <option value="">Alle Kostenstellen</option>
-                <option value="F1">F1 - Fertigung 1</option>
-                <option value="F2">F2 - Fertigung 2</option>
-                <option value="F3">F3 - Fertigung 3</option>
-                <option value="QM">QM - Qualitaetsmanagement</option>
-                <option value="EK">EK - Einkauf</option>
-                <option value="VT">VT - Vertrieb</option>
-            </select>
             <button id="btn-refresh" class="btn-icon" title="Daten aktualisieren">&#x21bb;</button>
-            <button id="btn-export" class="btn-secondary" title="CSV Export">CSV Export</button>
             <span id="filtered-count" class="count-badge"></span>
         </section>
 
@@ -82,15 +72,17 @@
                     <tr>
                         <th data-sort="QA_ID" class="sortable">QA-ID <span class="sort-icon"></span></th>
                         <th data-sort="Rekla_Typ" class="sortable">Typ <span class="sort-icon"></span></th>
+                        <th data-sort="DebKredNr" class="sortable">Deb./Kred. <span class="sort-icon"></span></th>
                         <th data-sort="Title" class="sortable">Titel <span class="sort-icon"></span></th>
                         <th data-sort="Rekla_Status" class="sortable">Status <span class="sort-icon"></span></th>
                         <th data-sort="Prioritaet" class="sortable">Prioritaet <span class="sort-icon"></span></th>
+                        <th>NZA</th>
                         <th data-sort="Erfassungsdatum" class="sortable sort-desc">Erstellt <span class="sort-icon"></span></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td colspan="6">Lade Daten...</td>
+                        <td colspan="8">Lade Daten...</td>
                     </tr>
                 </tbody>
             </table>
@@ -145,7 +137,6 @@
                             <div class="form-group">
                                 <label>Typ</label>
                                 <select id="edit-typ" class="form-control">
-                                    <option value="Intern">Intern</option>
                                     <option value="Kunde">Kunde</option>
                                     <option value="Lieferant">Lieferant</option>
                                 </select>
@@ -192,18 +183,25 @@
                                 <label>Verantwortlich</label>
                                 <select id="edit-verantwortlich" class="form-control">
                                     <option value="">-- Auswaehlen --</option>
-                                    <option value="AL">AL - Andreas Loehr</option>
-                                    <option value="CS">CS - Geschaeftsfuehrung</option>
-                                    <option value="CA">CA - Geschaeftsfuehrung</option>
-                                    <option value="SV">SV - Prokurist</option>
-                                    <option value="TS">TS - Einkauf</option>
-                                    <option value="SK">SK - Prueffeld</option>
-                                    <option value="MD">MD - Technik</option>
+                                    <!-- Wird dynamisch durch JavaScript/M365 API befuellt -->
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Zieldatum</label>
                                 <input type="date" id="edit-zieldatum" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group" style="flex:2;">
+                                <label>Absender (Kunde/Lieferant)</label>
+                                <input type="text" id="edit-absender" class="form-control" list="absender-datalist" placeholder="Name eingeben..." autocomplete="off">
+                                <datalist id="absender-datalist"></datalist>
+                                <input type="hidden" id="edit-absender-id">
+                            </div>
+                            <div class="form-group" style="flex:1;">
+                                <label>Deb./Kred.-Nr.</label>
+                                <input type="text" id="edit-absender-nr" class="form-control" readonly placeholder="wird automatisch gefuellt">
                             </div>
                         </div>
 

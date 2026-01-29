@@ -32,6 +32,170 @@ const CONFIG = {
 let allReklamationen = [];  // Cache fuer Filter/Suche/Sort
 let currentSort = { field: 'Erfassungsdatum', dir: 'desc' };
 let chartTrend, chartTyp, chartKST, chartStatus, chartPriority;
+let m365Users = [];  // M365 Benutzer aus Graph API
+
+// ============================================
+// M365 BENUTZER
+// ============================================
+
+async function loadM365Users() {
+    try {
+        const response = await fetch('/api/rms/users');
+        if (!response.ok) {
+            console.warn('M365-Benutzer API nicht verfuegbar, verwende Fallback');
+            // Fallback: Verwende VERANTWORTLICHE aus massnahmen-templates.js falls vorhanden
+            if (typeof VERANTWORTLICHE !== 'undefined') {
+                m365Users = VERANTWORTLICHE.map(v => ({
+                    id: v.kuerzel,
+                    displayName: v.name,
+                    mail: v.email,
+                    jobTitle: v.rolle,
+                    kuerzel: v.kuerzel
+                }));
+                console.log(`${m365Users.length} Benutzer aus Fallback geladen`);
+            }
+            return m365Users;
+        }
+        const data = await response.json();
+        m365Users = data.users || [];
+        console.log(`${m365Users.length} M365-Benutzer geladen`);
+        return m365Users;
+    } catch (error) {
+        console.error('M365-Benutzer laden fehlgeschlagen:', error);
+        // Fallback bei Fehler
+        if (typeof VERANTWORTLICHE !== 'undefined') {
+            m365Users = VERANTWORTLICHE.map(v => ({
+                id: v.kuerzel,
+                displayName: v.name,
+                mail: v.email,
+                jobTitle: v.rolle,
+                kuerzel: v.kuerzel
+            }));
+        }
+        return m365Users;
+    }
+}
+
+function populateUserDropdown(selectElementId, selectedValue = '') {
+    const select = document.getElementById(selectElementId);
+    if (!select) return;
+
+    // Bestehende Optionen loeschen (ausser Platzhalter)
+    select.innerHTML = '<option value="">-- Auswaehlen --</option>';
+
+    // M365-Benutzer als Optionen hinzufuegen
+    m365Users.forEach(user => {
+        const option = document.createElement('option');
+        // Verwende E-Mail als Wert (fuer Benachrichtigungen) oder Kuerzel als Fallback
+        option.value = user.mail || user.kuerzel || user.id;
+        option.textContent = `${user.displayName}${user.jobTitle ? ' (' + user.jobTitle + ')' : ''}`;
+        option.dataset.id = user.id;
+        option.dataset.displayName = user.displayName;
+        option.dataset.mail = user.mail || '';
+
+        // Selektion pruefen (nach E-Mail, DisplayName oder Kuerzel)
+        if (selectedValue && (
+            selectedValue === user.mail ||
+            selectedValue === user.displayName ||
+            selectedValue === user.kuerzel ||
+            selectedValue === user.id
+        )) {
+            option.selected = true;
+        }
+
+        select.appendChild(option);
+    });
+}
+
+// ============================================
+// STAMMDATEN (Kunden/Lieferanten)
+// ============================================
+
+let stammdatenCache = { kunden: [], lieferanten: [], alle: [] };
+
+async function loadStammdaten() {
+    try {
+        const response = await fetch('/api/rms/stammdaten');
+        if (!response.ok) {
+            console.warn('Stammdaten API nicht verfuegbar');
+            return [];
+        }
+        const data = await response.json();
+        const stammdaten = data.stammdaten || [];
+
+        // Cache aufteilen
+        stammdatenCache.alle = stammdaten;
+        stammdatenCache.kunden = stammdaten.filter(s => s.typ === 'Kunde');
+        stammdatenCache.lieferanten = stammdaten.filter(s => s.typ === 'Lieferant');
+
+        console.log(`Stammdaten geladen: ${stammdaten.length} (${stammdatenCache.kunden.length} Kunden, ${stammdatenCache.lieferanten.length} Lieferanten)`);
+        return stammdaten;
+    } catch (error) {
+        console.error('Stammdaten laden fehlgeschlagen:', error);
+        return [];
+    }
+}
+
+function setupStammdatenAutocomplete(inputId, datalistId, typ = null) {
+    const input = document.getElementById(inputId);
+    const datalist = document.getElementById(datalistId);
+
+    if (!input || !datalist) return;
+
+    // Stammdaten basierend auf Typ waehlen
+    let stammdaten = stammdatenCache.alle;
+    if (typ === 'Kunde' || typ === 'KUNDE') {
+        stammdaten = stammdatenCache.kunden;
+    } else if (typ === 'Lieferant' || typ === 'LIEFERANT') {
+        stammdaten = stammdatenCache.lieferanten;
+    }
+
+    // Datalist befuellen - sowohl Name als auch DebKredNr als Suchoptionen
+    // Jeder Eintrag kann über Name ODER DebKredNr gefunden werden
+    let options = [];
+    stammdaten.forEach(s => {
+        // Option mit Name als Wert
+        options.push(`<option value="${escapeHtml(s.name)}" data-id="${s.id}" data-debkred="${s.debKredNr}">${s.debKredNr || ''} - ${escapeHtml(s.name)}</option>`);
+        // Option mit DebKredNr als Wert (falls vorhanden)
+        if (s.debKredNr) {
+            options.push(`<option value="${s.debKredNr}" data-id="${s.id}" data-name="${escapeHtml(s.name)}">${s.debKredNr} - ${escapeHtml(s.name)}</option>`);
+        }
+    });
+    datalist.innerHTML = options.join('');
+
+    // Bei Auswahl zusaetzliche Daten setzen
+    input.addEventListener('change', (e) => {
+        const value = e.target.value;
+        // Suche nach Name ODER DebKredNr
+        const selected = stammdaten.find(s => s.name === value || s.debKredNr === value);
+        if (selected) {
+            // Wenn DebKredNr eingegeben wurde, setze den Namen ins Feld
+            if (selected.debKredNr === value) {
+                input.value = selected.name;
+            }
+            // Felder mit ID/DebKredNr fuellen
+            const hiddenId = document.getElementById(inputId + '-id');
+            const nrField = document.getElementById(inputId + '-nr');
+            if (hiddenId) hiddenId.value = selected.id;
+            if (nrField) nrField.value = selected.debKredNr || '';
+
+            // Optional: Adressdaten in separate Felder
+            const adresseField = document.getElementById(inputId + '-adresse');
+            if (adresseField && selected.adresse) {
+                adresseField.value = `${selected.adresse}, ${selected.plz} ${selected.ort}`;
+            }
+        }
+    });
+}
+
+function getStammdatenByTyp(typ) {
+    if (typ === 'Kunde' || typ === 'KUNDE') {
+        return stammdatenCache.kunden;
+    } else if (typ === 'Lieferant' || typ === 'LIEFERANT') {
+        return stammdatenCache.lieferanten;
+    }
+    return stammdatenCache.alle;
+}
 
 // ============================================
 // API FUNKTIONEN
@@ -74,7 +238,11 @@ async function fetchReklamationen() {
                     Erfassungsdatum: f.Erfassungsdatum || '',
                     Zieldatum: f.Zieldatum || '',
                     Verantwortlich: f.Verantwortlich || '',
-                    Beschreibung: f.Beschreibung || ''
+                    Beschreibung: f.Beschreibung || '',
+                    Absender: f.Absender || '',
+                    DebKredNr: f.DebKredNr || '',
+                    hasNZA: f.hasNZA || false,
+                    Modified: item.lastModifiedDateTime || f.Modified || ''
                 };
             });
         } else if (Array.isArray(data)) {
@@ -230,7 +398,7 @@ function updateTable(reklamationen) {
     const tbody = document.querySelector('#reklamationen-table tbody');
 
     if (!reklamationen || reklamationen.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" class="no-data">Keine Reklamationen gefunden</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" class="no-data">Keine Reklamationen gefunden</td></tr>';
         return;
     }
 
@@ -238,9 +406,11 @@ function updateTable(reklamationen) {
         <tr onclick="showDetail('${r.id}')" class="clickable-row">
             <td><strong>${escapeHtml(r.QA_ID || '--')}</strong></td>
             <td><span class="badge badge-${(r.Rekla_Typ || '').toLowerCase()}">${escapeHtml(r.Rekla_Typ || '--')}</span></td>
+            <td>${escapeHtml(r.DebKredNr || '--')}</td>
             <td>${escapeHtml(r.Title || '--')}</td>
             <td><span class="status status-${(r.Rekla_Status || '').replace(/\s/g, '-').replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue')}">${escapeHtml(r.Rekla_Status || '--')}</span></td>
             <td><span class="priority priority-${(r.Prioritaet || '').toLowerCase()}">${escapeHtml(r.Prioritaet || '--')}</span></td>
+            <td>${r.hasNZA ? '<span class="badge badge-nza" title="NZA-Formular vorhanden">NZA</span>' : ''}</td>
             <td>${formatDate(r.Erfassungsdatum)}</td>
         </tr>
     `).join('');
@@ -275,8 +445,7 @@ function formatDate(dateStr) {
 function getFilters() {
     return {
         typ: document.getElementById('filter-typ')?.value || '',
-        status: document.getElementById('filter-status')?.value || '',
-        kst: document.getElementById('filter-kst')?.value || ''
+        status: document.getElementById('filter-status')?.value || ''
     };
 }
 
@@ -295,13 +464,6 @@ function applyFilters() {
     if (filters.status) {
         filtered = filtered.filter(r =>
             (r.Rekla_Status || '').toLowerCase() === filters.status.toLowerCase()
-        );
-    }
-
-    // KST-Filter
-    if (filters.kst) {
-        filtered = filtered.filter(r =>
-            (r.KST || '').toLowerCase() === filters.kst.toLowerCase()
         );
     }
 
@@ -426,9 +588,10 @@ async function showDetail(id) {
         // Stammdaten
         document.getElementById('detail-stammdaten').innerHTML = `
             <tr><td>Typ:</td><td>${escapeHtml(r.Rekla_Typ || '--')}</td></tr>
+            <tr><td>Absender:</td><td>${escapeHtml(r.Absender || '--')}</td></tr>
+            <tr><td>Deb./Kred.-Nr.:</td><td>${escapeHtml(r.DebKredNr || '--')}</td></tr>
             <tr><td>Status:</td><td><span class="status status-${(r.Rekla_Status || '').replace(/\s/g, '-')}">${escapeHtml(r.Rekla_Status || '--')}</span></td></tr>
             <tr><td>Prioritaet:</td><td><span class="priority priority-${(r.Prioritaet || '').toLowerCase()}">${escapeHtml(r.Prioritaet || '--')}</span></td></tr>
-            <tr><td>KST:</td><td>${escapeHtml(r.KST || '--')}</td></tr>
             <tr><td>Erfasst:</td><td>${formatDate(r.Erfassungsdatum)}</td></tr>
             <tr><td>Zieldatum:</td><td>${formatDate(r.Zieldatum)}</td></tr>
             <tr><td>Verantwortlich:</td><td>${escapeHtml(r.Verantwortlich || '--')}</td></tr>
@@ -517,11 +680,30 @@ async function generatePDF() {
         const result = await response.json();
 
         if (result.success) {
+            // Wenn NZA-Formular (F-QM-04) erstellt wurde, hasNZA setzen
+            if (formularTyp === 'F_QM_04' || formularTyp === 'F-QM-04') {
+                try {
+                    await fetch('/api/rms/update', {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            id: window.currentReklamationId,
+                            fields: { hasNZA: true }
+                        })
+                    });
+                    console.log('hasNZA auf true gesetzt');
+                } catch (e) {
+                    console.warn('hasNZA konnte nicht gesetzt werden:', e);
+                }
+            }
+
             alert(`${formularTyp} wurde erstellt!\n\nPDF: ${result.pdfUrl || 'Wird generiert...'}`);
             // Dokumente neu laden
             if (data.reklamation.QA_ID) {
                 await loadAllFilesForDetail(data.reklamation.QA_ID);
             }
+            // Tabelle aktualisieren um NZA-Badge anzuzeigen
+            await loadData();
         } else {
             alert('Fehler: ' + (result.error || 'Unbekannter Fehler'));
         }
@@ -580,6 +762,32 @@ async function loadAllFilesForDetail(qaId) {
         ...(svData.files || [])
     ];
     renderDokumente(allDocs);
+
+    // NZA-Formular pruefen (F-QM-04)
+    const hasNZA = allDocs.some(f =>
+        f.name && (f.name.includes('F-QM-04') || f.name.includes('F_QM_04') || f.name.toLowerCase().includes('nza'))
+    );
+    updateNZAStatus(hasNZA);
+}
+
+function updateNZAStatus(hasNZA) {
+    // NZA-Status im Detail-View anzeigen
+    const qaIdEl = document.getElementById('detail-qa-id');
+    if (qaIdEl) {
+        // Entferne altes Badge falls vorhanden
+        const oldBadge = qaIdEl.querySelector('.nza-badge');
+        if (oldBadge) oldBadge.remove();
+
+        // Fuege Badge hinzu wenn NZA vorhanden
+        if (hasNZA) {
+            const badge = document.createElement('span');
+            badge.className = 'nza-badge';
+            badge.style.cssText = 'margin-left: 10px; background: #fff8e1; color: #f57c00; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600;';
+            badge.textContent = 'NZA';
+            badge.title = 'NZA-Formular (F-QM-04) vorhanden';
+            qaIdEl.appendChild(badge);
+        }
+    }
 }
 
 function renderFotos(files) {
@@ -746,17 +954,8 @@ function showMassnahmeModal() {
         });
     }
 
-    // Verantwortliche-Dropdown befuellen
-    const verantwSelect = document.getElementById('m-verantwortlich');
-    if (typeof VERANTWORTLICHE !== 'undefined') {
-        verantwSelect.innerHTML = '<option value="">-- Auswaehlen --</option>';
-        VERANTWORTLICHE.forEach(v => {
-            const opt = document.createElement('option');
-            opt.value = v.kuerzel;
-            opt.textContent = `${v.kuerzel} - ${v.name} (${v.rolle})`;
-            verantwSelect.appendChild(opt);
-        });
-    }
+    // Verantwortliche-Dropdown befuellen (dynamisch aus M365)
+    populateUserDropdown('m-verantwortlich');
 
     // Standard-Termin: Morgen
     const tomorrow = new Date();
@@ -800,8 +999,15 @@ async function handleMassnahmeSubmit(e) {
 
 async function createMassnahmeWithNotification() {
     const reklaData = window.currentReklamationData?.reklamation;
-    const verantwortlichKuerzel = document.getElementById('m-verantwortlich').value;
+    const verantwortlichValue = document.getElementById('m-verantwortlich').value;
     const benachrichtigen = document.getElementById('m-benachrichtigen')?.checked || false;
+
+    // Verantwortlichen aus m365Users finden
+    const verantwortlicher = m365Users.find(u =>
+        u.mail === verantwortlichValue ||
+        u.kuerzel === verantwortlichValue ||
+        u.id === verantwortlichValue
+    );
 
     const massnahmeData = {
         reklaId: window.currentReklamationId,
@@ -809,7 +1015,7 @@ async function createMassnahmeWithNotification() {
         typ: document.getElementById('m-typ').value,
         termin: document.getElementById('m-termin').value,
         beschreibung: document.getElementById('m-beschreibung')?.value || '',
-        verantwortlich: verantwortlichKuerzel
+        verantwortlich: verantwortlicher?.displayName || verantwortlichValue
     };
 
     try {
@@ -819,31 +1025,31 @@ async function createMassnahmeWithNotification() {
         await createMassnahme(massnahmeData);
 
         // 2. Benachrichtigung senden (wenn aktiviert)
-        if (benachrichtigen && verantwortlichKuerzel && typeof VERANTWORTLICHE !== 'undefined') {
-            const verantwortlicher = VERANTWORTLICHE.find(v => v.kuerzel === verantwortlichKuerzel);
-
-            if (verantwortlicher?.email) {
-                try {
-                    await fetch('/api/rms/notify-massnahme', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            qaId: reklaData?.QA_ID || 'Unbekannt',
-                            reklaTitle: reklaData?.Title || 'Unbekannt',
-                            massnahme: {
-                                title: massnahmeData.title,
-                                typ: massnahmeData.typ,
-                                termin: massnahmeData.termin,
-                                beschreibung: massnahmeData.beschreibung
-                            },
-                            verantwortlich: verantwortlicher,
-                            ersteller: 'AL',
-                            dashboardUrl: window.location.href
-                        })
-                    });
-                } catch (notifyError) {
-                    console.warn('Benachrichtigung konnte nicht gesendet werden:', notifyError);
-                }
+        if (benachrichtigen && verantwortlicher?.mail) {
+            try {
+                await fetch('/api/rms/notify-massnahme', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        qaId: reklaData?.QA_ID || 'Unbekannt',
+                        reklaTitle: reklaData?.Title || 'Unbekannt',
+                        massnahme: {
+                            title: massnahmeData.title,
+                            typ: massnahmeData.typ,
+                            termin: massnahmeData.termin,
+                            beschreibung: massnahmeData.beschreibung
+                        },
+                        verantwortlich: {
+                            name: verantwortlicher.displayName,
+                            email: verantwortlicher.mail,
+                            rolle: verantwortlicher.jobTitle || ''
+                        },
+                        ersteller: 'AL',
+                        dashboardUrl: window.location.href
+                    })
+                });
+            } catch (notifyError) {
+                console.warn('Benachrichtigung konnte nicht gesendet werden:', notifyError);
             }
         }
 
@@ -1034,15 +1240,29 @@ function populateEditForm() {
     const data = window.currentReklamationData?.reklamation;
     if (!data) return;
 
+    // Verantwortlich-Dropdown dynamisch befuellen
+    populateUserDropdown('edit-verantwortlich', data.Verantwortlich || '');
+
     // Felder befuellen
     document.getElementById('edit-typ').value = data.Rekla_Typ || 'Kunde';
     document.getElementById('edit-status').value = data.Rekla_Status || 'Neu';
     document.getElementById('edit-prioritaet').value = (data.Prioritaet || 'mittel').toLowerCase();
     document.getElementById('edit-kst').value = data.KST || '';
-    document.getElementById('edit-verantwortlich').value = data.Verantwortlich || '';
+    // edit-verantwortlich wird oben durch populateUserDropdown befuellt
     document.getElementById('edit-zieldatum').value = data.Zieldatum?.split('T')[0] || '';
     document.getElementById('edit-title').value = data.Title || '';
     document.getElementById('edit-beschreibung').value = data.Beschreibung || '';
+
+    // Absender-Autocomplete basierend auf Typ initialisieren
+    const typ = data.Rekla_Typ || 'Kunde';
+    setupStammdatenAutocomplete('edit-absender', 'absender-datalist', typ);
+    document.getElementById('edit-absender').value = data.Absender || '';
+    document.getElementById('edit-absender-nr').value = data.DebKredNr || '';
+
+    // Bei Typ-Aenderung Autocomplete neu laden
+    document.getElementById('edit-typ').onchange = function() {
+        setupStammdatenAutocomplete('edit-absender', 'absender-datalist', this.value);
+    };
 }
 
 async function saveReklamation(event) {
@@ -1062,7 +1282,9 @@ async function saveReklamation(event) {
         Verantwortlich: document.getElementById('edit-verantwortlich').value,
         Zieldatum: document.getElementById('edit-zieldatum').value || null,
         Title: document.getElementById('edit-title').value,
-        Beschreibung: document.getElementById('edit-beschreibung').value
+        Beschreibung: document.getElementById('edit-beschreibung').value,
+        Absender: document.getElementById('edit-absender').value,
+        DebKredNr: document.getElementById('edit-absender-nr')?.value || ''
     };
 
     // Leere Felder entfernen (optional)
@@ -1083,7 +1305,8 @@ async function saveReklamation(event) {
 
         const result = await response.json();
 
-        if (response.ok && result.success) {
+        // SharePoint gibt das aktualisierte Item zurueck (mit id) oder success:true
+        if (response.ok && (result.success || result.id || result['@odata.etag'])) {
             alert('Reklamation gespeichert!');
             toggleEditMode();
             // Detail-View neu laden
@@ -1091,7 +1314,7 @@ async function saveReklamation(event) {
             // Tabelle aktualisieren
             await loadData();
         } else {
-            alert('Fehler: ' + (result.error || 'Unbekannter Fehler'));
+            alert('Fehler: ' + (result.error || result.message || 'Unbekannter Fehler'));
         }
     } catch (error) {
         console.error('Save error:', error);
@@ -1207,10 +1430,15 @@ async function refreshData() {
 document.addEventListener('DOMContentLoaded', async function() {
     console.log('RMS Dashboard wird initialisiert...');
 
+    // M365-Benutzer laden BEVOR andere Initialisierung
+    await loadM365Users();
+
+    // Stammdaten laden (Kunden/Lieferanten fuer Autocomplete)
+    await loadStammdaten();
+
     // Event-Listener fuer Filter
     document.getElementById('filter-typ')?.addEventListener('change', applyFilters);
     document.getElementById('filter-status')?.addEventListener('change', applyFilters);
-    document.getElementById('filter-kst')?.addEventListener('change', applyFilters);
 
     // Suchfeld mit Debounce
     let searchTimeout;
@@ -1232,8 +1460,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
     });
 
-    // Export-Button
-    document.getElementById('btn-export')?.addEventListener('click', exportCSV);
+    // CSV-Export entfernt (Aufgabe 5)
 
     // Modal schliessen
     document.querySelector('#detail-modal .close-btn')?.addEventListener('click', closeDetail);
