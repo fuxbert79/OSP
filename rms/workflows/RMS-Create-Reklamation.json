@@ -1,0 +1,100 @@
+{
+  "name": "RMS-Create-Reklamation",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "rms-create",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "rms-create",
+      "id": "webhook-create"
+    },
+    {
+      "parameters": {
+        "jsCode": "// QA-ID generieren (Format: QA-JJNNN)\nconst now = new Date();\nconst year = now.getFullYear().toString().slice(-2);\n\n// Zaehler aus Config holen (wird spaeter aus SharePoint gelesen)\n// Fuer den Start: Zaehler aus Query oder Default\nlet counter = $input.first().json.body._counter || 1;\n\n// QA-ID formatieren\nconst qaId = `QA-${year}${String(counter).padStart(3, '0')}`;\n\nconst body = $input.first().json.body;\n\nreturn {\n  qaId: qaId,\n  counter: counter,\n  fields: {\n    Title: body.Title || 'Neue Reklamation',\n    QA_ID: qaId,\n    Rekla_Typ: body.Rekla_Typ || 'Kunde',\n    Rekla_Status: 'Neu',\n    Prioritaet: body.Prioritaet || 'mittel',\n    Absender: body.Absender || '',\n    DebKredNr: body.DebKredNr || '',\n    Beschreibung: body.Beschreibung || '',\n    Verantwortlich: body.Verantwortlich || '',\n    Erfassungsdatum: body.Erfassungsdatum || new Date().toISOString().split('T')[0],\n    // Lieferanten-Felder (optional)\n    Lieferschein_Nr: body.Lieferschein_Nr || '',\n    Lieferdatum: body.Lieferdatum || null,\n    Artikel_Nr: body.Artikel_Nr || '',\n    Beanstandete_Menge: body.Beanstandete_Menge || null\n  }\n};"
+      },
+      "name": "Prepare Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 300],
+      "id": "prepare-data"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/e9b1d926-085a-4435-a012-114ca9ba59a8/items",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ fields: $json.fields }) }}",
+        "options": {}
+      },
+      "name": "Create SharePoint Item",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [650, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      },
+      "id": "create-sp-item"
+    },
+    {
+      "parameters": {
+        "jsCode": "const spResponse = $input.first().json;\nconst qaId = $('Prepare Data').first().json.qaId;\n\nif (spResponse.id) {\n  return {\n    success: true,\n    qaId: qaId,\n    sharePointId: spResponse.id,\n    message: `Reklamation ${qaId} erfolgreich erstellt`\n  };\n} else {\n  return {\n    success: false,\n    error: 'SharePoint Item konnte nicht erstellt werden',\n    details: spResponse\n  };\n}"
+      },
+      "name": "Format Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 300],
+      "id": "format-response"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Prepare Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Data": {
+      "main": [
+        [
+          {
+            "node": "Create SharePoint Item",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create SharePoint Item": {
+      "main": [
+        [
+          {
+            "node": "Format Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

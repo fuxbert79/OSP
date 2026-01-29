@@ -1,0 +1,134 @@
+{
+  "name": "RMS-Send-Email",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "rms-send-email",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "rms-send-email",
+      "id": "webhook-email"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body;\n\n// E-Mail-Body formatieren (Zeilenumbrueche)\nconst htmlBody = body.text\n  .replace(/\\n/g, '<br>')\n  .replace(/  /g, '&nbsp;&nbsp;');\n\nreturn {\n  empfaenger: body.empfaenger,\n  betreff: body.betreff,\n  text: body.text,\n  htmlBody: htmlBody,\n  qaId: body.qaId,\n  reklamationId: body.reklamationId,\n  anhangFormular: body.anhangFormular || false,\n  timestamp: new Date().toISOString()\n};"
+      },
+      "name": "Prepare Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 300],
+      "id": "prepare-email"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.microsoft.com/v1.0/users/qm@schneider-kabelsatzbau.de/sendMail",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  message: {\n    subject: $json.betreff,\n    body: {\n      contentType: 'HTML',\n      content: $json.htmlBody\n    },\n    toRecipients: [\n      {\n        emailAddress: {\n          address: $json.empfaenger\n        }\n      }\n    ]\n  },\n  saveToSentItems: true\n}) }}",
+        "options": {}
+      },
+      "name": "Send Email via Graph",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [650, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      },
+      "id": "send-email"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/741c6ae8-88bb-406b-bf85-2e11192a528f/items",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  fields: {\n    Title: $('Prepare Email').first().json.betreff,\n    Reklamation_ID: $('Prepare Email').first().json.qaId,\n    Typ: 'E-Mail',\n    Richtung: 'Ausgang',\n    Empfaenger: $('Prepare Email').first().json.empfaenger,\n    Datum: $('Prepare Email').first().json.timestamp.split('T')[0],\n    Inhalt: $('Prepare Email').first().json.text\n  }\n}) }}",
+        "options": {}
+      },
+      "name": "Log Schriftverkehr",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [850, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      },
+      "id": "log-sv"
+    },
+    {
+      "parameters": {
+        "jsCode": "return {\n  success: true,\n  message: 'E-Mail erfolgreich gesendet und protokolliert',\n  qaId: $('Prepare Email').first().json.qaId\n};"
+      },
+      "name": "Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 300],
+      "id": "response"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Prepare Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Email": {
+      "main": [
+        [
+          {
+            "node": "Send Email via Graph",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Email via Graph": {
+      "main": [
+        [
+          {
+            "node": "Log Schriftverkehr",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Schriftverkehr": {
+      "main": [
+        [
+          {
+            "node": "Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

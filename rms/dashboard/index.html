@@ -18,9 +18,16 @@
     </div>
 
     <header>
-        <h1>RMS Dashboard</h1>
-        <p class="header-subtitle">QM-Tool zur Bearbeitung und Visualisierung von externen Reklamationen</p>
-        <p class="header-company">Rainer Schneider Kabelsatzbau GmbH & Co. KG</p>
+        <div class="header-content">
+            <div class="header-text">
+                <h1>RMS Dashboard</h1>
+                <p class="header-subtitle">QM-Tool zur Bearbeitung und Visualisierung von externen Reklamationen</p>
+                <p class="header-company">Rainer Schneider Kabelsatzbau GmbH & Co. KG</p>
+            </div>
+            <button id="btn-neue-rekla" class="btn-header" onclick="showNeueReklamationModal()">
+                + Neue Reklamation
+            </button>
+        </div>
     </header>
 
     <main>
@@ -86,6 +93,7 @@
                     </tr>
                 </tbody>
             </table>
+            <div id="pagination-controls" class="pagination-container"></div>
         </section>
 
         <!-- Charts -->
@@ -245,6 +253,36 @@
                 <button id="btn-add-massnahme" class="btn-primary btn-small">+ Massnahme hinzufuegen</button>
             </div>
 
+            <!-- Tracking-Sektion (nur fuer Lieferanten-Reklas) -->
+            <div id="tracking-section" class="detail-section" style="display: none;">
+                <h3>Tracking</h3>
+                <div class="tracking-options">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="tracking-ersatz" onchange="updateTrackingVisibility()">
+                        Ersatzlieferung angefordert
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="tracking-ruecksendung" onchange="updateTrackingVisibility()">
+                        Ruecksendung
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="tracking-gutschrift" onchange="updateTrackingVisibility()">
+                        Gutschrift
+                    </label>
+                </div>
+                <div id="gutschrift-betrag-container" style="display: none; margin-top: 15px;">
+                    <div class="form-group" style="max-width: 200px;">
+                        <label for="tracking-gutschrift-betrag">Gutschrift-Betrag (EUR)</label>
+                        <input type="number" id="tracking-gutschrift-betrag" class="form-control" step="0.01" placeholder="0.00">
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 15px;">
+                    <label for="tracking-bemerkung">Tracking-Bemerkung</label>
+                    <textarea id="tracking-bemerkung" class="form-control" rows="2" placeholder="Optionale Bemerkung..."></textarea>
+                </div>
+                <button class="btn btn-sm btn-primary" onclick="saveTracking()" style="margin-top: 10px;">Tracking speichern</button>
+            </div>
+
             <div class="detail-section">
                 <h3>Schriftverkehr</h3>
                 <table id="detail-schriftverkehr">
@@ -283,6 +321,7 @@
             <div class="detail-actions">
                 <button onclick="openInSharePoint()" class="btn-primary">In SharePoint oeffnen</button>
                 <button onclick="generatePDF()" class="btn-secondary">PDF erstellen</button>
+                <button onclick="showAntwortEmailModal()" class="btn-secondary">Antwort-E-Mail</button>
             </div>
         </div>
     </div>
@@ -336,11 +375,16 @@
                             <option value="">-- Auswaehlen --</option>
                         </select>
                     </div>
-                    <div class="form-group" style="display: flex; align-items: center; padding-top: 25px;">
-                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-                            <input type="checkbox" id="m-benachrichtigen" checked>
-                            Per E-Mail benachrichtigen
-                        </label>
+                    <div class="form-group">
+                        <label>Benachrichtigung</label>
+                        <div class="notification-options">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="notify-email" checked> Per E-Mail
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="notify-teams"> Per Teams
+                            </label>
+                        </div>
                     </div>
                 </div>
 
@@ -362,6 +406,155 @@
                 <a id="preview-download" href="#" class="btn-primary" target="_blank">Herunterladen</a>
                 <a id="preview-sharepoint" href="#" class="btn-secondary" target="_blank">In SharePoint oeffnen</a>
             </div>
+        </div>
+    </div>
+
+    <!-- Modal: Antwort-E-Mail -->
+    <div id="modal-antwort-email" class="modal" style="display: none;">
+        <div class="modal-content modal-large">
+            <span class="close-btn" onclick="closeAntwortEmailModal()">&times;</span>
+            <h2>Antwort-E-Mail erstellen</h2>
+
+            <div class="form-group">
+                <label for="email-empfaenger">Empfaenger *</label>
+                <input type="email" id="email-empfaenger" class="form-control" placeholder="E-Mail-Adresse" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email-betreff">Betreff *</label>
+                <input type="text" id="email-betreff" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email-vorlage">Vorlage</label>
+                <select id="email-vorlage" class="form-control" onchange="applyEmailTemplate()">
+                    <option value="">-- Vorlage waehlen --</option>
+                    <option value="eingangsbestaetigung">Eingangsbestaetigung</option>
+                    <option value="nachfrage">Nachfrage / Rueckfrage</option>
+                    <option value="ersatzlieferung">Ersatzlieferung anfordern</option>
+                    <option value="gutschrift">Gutschrift anfordern</option>
+                    <option value="ruecksendung">Ruecksendung ankuendigen</option>
+                    <option value="abschluss">Abschlussmeldung</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="email-text">Nachricht *</label>
+                <textarea id="email-text" class="form-control" rows="12" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="email-anhang-formular"> F-QM-02 als Anhang beifuegen
+                </label>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn-secondary" onclick="closeAntwortEmailModal()">Abbrechen</button>
+                <button type="button" class="btn-primary" onclick="sendAntwortEmail()">E-Mail senden</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Neue Reklamation -->
+    <div id="modal-neue-rekla" class="modal" style="display: none;">
+        <div class="modal-content modal-large">
+            <span class="close-btn" onclick="closeNeueReklamationModal()">&times;</span>
+            <h2>Neue Reklamation erfassen</h2>
+            <form id="form-neue-rekla">
+                <!-- Typ -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="neue-rekla-typ">Reklamationstyp *</label>
+                        <select id="neue-rekla-typ" class="form-control" required onchange="toggleReklaFields()">
+                            <option value="">-- Auswaehlen --</option>
+                            <option value="Lieferant">Lieferantenreklamation</option>
+                            <option value="Kunde">Kundenreklamation</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="neue-rekla-prioritaet">Prioritaet</label>
+                        <select id="neue-rekla-prioritaet" class="form-control">
+                            <option value="mittel">Mittel</option>
+                            <option value="niedrig">Niedrig</option>
+                            <option value="hoch">Hoch</option>
+                            <option value="kritisch">Kritisch</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Absender (Autocomplete aus Stammdaten) -->
+                <div class="form-row">
+                    <div class="form-group" style="flex:2;">
+                        <label for="neue-rekla-absender">Lieferant / Kunde *</label>
+                        <input type="text" id="neue-rekla-absender" class="form-control"
+                               list="neue-rekla-stammdaten" placeholder="Name oder Deb./Kred.-Nr. eingeben..." required autocomplete="off">
+                        <datalist id="neue-rekla-stammdaten"></datalist>
+                        <input type="hidden" id="neue-rekla-absender-id">
+                    </div>
+                    <div class="form-group" style="flex:1;">
+                        <label for="neue-rekla-debkred">Deb./Kred.-Nr.</label>
+                        <input type="text" id="neue-rekla-debkred" class="form-control" readonly placeholder="wird automatisch gefuellt">
+                    </div>
+                </div>
+
+                <!-- Titel -->
+                <div class="form-group">
+                    <label for="neue-rekla-titel">Titel / Betreff *</label>
+                    <input type="text" id="neue-rekla-titel" class="form-control"
+                           placeholder="Kurzbeschreibung des Problems" required>
+                </div>
+
+                <!-- Beschreibung -->
+                <div class="form-group">
+                    <label for="neue-rekla-beschreibung">Beschreibung *</label>
+                    <textarea id="neue-rekla-beschreibung" class="form-control" rows="4"
+                              placeholder="Detaillierte Fehlerbeschreibung..." required></textarea>
+                </div>
+
+                <!-- Verantwortlich -->
+                <div class="form-group">
+                    <label for="neue-rekla-verantwortlich">Verantwortlich</label>
+                    <select id="neue-rekla-verantwortlich" class="form-control">
+                        <option value="">-- Auswaehlen --</option>
+                        <!-- Wird dynamisch mit M365-Benutzern befuellt -->
+                    </select>
+                </div>
+
+                <!-- Lieferanten-spezifische Felder -->
+                <div id="lieferant-fields" style="display: none;">
+                    <hr style="margin: 20px 0; border: none; border-top: 1px solid #eee;">
+                    <h4 style="color: var(--primary-blue); margin-bottom: 15px;">Lieferanten-Details</h4>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="neue-rekla-lieferschein">Lieferschein-Nr.</label>
+                            <input type="text" id="neue-rekla-lieferschein" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="neue-rekla-lieferdatum">Lieferdatum</label>
+                            <input type="date" id="neue-rekla-lieferdatum" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="neue-rekla-artikel">Artikel-Nr.</label>
+                            <input type="text" id="neue-rekla-artikel" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="neue-rekla-menge">Beanstandete Menge</label>
+                            <input type="number" id="neue-rekla-menge" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeNeueReklamationModal()">Abbrechen</button>
+                    <button type="submit" class="btn-primary">Reklamation anlegen</button>
+                </div>
+            </form>
         </div>
     </div>
 

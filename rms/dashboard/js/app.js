@@ -34,6 +34,11 @@ let currentSort = { field: 'Erfassungsdatum', dir: 'desc' };
 let chartTrend, chartTyp, chartKST, chartStatus, chartPriority;
 let m365Users = [];  // M365 Benutzer aus Graph API
 
+// Pagination
+const ITEMS_PER_PAGE = 20;
+let currentPage = 1;
+let totalPages = 1;
+
 // ============================================
 // M365 BENUTZER
 // ============================================
@@ -483,8 +488,12 @@ function applyFilters() {
     // Sortierung anwenden
     filtered = sortData(filtered);
 
-    updateTable(filtered);
+    // Pagination anwenden
+    const paginatedData = paginateData(filtered);
+
+    updateTable(paginatedData);
     updateFilteredCount(filtered.length, allReklamationen.length);
+    renderPaginationControls(filtered.length);
 }
 
 function sortData(data) {
@@ -507,6 +516,54 @@ function sortData(data) {
             return valA < valB ? 1 : valA > valB ? -1 : 0;
         }
     });
+}
+
+// ============================================
+// PAGINATION
+// ============================================
+
+function paginateData(data) {
+    totalPages = Math.ceil(data.length / ITEMS_PER_PAGE);
+    if (currentPage > totalPages) currentPage = totalPages || 1;
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
+    return data.slice(start, end);
+}
+
+function renderPaginationControls(totalItems) {
+    const container = document.getElementById('pagination-controls');
+    if (!container) return;
+
+    totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+    if (totalPages <= 1) {
+        container.innerHTML = '';
+        return;
+    }
+
+    let html = '<div class="pagination">';
+
+    // Zurueck-Button
+    html += `<button class="btn btn-sm ${currentPage === 1 ? 'disabled' : ''}"
+             onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+             &larr; Zurueck</button>`;
+
+    // Seiten-Anzeige
+    html += `<span class="pagination-info">Seite ${currentPage} von ${totalPages} (${totalItems} Eintraege)</span>`;
+
+    // Vor-Button
+    html += `<button class="btn btn-sm ${currentPage === totalPages ? 'disabled' : ''}"
+             onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+             Weiter &rarr;</button>`;
+
+    html += '</div>';
+
+    container.innerHTML = html;
+}
+
+function changePage(page) {
+    if (page < 1 || page > totalPages) return;
+    currentPage = page;
+    applyFilters(); // Neu rendern mit aktueller Seite
 }
 
 function handleSort(field) {
@@ -625,6 +682,9 @@ async function showDetail(id) {
         // Speichere aktuelle ID fuer Actions
         window.currentReklamationId = id;
         window.currentReklamationData = data;
+
+        // Tracking-Sektion anzeigen (nur fuer Lieferanten-Reklas)
+        showTrackingSection(r);
 
         // Modal anzeigen
         document.getElementById('detail-modal').style.display = 'flex';
@@ -1000,7 +1060,8 @@ async function handleMassnahmeSubmit(e) {
 async function createMassnahmeWithNotification() {
     const reklaData = window.currentReklamationData?.reklamation;
     const verantwortlichValue = document.getElementById('m-verantwortlich').value;
-    const benachrichtigen = document.getElementById('m-benachrichtigen')?.checked || false;
+    const notifyEmail = document.getElementById('notify-email')?.checked || false;
+    const notifyTeams = document.getElementById('notify-teams')?.checked || false;
 
     // Verantwortlichen aus m365Users finden
     const verantwortlicher = m365Users.find(u =>
@@ -1025,7 +1086,7 @@ async function createMassnahmeWithNotification() {
         await createMassnahme(massnahmeData);
 
         // 2. Benachrichtigung senden (wenn aktiviert)
-        if (benachrichtigen && verantwortlicher?.mail) {
+        if ((notifyEmail || notifyTeams) && verantwortlicher) {
             try {
                 await fetch('/api/rms/notify-massnahme', {
                     method: 'POST',
@@ -1040,10 +1101,13 @@ async function createMassnahmeWithNotification() {
                             beschreibung: massnahmeData.beschreibung
                         },
                         verantwortlich: {
+                            id: verantwortlicher.id,
                             name: verantwortlicher.displayName,
                             email: verantwortlicher.mail,
                             rolle: verantwortlicher.jobTitle || ''
                         },
+                        notifyEmail: notifyEmail,
+                        notifyTeams: notifyTeams,
                         ersteller: 'AL',
                         dashboardUrl: window.location.href
                     })
@@ -1055,11 +1119,444 @@ async function createMassnahmeWithNotification() {
 
         closeMassnahmeModal();
         await showDetail(window.currentReklamationId);
-        alert('Massnahme erfolgreich erstellt!' + (benachrichtigen ? ' Benachrichtigung gesendet.' : ''));
+
+        let notifyMsg = '';
+        if (notifyEmail && notifyTeams) notifyMsg = ' E-Mail + Teams Benachrichtigung gesendet.';
+        else if (notifyEmail) notifyMsg = ' E-Mail Benachrichtigung gesendet.';
+        else if (notifyTeams) notifyMsg = ' Teams Benachrichtigung gesendet.';
+
+        alert('Massnahme erfolgreich erstellt!' + notifyMsg);
 
     } catch (error) {
         console.error('Fehler:', error);
         alert('Fehler beim Erstellen der Massnahme: ' + error.message);
+    } finally {
+        showLoading(false);
+    }
+}
+
+// ============================================
+// TRACKING (Ersatz/Ruecksendung/Gutschrift)
+// ============================================
+
+function showTrackingSection(rekla) {
+    const trackingSection = document.getElementById('tracking-section');
+    if (!trackingSection) return;
+
+    // Nur fuer Lieferanten-Reklamationen anzeigen
+    if (rekla.Rekla_Typ === 'Lieferant' || rekla.Rekla_Typ === 'LIEFERANT') {
+        trackingSection.style.display = 'block';
+
+        // Tracking-Werte aus Reklamation laden
+        document.getElementById('tracking-ersatz').checked = rekla.Tracking_Ersatzlieferung || false;
+        document.getElementById('tracking-ruecksendung').checked = rekla.Tracking_Ruecksendung || false;
+        document.getElementById('tracking-gutschrift').checked = rekla.Tracking_Gutschrift || false;
+        document.getElementById('tracking-gutschrift-betrag').value = rekla.Tracking_Gutschrift_Betrag || '';
+        document.getElementById('tracking-bemerkung').value = rekla.Tracking_Bemerkung || '';
+
+        // Gutschrift-Betrag-Feld anzeigen wenn Gutschrift aktiviert
+        updateTrackingVisibility();
+    } else {
+        trackingSection.style.display = 'none';
+    }
+}
+
+function updateTrackingVisibility() {
+    const gutschriftChecked = document.getElementById('tracking-gutschrift')?.checked;
+    const betragContainer = document.getElementById('gutschrift-betrag-container');
+    if (betragContainer) {
+        betragContainer.style.display = gutschriftChecked ? 'block' : 'none';
+    }
+}
+
+async function saveTracking() {
+    const id = window.currentReklamationId;
+    if (!id) {
+        alert('Keine Reklamation ausgewaehlt');
+        return;
+    }
+
+    const ersatz = document.getElementById('tracking-ersatz')?.checked || false;
+    const ruecksendung = document.getElementById('tracking-ruecksendung')?.checked || false;
+    const gutschrift = document.getElementById('tracking-gutschrift')?.checked || false;
+    const betrag = parseFloat(document.getElementById('tracking-gutschrift-betrag')?.value) || null;
+    const bemerkung = document.getElementById('tracking-bemerkung')?.value || '';
+
+    // Tracking-Status ermitteln
+    let trackingStatus = 'Offen';
+    if (ersatz) trackingStatus = 'Ersatzlieferung angefordert';
+    else if (ruecksendung) trackingStatus = 'Ruecksendung';
+    else if (gutschrift) trackingStatus = 'Gutschrift angefordert';
+
+    const fields = {
+        Tracking_Status: trackingStatus,
+        Tracking_Ersatzlieferung: ersatz,
+        Tracking_Ruecksendung: ruecksendung,
+        Tracking_Gutschrift: gutschrift,
+        Tracking_Gutschrift_Betrag: betrag,
+        Tracking_Bemerkung: bemerkung
+    };
+
+    try {
+        showLoading(true);
+
+        const response = await fetch('/api/rms/update', {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id, fields })
+        });
+
+        const result = await response.json();
+
+        if (response.ok && (result.success || result.id || result['@odata.etag'])) {
+            alert('Tracking gespeichert!');
+            // Detail-View aktualisieren
+            await showDetail(id);
+        } else {
+            alert('Fehler: ' + (result.error || result.message || 'Unbekannter Fehler'));
+        }
+    } catch (error) {
+        console.error('Tracking speichern fehlgeschlagen:', error);
+        alert('Fehler: ' + error.message);
+    } finally {
+        showLoading(false);
+    }
+}
+
+// ============================================
+// E-MAIL VORLAGEN & VERSAND
+// ============================================
+
+const EMAIL_TEMPLATES = {
+    eingangsbestaetigung: {
+        betreff: 'Eingangsbestaetigung Ihrer Reklamation {QA_ID}',
+        text: `Sehr geehrte Damen und Herren,
+
+wir bestaetigen den Eingang Ihrer Reklamation und haben diese unter der Nummer {QA_ID} erfasst.
+
+Betreff: {TITEL}
+
+Wir werden die Angelegenheit pruefen und uns schnellstmoeglich bei Ihnen melden.
+
+Mit freundlichen Gruessen
+Qualitaetsmanagement
+Rainer Schneider Kabelsatzbau GmbH & Co. KG`
+    },
+    nachfrage: {
+        betreff: 'Rueckfrage zu Ihrer Reklamation {QA_ID}',
+        text: `Sehr geehrte Damen und Herren,
+
+bezugnehmend auf Ihre Reklamation {QA_ID} bitten wir um folgende Informationen:
+
+[Bitte ergaenzen Sie hier Ihre Fragen]
+
+Vielen Dank fuer Ihre Unterstuetzung.
+
+Mit freundlichen Gruessen
+Qualitaetsmanagement
+Rainer Schneider Kabelsatzbau GmbH & Co. KG`
+    },
+    ersatzlieferung: {
+        betreff: 'Anforderung Ersatzlieferung zu {QA_ID}',
+        text: `Sehr geehrte Damen und Herren,
+
+bezugnehmend auf unsere Reklamation {QA_ID} bitten wir um schnellstmoegliche Ersatzlieferung.
+
+Betroffener Artikel: {ARTIKEL}
+Menge: {MENGE}
+
+Bitte bestaetigen Sie den Liefertermin.
+
+Mit freundlichen Gruessen
+Qualitaetsmanagement
+Rainer Schneider Kabelsatzbau GmbH & Co. KG`
+    },
+    gutschrift: {
+        betreff: 'Anforderung Gutschrift zu {QA_ID}',
+        text: `Sehr geehrte Damen und Herren,
+
+bezugnehmend auf unsere Reklamation {QA_ID} bitten wir um Ausstellung einer Gutschrift.
+
+Begruendung:
+{BESCHREIBUNG}
+
+Mit freundlichen Gruessen
+Qualitaetsmanagement
+Rainer Schneider Kabelsatzbau GmbH & Co. KG`
+    },
+    ruecksendung: {
+        betreff: 'Ankuendigung Ruecksendung zu {QA_ID}',
+        text: `Sehr geehrte Damen und Herren,
+
+bezugnehmend auf unsere Reklamation {QA_ID} moechten wir die betroffene Ware zuruecksenden.
+
+Bitte teilen Sie uns mit:
+- Ihre Ruecksende-Adresse
+- Eine Referenznummer fuer die Sendung
+- Ob Sie einen Abholtermin vereinbaren moechten
+
+Mit freundlichen Gruessen
+Qualitaetsmanagement
+Rainer Schneider Kabelsatzbau GmbH & Co. KG`
+    },
+    abschluss: {
+        betreff: 'Abschluss Reklamation {QA_ID}',
+        text: `Sehr geehrte Damen und Herren,
+
+wir moechten Ihnen mitteilen, dass die Reklamation {QA_ID} abgeschlossen wurde.
+
+{BESCHREIBUNG}
+
+Vielen Dank fuer Ihre Zusammenarbeit.
+
+Mit freundlichen Gruessen
+Qualitaetsmanagement
+Rainer Schneider Kabelsatzbau GmbH & Co. KG`
+    }
+};
+
+function showAntwortEmailModal() {
+    const modal = document.getElementById('modal-antwort-email');
+    if (!modal) return;
+
+    const rekla = window.currentReklamationData?.reklamation;
+    if (!rekla) {
+        alert('Keine Reklamation ausgewaehlt');
+        return;
+    }
+
+    // Felder vorbelegen
+    document.getElementById('email-betreff').value = `Re: ${rekla.QA_ID} - ${rekla.Title}`;
+    document.getElementById('email-empfaenger').value = rekla.Absender_Email || '';
+    document.getElementById('email-text').value = '';
+    document.getElementById('email-vorlage').value = '';
+    document.getElementById('email-anhang-formular').checked = false;
+
+    modal.style.display = 'flex';
+}
+
+function closeAntwortEmailModal() {
+    const modal = document.getElementById('modal-antwort-email');
+    if (modal) modal.style.display = 'none';
+}
+
+function applyEmailTemplate() {
+    const templateKey = document.getElementById('email-vorlage')?.value;
+    if (!templateKey || !EMAIL_TEMPLATES[templateKey]) return;
+
+    const template = EMAIL_TEMPLATES[templateKey];
+    const rekla = window.currentReklamationData?.reklamation || {};
+
+    // Platzhalter ersetzen
+    let betreff = template.betreff
+        .replace(/{QA_ID}/g, rekla.QA_ID || '')
+        .replace(/{TITEL}/g, rekla.Title || '');
+
+    let text = template.text
+        .replace(/{QA_ID}/g, rekla.QA_ID || '')
+        .replace(/{TITEL}/g, rekla.Title || '')
+        .replace(/{BESCHREIBUNG}/g, rekla.Beschreibung || '')
+        .replace(/{ARTIKEL}/g, rekla.Artikel_Nr || '[Artikelnummer]')
+        .replace(/{MENGE}/g, rekla.Beanstandete_Menge || '[Menge]');
+
+    document.getElementById('email-betreff').value = betreff;
+    document.getElementById('email-text').value = text;
+}
+
+async function sendAntwortEmail() {
+    const empfaenger = document.getElementById('email-empfaenger')?.value?.trim();
+    const betreff = document.getElementById('email-betreff')?.value?.trim();
+    const text = document.getElementById('email-text')?.value?.trim();
+    const anhangFormular = document.getElementById('email-anhang-formular')?.checked;
+
+    if (!empfaenger || !betreff || !text) {
+        alert('Bitte alle Pflichtfelder ausfuellen');
+        return;
+    }
+
+    // E-Mail-Validierung
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(empfaenger)) {
+        alert('Bitte eine gueltige E-Mail-Adresse eingeben');
+        return;
+    }
+
+    const payload = {
+        qaId: window.currentReklamationData?.reklamation?.QA_ID,
+        reklamationId: window.currentReklamationId,
+        empfaenger: empfaenger,
+        betreff: betreff,
+        text: text,
+        anhangFormular: anhangFormular
+    };
+
+    try {
+        showLoading(true);
+
+        const response = await fetch('/api/rms/send-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+            alert('E-Mail erfolgreich gesendet!');
+            closeAntwortEmailModal();
+            // Detail-View aktualisieren (Schriftverkehr)
+            await showDetail(window.currentReklamationId);
+        } else {
+            alert('Fehler: ' + (result.error || result.message || 'Unbekannter Fehler'));
+        }
+    } catch (error) {
+        console.error('E-Mail senden fehlgeschlagen:', error);
+        alert('Fehler: ' + error.message);
+    } finally {
+        showLoading(false);
+    }
+}
+
+// ============================================
+// NEUE REKLAMATION ERFASSEN
+// ============================================
+
+function showNeueReklamationModal() {
+    const modal = document.getElementById('modal-neue-rekla');
+    if (modal) {
+        modal.style.display = 'flex';
+        // Verantwortlich-Dropdown befuellen
+        populateUserDropdown('neue-rekla-verantwortlich');
+        // Formular zuruecksetzen
+        document.getElementById('form-neue-rekla')?.reset();
+        // Lieferant-Felder ausblenden
+        document.getElementById('lieferant-fields').style.display = 'none';
+        // Stammdaten-Datalist befuellen (alle)
+        populateNeueReklaStammdaten();
+    }
+}
+
+function closeNeueReklamationModal() {
+    const modal = document.getElementById('modal-neue-rekla');
+    if (modal) modal.style.display = 'none';
+}
+
+function toggleReklaFields() {
+    const typ = document.getElementById('neue-rekla-typ')?.value;
+    const lieferantFields = document.getElementById('lieferant-fields');
+
+    if (lieferantFields) {
+        lieferantFields.style.display = typ === 'Lieferant' ? 'block' : 'none';
+    }
+
+    // Stammdaten-Filter aktualisieren
+    populateNeueReklaStammdaten(typ);
+}
+
+function populateNeueReklaStammdaten(typ = '') {
+    const datalist = document.getElementById('neue-rekla-stammdaten');
+    const input = document.getElementById('neue-rekla-absender');
+    if (!datalist) return;
+
+    // Aus Cache filtern (falls Stammdaten geladen)
+    let filtered = [];
+    if (typ === 'Kunde') {
+        filtered = stammdatenCache.kunden || [];
+    } else if (typ === 'Lieferant') {
+        filtered = stammdatenCache.lieferanten || [];
+    } else {
+        filtered = stammdatenCache.alle || [];
+    }
+
+    // Datalist mit Name UND DebKredNr als Suchoptionen
+    let options = [];
+    filtered.forEach(s => {
+        options.push(`<option value="${escapeHtml(s.name)}" data-debkred="${s.debKredNr}">${s.debKredNr || ''} - ${escapeHtml(s.name)}</option>`);
+        if (s.debKredNr) {
+            options.push(`<option value="${s.debKredNr}" data-name="${escapeHtml(s.name)}">${s.debKredNr} - ${escapeHtml(s.name)}</option>`);
+        }
+    });
+    datalist.innerHTML = options.join('');
+
+    // Event-Listener fuer Autocomplete
+    if (input && !input.dataset.listenerAdded) {
+        input.addEventListener('change', handleNeueReklaAbsenderChange);
+        input.dataset.listenerAdded = 'true';
+    }
+}
+
+function handleNeueReklaAbsenderChange(e) {
+    const value = e.target.value;
+    const typ = document.getElementById('neue-rekla-typ')?.value;
+    let stammdaten = stammdatenCache.alle;
+    if (typ === 'Kunde') stammdaten = stammdatenCache.kunden;
+    else if (typ === 'Lieferant') stammdaten = stammdatenCache.lieferanten;
+
+    const selected = stammdaten.find(s => s.name === value || s.debKredNr === value);
+    if (selected) {
+        // Wenn DebKredNr eingegeben wurde, setze den Namen ins Feld
+        if (selected.debKredNr === value) {
+            document.getElementById('neue-rekla-absender').value = selected.name;
+        }
+        // DebKredNr-Feld fuellen
+        document.getElementById('neue-rekla-debkred').value = selected.debKredNr || '';
+        document.getElementById('neue-rekla-absender-id').value = selected.id || '';
+    }
+}
+
+async function createNeueReklamation(e) {
+    e.preventDefault();
+
+    const verantwortlichSelect = document.getElementById('neue-rekla-verantwortlich');
+    const verantwortlichOption = verantwortlichSelect?.selectedOptions[0];
+
+    const payload = {
+        Rekla_Typ: document.getElementById('neue-rekla-typ')?.value,
+        Absender: document.getElementById('neue-rekla-absender')?.value,
+        DebKredNr: document.getElementById('neue-rekla-debkred')?.value,
+        Title: document.getElementById('neue-rekla-titel')?.value,
+        Beschreibung: document.getElementById('neue-rekla-beschreibung')?.value,
+        Prioritaet: document.getElementById('neue-rekla-prioritaet')?.value || 'mittel',
+        Verantwortlich: verantwortlichOption?.dataset?.displayName || verantwortlichSelect?.value || '',
+        Rekla_Status: 'Neu',
+        Erfassungsdatum: new Date().toISOString().split('T')[0]
+    };
+
+    // Lieferanten-Felder hinzufuegen falls vorhanden
+    if (payload.Rekla_Typ === 'Lieferant') {
+        const lieferschein = document.getElementById('neue-rekla-lieferschein')?.value;
+        const lieferdatum = document.getElementById('neue-rekla-lieferdatum')?.value;
+        const artikel = document.getElementById('neue-rekla-artikel')?.value;
+        const menge = document.getElementById('neue-rekla-menge')?.value;
+
+        if (lieferschein) payload.Lieferschein_Nr = lieferschein;
+        if (lieferdatum) payload.Lieferdatum = lieferdatum;
+        if (artikel) payload.Artikel_Nr = artikel;
+        if (menge) payload.Beanstandete_Menge = parseInt(menge);
+    }
+
+    try {
+        showLoading(true);
+
+        const response = await fetch('/api/rms/create', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (response.ok && (result.success || result.qaId || result.QA_ID)) {
+            const qaId = result.qaId || result.QA_ID || 'Unbekannt';
+            alert(`Reklamation ${qaId} erfolgreich angelegt!`);
+            closeNeueReklamationModal();
+            await loadData(); // Dashboard aktualisieren
+        } else {
+            alert('Fehler: ' + (result.error || result.message || 'Unbekannter Fehler'));
+        }
+    } catch (error) {
+        console.error('Reklamation erstellen fehlgeschlagen:', error);
+        alert('Fehler: ' + error.message);
     } finally {
         showLoading(false);
     }
@@ -1485,6 +1982,9 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Edit-Form
     document.getElementById('edit-reklamation-form')?.addEventListener('submit', saveReklamation);
+
+    // Neue Reklamation Form
+    document.getElementById('form-neue-rekla')?.addEventListener('submit', createNeueReklamation);
 
     // Initiale Sortierung markieren
     document.querySelector(`th[data-sort="${currentSort.field}"]`)?.classList.add('sort-desc');
