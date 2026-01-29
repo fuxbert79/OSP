@@ -1,0 +1,2125 @@
+{
+  "updatedAt": "2026-01-27T21:15:51.399Z",
+  "createdAt": "2026-01-27T11:44:41.276Z",
+  "id": "k3rVSLW6O00dtTBr",
+  "name": "RMS-Email-Import-V2",
+  "description": null,
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes"
+            }
+          ]
+        }
+      },
+      "id": "b57c26d7-1fd1-4039-82d1-1ad3c40c5603",
+      "name": "1. Schedule (5 Min)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1760,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://graph.microsoft.com/v1.0/users/reklamation@schneider-kabelsatzbau.de/mailFolders/Inbox/messages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "$filter",
+              "value": "isRead eq false"
+            },
+            {
+              "name": "$top",
+              "value": "5"
+            },
+            {
+              "name": "$select",
+              "value": "id,subject,from,receivedDateTime,body,conversationId,hasAttachments"
+            },
+            {
+              "name": "$orderby",
+              "value": "receivedDateTime asc"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "45579a8f-5470-4ad4-95dd-8b5f46da2fcd",
+      "name": "2. E-Mails abrufen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1536,
+        400
+      ],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "check-emails",
+              "leftValue": "={{ $json.value.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "9d16189d-d6d4-4992-a10e-ebc52939e18b",
+      "name": "3. E-Mails vorhanden?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -1328,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// E-Mail-Parser: Analysiert jede E-Mail (v2 - Erweiterter Spam-Filter)\nconst email = $input.item.json;\nconst subject = email.subject || '';\nconst body = email.body?.content || '';\nconst fromAddress = email.from?.emailAddress?.address || '';\nconst fromName = email.from?.emailAddress?.name || '';\n\n// 1. QA-ID Extraktion (Format: QA-NNNNN)\nconst qaIdMatch = subject.match(/QA-(\\d{5})/i) || body.match(/QA-(\\d{5})/i);\nlet qaId = null;\nlet qaYear = null;\nlet isExistingRekla = false;\n\nif (qaIdMatch) {\n  qaId = qaIdMatch[0].toUpperCase();\n  qaYear = \"20\" + qaIdMatch[1].substring(0, 2);\n  isExistingRekla = true;\n}\n\n// === ERWEITERTER SPAM-FILTER (Phase 2) ===\nconst subjectLower = subject.toLowerCase();\nconst bodyLower = body.toLowerCase();\nconst fromDomain = fromAddress.split('@')[1]?.toLowerCase() || '';\n\n// Spam-Keywords (erweitert)\nconst spamKeywords = [\n  'viagra', 'casino', 'lottery', 'winner', 'bitcoin', 'crypto', 'prize',\n  'congratulations', 'click here', 'unsubscribe', 'newsletter', 'abmelden',\n  'werbung', 'angebot', 'rabatt', 'gutschein', 'gewinnspiel',\n  'investment opportunity', 'act now', 'limited time', 'free gift',\n  'no obligation', 'risk free', 'satisfaction guaranteed',\n  'special promotion', 'deal of the day', 'exclusive offer',\n  'make money fast', 'work from home', 'earn extra cash'\n];\n\n// Whitelist-Domains (immer durchlassen)\nconst whitelistDomains = [\n  'schneider-kabelsatzbau.de',\n  // Lieferanten\n  'wuerth.de', 'wuerth.com',\n  'te.com', 'teconnectivity.com', 'tycoelectronics.com',\n  'wago.com', 'weidmueller.com',\n  'phoenix-contact.com', 'phoenixcontact.com',\n  'molex.com', 'amphenol.com',\n  'jae.com', 'yazaki.com', 'sumitomo.com',\n  'lapp.com', 'lappkabel.de',\n  'helukabel.de', 'helukabel.com',\n  'jst.de', 'jst-mfg.com',\n  'harting.com', 'komax.com', 'schleuniger.com',\n  'cavazzuti.it', 'g-cavazzuti.it',\n  // Kunden\n  'bosch.com', 'bosch.de',\n  'zf.com', 'continental.com',\n  'schaeffler.com', 'valeo.com'\n];\n\n// Blacklist-Domains (immer blockieren)\nconst blacklistDomains = [\n  'spam.com', 'marketing.com', 'promo.com',\n  'noreply-marketing.com', 'bulk-mail.com',\n  'mailchimp.com', 'sendgrid.net'\n];\n\n// Reklamations-Keywords (positiv - durchlassen)\nconst reklaKeywords = [\n  'reklamation', 'beschwerde', 'mangel', 'fehler', 'defekt',\n  'qualitaet', 'qualit\u00e4t', 'qa-', 'qm-',\n  'ruecksendung', 'r\u00fccksendung', 'ersatz', 'gutschrift',\n  'lieferschein', 'lieferung', 'beschaedigt', 'besch\u00e4digt',\n  'falsch geliefert', 'fehlerhaft', 'nicht konform',\n  'abweichung', 'maengel', 'm\u00e4ngel', 'beanstandung',\n  '8d', '8-d', 'korrekturmassnahme', 'korrekturma\u00dfnahme',\n  'credit note', 'rma', 'return'\n];\n\n// Pruefungen\nconst isWhitelisted = whitelistDomains.some(d => fromDomain.includes(d));\nconst isBlacklisted = blacklistDomains.some(d => fromDomain.includes(d));\nconst hasSpamKeyword = spamKeywords.some(kw => subjectLower.includes(kw) || bodyLower.includes(kw));\nconst hasReklaKeyword = reklaKeywords.some(kw => subjectLower.includes(kw) || bodyLower.includes(kw));\n\n// Spam-Score berechnen (0-100)\nlet spamScore = 0;\nlet spamReason = '';\n\nif (isBlacklisted) {\n  spamScore = 100;\n  spamReason = 'Blacklist: ' + fromDomain;\n} else if (isWhitelisted) {\n  spamScore = 0;\n  spamReason = 'Whitelist: ' + fromDomain;\n} else if (hasReklaKeyword) {\n  // Reklamations-Keywords haben Vorrang\n  spamScore = 0;\n  spamReason = 'Reklamations-Keyword erkannt';\n} else {\n  // Spam-Keywords pruefen\n  for (const keyword of spamKeywords) {\n    if (subjectLower.includes(keyword) || bodyLower.includes(keyword)) {\n      spamScore += 20;\n    }\n  }\n  \n  // Unbekannte Domain ohne Rekla-Keywords\n  if (!isWhitelisted && spamScore === 0) {\n    spamScore += 10;\n    spamReason = 'Unbekannte Domain: ' + fromDomain;\n  }\n  \n  // Leerer Betreff\n  if (!subject.trim()) {\n    spamScore += 30;\n    spamReason += ' + Leerer Betreff';\n  }\n  \n  if (hasSpamKeyword) {\n    spamReason = 'Spam-Keywords erkannt';\n  }\n}\n\n// 3. Rekla-Typ bestimmen (Standard: Kunde)\nlet reklaTyp = 'Kunde';\nconst lieferantKeywords = ['credit note', 'gutschrift', 'supplier', 'lieferant', 'r\u00fccksendung', 'return', 'lieferschein'];\nif (lieferantKeywords.some(kw => subjectLower.includes(kw) || bodyLower.includes(kw))) {\n  reklaTyp = 'Lieferant';\n}\n\n// 4. Body-Preview (max 500 Zeichen, HTML entfernen)\nconst bodyText = body.replace(/<[^>]*>/g, ' ').replace(/\\s+/g, ' ').trim();\nconst bodyPreview = bodyText.substring(0, 500);\n\nreturn {\n  // Original E-Mail Daten\n  messageId: email.id,\n  conversationId: email.conversationId,\n  subject: subject,\n  bodyPreview: bodyPreview,\n  from: fromAddress,\n  fromName: fromName,\n  receivedDateTime: email.receivedDateTime,\n  hasAttachments: email.hasAttachments,\n  \n  // Analyse-Ergebnisse\n  qaId: qaId,\n  qaYear: qaYear,\n  isExistingRekla: isExistingRekla,\n  spamScore: spamScore,\n  isSpam: spamScore >= 50,\n  spamReason: spamReason,\n  isTrustedSender: isWhitelisted,\n  isBlacklisted: isBlacklisted,\n  hasReklaKeyword: hasReklaKeyword,\n  reklaTyp: reklaTyp\n};"
+      },
+      "id": "18b3e244-3bad-4335-adea-7725fc72a204",
+      "name": "4. E-Mail-Parser",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1024,
+        176
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "value",
+        "options": {}
+      },
+      "id": "1ef0b909-1e83-4045-b98b-38520a78d6b5",
+      "name": "3a. Split E-Mails",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -1200,
+        176
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "check-spam",
+              "leftValue": "={{ $json.isSpam }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "dc4d6d65-1ecd-4af9-9c25-e340020e6f3c",
+      "name": "5. Spam?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -880,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.microsoft.com/v1.0/users/reklamation@schneider-kabelsatzbau.de/messages/{{ $json.messageId }}/move",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={ \"destinationId\": \"JunkEmail\" }",
+        "options": {}
+      },
+      "id": "532ff573-484d-4d85-aead-5833379acf4a",
+      "name": "5a. In Junk verschieben",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -656,
+        400
+      ],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "check-existing",
+              "leftValue": "={{ $json.isExistingRekla }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "edf732df-2746-43bc-a7c3-81db149005d2",
+      "name": "6. QA-ID gefunden?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -656,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/e9b1d926-085a-4435-a012-114ca9ba59a8/items",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "$filter",
+              "value": "=fields/QA_ID eq '{{ $json.qaId }}'"
+            },
+            {
+              "name": "$expand",
+              "value": "fields"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Prefer",
+              "value": "HonorNonIndexedQueriesWarningMayFailRandomly"
+            }
+          ]
+        },
+        "options": {
+          "lowercaseHeaders": false
+        }
+      },
+      "id": "03961b14-f492-4a3d-b11f-797b693ddf9e",
+      "name": "7a. Rekla suchen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -448,
+        112
+      ],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/f89562e1-e566-42d7-a58b-917b739c3a38/items",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "$expand",
+              "value": "fields"
+            },
+            {
+              "name": "$filter",
+              "value": "=fields/CURRENT_YEAR eq {{ $now.format('YYYY') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c9f299e0-d658-477d-bd69-50e2e55e4fee",
+      "name": "7b. Config laden",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -448,
+        304
+      ],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// QA-ID Generator f\u00fcr neue Reklamationen\nconst config = $input.item.json;\nconst emailData = $('4. E-Mail-Parser').item.json;\n\nconst currentYear = new Date().getFullYear();\nconst yearShort = currentYear.toString().slice(-2);\n\nlet lastId = 0;\nlet configItemId = null;\nlet needsNewConfig = true;\n\n// Config f\u00fcr aktuelles Jahr gefunden?\nif (config.value && config.value.length > 0) {\n  const configEntry = config.value[0];\n  lastId = parseInt(configEntry.fields?.Last_ID) || 0;\n  configItemId = configEntry.id;\n  needsNewConfig = false;\n}\n\n// Neue ID generieren\nconst newId = lastId + 1;\nconst newIdPadded = newId.toString().padStart(3, '0');\nconst newQaId = `QA-${yearShort}${newIdPadded}`;\n\nreturn {\n  // Neue QA-ID Daten\n  newQaId: newQaId,\n  newLastId: newId,\n  configItemId: configItemId,\n  currentYear: currentYear,\n  needsNewConfig: needsNewConfig,\n  \n  // E-Mail Daten durchreichen\n  messageId: emailData.messageId,\n  conversationId: emailData.conversationId,\n  subject: emailData.subject,\n  bodyPreview: emailData.bodyPreview,\n  from: emailData.from,\n  fromName: emailData.fromName,\n  receivedDateTime: emailData.receivedDateTime,\n  hasAttachments: emailData.hasAttachments,\n  reklaTyp: emailData.reklaTyp,\n  isExistingRekla: false\n};"
+      },
+      "id": "364c5120-3150-4d78-8e76-89c8653d1093",
+      "name": "8b. QA-ID generieren",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -224,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "check-found",
+              "leftValue": "={{ $json.value.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "9c256ab9-37d8-450f-9aeb-0e40e6517661",
+      "name": "8a. Rekla existiert?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -224,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Existierende Reklamation gefunden - Daten zusammenf\u00fchren\nconst reklaData = $input.item.json;\nconst emailData = $('4. E-Mail-Parser').item.json;\n\nconst existingRekla = reklaData.value[0];\n\nreturn {\n  // Reklamations-Daten\n  reklaItemId: existingRekla.id,\n  qaId: existingRekla.fields?.QA_ID,\n  reklaStatus: existingRekla.fields?.Rekla_Status,\n  \n  // E-Mail Daten\n  messageId: emailData.messageId,\n  conversationId: emailData.conversationId,\n  subject: emailData.subject,\n  bodyPreview: emailData.bodyPreview,\n  from: emailData.from,\n  fromName: emailData.fromName,\n  receivedDateTime: emailData.receivedDateTime,\n  hasAttachments: emailData.hasAttachments,\n  \n  // Flags\n  isExistingRekla: true,\n  skipReklaCreation: true\n};"
+      },
+      "id": "fb7ccbbb-81d0-48fd-b7fd-db4d15eac3c1",
+      "name": "8a-TRUE. Daten mergen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Reklamation nicht gefunden - mit alter QA-ID erstellen\nconst emailData = $('4. E-Mail-Parser').item.json;\n\nreturn {\n  // QA-ID aus E-Mail \u00fcbernehmen\n  newQaId: emailData.qaId,\n  qaYear: emailData.qaYear,\n  \n  // E-Mail Daten\n  messageId: emailData.messageId,\n  conversationId: emailData.conversationId,\n  subject: emailData.subject,\n  bodyPreview: emailData.bodyPreview,\n  from: emailData.from,\n  fromName: emailData.fromName,\n  receivedDateTime: emailData.receivedDateTime,\n  hasAttachments: emailData.hasAttachments,\n  reklaTyp: emailData.reklaTyp,\n  \n  // Flags\n  isExistingRekla: false,\n  useOldQaId: true,\n  skipConfigUpdate: true\n};"
+      },
+      "id": "222e738b-9ba1-4ff1-9b32-ee9481171d18",
+      "name": "8a-FALSE. Alte QA-ID",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/e9b1d926-085a-4435-a012-114ca9ba59a8/items",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"fields\": {\n    \"Title\": \"{{ $json.subject }}\",\n    \"QA_ID\": \"{{ $json.newQaId }}\",\n    \"Rekla_Typ\": \"Kunde\",\n    \"Prioritaet\": \"mittel\",\n    \"Rekla_Status\": \"Neu\",\n    \"Beschreibung\": \"E-Mail von: {{ $json.fromName }} - {{ $json.from }}\",\n    \"Erfassungsdatum\": \"{{ new Date().toISOString().split('T')[0] }}\"\n  }\n}",
+        "options": {}
+      },
+      "id": "2bdcaf90-4cbe-428b-a583-c220096e56f3",
+      "name": "9. Reklamation erstellen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        224,
+        304
+      ],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "check-skip",
+              "leftValue": "={{ $json.skipConfigUpdate }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "notEquals"
+              }
+            },
+            {
+              "id": "check-config-exists",
+              "leftValue": "={{ $json.configItemId }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "isNotEmpty"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "b68d30fd-fac6-4900-82e6-6fde1f967121",
+      "name": "10. Config updaten?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        448,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/f89562e1-e566-42d7-a58b-917b739c3a38/items/{{ $('8b. QA-ID generieren').item.json.configItemId }}/fields",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"Last_ID\": {{ $('8b. QA-ID generieren').item.json.newLastId }}\n}",
+        "options": {}
+      },
+      "id": "266f2325-b4cd-490e-8aad-6067de046fa4",
+      "name": "10a. Config aktualisieren",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        672,
+        208
+      ],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://graph.microsoft.com/v1.0/users/reklamation@schneider-kabelsatzbau.de/messages/{{ $('4. E-Mail-Parser').item.json.messageId }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{ \"isRead\": true }",
+        "options": {}
+      },
+      "id": "52a6488a-91c5-4fb6-be85-619292577fa6",
+      "name": "11. Als gelesen markieren",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        880,
+        304
+      ],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.microsoft.com/v1.0/users/reklamation@schneider-kabelsatzbau.de/messages/{{ $('4. E-Mail-Parser').item.json.messageId }}/move",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{ \"destinationId\": \"Archive\" }",
+        "options": {}
+      },
+      "id": "c8ffd6b9-138f-4bd1-8515-7fa23f050a75",
+      "name": "12. Ins Archiv",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1104,
+        304
+      ],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "92f441d3-122e-46ff-830d-3350e76edc8c",
+      "name": "Ende (Keine E-Mails)",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -1312,
+        720
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Merge Node f\u00fcr existierende Reklamationen\n// Leitet zur E-Mail-Archivierung weiter\nconst data = $input.item.json;\n\nreturn {\n  qaId: data.qaId,\n  reklaItemId: data.reklaItemId,\n  messageId: data.messageId,\n  subject: data.subject,\n  from: data.from,\n  fromName: data.fromName,\n  bodyPreview: data.bodyPreview,\n  receivedDateTime: data.receivedDateTime,\n  isExistingRekla: true\n};"
+      },
+      "id": "de464de3-2fe5-4ab4-8b4a-ecb694114c21",
+      "name": "Merge f\u00fcr Archiv",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.microsoft.com/v1.0/users/reklamation@schneider-kabelsatzbau.de/messages/{{ $json.messageId }}/attachments",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "options": {}
+      },
+      "id": "attachment-node-001",
+      "name": "13. Anh\u00e4nge laden",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1328,
+        304
+      ],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com/drive/root:/Reklamationen/{{ $now.format('YYYY') }}/{{ $now.format('MM') }}/{{ $json.qaId }}/{{ $json.name }}:/content",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "contentType": "binaryData",
+        "options": {}
+      },
+      "id": "sharepoint-node-001",
+      "name": "14. SharePoint Upload",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1552,
+        304
+      ],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.microsoft.com/v1.0/teams/{{ $env.TEAMS_QM_TEAM_ID }}/channels/{{ $env.TEAMS_QM_CHANNEL_ID }}/messages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"body\": {\n    \"contentType\": \"html\",\n    \"content\": \"<b>\ud83d\udd14 Neue Reklamation:</b> {{ $json.qaId }}<br>Kunde: {{ $json.fromName }}<br>Betreff: {{ $json.subject }}\"\n  }\n}",
+        "options": {}
+      },
+      "id": "teams-node-001",
+      "name": "15. Teams Benachrichtigung",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1776,
+        304
+      ],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/741c6ae8-88bb-406b-bf85-2e11192a528f/items",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"fields\": {\n    \"Title\": \"{{ $('4. E-Mail-Parser').item.json.subject ? $('4. E-Mail-Parser').item.json.subject.substring(0, 250) : 'Kein Betreff' }}\",\n    \"QA_IDLookupId\": {{ $('9. Reklamation erstellen').item.json.id || $('7a. Rekla suchen').item.json.value[0].id || 0 }},\n    \"Datum\": \"{{ $('4. E-Mail-Parser').item.json.receivedDateTime }}\",\n    \"Typ\": \"E-Mail Eingang\",\n    \"Absender\": \"{{ $('4. E-Mail-Parser').item.json.fromName }} ({{ $('4. E-Mail-Parser').item.json.from }})\",\n    \"Betreff\": \"{{ $('4. E-Mail-Parser').item.json.subject }}\",\n    \"Inhalt\": \"{{ $('4. E-Mail-Parser').item.json.bodyPreview ? $('4. E-Mail-Parser').item.json.bodyPreview.substring(0, 500) : '' }}\",\n    \"Richtung\": \"Eingehend\"\n  }\n}",
+        "options": {}
+      },
+      "id": "schriftverkehr-node-001",
+      "name": "16. Schriftverkehr erstellen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1328,
+        520
+      ],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:5001/generate-pdf",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"abweichungs_nr\": \"{{ $('8b. QA-ID generieren').item.json.newQaId || $('8a-FALSE. Alte QA-ID').item.json.existingQaId || 'QA-XXXX-XXX' }}\",\n  \"datum\": \"{{ new Date().toISOString().split('T')[0] }}\",\n  \"lieferant_firma\": \"{{ $('4. E-Mail-Parser').item.json.fromName || 'Unbekannt' }}\",\n  \"lieferant_ansprechpartner\": \"\",\n  \"lieferant_email\": \"{{ $('4. E-Mail-Parser').item.json.from }}\",\n  \"artikel_nr_schneider\": \"\",\n  \"artikel_bezeichnung\": \"{{ $('4. E-Mail-Parser').item.json.subject }}\",\n  \"lieferschein_nr\": \"\",\n  \"lieferdatum\": \"\",\n  \"liefermenge\": \"\",\n  \"beanstandungsmenge\": \"\",\n  \"beschreibung\": \"{{ $('4. E-Mail-Parser').item.json.bodyPreview || 'Aus E-Mail importiert. Details siehe Anhang.' }}\",\n  \"massnahmen\": [\"untersuchung_abstellen\"],\n  \"ersteller\": \"System\",\n  \"return_base64\": true\n}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "pdf-generate-node-001",
+      "name": "17. PDF generieren",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        448,
+        520
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Decode Base64 PDF content and prepare for upload\nconst item = $input.item.json;\n\nif (!item.success || !item.content_base64) {\n  return { error: 'PDF-Generierung fehlgeschlagen', details: item };\n}\n\n// Return binary data for next node\nconst binaryData = Buffer.from(item.content_base64, 'base64');\n\nreturn {\n  filename: item.filename,\n  filepath: item.filepath,\n  binaryData: item.content_base64,\n  contentLength: binaryData.length\n};"
+      },
+      "id": "pdf-decode-node-001",
+      "name": "18. PDF vorbereiten",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/drive/root:/Reklamationen/{{ new Date().getFullYear() }}/{{ String(new Date().getMonth() + 1).padStart(2, '0') }}/{{ $('8b. QA-ID generieren').item.json.newQaId || $('8a-FALSE. Alte QA-ID').item.json.existingQaId || 'UNKNOWN' }}/Dokumente/{{ $json.filename }}:/content",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/pdf",
+        "body": "={{ Buffer.from($json.binaryData, 'base64') }}",
+        "options": {}
+      },
+      "id": "pdf-upload-node-001",
+      "name": "19. PDF nach SharePoint",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        896,
+        520
+      ],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    }
+  ],
+  "connections": {
+    "1. Schedule (5 Min)": {
+      "main": [
+        [
+          {
+            "node": "2. E-Mails abrufen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. E-Mails abrufen": {
+      "main": [
+        [
+          {
+            "node": "3. E-Mails vorhanden?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. E-Mails vorhanden?": {
+      "main": [
+        [
+          {
+            "node": "3a. Split E-Mails",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Ende (Keine E-Mails)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3a. Split E-Mails": {
+      "main": [
+        [
+          {
+            "node": "4. E-Mail-Parser",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. E-Mail-Parser": {
+      "main": [
+        [
+          {
+            "node": "5. Spam?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Spam?": {
+      "main": [
+        [
+          {
+            "node": "5a. In Junk verschieben",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "6. QA-ID gefunden?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6. QA-ID gefunden?": {
+      "main": [
+        [
+          {
+            "node": "7a. Rekla suchen",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "7b. Config laden",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7a. Rekla suchen": {
+      "main": [
+        [
+          {
+            "node": "8a. Rekla existiert?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7b. Config laden": {
+      "main": [
+        [
+          {
+            "node": "8b. QA-ID generieren",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8a. Rekla existiert?": {
+      "main": [
+        [
+          {
+            "node": "8a-TRUE. Daten mergen",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "8a-FALSE. Alte QA-ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8a-TRUE. Daten mergen": {
+      "main": [
+        [
+          {
+            "node": "Merge f\u00fcr Archiv",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8a-FALSE. Alte QA-ID": {
+      "main": [
+        [
+          {
+            "node": "9. Reklamation erstellen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8b. QA-ID generieren": {
+      "main": [
+        [
+          {
+            "node": "9. Reklamation erstellen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9. Reklamation erstellen": {
+      "main": [
+        [
+          {
+            "node": "10. Config updaten?",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "17. PDF generieren",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "10. Config updaten?": {
+      "main": [
+        [
+          {
+            "node": "10a. Config aktualisieren",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "11. Als gelesen markieren",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "10a. Config aktualisieren": {
+      "main": [
+        [
+          {
+            "node": "11. Als gelesen markieren",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge f\u00fcr Archiv": {
+      "main": [
+        [
+          {
+            "node": "11. Als gelesen markieren",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "11. Als gelesen markieren": {
+      "main": [
+        [
+          {
+            "node": "12. Ins Archiv",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "12. Ins Archiv": {
+      "main": [
+        [
+          {
+            "node": "13. Anh\u00e4nge laden",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "16. Schriftverkehr erstellen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "13. Anh\u00e4nge laden": {
+      "main": [
+        [
+          {
+            "node": "14. SharePoint Upload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "14. SharePoint Upload": {
+      "main": [
+        [
+          {
+            "node": "15. Teams Benachrichtigung",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "17. PDF generieren": {
+      "main": [
+        [
+          {
+            "node": "18. PDF vorbereiten",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "18. PDF vorbereiten": {
+      "main": [
+        [
+          {
+            "node": "19. PDF nach SharePoint",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": {
+    "node:1. Schedule (5 Min)": {
+      "recurrenceRules": []
+    }
+  },
+  "meta": null,
+  "pinData": {},
+  "versionId": "5a700820-a3b3-4215-9709-2cdb4ea02bd8",
+  "activeVersionId": "5a700820-a3b3-4215-9709-2cdb4ea02bd8",
+  "versionCounter": 35,
+  "triggerCount": 1,
+  "shared": [
+    {
+      "updatedAt": "2026-01-27T11:44:41.285Z",
+      "createdAt": "2026-01-27T11:44:41.285Z",
+      "role": "workflow:owner",
+      "workflowId": "k3rVSLW6O00dtTBr",
+      "projectId": "U3SM2drOYRlHZzUj",
+      "project": {
+        "updatedAt": "2025-12-19T15:37:56.760Z",
+        "createdAt": "2025-12-15T14:55:56.556Z",
+        "id": "U3SM2drOYRlHZzUj",
+        "name": "Andreas L\u00f6hr <a.loehr@schneider-kabelsatzbau.de>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "creatorId": "e2912ae2-f742-41de-a659-1547b0c0e99e",
+        "projectRelations": [
+          {
+            "updatedAt": "2025-12-15T14:55:56.557Z",
+            "createdAt": "2025-12-15T14:55:56.557Z",
+            "userId": "e2912ae2-f742-41de-a659-1547b0c0e99e",
+            "projectId": "U3SM2drOYRlHZzUj",
+            "user": {
+              "updatedAt": "2026-01-29T15:26:16.000Z",
+              "createdAt": "2025-12-15T14:55:54.532Z",
+              "id": "e2912ae2-f742-41de-a659-1547b0c0e99e",
+              "email": "a.loehr@schneider-kabelsatzbau.de",
+              "firstName": "Andreas",
+              "lastName": "L\u00f6hr",
+              "personalizationAnswers": {
+                "version": "v4",
+                "personalization_survey_submitted_at": "2025-12-19T15:38:57.357Z",
+                "personalization_survey_n8n_version": "1.123.6",
+                "automationGoalDevops": [
+                  "other"
+                ],
+                "companyIndustryExtended": [
+                  "manufacturing-industry"
+                ],
+                "companySize": "20-99",
+                "companyType": "other",
+                "role": "engineering",
+                "reportedSource": "youtube"
+              },
+              "settings": {
+                "userActivated": true,
+                "firstSuccessfulWorkflowId": "Eu7T9rCmLub6xO05",
+                "userActivatedAt": 1769500252063
+              },
+              "disabled": false,
+              "mfaEnabled": false,
+              "lastActiveAt": "2026-01-28",
+              "isPending": false
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "tags": [
+    {
+      "updatedAt": "2026-01-26T21:13:24.409Z",
+      "createdAt": "2026-01-26T21:13:24.409Z",
+      "id": "kYCPNCC6OYpZhh5y",
+      "name": "RMS"
+    }
+  ],
+  "activeVersion": {
+    "updatedAt": "2026-01-27T21:15:51.401Z",
+    "createdAt": "2026-01-27T21:15:51.401Z",
+    "versionId": "5a700820-a3b3-4215-9709-2cdb4ea02bd8",
+    "workflowId": "k3rVSLW6O00dtTBr",
+    "nodes": [
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "minutes"
+              }
+            ]
+          }
+        },
+        "id": "b57c26d7-1fd1-4039-82d1-1ad3c40c5603",
+        "name": "1. Schedule (5 Min)",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          -1760,
+          400
+        ]
+      },
+      {
+        "parameters": {
+          "url": "https://graph.microsoft.com/v1.0/users/reklamation@schneider-kabelsatzbau.de/mailFolders/Inbox/messages",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "microsoftOAuth2Api",
+          "sendQuery": true,
+          "queryParameters": {
+            "parameters": [
+              {
+                "name": "$filter",
+                "value": "isRead eq false"
+              },
+              {
+                "name": "$top",
+                "value": "5"
+              },
+              {
+                "name": "$select",
+                "value": "id,subject,from,receivedDateTime,body,conversationId,hasAttachments"
+              },
+              {
+                "name": "$orderby",
+                "value": "receivedDateTime asc"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "id": "45579a8f-5470-4ad4-95dd-8b5f46da2fcd",
+        "name": "2. E-Mails abrufen",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          -1536,
+          400
+        ],
+        "credentials": {
+          "microsoftOAuth2Api": {
+            "id": "Fm3IuAbVYBYDIA4U",
+            "name": "Microsoft account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 1
+            },
+            "conditions": [
+              {
+                "id": "check-emails",
+                "leftValue": "={{ $json.value.length }}",
+                "rightValue": 0,
+                "operator": {
+                  "type": "number",
+                  "operation": "gt"
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "id": "9d16189d-d6d4-4992-a10e-ebc52939e18b",
+        "name": "3. E-Mails vorhanden?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2,
+        "position": [
+          -1328,
+          400
+        ]
+      },
+      {
+        "parameters": {
+          "mode": "runOnceForEachItem",
+          "jsCode": "// E-Mail-Parser: Analysiert jede E-Mail\nconst email = $input.item.json;\nconst subject = email.subject || '';\nconst body = email.body?.content || '';\nconst fromAddress = email.from?.emailAddress?.address || '';\nconst fromName = email.from?.emailAddress?.name || '';\n\n// 1. QA-ID Extraktion (Format: QA-NNNNN)\nconst qaIdMatch = subject.match(/QA-(\\d{5})/i) || body.match(/QA-(\\d{5})/i);\nlet qaId = null;\nlet qaYear = null;\nlet isExistingRekla = false;\n\nif (qaIdMatch) {\n  qaId = qaIdMatch[0].toUpperCase();\n  qaYear = \"20\" + qaIdMatch[1].substring(0, 2);\n  isExistingRekla = true;\n}\n\n// 2. Spam-Score berechnen (0-100)\nlet spamScore = 0;\nconst spamKeywords = ['viagra', 'casino', 'lottery', 'winner', 'bitcoin', 'crypto', 'prize', 'congratulations', 'click here', 'unsubscribe'];\nconst subjectLower = subject.toLowerCase();\nconst bodyLower = body.toLowerCase();\n\nfor (const keyword of spamKeywords) {\n  if (subjectLower.includes(keyword) || bodyLower.includes(keyword)) {\n    spamScore += 25;\n  }\n}\n\n// Trusted Domains\nconst trustedDomains = [\n  'schneider-kabelsatzbau.de',\n  'te.com', 'tycoelectronics.com',\n  'molex.com', 'amphenol.com',\n  'jst.de', 'jst-mfg.com',\n  'weidmueller.com', 'phoenix-contact.com',\n  'harting.com', 'lapp.com',\n  'komax.com', 'schleuniger.com',\n  'cavazzuti.it', 'g-cavazzuti.it'\n];\n\nconst fromDomain = fromAddress.split('@')[1]?.toLowerCase() || '';\nconst isTrusted = trustedDomains.some(d => fromDomain.includes(d));\nif (!isTrusted && fromDomain) {\n  spamScore += 15;\n}\n\n// Leerer Betreff\nif (!subject.trim()) spamScore += 30;\n\n// 3. Rekla-Typ bestimmen (Standard: Kunde)\nlet reklaTyp = 'Kunde';\nconst lieferantKeywords = ['credit note', 'gutschrift', 'supplier', 'lieferant', 'r\u00fccksendung', 'return'];\nif (lieferantKeywords.some(kw => subjectLower.includes(kw) || bodyLower.includes(kw))) {\n  reklaTyp = 'Lieferant';\n}\n\n// 4. Body-Preview (max 500 Zeichen, HTML entfernen)\nconst bodyText = body.replace(/<[^>]*>/g, ' ').replace(/\\s+/g, ' ').trim();\nconst bodyPreview = bodyText.substring(0, 500);\n\nreturn {\n  // Original E-Mail Daten\n  messageId: email.id,\n  conversationId: email.conversationId,\n  subject: subject,\n  bodyPreview: bodyPreview,\n  from: fromAddress,\n  fromName: fromName,\n  receivedDateTime: email.receivedDateTime,\n  hasAttachments: email.hasAttachments,\n  \n  // Analyse-Ergebnisse\n  qaId: qaId,\n  qaYear: qaYear,\n  isExistingRekla: isExistingRekla,\n  spamScore: spamScore,\n  isSpam: spamScore >= 50,\n  isTrustedSender: isTrusted,\n  reklaTyp: reklaTyp\n};"
+        },
+        "id": "18b3e244-3bad-4335-adea-7725fc72a204",
+        "name": "4. E-Mail-Parser",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -1024,
+          176
+        ]
+      },
+      {
+        "parameters": {
+          "fieldToSplitOut": "value",
+          "options": {}
+        },
+        "id": "1ef0b909-1e83-4045-b98b-38520a78d6b5",
+        "name": "3a. Split E-Mails",
+        "type": "n8n-nodes-base.splitOut",
+        "typeVersion": 1,
+        "position": [
+          -1200,
+          176
+        ]
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict"
+            },
+            "conditions": [
+              {
+                "id": "check-spam",
+                "leftValue": "={{ $json.isSpam }}",
+                "rightValue": true,
+                "operator": {
+                  "type": "boolean",
+                  "operation": "equals"
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "id": "dc4d6d65-1ecd-4af9-9c25-e340020e6f3c",
+        "name": "5. Spam?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2,
+        "position": [
+          -880,
+          304
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "=https://graph.microsoft.com/v1.0/users/reklamation@schneider-kabelsatzbau.de/messages/{{ $json.messageId }}/move",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "microsoftOAuth2Api",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={ \"destinationId\": \"JunkEmail\" }",
+          "options": {}
+        },
+        "id": "532ff573-484d-4d85-aead-5833379acf4a",
+        "name": "5a. In Junk verschieben",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          -656,
+          400
+        ],
+        "credentials": {
+          "microsoftOAuth2Api": {
+            "id": "Fm3IuAbVYBYDIA4U",
+            "name": "Microsoft account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict"
+            },
+            "conditions": [
+              {
+                "id": "check-existing",
+                "leftValue": "={{ $json.isExistingRekla }}",
+                "rightValue": true,
+                "operator": {
+                  "type": "boolean",
+                  "operation": "equals"
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "id": "edf732df-2746-43bc-a7c3-81db149005d2",
+        "name": "6. QA-ID gefunden?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2,
+        "position": [
+          -656,
+          208
+        ]
+      },
+      {
+        "parameters": {
+          "url": "=https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/e9b1d926-085a-4435-a012-114ca9ba59a8/items",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "microsoftOAuth2Api",
+          "sendQuery": true,
+          "queryParameters": {
+            "parameters": [
+              {
+                "name": "$filter",
+                "value": "=fields/QA_ID eq '{{ $json.qaId }}'"
+              },
+              {
+                "name": "$expand",
+                "value": "fields"
+              }
+            ]
+          },
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "Prefer",
+                "value": "HonorNonIndexedQueriesWarningMayFailRandomly"
+              }
+            ]
+          },
+          "options": {
+            "lowercaseHeaders": false
+          }
+        },
+        "id": "03961b14-f492-4a3d-b11f-797b693ddf9e",
+        "name": "7a. Rekla suchen",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          -448,
+          112
+        ],
+        "credentials": {
+          "microsoftOAuth2Api": {
+            "id": "Fm3IuAbVYBYDIA4U",
+            "name": "Microsoft account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "url": "=https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/f89562e1-e566-42d7-a58b-917b739c3a38/items",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "microsoftOAuth2Api",
+          "sendQuery": true,
+          "queryParameters": {
+            "parameters": [
+              {
+                "name": "$expand",
+                "value": "fields"
+              },
+              {
+                "name": "$filter",
+                "value": "=fields/CURRENT_YEAR eq {{ $now.format('YYYY') }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "id": "c9f299e0-d658-477d-bd69-50e2e55e4fee",
+        "name": "7b. Config laden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          -448,
+          304
+        ],
+        "credentials": {
+          "microsoftOAuth2Api": {
+            "id": "Fm3IuAbVYBYDIA4U",
+            "name": "Microsoft account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "mode": "runOnceForEachItem",
+          "jsCode": "// QA-ID Generator f\u00fcr neue Reklamationen\nconst config = $input.item.json;\nconst emailData = $('4. E-Mail-Parser').item.json;\n\nconst currentYear = new Date().getFullYear();\nconst yearShort = currentYear.toString().slice(-2);\n\nlet lastId = 0;\nlet configItemId = null;\nlet needsNewConfig = true;\n\n// Config f\u00fcr aktuelles Jahr gefunden?\nif (config.value && config.value.length > 0) {\n  const configEntry = config.value[0];\n  lastId = parseInt(configEntry.fields?.Last_ID) || 0;\n  configItemId = configEntry.id;\n  needsNewConfig = false;\n}\n\n// Neue ID generieren\nconst newId = lastId + 1;\nconst newIdPadded = newId.toString().padStart(3, '0');\nconst newQaId = `QA-${yearShort}${newIdPadded}`;\n\nreturn {\n  // Neue QA-ID Daten\n  newQaId: newQaId,\n  newLastId: newId,\n  configItemId: configItemId,\n  currentYear: currentYear,\n  needsNewConfig: needsNewConfig,\n  \n  // E-Mail Daten durchreichen\n  messageId: emailData.messageId,\n  conversationId: emailData.conversationId,\n  subject: emailData.subject,\n  bodyPreview: emailData.bodyPreview,\n  from: emailData.from,\n  fromName: emailData.fromName,\n  receivedDateTime: emailData.receivedDateTime,\n  hasAttachments: emailData.hasAttachments,\n  reklaTyp: emailData.reklaTyp,\n  isExistingRekla: false\n};"
+        },
+        "id": "364c5120-3150-4d78-8e76-89c8653d1093",
+        "name": "8b. QA-ID generieren",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -224,
+          304
+        ]
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict"
+            },
+            "conditions": [
+              {
+                "id": "check-found",
+                "leftValue": "={{ $json.value.length }}",
+                "rightValue": 0,
+                "operator": {
+                  "type": "number",
+                  "operation": "gt"
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "id": "9c256ab9-37d8-450f-9aeb-0e40e6517661",
+        "name": "8a. Rekla existiert?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2,
+        "position": [
+          -224,
+          112
+        ]
+      },
+      {
+        "parameters": {
+          "mode": "runOnceForEachItem",
+          "jsCode": "// Existierende Reklamation gefunden - Daten zusammenf\u00fchren\nconst reklaData = $input.item.json;\nconst emailData = $('4. E-Mail-Parser').item.json;\n\nconst existingRekla = reklaData.value[0];\n\nreturn {\n  // Reklamations-Daten\n  reklaItemId: existingRekla.id,\n  qaId: existingRekla.fields?.QA_ID,\n  reklaStatus: existingRekla.fields?.Rekla_Status,\n  \n  // E-Mail Daten\n  messageId: emailData.messageId,\n  conversationId: emailData.conversationId,\n  subject: emailData.subject,\n  bodyPreview: emailData.bodyPreview,\n  from: emailData.from,\n  fromName: emailData.fromName,\n  receivedDateTime: emailData.receivedDateTime,\n  hasAttachments: emailData.hasAttachments,\n  \n  // Flags\n  isExistingRekla: true,\n  skipReklaCreation: true\n};"
+        },
+        "id": "fb7ccbbb-81d0-48fd-b7fd-db4d15eac3c1",
+        "name": "8a-TRUE. Daten mergen",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          0,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "mode": "runOnceForEachItem",
+          "jsCode": "// Reklamation nicht gefunden - mit alter QA-ID erstellen\nconst emailData = $('4. E-Mail-Parser').item.json;\n\nreturn {\n  // QA-ID aus E-Mail \u00fcbernehmen\n  newQaId: emailData.qaId,\n  qaYear: emailData.qaYear,\n  \n  // E-Mail Daten\n  messageId: emailData.messageId,\n  conversationId: emailData.conversationId,\n  subject: emailData.subject,\n  bodyPreview: emailData.bodyPreview,\n  from: emailData.from,\n  fromName: emailData.fromName,\n  receivedDateTime: emailData.receivedDateTime,\n  hasAttachments: emailData.hasAttachments,\n  reklaTyp: emailData.reklaTyp,\n  \n  // Flags\n  isExistingRekla: false,\n  useOldQaId: true,\n  skipConfigUpdate: true\n};"
+        },
+        "id": "222e738b-9ba1-4ff1-9b32-ee9481171d18",
+        "name": "8a-FALSE. Alte QA-ID",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          0,
+          208
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/e9b1d926-085a-4435-a012-114ca9ba59a8/items",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "microsoftOAuth2Api",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"fields\": {\n    \"Title\": \"{{ $json.subject }}\",\n    \"QA_ID\": \"{{ $json.newQaId }}\",\n    \"Rekla_Typ\": \"Kunde\",\n    \"Prioritaet\": \"mittel\",\n    \"Rekla_Status\": \"Neu\",\n    \"Beschreibung\": \"E-Mail von: {{ $json.fromName }} - {{ $json.from }}\",\n    \"Erfassungsdatum\": \"{{ new Date().toISOString().split('T')[0] }}\"\n  }\n}",
+          "options": {}
+        },
+        "id": "2bdcaf90-4cbe-428b-a583-c220096e56f3",
+        "name": "9. Reklamation erstellen",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          224,
+          304
+        ],
+        "credentials": {
+          "microsoftOAuth2Api": {
+            "id": "Fm3IuAbVYBYDIA4U",
+            "name": "Microsoft account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict"
+            },
+            "conditions": [
+              {
+                "id": "check-skip",
+                "leftValue": "={{ $json.skipConfigUpdate }}",
+                "rightValue": true,
+                "operator": {
+                  "type": "boolean",
+                  "operation": "notEquals"
+                }
+              },
+              {
+                "id": "check-config-exists",
+                "leftValue": "={{ $json.configItemId }}",
+                "rightValue": "",
+                "operator": {
+                  "type": "string",
+                  "operation": "isNotEmpty"
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "id": "b68d30fd-fac6-4900-82e6-6fde1f967121",
+        "name": "10. Config updaten?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2,
+        "position": [
+          448,
+          304
+        ]
+      },
+      {
+        "parameters": {
+          "method": "PATCH",
+          "url": "=https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/f89562e1-e566-42d7-a58b-917b739c3a38/items/{{ $('8b. QA-ID generieren').item.json.configItemId }}/fields",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "microsoftOAuth2Api",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"Last_ID\": {{ $('8b. QA-ID generieren').item.json.newLastId }}\n}",
+          "options": {}
+        },
+        "id": "266f2325-b4cd-490e-8aad-6067de046fa4",
+        "name": "10a. Config aktualisieren",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          672,
+          208
+        ],
+        "credentials": {
+          "microsoftOAuth2Api": {
+            "id": "Fm3IuAbVYBYDIA4U",
+            "name": "Microsoft account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "method": "PATCH",
+          "url": "=https://graph.microsoft.com/v1.0/users/reklamation@schneider-kabelsatzbau.de/messages/{{ $('4. E-Mail-Parser').item.json.messageId }}",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "microsoftOAuth2Api",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "{ \"isRead\": true }",
+          "options": {}
+        },
+        "id": "52a6488a-91c5-4fb6-be85-619292577fa6",
+        "name": "11. Als gelesen markieren",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          880,
+          304
+        ],
+        "credentials": {
+          "microsoftOAuth2Api": {
+            "id": "Fm3IuAbVYBYDIA4U",
+            "name": "Microsoft account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "=https://graph.microsoft.com/v1.0/users/reklamation@schneider-kabelsatzbau.de/messages/{{ $('4. E-Mail-Parser').item.json.messageId }}/move",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "microsoftOAuth2Api",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "{ \"destinationId\": \"Archive\" }",
+          "options": {}
+        },
+        "id": "c8ffd6b9-138f-4bd1-8515-7fa23f050a75",
+        "name": "12. Ins Archiv",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          1104,
+          304
+        ],
+        "credentials": {
+          "microsoftOAuth2Api": {
+            "id": "Fm3IuAbVYBYDIA4U",
+            "name": "Microsoft account"
+          }
+        }
+      },
+      {
+        "parameters": {},
+        "id": "92f441d3-122e-46ff-830d-3350e76edc8c",
+        "name": "Ende (Keine E-Mails)",
+        "type": "n8n-nodes-base.noOp",
+        "typeVersion": 1,
+        "position": [
+          -1312,
+          720
+        ]
+      },
+      {
+        "parameters": {
+          "mode": "runOnceForEachItem",
+          "jsCode": "// Merge Node f\u00fcr existierende Reklamationen\n// Leitet zur E-Mail-Archivierung weiter\nconst data = $input.item.json;\n\nreturn {\n  qaId: data.qaId,\n  reklaItemId: data.reklaItemId,\n  messageId: data.messageId,\n  subject: data.subject,\n  from: data.from,\n  fromName: data.fromName,\n  bodyPreview: data.bodyPreview,\n  receivedDateTime: data.receivedDateTime,\n  isExistingRekla: true\n};"
+        },
+        "id": "de464de3-2fe5-4ab4-8b4a-ecb694114c21",
+        "name": "Merge f\u00fcr Archiv",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          672,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "url": "=https://graph.microsoft.com/v1.0/users/reklamation@schneider-kabelsatzbau.de/messages/{{ $json.messageId }}/attachments",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "microsoftOAuth2Api",
+          "options": {}
+        },
+        "id": "attachment-node-001",
+        "name": "13. Anh\u00e4nge laden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          1328,
+          304
+        ],
+        "credentials": {
+          "microsoftOAuth2Api": {
+            "id": "Fm3IuAbVYBYDIA4U",
+            "name": "Microsoft account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "method": "PUT",
+          "url": "=https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com/drive/root:/Reklamationen/{{ $now.format('YYYY') }}/{{ $now.format('MM') }}/{{ $json.qaId }}/{{ $json.name }}:/content",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "microsoftOAuth2Api",
+          "sendBody": true,
+          "contentType": "binaryData",
+          "options": {}
+        },
+        "id": "sharepoint-node-001",
+        "name": "14. SharePoint Upload",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          1552,
+          304
+        ],
+        "credentials": {
+          "microsoftOAuth2Api": {
+            "id": "Fm3IuAbVYBYDIA4U",
+            "name": "Microsoft account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "=https://graph.microsoft.com/v1.0/teams/{{ $env.TEAMS_QM_TEAM_ID }}/channels/{{ $env.TEAMS_QM_CHANNEL_ID }}/messages",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "microsoftOAuth2Api",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"body\": {\n    \"contentType\": \"html\",\n    \"content\": \"<b>\ud83d\udd14 Neue Reklamation:</b> {{ $json.qaId }}<br>Kunde: {{ $json.fromName }}<br>Betreff: {{ $json.subject }}\"\n  }\n}",
+          "options": {}
+        },
+        "id": "teams-node-001",
+        "name": "15. Teams Benachrichtigung",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          1776,
+          304
+        ],
+        "credentials": {
+          "microsoftOAuth2Api": {
+            "id": "Fm3IuAbVYBYDIA4U",
+            "name": "Microsoft account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/741c6ae8-88bb-406b-bf85-2e11192a528f/items",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "microsoftOAuth2Api",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"fields\": {\n    \"Title\": \"{{ $('4. E-Mail-Parser').item.json.subject ? $('4. E-Mail-Parser').item.json.subject.substring(0, 250) : 'Kein Betreff' }}\",\n    \"QA_IDLookupId\": {{ $('9. Reklamation erstellen').item.json.id || $('7a. Rekla suchen').item.json.value[0].id || 0 }},\n    \"Datum\": \"{{ $('4. E-Mail-Parser').item.json.receivedDateTime }}\",\n    \"Typ\": \"E-Mail Eingang\",\n    \"Absender\": \"{{ $('4. E-Mail-Parser').item.json.fromName }} ({{ $('4. E-Mail-Parser').item.json.from }})\",\n    \"Betreff\": \"{{ $('4. E-Mail-Parser').item.json.subject }}\",\n    \"Inhalt\": \"{{ $('4. E-Mail-Parser').item.json.bodyPreview ? $('4. E-Mail-Parser').item.json.bodyPreview.substring(0, 500) : '' }}\",\n    \"Richtung\": \"Eingehend\"\n  }\n}",
+          "options": {}
+        },
+        "id": "schriftverkehr-node-001",
+        "name": "16. Schriftverkehr erstellen",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          1328,
+          520
+        ],
+        "credentials": {
+          "microsoftOAuth2Api": {
+            "id": "Fm3IuAbVYBYDIA4U",
+            "name": "Microsoft account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://localhost:5001/generate-pdf",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"abweichungs_nr\": \"{{ $('8b. QA-ID generieren').item.json.newQaId || $('8a-FALSE. Alte QA-ID').item.json.existingQaId || 'QA-XXXX-XXX' }}\",\n  \"datum\": \"{{ new Date().toISOString().split('T')[0] }}\",\n  \"lieferant_firma\": \"{{ $('4. E-Mail-Parser').item.json.fromName || 'Unbekannt' }}\",\n  \"lieferant_ansprechpartner\": \"\",\n  \"lieferant_email\": \"{{ $('4. E-Mail-Parser').item.json.from }}\",\n  \"artikel_nr_schneider\": \"\",\n  \"artikel_bezeichnung\": \"{{ $('4. E-Mail-Parser').item.json.subject }}\",\n  \"lieferschein_nr\": \"\",\n  \"lieferdatum\": \"\",\n  \"liefermenge\": \"\",\n  \"beanstandungsmenge\": \"\",\n  \"beschreibung\": \"{{ $('4. E-Mail-Parser').item.json.bodyPreview || 'Aus E-Mail importiert. Details siehe Anhang.' }}\",\n  \"massnahmen\": [\"untersuchung_abstellen\"],\n  \"ersteller\": \"System\",\n  \"return_base64\": true\n}",
+          "options": {
+            "response": {
+              "response": {
+                "responseFormat": "json"
+              }
+            }
+          }
+        },
+        "id": "pdf-generate-node-001",
+        "name": "17. PDF generieren",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          448,
+          520
+        ],
+        "onError": "continueErrorOutput"
+      },
+      {
+        "parameters": {
+          "mode": "runOnceForEachItem",
+          "jsCode": "// Decode Base64 PDF content and prepare for upload\nconst item = $input.item.json;\n\nif (!item.success || !item.content_base64) {\n  return { error: 'PDF-Generierung fehlgeschlagen', details: item };\n}\n\n// Return binary data for next node\nconst binaryData = Buffer.from(item.content_base64, 'base64');\n\nreturn {\n  filename: item.filename,\n  filepath: item.filepath,\n  binaryData: item.content_base64,\n  contentLength: binaryData.length\n};"
+        },
+        "id": "pdf-decode-node-001",
+        "name": "18. PDF vorbereiten",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          672,
+          520
+        ]
+      },
+      {
+        "parameters": {
+          "method": "PUT",
+          "url": "=https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/drive/root:/Reklamationen/{{ new Date().getFullYear() }}/{{ String(new Date().getMonth() + 1).padStart(2, '0') }}/{{ $('8b. QA-ID generieren').item.json.newQaId || $('8a-FALSE. Alte QA-ID').item.json.existingQaId || 'UNKNOWN' }}/Dokumente/{{ $json.filename }}:/content",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "microsoftOAuth2Api",
+          "sendBody": true,
+          "contentType": "raw",
+          "rawContentType": "application/pdf",
+          "body": "={{ Buffer.from($json.binaryData, 'base64') }}",
+          "options": {}
+        },
+        "id": "pdf-upload-node-001",
+        "name": "19. PDF nach SharePoint",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          896,
+          520
+        ],
+        "credentials": {
+          "microsoftOAuth2Api": {
+            "id": "Fm3IuAbVYBYDIA4U",
+            "name": "Microsoft account"
+          }
+        },
+        "onError": "continueErrorOutput"
+      }
+    ],
+    "connections": {
+      "1. Schedule (5 Min)": {
+        "main": [
+          [
+            {
+              "node": "2. E-Mails abrufen",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "2. E-Mails abrufen": {
+        "main": [
+          [
+            {
+              "node": "3. E-Mails vorhanden?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "3. E-Mails vorhanden?": {
+        "main": [
+          [
+            {
+              "node": "3a. Split E-Mails",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Ende (Keine E-Mails)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "3a. Split E-Mails": {
+        "main": [
+          [
+            {
+              "node": "4. E-Mail-Parser",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "4. E-Mail-Parser": {
+        "main": [
+          [
+            {
+              "node": "5. Spam?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "5. Spam?": {
+        "main": [
+          [
+            {
+              "node": "5a. In Junk verschieben",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "6. QA-ID gefunden?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "6. QA-ID gefunden?": {
+        "main": [
+          [
+            {
+              "node": "7a. Rekla suchen",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "7b. Config laden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "7a. Rekla suchen": {
+        "main": [
+          [
+            {
+              "node": "8a. Rekla existiert?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "7b. Config laden": {
+        "main": [
+          [
+            {
+              "node": "8b. QA-ID generieren",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "8a. Rekla existiert?": {
+        "main": [
+          [
+            {
+              "node": "8a-TRUE. Daten mergen",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "8a-FALSE. Alte QA-ID",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "8a-TRUE. Daten mergen": {
+        "main": [
+          [
+            {
+              "node": "Merge f\u00fcr Archiv",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "8a-FALSE. Alte QA-ID": {
+        "main": [
+          [
+            {
+              "node": "9. Reklamation erstellen",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "8b. QA-ID generieren": {
+        "main": [
+          [
+            {
+              "node": "9. Reklamation erstellen",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "9. Reklamation erstellen": {
+        "main": [
+          [
+            {
+              "node": "10. Config updaten?",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "17. PDF generieren",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "10. Config updaten?": {
+        "main": [
+          [
+            {
+              "node": "10a. Config aktualisieren",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "11. Als gelesen markieren",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "10a. Config aktualisieren": {
+        "main": [
+          [
+            {
+              "node": "11. Als gelesen markieren",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Merge f\u00fcr Archiv": {
+        "main": [
+          [
+            {
+              "node": "11. Als gelesen markieren",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "11. Als gelesen markieren": {
+        "main": [
+          [
+            {
+              "node": "12. Ins Archiv",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "12. Ins Archiv": {
+        "main": [
+          [
+            {
+              "node": "13. Anh\u00e4nge laden",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "16. Schriftverkehr erstellen",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "13. Anh\u00e4nge laden": {
+        "main": [
+          [
+            {
+              "node": "14. SharePoint Upload",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "14. SharePoint Upload": {
+        "main": [
+          [
+            {
+              "node": "15. Teams Benachrichtigung",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "17. PDF generieren": {
+        "main": [
+          [
+            {
+              "node": "18. PDF vorbereiten",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "18. PDF vorbereiten": {
+        "main": [
+          [
+            {
+              "node": "19. PDF nach SharePoint",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "Andreas L\u00f6hr",
+    "name": null,
+    "description": null,
+    "autosaved": false,
+    "workflowPublishHistory": [
+      {
+        "createdAt": "2026-01-27T21:15:51.526Z",
+        "id": 19,
+        "workflowId": "k3rVSLW6O00dtTBr",
+        "versionId": "5a700820-a3b3-4215-9709-2cdb4ea02bd8",
+        "event": "activated",
+        "userId": "e2912ae2-f742-41de-a659-1547b0c0e99e"
+      }
+    ]
+  }
+}
