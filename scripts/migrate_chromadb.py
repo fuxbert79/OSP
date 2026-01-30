@@ -5,15 +5,16 @@ ChromaDB Migration Script
 Erstellt Collections neu und indiziert alle Dokumente.
 
 Collections:
-- osp_kern: 12 KERN-Dateien aus /opt/osp/documents/
-- osp_erweitert: ~46 Dateien aus /opt/osp/documents_erweitert/
-- osp_kpl: Alle Dateien aus /opt/osp/documents_kpl/
+- osp_kern: 12 KERN-Dateien aus /mnt/HC_Volume_104189729/osp/documents/
+- osp_erweitert: ~46 Dateien aus /mnt/HC_Volume_104189729/osp/documents_erweitert/
+- osp_kpl: Alle Dateien aus /mnt/HC_Volume_104189729/osp/documents_kpl/
 
 Erstellt: 2025-12-14
 """
 
 import chromadb
 from chromadb.utils import embedding_functions
+from sentence_transformers import SentenceTransformer
 import hashlib
 import os
 import re
@@ -27,12 +28,27 @@ logger = logging.getLogger(__name__)
 # Konfiguration
 CHROMADB_HOST = "localhost"
 CHROMADB_PORT = 8000
+EMBEDDING_MODEL = "intfloat/multilingual-e5-large"
+EMBEDDING_DIM = 1024
+
+
+class E5LargeEmbeddingFunction:
+    """Custom Embedding Function für intfloat/multilingual-e5-large."""
+
+    def __init__(self, model_name: str = EMBEDDING_MODEL):
+        self.model = SentenceTransformer(model_name, device="cpu")
+
+    def __call__(self, input: list) -> list:
+        # E5 erwartet "query: " Prefix für Queries
+        prefixed = [f"query: {text}" if not text.startswith("query:") else text for text in input]
+        embeddings = self.model.encode(prefixed, normalize_embeddings=True)
+        return embeddings.tolist()
 
 # Pfade
 PATHS = {
-    "osp_kern": "/opt/osp/documents",
-    "osp_erweitert": "/opt/osp/documents_erweitert",
-    "osp_kpl": "/opt/osp/documents_kpl"
+    "osp_kern": "/mnt/HC_Volume_104189729/osp/documents",
+    "osp_erweitert": "/mnt/HC_Volume_104189729/osp/documents_erweitert",
+    "osp_kpl": "/mnt/HC_Volume_104189729/osp/documents_kpl"
 }
 
 # Chunking
@@ -104,7 +120,9 @@ def import_collection(client, collection_name: str, base_path: str, embedding_fn
         metadata={
             "description": f"OSP Collection: {collection_name}",
             "created": datetime.now().isoformat(),
-            "hnsw:space": "cosine"
+            "hnsw:space": "cosine",
+            "embedding_model": EMBEDDING_MODEL,
+            "embedding_dimension": str(EMBEDDING_DIM)
         }
     )
 
@@ -214,8 +232,8 @@ def main():
         return
 
     # Embedding Function
-    embedding_fn = embedding_functions.DefaultEmbeddingFunction()
-    logger.info("✓ Embedding Function: Default (all-MiniLM-L6-v2)")
+    embedding_fn = E5LargeEmbeddingFunction(EMBEDDING_MODEL)
+    logger.info(f"✓ Embedding Function: {EMBEDDING_MODEL} ({EMBEDDING_DIM} dim)")
 
     # Collections importieren
     total = 0

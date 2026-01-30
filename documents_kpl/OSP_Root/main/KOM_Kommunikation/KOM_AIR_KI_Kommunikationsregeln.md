@@ -2,52 +2,21 @@
 
 **Rainer Schneider Kabelsatzbau GmbH & Co. KG**
 
-**Version:** 3.1 | **TAG:** [KOM][AIR] | **Erstellt:** 2025-11-12 | **Aktualisiert:** 2025-12-07 | **Autor:** AL | **Verantwortlich:** AL (QM/KI-Manager) | **Cluster:** 🔷 C1-Kontext | **Zugriff:** 🟢 L1-Öffentlich | **Status:** ✅ PRODUKTIV (RAG) | **Kritikalität:** 🔴 SEHR HOCH | **ISO:** 4.4, 7.4 | **Stage:** 2 | **RAG-Version:** 1.2 | **Basis:** KOM_AIR v2.9
+**Version:** 4.0 | **TAG:** [KOM][AIR] | **Erstellt:** 2025-11-12 | **Aktualisiert:** 2025-12-13 | **Autor:** AL | **Verantwortlich:** AL (QM/KI-Manager) | **Cluster:** 🔷 C1-Kontext | **Zugriff:** 🟢 L1-Öffentlich | **Status:** ✅ PRODUKTIV | **Kritikalität:** 🔴 SEHR HOCH | **ISO:** 4.4, 7.4
 
-| **Primary Keywords:** KI-Kommunikation, NULL-FEHLER-POLITIK, Workflow, Berechtigungen, TAG-Validierung, Confidence-Level, OSP-Kennzeichnung, Dateibennenung, Kabelkonfektion, IPC-WHMA-A-620, DIN-72551, Transparenz, 4-Phasen, 11-Schritte, L1-L3, HR-CORE, OSP-Level, OSP-STD, OSP-PRO, OSP-EXP, QM, Phantasie-TAG-Detection, Cross-User-Learning, Performance-KPIs, Cache-Strategie, DSGVO, Anonymisierung, Governance, ISO-9001, Compliance, Audit, Success-Patterns, Chunk-Strategie, Token-Effizienz, ChromaDB, OpenWebUI, Claude, Crimpdaten, Normen, Retry-Logik (45+)
+| **Keywords:** KI-Kommunikation, NULL-FEHLER-POLITIK, Workflow, Berechtigungen, Confidence-Level, Kabelkonfektion, IPC-WHMA-A-620, DIN-72551, Transparenz, L1-L3, HR-CORE, OSP-Level, DSGVO, ISO-9001, Crimpdaten, Normen
 
 ---
 
-## 🔄 MIGRATIONS-HINWEIS (2025-12-07)
+## ℹ️ DOKUMENTEN-STATUS
 
-> **⚠️ WICHTIG - ARCHITEKTUR-MIGRATION:**
+> **Dieses Dokument beschreibt die KI-Kommunikationsregeln für Mitarbeiter.**
 >
-> Die KI-Verhaltensregeln in diesem Dokument wurden am **07.12.2025** in den 
-> **konsolidierten API System-Prompt** migriert.
+> **Autoritative Quellen für KI-Steuerung:**
+> - `OSP_System_Prompt_API.md` - KI-Verhaltensregeln
+> - `OSP_Navigator.md` - Wissens-Routing & TAG-Übersicht
 >
-> **Neue Architektur:**
-> - **Frontend:** Open WebUI (46.224.102.30:3000)
-> - **RAG:** ChromaDB (46.224.102.30:8000)
-> - **KI-Backend:** Claude API mit konsolidiertem System-Prompt
->
-> **Dieses Dokument dient als:**
-> - 📋 **Referenz für Mitarbeiter** (Regeln nachlesen)
-> - 📊 **Nachvollziehbarkeit** (Dokumentierte Entscheidungen)
-> - 🔍 **RAG-Quelle** (ChromaDB-indiziert für Abfragen)
->
-> **Die KI-Steuerung erfolgt über:**
-> - `API_System_Prompt_KONSOLIDIERT.md` (~6.500 Tokens)
-> - `ChromaDB_Config_Schema.yaml`
-> - `RAG_Metadata_Schema.yaml`
->
-> **Aktuelle Version System-Prompt:** 1.0 (2025-12-07)
-> **Migration durchgeführt von:** AL (QM & KI-Manager)
->
-> Bei Fragen zur neuen Architektur: AL kontaktieren.
-
-| **Secondary Keywords:** OSP-TAG-System, Sub-TAGs (dynamisch), 15-Module, Pilot-User, 
-54-MA, C-XX-Prozent, SharePoint, KOM-CORE, KOM-STIL, KOM-TPL, QM-CORE, 
-QM-STAT, PM-CORE, HR-CORE, RES-BP, ORG-LEIT, ORG-GLO, IT-DS, Stage-1, 
-Stage-2, Markdown, TAG-SUB-TAG-Name-md, Umlaute-Konvertierung, Kundenspecs, 
-Fast-Track, Express-Lane, Levenshtein, Fuzzy-Matching, 4s-Durchlaufzeit, 
-6s-Kritisch, User-Session, System-Load, v3.1, RAG-Optimierung, Chunk-Größe, 
-Token-Reduktion, Keyword-Extraktion (60+)
-
-| **Chunk-Strategie:** Markdown-Header (##)
-| **Chunk-Anzahl:** 11
-| **Chunk-Größe:** 900-1400 Tokens
-| **Chunk-Überlappung:** 175 Tokens
-| **Datenstand:** 2025-12-05
+> **Bei Fragen:** AL (QM & KI-Manager) kontaktieren.
 
 ---
 
@@ -126,7 +95,7 @@ Definiert **verbindliche Kommunikationsregeln** für KI-gestützte Interaktion i
    → (C: XX%) = Confidence-Level Info, [OSP] = Quelle OSP-Projekt
 
 5. **"Wie validiere ich gültigen TAG?"**  
-   → OSP_TAG_System.md (89 Sub-TAGs), Phantasie-TAG-Detection
+   → OSP_Navigator.md (TAG-Übersicht, 15 Module)
 
 6. **"Was ist NULL-FEHLER-POLITIK?"**  
    → Transparenz-Pflicht bei Unstimmigkeiten, IMMER nachfragen
@@ -189,21 +158,19 @@ TAG_SUB-TAG_Beschreibung.md
 
 ---
 
-## 🏗️ OSP-STRUKTUR FIX (v0.6+)
+## 🏗️ OSP-STRUKTUR
 
-> **STRUKTUR-REGEL:** 15 Module, Sub-TAGs = **FINAL und FIX**.
+> **STRUKTUR-REGEL:** 15 Module = **FIX**.
 >
 > **Änderungen:**
 > - ❌ **Verboten:** Eigenmächtige Hinzufügung/Entfernung TAGs
 > - ✅ **Erlaubt:** Optimierungs-Vorschläge an AL
 > - ⚠️ **Genehmigung:** Struktur-Änderungen brauchen explizite Freigabe
-> - 💡 **Strategie:** Neue Inhalte auf bestehende Sub-TAGs aufteilen
 >
 > **Strukturfragen:**
-> 1. Prüfe OSP_TAG_System.md
-> 2. Prüfe OSP_Ordner_Struktur.md
-> 3. Versuche Inhalt auf bestehende TAGs aufteilen
-> 4. Falls unmöglich → Vorschlag an AL
+> 1. Prüfe `OSP_Navigator.md` (TAG-Übersicht)
+> 2. Versuche Inhalt auf bestehende TAGs aufteilen
+> 3. Falls unmöglich → Vorschlag an AL
 >
 > **Unstimmigkeiten → TRANSPARENZ-PFLICHT aktivieren!**
 
@@ -226,7 +193,7 @@ TAG_SUB-TAG_Beschreibung.md
 
 ### OSP-Kontext:
 **Zählt als OSP:**
-- ✅ Info aus SharePoint-Dateien (16 Module, 89 Sub-TAGs)
+- ✅ Info aus SharePoint-Dateien (15 Module)
 - ✅ TAG-Struktur, Governance-Regeln
 - ✅ Prozesse aus OSP-Modulen
 - ✅ KGS-Daten (HR_CORE)
@@ -295,17 +262,16 @@ Ich benötige folgende Klärungen:
 
 ### Säule 3: TAG-VALIDIERUNG
 
-**Regel:** Jeden TAG gegen OSP_TAG_System.md prüfen!
+**Regel:** Jeden TAG gegen die 15 OSP-Module prüfen!
 
 **Prozess:**
 1. User nennt TAG (z.B. "QM_CORE")
-2. System lädt OSP_TAG_System.md
+2. System prüft gegen OSP_Navigator.md
 3. Prüfung: Existiert TAG? Existiert SUB-TAG?
 4. Falls NEIN → Transparenz-Pflicht aktivieren
 5. Falls JA → Weiter mit Workflow
 
-**Phantasie-TAG-Detection:**
-- Fuzzy-Matching (Levenshtein-Distanz)
+**Bei ungültigem TAG:**
 - Vorschlag ähnlicher TAGs (z.B. "QM_COR" → Meinten Sie "QM_CORE"?)
 - Confidence (C: 0%) bei ungültigen TAGs
 
@@ -354,7 +320,7 @@ Ich benötige folgende Klärungen:
 - Session-ID: Fortlaufende Nummerierung
 
 **Schritt 1: Context-Load**
-- Lade: OSP_TAG_System.md, OSP_Regeln.md
+- Lade: OSP_Navigator.md, OSP_System_Prompt_API.md
 - Optional: Vorherige Session-History (letzten 5 Interaktionen)
 - Cache: 30min (außer kritische Updates → sofort neu laden)
 
@@ -378,7 +344,7 @@ Ich benötige folgende Klärungen:
 - Identifiziere: Querverweise (bidirektional)
 
 **Schritt 5: TAG-Validierung + Berechtigungsprüfung**
-- Validiere: TAGs gegen OSP_TAG_System.md (89 Sub-TAGs)
+- Validiere: TAGs gegen OSP_Navigator.md (15 Module)
 - Berechtigungsprüfung: User-Level vs. TAG-Level
   - **L1 (Public):** Zugriff auf öffentliche TAGs (~54 User)
   - **L2 (Abteilung):** Zugriff auf abteilungsbezogene TAGs (~8 User)
@@ -538,8 +504,8 @@ Ich benötige folgende Klärungen:
 ### Cache-Strategie:
 
 **Cache-Dauer:**
-- OSP_TAG_System.md: 30min
-- OSP_Regeln.md: 30min
+- OSP_Navigator.md: 30min
+- OSP_System_Prompt_API.md: 30min
 - HR_CORE_Personalstamm.md: 24h
 - User-Präferenzen: 24h
 - Dokumenten-Chunks: 7 Tage
@@ -553,12 +519,11 @@ Ich benötige folgende Klärungen:
 
 ## 🔗 QUERVERWEISE
 
-### Bidirektional (↔) - AKTIV (14):
+### Bidirektional (↔) - AKTIV:
 
 **Governance:**
-- ↔ `OSP_Regeln.md` - Regel 16 (Naming), Regel 30 (Workflow), Regel 31 (OSP-Level)
-- ↔ `OSP_TAG_System.md` - 89 Sub-TAGs, 16 Module
-- ↔ `OSP_Ordner_Struktur.md` - Struktur FIX (v0.6+)
+- ↔ `OSP_System_Prompt_API.md` - KI-Verhaltensregeln, Workflow
+- ↔ `OSP_Navigator.md` - TAG-Übersicht, 15 Module, Routing
 
 **Benutzer-Kontext:**
 - ↔ `HR_CORE_Personalstamm.md` - User-Kürzel, L1-L3, OSP-Level
@@ -599,6 +564,29 @@ Ich benötige folgende Klärungen:
 ---
 
 ## 📝 CHANGELOG
+
+### [4.0] - 2025-12-13 - GOVERNANCE-BEREINIGUNG
+
+**STRUKTURÄNDERUNG - Archivierte Dateien entfernt:**
+
+**Änderungen:**
+- ✅ **Archivierte Dateien entfernt:** OSP_Regeln.md, OSP_TAG_System.md, OSP_Ordner_Struktur.md
+- ✅ **Neue autoritative Quellen:** OSP_System_Prompt_API.md + OSP_Navigator.md
+- ✅ **Verweise aktualisiert:** Alle Verweise auf archivierte Dateien ersetzt
+- ✅ **Header vereinfacht:** RAG-spezifische Metadaten entfernt
+- ✅ **Footer bereinigt:** Redundante Aussagen entfernt
+
+**Grund:**
+Konsolidierung der OSP-Governance. Die 3 alten Governance-Dateien waren redundant und widersprachen teilweise dem neuen API System-Prompt. Single Source of Truth ist jetzt OSP_System_Prompt_API.md.
+
+**Auswirkung:**
+- Klarere Dokumentenstruktur
+- Keine widersprüchlichen Aussagen mehr
+- Weniger Wartungsaufwand
+
+**Verantwortlich:** AL (KI-Manager)
+
+---
 
 ### [3.1] - 2025-12-07 - TAG-STRUKTUR VALIDIERUNG & KONSISTENZ
 
@@ -741,19 +729,14 @@ Vereinfachung des Berechtigungssystems. Trennung von Datenzugriff (L1-L3) und KI
 
 ---
 
-**Status:** ✅ PRODUKTIV (RAG) - ChromaDB-ready  
+**Status:** ✅ PRODUKTIV  
 **Cluster:** 🔷 C1 - Kontext der Organisation  
 **Kritikalität:** 🔴 SEHR HOCH - Geschäftskritisches System  
-**Innovation:** 4-Phasen-Workflow + L1-L3 + OSP-Level + Doppel-Kennzeichnung + Transparenz + Standard-Naming  
-**Expertise:** Kabelkonfektion-Spezialist immer aktiv  
 **Verantwortlich:** AL - Quality Manager & KI-Manager  
-**OSP-Integration:** Konform OSP_TAG_System.md (siehe Dokument) + OSP_Regeln.md v2.1  
-**RAG-Optimierung:** Stage 2 abgeschlossen (2025-12-02), -38% Tokens, 11 Chunks  
-**TAG-Validierung:** v3.1 konsistent mit 15 Module, Sub-TAGs dynamisch  
-**ChromaDB:** Bereit für Auto-Import in OSP_COMPLETE Collection
+**Autoritative Quellen:** OSP_System_Prompt_API.md + OSP_Navigator.md
 
 ---
 
-*Dieses Dokument definiert KI als transparenten, lernenden Kabelkonfektion-Experten mit NULL-FEHLER-POLITIK, standardisierter Dateibenennungskonvention und verbindlichem 4-Phasen-Workflow. Bei JEDER Unstimmigkeit → NACHFRAGEN! Bei JEDER neuen Datei → TAG_SUB-TAG_Name.md! Bei JEDER Anfrage → 4-Phasen-Workflow! RAG-optimiert für effizientes Retrieval in ChromaDB mit 115 Keywords, 11 Chunks (900-1400 Tokens), -38% Token-Reduktion.*
+*Dieses Dokument beschreibt die KI-Kommunikationsregeln für Mitarbeiter. Die KI-Steuerung erfolgt über OSP_System_Prompt_API.md.*
 
-(C: 100%) [OSP]
+(C: 100%)

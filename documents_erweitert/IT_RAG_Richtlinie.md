@@ -1,10 +1,10 @@
 # [IT][RAG] RAG-Richtlinie, PDF-Linking & Bilder-Integration
 
-**Version:** 2.3 | **TAG:** [IT][RAG] | **Erstellt:** 2025-11-29 | **Aktualisiert:** 2025-12-10 | **Autor:** AL | **Verantwortlich:** AL (IT & KI-Manager) | **Cluster:** 🔴 C4-Support | **Zugriff:** 🔴 L3-Vertraulich | **Status:** ✅ AKTIV | **Stage:** 2 | **Kritikalität:** 🟡 MITTEL | **ISO:** 7.5 | **RAG-Version:** 2.3
+**Version:** 2.4 | **TAG:** [IT][RAG] | **Erstellt:** 2025-11-29 | **Aktualisiert:** 2025-12-15 | **Autor:** AL | **Verantwortlich:** AL (IT & KI-Manager) | **Cluster:** 🔴 C4-Support | **Zugriff:** 🔴 L3-Vertraulich | **Status:** ✅ AKTIV | **Stage:** 2 | **Kritikalität:** 🟡 MITTEL | **ISO:** 7.5 | **RAG-Version:** 2.4
 
 **Firma:** Rainer Schneider Kabelsatzbau GmbH & Co. KG
 
-| **Primary Keywords:** RAG, ChromaDB, Metadata, PDF-Linking, SharePoint, Bilder-Integration, Logos, Organigramme, Inline-Bilder, Vektordatenbank, Embedding, all-MiniLM-L6-v2, Open-WebUI, Claude-API, Dokumentenstruktur (25+)
+| **Primary Keywords:** RAG, ChromaDB, Metadata, PDF-Linking, SharePoint, Bilder-Integration, Logos, Organigramme, Inline-Bilder, Vektordatenbank, Embedding, multilingual-e5-large, Open-WebUI, Claude-API, Dokumentenstruktur, Pipeline, Pre-Processing (25+)
 
 ---
 
@@ -38,6 +38,49 @@ RAG-Optimierungs-Richtlinie für OSP-Dokumente inkl. SharePoint-PDF-Verlinkung &
 - Batch-Processing-Protokolle
 
 **WICHTIG:** Fokus auf EINFACHE Umsetzung - keine Deep-Links, keine manuellen Seitenzahlen!
+
+---
+
+## PIPELINE-ARCHITEKTUR (NEU v2.4)
+
+### Pre-Processing-Module
+
+Seit 15.12.2025 werden Queries durch **4 Pre-Processing-Module** optimiert, bevor sie an ChromaDB gehen:
+
+| Step | Modul | Funktion |
+|------|-------|----------|
+| -1 | Query-Normalizer | Tippfehler korrigieren, Lowercase |
+| 0 | MA-Preprocessing | Kürzel zu kontextreichem String expandieren |
+| 1.5 | Keyword-Filter | Kritische Keywords → Dokument direkt laden |
+| 2 | Tag-Router | TAGs extrahieren → ChromaDB WHERE-Filter |
+
+### Layer-Architektur (v2.2 - NEU: Layer 1-4)
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  LAYER 1: OSP_KERN (12 Dateien) - DAUERHAFT GELADEN         │
+│  → Full-Context Mode für kritische Tabellen                 │
+│  → IMMER im RAG-Kontext verfügbar                           │
+└─────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────┐
+│  LAYER 2: OSP_ERWEITERT (~46 Dateien) - BEI BEDARF          │
+│  → Chunked RAG, Routing basierend auf Keywords/TAGs         │
+└─────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────┐
+│  LAYER 3: OSP_KPL (Dateinamen-Index)                        │
+│  → Nur Metadaten für Navigation                             │
+└─────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────┐
+│  LAYER 4: SHAREPOINT (Gelenkte Dokumente)                   │
+│  → Formblätter (MD): Bidirektional (ausfüllen+speichern)    │
+│  → PDFs/Handbücher: Nur Verlinkung                          │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Details:** Siehe `IT_OSP_KI_Chatbot.md` → Abschnitt "PIPELINE-ARCHITEKTUR"
 
 ---
 
@@ -375,6 +418,18 @@ def validate_links(markdown_file):
 
 ## ÄNDERUNGSHISTORIE
 
+### [2.4] - 2025-12-15 - PIPELINE-ARCHITEKTUR
+
+**Änderungen:**
+- ✅ Neuer Abschnitt "PIPELINE-ARCHITEKTUR" hinzugefügt
+- ✅ Pre-Processing-Module dokumentiert (Query-Normalizer, MA-Preprocessing, Keyword-Filter, Tag-Router)
+- ✅ Layer-Architektur aktualisiert (4 Layer inkl. OSP_KPL)
+- ✅ Verweis auf IT_OSP_KI-Chatbot.md für Details
+
+**Verantwortlich:** AL (QM & KI-Manager)
+
+---
+
 ### [2.3] - 2025-12-10 - DOKUMENTATIONS-UPDATE
 
 **Änderungen:**
@@ -420,8 +475,8 @@ def validate_links(markdown_file):
 
 ## RAG-METADATA
 
-**RAG-Version:** 2.3  
-**Primary Keywords:** RAG, ChromaDB, Metadata, PDF-Linking, SharePoint, Bilder-Integration, Logos, Organigramme, Open-WebUI, Claude-API, all-MiniLM-L6-v2
+**RAG-Version:** 2.4  
+**Primary Keywords:** RAG, ChromaDB, Metadata, PDF-Linking, SharePoint, Bilder-Integration, Logos, Organigramme, Open-WebUI, Claude-API, multilingual-e5-large
 
 **Secondary Keywords:** ISO 9001, IPC-WHMA-A-620, DSGVO, Link-Validierung, pdf_originals, image_assets
 

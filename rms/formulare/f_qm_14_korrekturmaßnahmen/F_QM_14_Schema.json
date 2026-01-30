@@ -1,0 +1,331 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "F-QM-14 Korrekturmaßnahme (Interner 8D-Light)",
+  "description": "Schema für die halbautomatische Formular-Befüllung im RMS-System - CAPA-Prozess mit vereinfachter 8D-Methodik",
+  "type": "object",
+  "required": [
+    "formblatt_id",
+    "km_nr",
+    "abteilung",
+    "verantwortlicher",
+    "audit_leiter_qm",
+    "phase_1"
+  ],
+  "properties": {
+    "formblatt_id": {
+      "type": "string",
+      "const": "F_QM_14",
+      "description": "Eindeutige Formblatt-ID"
+    },
+    "km_nr": {
+      "type": "string",
+      "pattern": "^KM-\\d{4}-\\d{3}$",
+      "description": "Korrekturmaßnahmen-Nummer im Format KM-YYYY-NNN",
+      "examples": ["KM-2025-001"]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Offen",
+        "In Planung",
+        "In Umsetzung",
+        "Wirksamkeitsprüfung",
+        "Abgeschlossen",
+        "Eskaliert"
+      ],
+      "default": "Offen",
+      "description": "Aktueller Status der Korrekturmaßnahme"
+    },
+    "quelle": {
+      "type": "string",
+      "enum": [
+        "Internes Audit",
+        "Externes Audit (Kunde)",
+        "Externes Audit (Zertifizierung)",
+        "Prozessbeobachtung",
+        "Kundenreklamation",
+        "Lieferantenreklamation",
+        "Mitarbeiterhinweis",
+        "Management Review",
+        "Selbstprüfung",
+        "Sonstiges"
+      ],
+      "description": "Quelle/Ursprung der Abweichung"
+    },
+    "schweregrad": {
+      "type": "string",
+      "enum": [
+        "Kritisch",
+        "Major",
+        "Minor",
+        "Hinweis"
+      ],
+      "description": "Schweregrad der Abweichung"
+    },
+    "abteilung": {
+      "type": "string",
+      "enum": [
+        "Fertigung F1 (1000)",
+        "Fertigung F2 (2000)",
+        "Fertigung F3 (3000)",
+        "Prüffeld (5000)",
+        "Lager",
+        "Einkauf",
+        "Vertrieb",
+        "Verwaltung",
+        "QM",
+        "Technik",
+        "Geschäftsführung"
+      ],
+      "description": "Betroffene Abteilung"
+    },
+    "verantwortlicher": {
+      "type": "string",
+      "pattern": "^[A-Z]{2,3}$",
+      "description": "MA-Kürzel des Verantwortlichen für Umsetzung",
+      "examples": ["MD", "SK", "TS"]
+    },
+    "audit_leiter_qm": {
+      "type": "string",
+      "pattern": "^[A-Z]{2,3}$",
+      "description": "MA-Kürzel des Audit-Leiters/QM",
+      "examples": ["AL"]
+    },
+    "verknuepfungen": {
+      "type": "object",
+      "properties": {
+        "qa_nummer": {
+          "type": "string",
+          "pattern": "^QA-\\d{4}-\\d{3}$",
+          "description": "Verknüpfung zu Qualitätsabweichung F-QM-02"
+        },
+        "nza_nummer": {
+          "type": "string",
+          "pattern": "^NZA-\\d{4}-\\d{3}$",
+          "description": "Verknüpfung zu Nach-/Zusatzarbeit F-QM-04"
+        },
+        "folge_km": {
+          "type": "string",
+          "pattern": "^KM-\\d{4}-\\d{3}$",
+          "description": "Folge-Korrekturmaßnahme bei 'Nicht wirksam'"
+        }
+      }
+    },
+    "phase_1": {
+      "type": "object",
+      "required": ["abweichung_beschreibung"],
+      "properties": {
+        "abweichung_beschreibung": {
+          "type": "string",
+          "minLength": 30,
+          "maxLength": 500,
+          "description": "Festgestellte Abweichung (≙ 8D-D2)"
+        },
+        "datum": {
+          "type": "string",
+          "format": "date",
+          "description": "Datum der Erfassung"
+        },
+        "signatur_qm": {
+          "type": "string",
+          "pattern": "^[A-Z]{2,3}$",
+          "description": "Signatur QM/Audit-Leiter"
+        }
+      },
+      "description": "Phase 1: Abweichung erfassen (≙ 8D-D2)"
+    },
+    "phase_2": {
+      "type": "object",
+      "properties": {
+        "ursache_kategorie": {
+          "type": "string",
+          "enum": [
+            "Mensch",
+            "Maschine",
+            "Material",
+            "Methode",
+            "Milieu",
+            "Messung"
+          ],
+          "description": "Ursachenkategorie nach 6M (≙ 8D-D4)"
+        },
+        "ursache_beschreibung": {
+          "type": "string",
+          "maxLength": 500,
+          "description": "Detaillierte Ursachenanalyse"
+        },
+        "massnahmen_geplant": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 500,
+          "description": "Vorgesehene Korrekturmaßnahmen (≙ 8D-D5)"
+        },
+        "termin_geplant": {
+          "type": "string",
+          "format": "date",
+          "description": "Geplantes Erledigungsdatum"
+        },
+        "datum": {
+          "type": "string",
+          "format": "date",
+          "description": "Datum der Planung"
+        },
+        "signatur_verantwortlicher": {
+          "type": "string",
+          "pattern": "^[A-Z]{2,3}$",
+          "description": "Signatur Verantwortlicher"
+        }
+      },
+      "description": "Phase 2: Ursache & Planung (≙ 8D-D4 + D5)"
+    },
+    "phase_3": {
+      "type": "object",
+      "properties": {
+        "massnahmen_durchgefuehrt": {
+          "type": "string",
+          "maxLength": 500,
+          "description": "Tatsächlich durchgeführte Maßnahmen (≙ 8D-D6)"
+        },
+        "termin_durchgefuehrt": {
+          "type": "string",
+          "format": "date",
+          "description": "Tatsächliches Erledigungsdatum"
+        },
+        "datum": {
+          "type": "string",
+          "format": "date",
+          "description": "Datum der Dokumentation"
+        },
+        "signatur_verantwortlicher": {
+          "type": "string",
+          "pattern": "^[A-Z]{2,3}$",
+          "description": "Signatur Verantwortlicher"
+        }
+      },
+      "description": "Phase 3: Umsetzung (≙ 8D-D6)"
+    },
+    "phase_4": {
+      "type": "object",
+      "properties": {
+        "wirksamkeit_bewertung": {
+          "type": "string",
+          "enum": [
+            "Wirksam",
+            "Teilweise wirksam",
+            "Nicht wirksam",
+            "Noch offen"
+          ],
+          "description": "Bewertung der Wirksamkeit (≙ 8D-D7)"
+        },
+        "wirksamkeit_beschreibung": {
+          "type": "string",
+          "maxLength": 500,
+          "description": "Beschreibung der Wirksamkeitsprüfung"
+        },
+        "folgemassnahme": {
+          "type": "string",
+          "maxLength": 300,
+          "description": "Erforderliche Folge-Maßnahme bei 'Nicht wirksam'"
+        },
+        "datum": {
+          "type": "string",
+          "format": "date",
+          "description": "Datum der Wirksamkeitsprüfung"
+        },
+        "signatur_qm": {
+          "type": "string",
+          "pattern": "^[A-Z]{2,3}$",
+          "description": "Signatur QM/Audit-Leiter"
+        }
+      },
+      "description": "Phase 4: Wirksamkeit (≙ 8D-D7)"
+    },
+    "erstellt_am": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Zeitstempel der Erstellung"
+    },
+    "aktualisiert_am": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Zeitstempel der letzten Aktualisierung"
+    }
+  },
+  "additionalProperties": false,
+
+  "$defs": {
+    "8d_light_mapping": {
+      "phase_1": "D2 - Problembeschreibung",
+      "phase_2_ursache": "D4 - Root Cause",
+      "phase_2_planung": "D5 - Geplante Maßnahmen",
+      "phase_3": "D6 - Durchgeführte Maßnahmen",
+      "phase_4": "D7 - Wirksamkeit/Prävention"
+    },
+    "schweregrad_reaktionszeit": {
+      "Kritisch": "< 24 Stunden",
+      "Major": "< 1 Woche",
+      "Minor": "< 1 Monat",
+      "Hinweis": "Nächstes Review"
+    },
+    "wirksamkeit_folgeaktion": {
+      "Wirksam": "Abschluss der KM",
+      "Teilweise wirksam": "Nachbesserung erforderlich",
+      "Nicht wirksam": "Folge-KM mit erweiterter Analyse",
+      "Noch offen": "Wirksamkeitsprüfung ausstehend"
+    },
+    "ursachenkategorien_6m": {
+      "Mensch": "Schulung, Erfahrung, Aufmerksamkeit, Motivation",
+      "Maschine": "Wartung, Verschleiß, Einstellung, Ausfall",
+      "Material": "Qualität, Spezifikation, Lagerung, Lieferant",
+      "Methode": "Arbeitsanweisung, Prozess, Prüfung, Dokumentation",
+      "Milieu": "Umgebung, Temperatur, Sauberkeit, Organisation",
+      "Messung": "Prüfmittel, Kalibrierung, Toleranz, Messfehler"
+    }
+  },
+
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": { "const": "Abgeschlossen" }
+        }
+      },
+      "then": {
+        "required": ["phase_1", "phase_2", "phase_3", "phase_4"],
+        "properties": {
+          "phase_4": {
+            "required": ["wirksamkeit_bewertung"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "phase_4": {
+            "properties": {
+              "wirksamkeit_bewertung": { "const": "Nicht wirksam" }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "phase_4": {
+            "required": ["folgemassnahme"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "schweregrad": { "const": "Kritisch" }
+        }
+      },
+      "then": {
+        "required": ["phase_1", "phase_2"]
+      }
+    }
+  ]
+}

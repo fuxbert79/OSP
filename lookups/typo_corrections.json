@@ -1,0 +1,51 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "description": "Bekannte Tippfehler im OSP-Kontext",
+    "source": "Embedding-Benchmark 2025-12-15",
+    "updated": "2025-12-15"
+  },
+  "corrections": {
+    "mitarbieter": "mitarbeiter",
+    "mitarbeter": "mitarbeiter",
+    "mitabeiter": "mitarbeiter",
+    "maschinne": "maschine",
+    "maschiene": "maschine",
+    "maschin": "maschine",
+    "werkezug": "werkzeug",
+    "werkzueg": "werkzeug",
+    "wekzeug": "werkzeug",
+    "qualiteat": "qualität",
+    "qualitaet": "qualität",
+    "qualtät": "qualität",
+    "reklamazion": "reklamation",
+    "reklamaion": "reklamation",
+    "reklmation": "reklamation",
+    "krimphoehe": "crimphöhe",
+    "crimphoehe": "crimphöhe",
+    "kripmhöhe": "crimphöhe",
+    "abisoliren": "abisolieren",
+    "abbisolieren": "abisolieren",
+    "abisoleren": "abisolieren",
+    "kompaktirung": "kompaktierung",
+    "kompaktieurng": "kompaktierung",
+    "alfa": "alpha",
+    "komax alfa": "komax alpha",
+    "schleuinger": "schleuniger",
+    "schleunger": "schleuniger",
+    "kalibrieurng": "kalibrierung",
+    "kalibrirung": "kalibrierung",
+    "pruefmittel": "prüfmittel",
+    "prufmittel": "prüfmittel",
+    "inventarnr": "inventarnummer",
+    "inv-nr": "inventarnummer",
+    "dokumentaion": "dokumentation",
+    "dokumetnation": "dokumentation"
+  },
+  "umlaut_variants": {
+    "ae": "ä",
+    "oe": "ö",
+    "ue": "ü",
+    "ss": "ß"
+  }
+}

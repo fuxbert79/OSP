@@ -1,0 +1,3811 @@
+{
+  "meta": {
+    "version": "1.0",
+    "erstellt": "2025-12-16",
+    "sp_basis": "https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/Wartung_Instandhaltung/",
+    "alias": {
+      "WRT": "Wartungsberichte/",
+      "REP": "Reparaturberichte/",
+      "SVC": "Serviceberichte/Fa.%20",
+      "2026": "2026/"
+    },
+    "statistik": {
+      "maschinen": 120,
+      "wrt": 322,
+      "rep": 80,
+      "svc": 136,
+      "mb": 32
+    }
+  },
+  "maschinen": {
+    "0005": {
+      "bezeichnung": "K1 Schneidautomat",
+      "hersteller": "Metzner",
+      "standort": "F2/2000",
+      "wrt": [
+        {
+          "datum": "2025-06-24",
+          "pfad": "WRT:2025/War.%20Inv.%200005%202025.06.24.pdf"
+        },
+        {
+          "datum": "2024-03-18",
+          "pfad": "WRT:2024/War.%20Inv.%200005%202024.03.18.pdf"
+        },
+        {
+          "datum": "2023-03-16",
+          "pfad": "WRT:2023/War.%20Inv.%200005%202023.03.16.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0013": {
+      "bezeichnung": "Gamma 263",
+      "hersteller": "Komax",
+      "standort": "F1/1000",
+      "wrt": [
+        {
+          "datum": "2023-01-10",
+          "pfad": "WRT:2023/War.%20Inv.%200013%202023.01.10.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0018": {
+      "bezeichnung": "K2T Schneidautomat",
+      "hersteller": "Metzner",
+      "standort": "F2/2000",
+      "wrt": [
+        {
+          "datum": "2025-07-02",
+          "pfad": "WRT:2025/War.%20Inv.%200018%202025.07.02.pdf"
+        },
+        {
+          "datum": "2024-05-08",
+          "pfad": "WRT:2024/War.%20Inv.%200018%202024.05.08.pdf"
+        },
+        {
+          "datum": "2023-05-22",
+          "pfad": "WRT:2023/War.%20Inv.%200018%202023.05.22.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0019": {
+      "bezeichnung": "Gamma 263",
+      "hersteller": "Komax",
+      "standort": "F1/1000",
+      "wrt": [
+        {
+          "datum": "2023-01-10",
+          "pfad": "WRT:2023/War.%20Inv.%200019%202023.01.10.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0021": {
+      "bezeichnung": "Bandierung BA100",
+      "hersteller": "Schäfer",
+      "standort": "F2/2000",
+      "wrt": [],
+      "rep": [],
+      "svc": [
+        {
+          "datum": "kein Datum",
+          "pfad": "SVC:Schäfer/Servicebericht%20Inv.%200021%2022102601-21900.pdf",
+          "dienstleister": "Schäfer"
+        }
+      ],
+      "mb": []
+    },
+    "0028": {
+      "bezeichnung": "K2S Stripper/Crimper",
+      "hersteller": "KTK",
+      "standort": "F2/2000",
+      "wrt": [
+        {
+          "datum": "2025-06-30",
+          "pfad": "WRT:2025/War.%20Inv.%200028%202025.06.30.pdf"
+        },
+        {
+          "datum": "2024-05-08",
+          "pfad": "WRT:2024/War.%20Inv.%200028%202024.05.08.pdf"
+        },
+        {
+          "datum": "2023-09-05",
+          "pfad": "WRT:2023/War.%20Inv.%200028%202023.09.05.pdf"
+        },
+        {
+          "datum": "2023-05-25",
+          "pfad": "WRT:2023/War.%20Inv.%200028%202023.05.25.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0029": {
+      "bezeichnung": "K2 Schneidautomat",
+      "hersteller": "KTK",
+      "standort": "F2/2000",
+      "wrt": [
+        {
+          "datum": "2025-06-30",
+          "pfad": "WRT:2025/War.%20Inv.%200029%202025.06.30.pdf"
+        },
+        {
+          "datum": "2024-05-14",
+          "pfad": "WRT:2024/War.%20Inv.%200029%202024.05.14.pdf"
+        },
+        {
+          "datum": "2023-05-31",
+          "pfad": "WRT:2023/War.%20Inv.%200029%202023.05.31.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0030": {
+      "bezeichnung": "PS 9065 Crimpstation",
+      "hersteller": "Schleuniger",
+      "standort": "F2/2000",
+      "wrt": [
+        {
+          "datum": "2024-05-14",
+          "pfad": "WRT:2024/War.%20Inv.%200030%202024.05.14.pdf"
+        },
+        {
+          "datum": "2023-05-31",
+          "pfad": "WRT:2023/War.%20Inv.%200030%202023.05.31.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2023-03-07",
+          "pfad": "REP:2023/Rep.%20Inv.%200030%202023.03.07.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0031": {
+      "bezeichnung": "Mini Applicator Tool",
+      "hersteller": "Komax",
+      "standort": "F2/2000",
+      "wrt": [
+        {
+          "datum": "2025-09-01",
+          "pfad": "WRT:2025/War.%20Inv.%200031%202025.09.01.pdf"
+        },
+        {
+          "datum": "2024-05-28",
+          "pfad": "WRT:2024/War.%20Inv.%200031%202024.05.28.pdf"
+        },
+        {
+          "datum": "2023-05-24",
+          "pfad": "WRT:2023/War.%20Inv.%200031%202023.05.24.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2025-11-17",
+          "pfad": "REP:2025/Rep.%20Inv.%200031%202025.11.17.pdf"
+        },
+        {
+          "datum": "2024-03-20",
+          "pfad": "REP:2024/Rep.%20Inv.%200031%202024.03.20.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0032": {
+      "bezeichnung": "Microstrip 9450",
+      "hersteller": "Schleuniger",
+      "standort": "F2/2000",
+      "wrt": [
+        {
+          "datum": "2025-09-03",
+          "pfad": "WRT:2025/War.%20Inv.%200032%202025.09.03.pdf"
+        },
+        {
+          "datum": "2024-06-04",
+          "pfad": "WRT:2024/War.%20Inv.%200032%202024.06.04.pdf"
+        },
+        {
+          "datum": "2023-06-12",
+          "pfad": "WRT:2023/War.%20Inv.%200032%202023.06.12.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2025-04-03",
+          "pfad": "REP:2025/Rep.%20Inv.%200032%202025.04.03.pdf"
+        },
+        {
+          "datum": "2023-07-04",
+          "pfad": "REP:2023/Rep.%20Inv.%200032%202023.07.04.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0091": {
+      "bezeichnung": "Kompaktierung BKU",
+      "hersteller": "Zoller+Fröhlich",
+      "standort": "F3",
+      "wrt": [
+        {
+          "datum": "2025-09-04",
+          "pfad": "WRT:2025/War.%20Inv.%200091%202025.09.04.pdf"
+        },
+        {
+          "datum": "2024-12-02",
+          "pfad": "WRT:2024/War.%20Inv.%200091%202024.12.02.pdf"
+        },
+        {
+          "datum": "2024-05-06",
+          "pfad": "WRT:2024/War.%20Inv.%200091%202024.05.06.pdf"
+        },
+        {
+          "datum": "2023-03-20",
+          "pfad": "WRT:2023/War.%20Inv.%200091%202023.03.20.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2025-02-20",
+          "pfad": "REP:2025/Rep.%20Inv.%200091%202025.02.20.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0092": {
+      "bezeichnung": "Kompaktierung BKU",
+      "hersteller": "Zoller+Fröhlich",
+      "standort": "F3",
+      "wrt": [
+        {
+          "datum": "2025-07-03",
+          "pfad": "WRT:2025/War.%20Inv.%200092%202025.07.03.pdf"
+        },
+        {
+          "datum": "2024-12-02",
+          "pfad": "WRT:2024/War.%20Inv.%200092%202024.12.02.pdf"
+        },
+        {
+          "datum": "2024-06-17",
+          "pfad": "WRT:2024/War.%20Inv.%200092%202024.06.17.pdf"
+        },
+        {
+          "datum": "2023-05-22",
+          "pfad": "WRT:2023/War.%20Inv.%200092%202023.05.22.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2025-07-03",
+          "pfad": "REP:2025/Rep.%20Inv.%200092%202025.07.03.pdf"
+        },
+        {
+          "datum": "2025-01-07",
+          "pfad": "REP:2025/Rep.%20Inv.%200092%202025.01.07.pdf"
+        },
+        {
+          "datum": "2024-09-11",
+          "pfad": "REP:2024/Rep.%20Inv.%200092%202024.09.11.pdf"
+        },
+        {
+          "datum": "2023-10-18",
+          "pfad": "REP:2023/Rep.%20Inv.%200092%202023.10.18.pdf"
+        },
+        {
+          "datum": "2023-09-27",
+          "pfad": "REP:2023/Rep.%20Inv.%200092%202023.09.27.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0110": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-06-25",
+          "pfad": "WRT:2025/War.%20Inv.%200110%202025.06.25.pdf"
+        },
+        {
+          "datum": "2024-03-19",
+          "pfad": "WRT:2024/War.%20Inv.%200110%202024.03.19.pdf"
+        },
+        {
+          "datum": "2023-03-20",
+          "pfad": "WRT:2023/War.%20Inv.%200110%202023.03.20.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0118": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-09-02",
+          "pfad": "WRT:2025/War.%20Inv.%200118%202025.09.02.pdf"
+        },
+        {
+          "datum": "2024-05-27",
+          "pfad": "WRT:2024/War.%20Inv.%200118%202024.05.27.pdf"
+        },
+        {
+          "datum": "2023-05-24",
+          "pfad": "WRT:2023/War.%20Inv.%200118%202023.05.24.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0122": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-06-30",
+          "pfad": "WRT:2025/War.%20Inv.%200122%202025.06.30.pdf"
+        },
+        {
+          "datum": "2024-05-29",
+          "pfad": "WRT:2024/War.%20Inv.%200122%202024.05.29.pdf"
+        },
+        {
+          "datum": "2023-05-25",
+          "pfad": "WRT:2023/War.%20Inv.%200122%202023.05.25.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0141": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-06-30",
+          "pfad": "WRT:2025/War.%20Inv.%200141%202025.06.30.pdf"
+        },
+        {
+          "datum": "2024-02-19",
+          "pfad": "WRT:2024/War.%20Inv.%200141%202024.02.19.pdf"
+        },
+        {
+          "datum": "2023-01-30",
+          "pfad": "WRT:2023/War.%20Inv.%200141%202023.01.30.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0142": {
+      "bezeichnung": "Crimpress MC25",
+      "hersteller": "TE Connectivity",
+      "standort": "F3",
+      "wrt": [
+        {
+          "datum": "2025-06-26",
+          "pfad": "WRT:2025/War.%20Inv.%200142%202025.06.26.pdf"
+        },
+        {
+          "datum": "2024-02-19",
+          "pfad": "WRT:2024/War.%20Inv.%200142%202024.02.19.pdf"
+        },
+        {
+          "datum": "2023-01-30",
+          "pfad": "WRT:2023/War.%20Inv.%200142%202023.01.30.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2025-06-02",
+          "pfad": "REP:2025/Rep.%20Inv.%200142%202025.06.02.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0172": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-09-10",
+          "pfad": "WRT:2025/War.%20Inv.%200172%202025.09.10.pdf"
+        },
+        {
+          "datum": "2024-03-19",
+          "pfad": "WRT:2024/War.%20Inv.%200172%202024.03.19.pdf"
+        },
+        {
+          "datum": "2023-03-17",
+          "pfad": "WRT:2023/War.%20Inv.%200172%202023.03.17.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0173": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-09-08",
+          "pfad": "WRT:2025/War.%20Inv.%200173%202025.09.08.pdf"
+        },
+        {
+          "datum": "2024-06-10",
+          "pfad": "WRT:2024/War.%20Inv.%200173%202024.06.10.pdf"
+        },
+        {
+          "datum": "2023-06-28",
+          "pfad": "WRT:2023/War.%20Inv.%200173%202023.06.28.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0198": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-09-08",
+          "pfad": "WRT:2025/War.%20Inv.%200198%202025.09.08.pdf"
+        },
+        {
+          "datum": "2024-06-10",
+          "pfad": "WRT:2024/War.%20Inv.%200198%202024.06.10.pdf"
+        },
+        {
+          "datum": "2023-06-28",
+          "pfad": "WRT:2023/War.%20Inv.%200198%202023.06.28.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0201": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-09-10",
+          "pfad": "WRT:2025/War.%20Inv.%200201%202025.09.10.pdf"
+        },
+        {
+          "datum": "2024-06-10",
+          "pfad": "WRT:2024/War.%20Inv.%200201%202024.06.10.pdf"
+        },
+        {
+          "datum": "2023-06-28",
+          "pfad": "WRT:2023/War.%20Inv.%200201%202023.06.28.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0250": {
+      "bezeichnung": "Druckluft-Öler",
+      "hersteller": "Diverse",
+      "standort": "F1",
+      "wrt": [
+        {
+          "datum": "2025-06-30",
+          "pfad": "WRT:2025/War.%20Inv.%200250%202025.06.30.pdf"
+        },
+        {
+          "datum": "2024-03-20",
+          "pfad": "WRT:2024/War.%20Inv.%200250%202024.03.20.pdf"
+        },
+        {
+          "datum": "2023-03-17",
+          "pfad": "WRT:2023/War.%20Inv.%200250%202023.03.17.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2024-01-23",
+          "pfad": "REP:2024/Rep.%20Inv.%200250%202024.01.23.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0251": {
+      "bezeichnung": "Kältetrockner TC 31",
+      "hersteller": "Nowak",
+      "standort": "F1",
+      "wrt": [],
+      "rep": [],
+      "svc": [
+        {
+          "datum": "2025-02-26",
+          "pfad": "SVC:Nowak/Servicebericht%20Inv.%200251%202025.02.26.pdf",
+          "dienstleister": "Nowak"
+        },
+        {
+          "datum": "2024-02-15",
+          "pfad": "SVC:Nowak/Servicebericht%20Inv.%200251%202024.02.15.pdf",
+          "dienstleister": "Nowak"
+        },
+        {
+          "datum": "2023-01-18",
+          "pfad": "SVC:Nowak/Servicebericht%20Inv.%200251%202023.01.18.pdf",
+          "dienstleister": "Nowak"
+        },
+        {
+          "datum": "2021-11-19",
+          "pfad": "SVC:Nowak/Servicebericht%20Inv.%200251%202021.11.19.pdf",
+          "dienstleister": "Nowak"
+        },
+        {
+          "datum": "2021-07-28",
+          "pfad": "SVC:Nowak/Servicebericht%20Inv.%200251%202021.07.28.pdf",
+          "dienstleister": "Nowak"
+        },
+        {
+          "datum": "2020-11-25",
+          "pfad": "SVC:Nowak/Servicebericht%20Inv.%200251%202020.11.25.pdf",
+          "dienstleister": "Nowak"
+        }
+      ],
+      "mb": []
+    },
+    "0252": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-06-25",
+          "pfad": "WRT:2025/War.%20Inv.%200252%202025.06.25.pdf"
+        },
+        {
+          "datum": "2024-03-01",
+          "pfad": "WRT:2024/War.%20Inv.%200252%202024.03.01.pdf"
+        },
+        {
+          "datum": "2023-03-16",
+          "pfad": "WRT:2023/War.%20Inv.%200252%202023.03.16.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0256": {
+      "bezeichnung": "Rollenbiegevorrichtung",
+      "hersteller": "Diverse",
+      "standort": "F2/3000",
+      "wrt": [
+        {
+          "datum": "2025-08-26",
+          "pfad": "WRT:2025/War.%20Inv.%200256%202025.08.26.pdf"
+        },
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20Inv.%200256%202024.12.16.pdf"
+        },
+        {
+          "datum": "2024-06-06",
+          "pfad": "WRT:2024/War.%20Inv.%200256%202024.06.06.pdf"
+        },
+        {
+          "datum": "2023-12-05",
+          "pfad": "WRT:2023/War.%20Inv.%200256%202023.12.05.pdf"
+        },
+        {
+          "datum": "2023-06-02",
+          "pfad": "WRT:2023/War.%20Inv.%200256%202023.06.02.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2025-11-27",
+          "pfad": "REP:2025/Rep.%20Inv.%200256%202025.11.27.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0266": {
+      "bezeichnung": "Paternoster Lean-Lift",
+      "hersteller": "Hänel",
+      "standort": "F2/3000",
+      "wrt": [
+        {
+          "datum": "2024-09-30",
+          "pfad": "WRT:2024/War.%20Inv.%200266%202024.09.30.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2024-10-24",
+          "pfad": "REP:2024/Rep.%20Inv.%200266%202024.10.24.pdf"
+        }
+      ],
+      "svc": [
+        {
+          "datum": "2025-01-23",
+          "pfad": "SVC:Hänel/Serv.%20Inv.%200266%202025.01.23.pdf",
+          "dienstleister": "Hänel"
+        },
+        {
+          "datum": "2024-01-08",
+          "pfad": "SVC:Hänel/Serv.%20Inv.%200266%202024.01.08.pdf",
+          "dienstleister": "Hänel"
+        },
+        {
+          "datum": "2022-12-09",
+          "pfad": "SVC:Hänel/Serv.%20Inv.%200266%202022.12.09.pdf",
+          "dienstleister": "Hänel"
+        },
+        {
+          "datum": "2021-11-11",
+          "pfad": "SVC:Hänel/H%C3%A4nel%20321.549.1%202021.11.11.pdf",
+          "dienstleister": "Hänel"
+        },
+        {
+          "datum": "2020-10-19",
+          "pfad": "SVC:Hänel/H%C3%A4nel%20321.549.1%202020.10.19.pdf",
+          "dienstleister": "Hänel"
+        },
+        {
+          "datum": "2020-10-19",
+          "pfad": "SVC:Hänel/Montagebericht%202020.10.19%20S45C-920112508351.pdf",
+          "dienstleister": "Hänel"
+        },
+        {
+          "datum": "2019-10-10",
+          "pfad": "SVC:Hänel/H%C3%A4nel%20321.549.1%202019.10.10.pdf",
+          "dienstleister": "Hänel"
+        },
+        {
+          "datum": "kein Datum",
+          "pfad": "SVC:Hänel/Wartungsvertrag%20S45C-920112508350.pdf",
+          "dienstleister": "Hänel"
+        }
+      ],
+      "mb": []
+    },
+    "0267": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-11-27",
+          "pfad": "WRT:2025/War.%20Inv.%200267%202025.11.27.pdf"
+        },
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20Inv.%200267%202024.12.16.pdf"
+        },
+        {
+          "datum": "2023-12-07",
+          "pfad": "WRT:2023/War.%20Inv.%200267%202023.12.07.pdf"
+        },
+        {
+          "datum": "2023-10-12",
+          "pfad": "WRT:2023/War.%20Inv.%200267%202023.10.12.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2024-11-21",
+          "pfad": "REP:2024/Rep.%20Inv.%200267%202024.11.21.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0271": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-08-25",
+          "pfad": "WRT:2025/War.%20Inv.%200271%202025.08.25.pdf"
+        },
+        {
+          "datum": "2024-11-14",
+          "pfad": "WRT:2024/War.%20Inv.%200271%202024.11.14.pdf"
+        },
+        {
+          "datum": "2023-12-05",
+          "pfad": "WRT:2023/War.%20Inv.%200271%202023.12.05.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2024-03-14",
+          "pfad": "REP:2024/Rep.%20Inv.%200271%202024.03.14.pdf"
+        },
+        {
+          "datum": "2023-12-01",
+          "pfad": "REP:2023/Rep.%20Inv.%200271%202023.12.01.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0281": {
+      "bezeichnung": "Han S Crimp Station",
+      "hersteller": "Harting",
+      "standort": "F3",
+      "wrt": [
+        {
+          "datum": "2025-01-08",
+          "pfad": "WRT:2025/War.%20Inv.%200281%202025.01.08.pdf"
+        },
+        {
+          "datum": "2024-10-25",
+          "pfad": "WRT:2024/War.%20Inv.%200281%202024.10.25.pdf"
+        },
+        {
+          "datum": "2023-11-10",
+          "pfad": "WRT:2023/War.%20Inv.%200281%202023.11.10.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2023-10-25",
+          "pfad": "REP:2023/Rep.%20Inv.%200281%202023.10.25.pdf"
+        },
+        {
+          "datum": "2023-06-19",
+          "pfad": "REP:2023/Rep.%20Inv.%200281%202023.06.19.pdf"
+        }
+      ],
+      "svc": [
+        {
+          "datum": "2024-12-16",
+          "pfad": "SVC:Harting/Serv.%20Inv.%200281%202024.12.16.pdf",
+          "dienstleister": "Harting"
+        },
+        {
+          "datum": "2023-03-28",
+          "pfad": "SVC:Harting/Servicebericht%20Inv.%200281%202023.03.28.pdf",
+          "dienstleister": "Harting"
+        }
+      ],
+      "mb": []
+    },
+    "0287": {
+      "bezeichnung": "Paternoster Lean-Lift",
+      "hersteller": "Hänel",
+      "standort": "F3",
+      "wrt": [],
+      "rep": [],
+      "svc": [
+        {
+          "datum": "2025-01-23",
+          "pfad": "SVC:Hänel/Serv.%20Inv.%200287%202025.01.23.pdf",
+          "dienstleister": "Hänel"
+        },
+        {
+          "datum": "2024-01-08",
+          "pfad": "SVC:Hänel/Serv.%20Inv.%200287%202024.01.08.pdf",
+          "dienstleister": "Hänel"
+        },
+        {
+          "datum": "2022-12-09",
+          "pfad": "SVC:Hänel/Serv.%20Inv.%200287%202022.12.09.pdf",
+          "dienstleister": "Hänel"
+        },
+        {
+          "datum": "2021-11-11",
+          "pfad": "SVC:Hänel/H%C3%A4nel%20323.083.1-2.1%202021.11.11.pdf",
+          "dienstleister": "Hänel"
+        },
+        {
+          "datum": "2020-10-19",
+          "pfad": "SVC:Hänel/H%C3%A4nel%20323.083.1-2.1%202020.10.19.pdf",
+          "dienstleister": "Hänel"
+        },
+        {
+          "datum": "2020-10-19",
+          "pfad": "SVC:Hänel/Montagebericht%202020.10.19%20S45C-920112508351.pdf",
+          "dienstleister": "Hänel"
+        },
+        {
+          "datum": "2019-10-10",
+          "pfad": "SVC:Hänel/H%C3%A4nel%20323.083.1-2.1%202019.10.10.pdf",
+          "dienstleister": "Hänel"
+        },
+        {
+          "datum": "kein Datum",
+          "pfad": "SVC:Hänel/Wartungsvertrag%20S45C-920112508350.pdf",
+          "dienstleister": "Hänel"
+        }
+      ],
+      "mb": []
+    },
+    "0292": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2024-12-17",
+          "pfad": "WRT:2024/War.%20Inv.%200292%202024.12.17.pdf"
+        },
+        {
+          "datum": "2023-12-05",
+          "pfad": "WRT:2023/War.%20Inv.%200292%202023.12.05.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0295": {
+      "bezeichnung": "ims 295BC (Domino Inkjet)",
+      "hersteller": "Komax/Domino",
+      "standort": "F1/1000",
+      "wrt": [],
+      "rep": [],
+      "svc": [
+        {
+          "datum": "2025-11-17",
+          "pfad": "SVC:Komax/Serv.%20Inv.%200295%202025.11.17.pdf",
+          "dienstleister": "Komax"
+        },
+        {
+          "datum": "2024-12-03",
+          "pfad": "SVC:Komax/Serv.%20Inv.%200295%202024.12.03.pdf",
+          "dienstleister": "Komax"
+        },
+        {
+          "datum": "2024-01-09",
+          "pfad": "SVC:Komax/Serv.%20Inv.%200295%202024.01.09.pdf",
+          "dienstleister": "Komax"
+        },
+        {
+          "datum": "2022-11-29",
+          "pfad": "SVC:Komax/Ser.%20Inv.%200295%202022.11.29_30.pdf",
+          "dienstleister": "Komax"
+        },
+        {
+          "datum": "2022-05-19",
+          "pfad": "SVC:Komax/AA%20762%20IMS%20295%20Wartung%202022.05.19.pdf",
+          "dienstleister": "Komax"
+        },
+        {
+          "datum": "2021-08-12",
+          "pfad": "SVC:Domino/Servicebericht%202021.08.12.pdf",
+          "dienstleister": "Domino"
+        },
+        {
+          "datum": "2020-08-13",
+          "pfad": "SVC:Domino/Servicebericht%202020.08.13.pdf",
+          "dienstleister": "Domino"
+        },
+        {
+          "datum": "2019-08-21",
+          "pfad": "SVC:Domino/Servicebericht%202019.08.21.pdf",
+          "dienstleister": "Domino"
+        },
+        {
+          "datum": "2018-09-11",
+          "pfad": "SVC:Domino/Servicebericht%202018.09.11.pdf",
+          "dienstleister": "Domino"
+        },
+        {
+          "datum": "2017-12-18",
+          "pfad": "SVC:Domino/Servicebericht%202017.12.18.pdf",
+          "dienstleister": "Domino"
+        },
+        {
+          "datum": "2017-11-23",
+          "pfad": "SVC:Domino/Servicebericht%202017.11.23.pdf",
+          "dienstleister": "Domino"
+        }
+      ],
+      "mb": []
+    },
+    "0297": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-09-02",
+          "pfad": "WRT:2025/War.%20Inv.%200297%202025.09.02.pdf"
+        },
+        {
+          "datum": "2024-05-13",
+          "pfad": "WRT:2024/War.%20Inv.%200297%202024.05.13.pdf"
+        },
+        {
+          "datum": "2023-05-22",
+          "pfad": "WRT:2023/War.%20Inv.%200297%202023.05.22.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0298": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-09-10",
+          "pfad": "WRT:2025/War.%20Inv.%200298%202025.09.10.pdf"
+        },
+        {
+          "datum": "2024-07-31",
+          "pfad": "WRT:2024/War.%20Inv.%200298%202024.07.31.pdf"
+        },
+        {
+          "datum": "2023-06-28",
+          "pfad": "WRT:2023/War.%20Inv.%200298%202023.06.28.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0299": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-06-02",
+          "pfad": "WRT:2025/War.%20Inv.%200299%202025.06.02.pdf"
+        },
+        {
+          "datum": "2024-12-10",
+          "pfad": "WRT:2024/War.%20Inv.%200299%202024.12.10.pdf"
+        },
+        {
+          "datum": "2024-06-03",
+          "pfad": "WRT:2024/War.%20Inv.%200299%202024.06.03.pdf"
+        },
+        {
+          "datum": "2023-05-31",
+          "pfad": "WRT:2023/War.%20Inv.%200299%202023.05.31.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0300": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-09-08",
+          "pfad": "WRT:2025/War.%20Inv.%200300%202025.09.08.pdf"
+        },
+        {
+          "datum": "2024-06-10",
+          "pfad": "WRT:2024/War.%20Inv.%200300%202024.06.10.pdf"
+        },
+        {
+          "datum": "2023-06-28",
+          "pfad": "WRT:2023/War.%20Inv.%200300%202023.06.28.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0302": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-06-03",
+          "pfad": "WRT:2025/War.%20Inv.%200302%202025.06.03.pdf"
+        },
+        {
+          "datum": "2024-03-20",
+          "pfad": "WRT:2024/War.%20Inv.%200302%202024.03.20.pdf"
+        },
+        {
+          "datum": "2023-03-15",
+          "pfad": "WRT:2023/War.%20Inv.%200302%202023.03.15.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0303": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-09-08",
+          "pfad": "WRT:2025/War.%20Inv.%200303%202025.09.08.pdf"
+        },
+        {
+          "datum": "2024-07-31",
+          "pfad": "WRT:2024/War.%20Inv.%200303%202024.07.31.pdf"
+        },
+        {
+          "datum": "2023-07-11",
+          "pfad": "WRT:2023/War.%20Inv.%200303%202023.07.11.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0304": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-06-30",
+          "pfad": "WRT:2025/War.%20Inv.%200304%202025.06.30.pdf"
+        },
+        {
+          "datum": "2024-06-05",
+          "pfad": "WRT:2024/War.%20Inv.%200304%202024.06.05.pdf"
+        },
+        {
+          "datum": "2023-06-05",
+          "pfad": "WRT:2023/War.%20Inv.%200304%202023.06.05.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0312": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2024-09-23",
+          "pfad": "WRT:2024/War.%20Inv.%200312%202024.09.23.pdf"
+        },
+        {
+          "datum": "2023-12-05",
+          "pfad": "WRT:2023/War.%20Inv.%200312%202023.12.05.pdf"
+        },
+        {
+          "datum": "2023-06-02",
+          "pfad": "WRT:2023/War.%20Inv.%200312%202023.06.02.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0315": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-11-27",
+          "pfad": "WRT:2025/War.%20Inv.%200315%202025.11.27.pdf"
+        },
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20Inv.%200315%202024.12.16.pdf"
+        },
+        {
+          "datum": "2023-12-15",
+          "pfad": "WRT:2023/War.%20Inv.%200315%202023.12.15.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2023-11-20",
+          "pfad": "REP:2023/Rep.%20Inv.%200315%202023.11.20.pdf"
+        },
+        {
+          "datum": "2023-04-11",
+          "pfad": "REP:2023/Rep.%20Inv.%200315%202023.04.11.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0317": {
+      "bezeichnung": "CS 405 MR Inkjet",
+      "hersteller": "Schleuniger/Domino",
+      "standort": "F1/1000",
+      "wrt": [],
+      "rep": [
+        {
+          "datum": "2023-08-09",
+          "pfad": "REP:2023/Rep.%20Inv.%200317%202023.08.09.pdf"
+        },
+        {
+          "datum": "2023-07-13",
+          "pfad": "REP:2023/Rep.%20Inv.%200317%202023.07.13.pdf"
+        }
+      ],
+      "svc": [
+        {
+          "datum": "2025-09-19",
+          "pfad": "SVC:Domino/Servicebericht%202025.09.19%20SN_43438%3B%2044162.pdf",
+          "dienstleister": "Domino"
+        },
+        {
+          "datum": "2024-08-16",
+          "pfad": "SVC:Domino/Servicebericht%202024.08.16%20SN_43438%3B%2044162.pdf",
+          "dienstleister": "Domino"
+        },
+        {
+          "datum": "2023-08-09",
+          "pfad": "SVC:Domino/Servicebericht%202023.08.09%20SN_43438.pdf",
+          "dienstleister": "Domino"
+        },
+        {
+          "datum": "2023-08-09",
+          "pfad": "SVC:Domino/Servicebericht%202023.08.09%20SN_43438%3B%2044162.pdf",
+          "dienstleister": "Domino"
+        },
+        {
+          "datum": "2022-08-17",
+          "pfad": "SVC:Domino/Servicebericht%202022.08.17%20SN_43438.pdf",
+          "dienstleister": "Domino"
+        }
+      ],
+      "mb": []
+    },
+    "0318": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-09-08",
+          "pfad": "WRT:2025/War.%20Inv.%200318%202025.09.08.pdf"
+        },
+        {
+          "datum": "2024-03-04",
+          "pfad": "WRT:2024/War.%20Inv.%200318%202024.03.04.pdf"
+        },
+        {
+          "datum": "2024-02-05",
+          "pfad": "WRT:2024/War.%20Inv.%200318%202024.02.05.pdf"
+        },
+        {
+          "datum": "2023-03-03",
+          "pfad": "WRT:2023/War.%20Inv.%200318%202023.03.03.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0319": {
+      "bezeichnung": "Kompressor SXC 8",
+      "hersteller": "Nowak",
+      "standort": "F3",
+      "wrt": [
+        {
+          "datum": "2023-01-10",
+          "pfad": "WRT:2023/War.%20Inv.%200319%202023.01.10%281%29.pdf"
+        },
+        {
+          "datum": "2023-01-10",
+          "pfad": "WRT:2023/War.%20Inv.%200319%202023.01.10.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [
+        {
+          "datum": "2025-10-02",
+          "pfad": "SVC:Nowak/Servicebericht%20Inv.%200319%202025.10.02.pdf",
+          "dienstleister": "Nowak"
+        },
+        {
+          "datum": "2024-10-07",
+          "pfad": "SVC:Nowak/Servicebericht%20Inv.%200319%202024.10.07.pdf",
+          "dienstleister": "Nowak"
+        },
+        {
+          "datum": "2023-09-19",
+          "pfad": "SVC:Nowak/Servicebericht%20Inv.%200319%202023.09.19.pdf",
+          "dienstleister": "Nowak"
+        },
+        {
+          "datum": "2022-08-30",
+          "pfad": "SVC:Nowak/Servicebericht%20Inv.%200319%202022.08.30.pdf",
+          "dienstleister": "Nowak"
+        },
+        {
+          "datum": "2021-08-16",
+          "pfad": "SVC:Nowak/Servicebericht%20Inv.%200319%202021.08.16.pdf",
+          "dienstleister": "Nowak"
+        },
+        {
+          "datum": "2020-06-30",
+          "pfad": "SVC:Nowak/Servicebericht%20Inv.%200319%202020.06.30.pdf",
+          "dienstleister": "Nowak"
+        },
+        {
+          "datum": "2019-06-06",
+          "pfad": "SVC:Nowak/Servicebericht%20Inv.%200319%202019.06.06.pdf",
+          "dienstleister": "Nowak"
+        },
+        {
+          "datum": "2018-05-28",
+          "pfad": "SVC:Nowak/Servicebericht%20Inv.%200319%202018.05.28.pdf",
+          "dienstleister": "Nowak"
+        },
+        {
+          "datum": "2016-04-15",
+          "pfad": "SVC:Nowak/Servicebericht%20Inv.%200319%202016.04.15.pdf",
+          "dienstleister": "Nowak"
+        },
+        {
+          "datum": "2015-03-27",
+          "pfad": "SVC:Nowak/Servicebericht%20Inv.%200319%202015.03.27.pdf",
+          "dienstleister": "Nowak"
+        }
+      ],
+      "mb": []
+    },
+    "0320": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-09-08",
+          "pfad": "WRT:2025/War.%20Inv.%200320%202025.09.08.pdf"
+        },
+        {
+          "datum": "2024-10-10",
+          "pfad": "WRT:2024/War.%20Inv.%200320%202024.10.10.pdf"
+        },
+        {
+          "datum": "2023-09-18",
+          "pfad": "WRT:2023/War.%20Inv.%200320%202023.09.18.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0321": {
+      "bezeichnung": "Messdorn digital",
+      "hersteller": "Diverse",
+      "standort": "F2/3000",
+      "wrt": [
+        {
+          "datum": "2025-07-03",
+          "pfad": "WRT:2025/War.%20Inv.%200321%202025.07.03.pdf"
+        },
+        {
+          "datum": "2024-05-07",
+          "pfad": "WRT:2024/War.%20Inv.%200321%202024.05.07.pdf"
+        },
+        {
+          "datum": "2023-05-24",
+          "pfad": "WRT:2023/War.%20Inv.%200321%202023.05.24.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2025-09-08",
+          "pfad": "REP:2025/Rep.%20Inv.%200321%202025.09.08.pdf"
+        },
+        {
+          "datum": "2025-08-07",
+          "pfad": "REP:2025/Rep.%20Inv.%200321%202025.08.07.pdf"
+        },
+        {
+          "datum": "2023-11-30",
+          "pfad": "REP:2023/Rep.%20Inv.%200321%202023.11.30.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0322": {
+      "bezeichnung": "Messdorn digital",
+      "hersteller": "Diverse",
+      "standort": "F2/3000",
+      "wrt": [
+        {
+          "datum": "2025-07-08",
+          "pfad": "WRT:2025/War.%20Inv.%200322%202025.07.08.pdf"
+        },
+        {
+          "datum": "2024-09-17",
+          "pfad": "WRT:2024/War.%20Inv.%200322%202024.09.17.pdf"
+        },
+        {
+          "datum": "2024-05-07",
+          "pfad": "WRT:2024/War.%20Inv.%200322%202024.05.07.pdf"
+        },
+        {
+          "datum": "2023-05-22",
+          "pfad": "WRT:2023/War.%20Inv.%200322%202023.05.22.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2023-08-11",
+          "pfad": "REP:2023/Rep.%20Inv.%200322%202023.08.11.pdf"
+        },
+        {
+          "datum": "2023-01-30",
+          "pfad": "REP:2023/Rep.%20Inv.%200322%202023.01.30.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0323": {
+      "bezeichnung": "Messdorn digital",
+      "hersteller": "Diverse",
+      "standort": "F2/3000",
+      "wrt": [
+        {
+          "datum": "2025-09-01",
+          "pfad": "WRT:2025/War.%20Inv.%200323%202025.09.01.pdf"
+        },
+        {
+          "datum": "2024-08-13",
+          "pfad": "WRT:2024/War.%20Inv.%200323%202024.08.13.pdf"
+        },
+        {
+          "datum": "2024-05-14",
+          "pfad": "WRT:2024/War.%20Inv.%200323%202024.05.14.pdf"
+        },
+        {
+          "datum": "2023-05-26",
+          "pfad": "WRT:2023/War.%20Inv.%200323%202023.05.26.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2023-02-27",
+          "pfad": "REP:2023/Rep.%20Inv.%200323%202023.02.27.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0324": {
+      "bezeichnung": "Messdorn digital",
+      "hersteller": "Diverse",
+      "standort": "F2/3000",
+      "wrt": [
+        {
+          "datum": "2025-07-02",
+          "pfad": "WRT:2025/War.%20Inv.%200324%202025.07.02.pdf"
+        },
+        {
+          "datum": "2024-10-24",
+          "pfad": "WRT:2024/War.%20Inv.%200324%202024.10.24.pdf"
+        },
+        {
+          "datum": "2023-11-13",
+          "pfad": "WRT:2023/War.%20Inv.%200324%202023.11.13.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2024-07-25",
+          "pfad": "REP:2024/Rep.%20Inv.%200324%202024.07.25.pdf"
+        },
+        {
+          "datum": "2023-10-05",
+          "pfad": "REP:2023/Rep.%20Inv.%200324%202023.10.05.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0325": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2024-11-05",
+          "pfad": "WRT:2024/War.%20Inv.%200325%202024.11.05.pdf"
+        },
+        {
+          "datum": "2023-11-20",
+          "pfad": "WRT:2023/War.%20Inv.%200325%202023.11.20.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0326": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2024-10-28",
+          "pfad": "WRT:2024/War.%20Inv.%200326%202024.10.28.pdf"
+        },
+        {
+          "datum": "2023-11-13",
+          "pfad": "WRT:2023/War.%20Inv.%200326%202023.11.13.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0329": {
+      "bezeichnung": "MegaStrip 9650",
+      "hersteller": "Schleuniger",
+      "standort": "F1/1000",
+      "wrt": [
+        {
+          "datum": "2025-11-27",
+          "pfad": "WRT:2025/War.%20Inv.%200329%202025.11.27.pdf"
+        },
+        {
+          "datum": "2024-12-17",
+          "pfad": "WRT:2024/War.%20Inv.%200329%202024.12.17.pdf"
+        },
+        {
+          "datum": "2023-12-18",
+          "pfad": "WRT:2023/War.%20Inv.%200329%202023.12.18.pdf"
+        },
+        {
+          "datum": "2023-09-26",
+          "pfad": "WRT:2023/War.%20Inv.%200329%202023.09.26.pdf"
+        },
+        {
+          "datum": "2023-05-23",
+          "pfad": "WRT:2023/War.%20Inv.%200329%202023.05.23.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [
+        {
+          "datum": "2022-02-17",
+          "pfad": "SVC:Schleuniger/MS%209650%20MR/Servicebericht%20Inv.%200329%202022.02.17.pdf",
+          "dienstleister": "Schleuniger"
+        },
+        {
+          "datum": "2022-02-09",
+          "pfad": "SVC:Schleuniger/MS%209650%20MR/Servicebericht%20Inv.%200329%202022.02.09.pdf",
+          "dienstleister": "Schleuniger"
+        },
+        {
+          "datum": "2017-02-01",
+          "pfad": "SVC:Schleuniger/MS%209650%20MR/Servicebericht%20Rainer%20Schneider%20Kabelsatzbau%202017.02.01.pdf",
+          "dienstleister": "Schleuniger"
+        },
+        {
+          "datum": "2016-06-13",
+          "pfad": "SVC:Schleuniger/MS%209650%20MR/Servicebericht%20Rainer%20Schneider%20Kabelsatzbau%202016.06.13.pdf",
+          "dienstleister": "Schleuniger"
+        },
+        {
+          "datum": "2016-05-18",
+          "pfad": "SVC:Schleuniger/MS%209650%20MR/Servicebericht%20Rainer%20Schneider%20Kabelsatzbau%202016.05.18.pdf",
+          "dienstleister": "Schleuniger"
+        },
+        {
+          "datum": "2016-05-12",
+          "pfad": "SVC:Schleuniger/MS%209650%20MR/Servicebericht%20Rainer%20Schneider%20Kabelsatzbau%202016.05.12.pdf",
+          "dienstleister": "Schleuniger"
+        },
+        {
+          "datum": "kein Datum",
+          "pfad": "SVC:Schleuniger/MS%209650%20MR/Drucker%20CS405%20SN_43438%20Wartung%20WO-00590191.pdf",
+          "dienstleister": "Schleuniger"
+        }
+      ],
+      "mb": []
+    },
+    "0330": {
+      "bezeichnung": "Kompressor ASK 32",
+      "hersteller": "Nowak",
+      "standort": "F1",
+      "wrt": [],
+      "rep": [],
+      "svc": [
+        {
+          "datum": "2025-02-26",
+          "pfad": "SVC:Nowak/Servicebericht%20Inv.%200330%202025.02.26.pdf",
+          "dienstleister": "Nowak"
+        },
+        {
+          "datum": "2024-03-08",
+          "pfad": "SVC:Nowak/Servicebericht%20Inv.%200330%202024.03.08.pdf",
+          "dienstleister": "Nowak"
+        },
+        {
+          "datum": "2024-02-15",
+          "pfad": "SVC:Nowak/Servicebericht%20Inv.%200330%202024.02.15.pdf",
+          "dienstleister": "Nowak"
+        },
+        {
+          "datum": "2023-02-06",
+          "pfad": "SVC:Nowak/Servicebericht%20Inv.%200330%202023.02.06.pdf",
+          "dienstleister": "Nowak"
+        },
+        {
+          "datum": "2023-01-18",
+          "pfad": "SVC:Nowak/Servicebericht%20Inv.%200330%202023.01.18.pdf",
+          "dienstleister": "Nowak"
+        },
+        {
+          "datum": "2021-11-19",
+          "pfad": "SVC:Nowak/Servicebericht%20Inv.%200330%202021.11.19.pdf",
+          "dienstleister": "Nowak"
+        },
+        {
+          "datum": "2020-11-25",
+          "pfad": "SVC:Nowak/Servicebericht%20Inv.%200330%202020.11.25.pdf",
+          "dienstleister": "Nowak"
+        }
+      ],
+      "mb": []
+    },
+    "0331": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2024-11-07",
+          "pfad": "WRT:2024/War.%20Inv.%200331%202024.11.07.pdf"
+        },
+        {
+          "datum": "2023-11-23",
+          "pfad": "WRT:2023/War.%20Inv.%200331%202023.11.23.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0333": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2024-11-14",
+          "pfad": "WRT:2024/War.%20Inv.%200333%202024.11.14.pdf"
+        },
+        {
+          "datum": "2023-12-04",
+          "pfad": "WRT:2023/War.%20Inv.%200333%202023.12.04.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0338": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2024-11-05",
+          "pfad": "WRT:2024/War.%20Inv.%200338%202024.11.05.pdf"
+        },
+        {
+          "datum": "2023-11-13",
+          "pfad": "WRT:2023/War.%20Inv.%200338%202023.11.13.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0341": {
+      "bezeichnung": "PowerStrip 9550 M",
+      "hersteller": "Schleuniger",
+      "standort": "F2/2000",
+      "wrt": [
+        {
+          "datum": "2024-12-17",
+          "pfad": "WRT:2024/War.%20Inv.%200341%202024.12.17.pdf"
+        },
+        {
+          "datum": "2023-12-19",
+          "pfad": "WRT:2023/War.%20Inv.%200341%202023.12.19.pdf"
+        },
+        {
+          "datum": "2022-12-15",
+          "pfad": "WRT:2025/War.%20Inv.%200341%202022.12.15.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [
+        {
+          "datum": "2022-08-22",
+          "pfad": "SVC:Schleuniger/PS%209550/Servicebericht%202022.08.22.pdf",
+          "dienstleister": "Schleuniger"
+        },
+        {
+          "datum": "2022-06-02",
+          "pfad": "SVC:Schleuniger/PS%209550/Servicebericht%202022.06.02.pdf",
+          "dienstleister": "Schleuniger"
+        },
+        {
+          "datum": "2019-04-03",
+          "pfad": "SVC:Schleuniger/PS%209550/Servicebericht%202019.04.03.pdf",
+          "dienstleister": "Schleuniger"
+        },
+        {
+          "datum": "2017-08-28",
+          "pfad": "SVC:Schleuniger/PS%209550/Servicebericht%202017.08.28.pdf",
+          "dienstleister": "Schleuniger"
+        },
+        {
+          "datum": "2017-05-29",
+          "pfad": "SVC:Schleuniger/PS%209550/Servicebericht%202017.05.29.pdf",
+          "dienstleister": "Schleuniger"
+        },
+        {
+          "datum": "2017-05-16",
+          "pfad": "SVC:Schleuniger/PS%209550/Servicebericht%202017.05.16.pdf",
+          "dienstleister": "Schleuniger"
+        },
+        {
+          "datum": "2017-05-08",
+          "pfad": "SVC:Schleuniger/PS%209550/Servicebericht%202017.05.08.pdf",
+          "dienstleister": "Schleuniger"
+        }
+      ],
+      "mb": []
+    },
+    "0342": {
+      "bezeichnung": "Paternoster Lean-Lift",
+      "hersteller": "Hänel",
+      "standort": "F2/3000",
+      "wrt": [],
+      "rep": [],
+      "svc": [
+        {
+          "datum": "2025-01-23",
+          "pfad": "SVC:Hänel/Serv.%20Inv.%200342%202025.01.23.pdf",
+          "dienstleister": "Hänel"
+        },
+        {
+          "datum": "2024-01-08",
+          "pfad": "SVC:Hänel/Serv.%20Inv.%200342%202024.01.08.pdf",
+          "dienstleister": "Hänel"
+        },
+        {
+          "datum": "2022-12-09",
+          "pfad": "SVC:Hänel/Serv.%20Inv.%200342%202022.12.09.pdf",
+          "dienstleister": "Hänel"
+        },
+        {
+          "datum": "2021-11-11",
+          "pfad": "SVC:Hänel/H%C3%A4nel%20465.340.1%202021.11.11.pdf",
+          "dienstleister": "Hänel"
+        },
+        {
+          "datum": "2020-10-19",
+          "pfad": "SVC:Hänel/H%C3%A4nel%20465.340.1%202020.10.19.pdf",
+          "dienstleister": "Hänel"
+        },
+        {
+          "datum": "2020-10-19",
+          "pfad": "SVC:Hänel/Montagebericht%202020.10.19%20S45C-920112508351.pdf",
+          "dienstleister": "Hänel"
+        },
+        {
+          "datum": "2019-10-10",
+          "pfad": "SVC:Hänel/H%C3%A4nel%20465.340.1%202019.10.10.pdf",
+          "dienstleister": "Hänel"
+        },
+        {
+          "datum": "kein Datum",
+          "pfad": "SVC:Hänel/Wartungsvertrag%20S45C-920112508350.pdf",
+          "dienstleister": "Hänel"
+        }
+      ],
+      "mb": []
+    },
+    "0346": {
+      "bezeichnung": "Abisolierautomat",
+      "hersteller": "Strunk",
+      "standort": "F2/2000",
+      "wrt": [
+        {
+          "datum": "2025-07-01",
+          "pfad": "WRT:2025/War.%20Inv.%200346%202025.07.01.pdf"
+        },
+        {
+          "datum": "2024-11-07",
+          "pfad": "WRT:2024/War.%20Inv.%200346%202024.11.07.pdf"
+        },
+        {
+          "datum": "2024-06-03",
+          "pfad": "WRT:2024/War.%20Inv.%200346%202024.06.03.pdf"
+        },
+        {
+          "datum": "2023-12-06",
+          "pfad": "WRT:2023/War.%20Inv.%200346%202023.12.06.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2024-09-11",
+          "pfad": "REP:2024/Rep.%20Inv.%200346%202024.09.11.pdf"
+        },
+        {
+          "datum": "2023-10-19",
+          "pfad": "REP:2023/Rep.%20Inv.%200346%202023.10.19.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0347": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-07-09",
+          "pfad": "WRT:2025/War.%20Inv.%200347%202025.07.09.pdf"
+        },
+        {
+          "datum": "2024-05-07",
+          "pfad": "WRT:2024/War.%20Inv.%200347%202024.05.07.pdf"
+        },
+        {
+          "datum": "2023-05-30",
+          "pfad": "WRT:2023/War.%20Inv.%200347%202023.05.30.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0349": {
+      "bezeichnung": "Alpha 356 S Crimpvollautomat",
+      "hersteller": "Komax",
+      "standort": "F1/1000",
+      "wrt": [
+        {
+          "datum": "2025-12-09",
+          "pfad": "WRT:2025/War.%20Inv.%200349%202025.12.09.pdf"
+        },
+        {
+          "datum": "2024-12-17",
+          "pfad": "WRT:2024/War.%20Inv.%200349%202024.12.17.pdf"
+        },
+        {
+          "datum": "2023-12-19",
+          "pfad": "WRT:2023/War.%20Inv.%200349%202023.12.19.pdf"
+        },
+        {
+          "datum": "2023-04-14",
+          "pfad": "WRT:2023/War.%20Inv.%200349%202023.04.14.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2025-10-30",
+          "pfad": "REP:2025/Rep.%20Inv.%200349%202025.10.30.pdf"
+        },
+        {
+          "datum": "2025-10-06",
+          "pfad": "REP:2025/Rep.%20Inv.%200349%202025.10.06.pdf"
+        },
+        {
+          "datum": "2025-10-06",
+          "pfad": "REP:2025/Rep.%20Inv.%200349_Q1210.0022%202025.10.06.pdf"
+        },
+        {
+          "datum": "2025-01-21",
+          "pfad": "REP:2025/Rep.%20Inv.%200349%202025.01.21.pdf"
+        },
+        {
+          "datum": "2024-12-09",
+          "pfad": "REP:2024/Rep.%20Inv.%200349%202024.12.09.pdf"
+        },
+        {
+          "datum": "2024-10-22",
+          "pfad": "REP:2024/Rep.%20Inv.%200349%202024.10.22.pdf"
+        },
+        {
+          "datum": "2023-10-13",
+          "pfad": "REP:2023/Rep.%20Inv.%200349%202023.10.13.pdf"
+        },
+        {
+          "datum": "2023-09-29",
+          "pfad": "REP:2023/Rep.%20Inv.%200349%202023.09.29.pdf"
+        },
+        {
+          "datum": "2023-08-31",
+          "pfad": "REP:2023/Rep.%20Inv.%200349%202023.08.31.pdf"
+        },
+        {
+          "datum": "2023-07-20",
+          "pfad": "REP:2023/Rep.%20Inv.%200349%202023.07.20.pdf"
+        },
+        {
+          "datum": "2023-06-28",
+          "pfad": "REP:2023/Rep.%20Inv.%200349%202023.06.28.pdf"
+        },
+        {
+          "datum": "2023-06-16",
+          "pfad": "REP:2023/Rep.%20Inv.%200349%202023.06.16.pdf"
+        },
+        {
+          "datum": "2023-04-17",
+          "pfad": "REP:2023/Rep.%20Inv.%200349%202023.04.17.pdf"
+        },
+        {
+          "datum": "2023-04-13",
+          "pfad": "REP:2023/Rep.%20Inv.%200349%202023.04.13.pdf"
+        },
+        {
+          "datum": "2023-03-17",
+          "pfad": "REP:2023/Rep.%20Inv.%200349%202023.03.17.pdf"
+        },
+        {
+          "datum": "2023-02-09",
+          "pfad": "REP:2023/Rep.%20Inv.%200349%202023.02.09.pdf"
+        },
+        {
+          "datum": "2023-01-25",
+          "pfad": "REP:2023/Rep.%20Inv.%200349%202023.01.25.pdf"
+        }
+      ],
+      "svc": [
+        {
+          "datum": "2025-02-10",
+          "pfad": "SVC:Komax/Serv.%20Inv.%200349%202025.02.10.pdf",
+          "dienstleister": "Komax"
+        },
+        {
+          "datum": "2024-01-09",
+          "pfad": "SVC:Komax/Serv.%20Inv.%200349%202024.01.09.pdf",
+          "dienstleister": "Komax"
+        },
+        {
+          "datum": "2022-11-29",
+          "pfad": "SVC:Komax/Ser.%20Inv.%200349%202022.11.29_30.pdf",
+          "dienstleister": "Komax"
+        },
+        {
+          "datum": "2019-05-22",
+          "pfad": "SVC:Komax/Servicebericht%202019.05.22.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350"
+        },
+        {
+          "datum": "2018-11-15",
+          "pfad": "SVC:Komax/Servicebericht%202018.11.15.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350"
+        },
+        {
+          "datum": "2018-06-07",
+          "pfad": "SVC:Komax/Servicebericht%202018.06.07.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350"
+        },
+        {
+          "datum": "2018-02-05",
+          "pfad": "SVC:Komax/Servicebericht%202018.02.05.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350"
+        },
+        {
+          "datum": "2018-01-22",
+          "pfad": "SVC:Komax/Servicebericht%202018.01.22.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350"
+        },
+        {
+          "datum": "2017-10-05",
+          "pfad": "SVC:Komax/Servicebericht%202017.10.05.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350"
+        },
+        {
+          "datum": "2017-04-19",
+          "pfad": "SVC:Komax/Servicebericht%202017.04.19.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350"
+        },
+        {
+          "datum": "2017-03-06",
+          "pfad": "SVC:Komax/Servicebericht%202017.03.06.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350"
+        },
+        {
+          "datum": "2017-01-16",
+          "pfad": "SVC:Komax/Servicebericht%202017.01.16.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350"
+        },
+        {
+          "datum": "2016-09-07",
+          "pfad": "SVC:Komax/Servicebericht%202016.09.07_08.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350"
+        },
+        {
+          "datum": "2016-06-02",
+          "pfad": "SVC:Komax/Servicebericht%202016.06.02.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350"
+        },
+        {
+          "datum": "2016-04-27",
+          "pfad": "SVC:Komax/Servicebericht%202016.04.27.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350"
+        },
+        {
+          "datum": "2016-03-01",
+          "pfad": "SVC:Komax/Servicebericht%202016.03.01.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350"
+        },
+        {
+          "datum": "2015-12-14",
+          "pfad": "SVC:Komax/Servicebericht%202015.12.14.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350"
+        },
+        {
+          "datum": "2015-08-13",
+          "pfad": "SVC:Komax/Servicebericht%202015.08.13.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350"
+        }
+      ],
+      "mb": [
+        {
+          "datum": "2021-11-11",
+          "pfad": "SVC:Komax/MB8000367%20m.U%202021.11.11.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350",
+          "mb_nr": "MB8000367"
+        },
+        {
+          "datum": "2021-11-10",
+          "pfad": "SVC:Komax/MB8000363%20m.U%202021.11.10.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350",
+          "mb_nr": "MB8000363"
+        },
+        {
+          "datum": "2021-11-10",
+          "pfad": "SVC:Komax/MB8000364%20m.U%202021.11.10.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350",
+          "mb_nr": "MB8000364"
+        },
+        {
+          "datum": "2021-11-10",
+          "pfad": "SVC:Komax/MB8000366%20m.U%202021.11.10.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350",
+          "mb_nr": "MB8000366"
+        },
+        {
+          "datum": "2021-05-17",
+          "pfad": "SVC:Komax/MB8000292%20m.U%202021.05.17.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350",
+          "mb_nr": "MB8000292"
+        },
+        {
+          "datum": "2020-11-24",
+          "pfad": "SVC:Komax/MB8000208%20m.U%202020.11.24.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350",
+          "mb_nr": "MB8000208"
+        },
+        {
+          "datum": "2020-11-23",
+          "pfad": "SVC:Komax/MB8000205%20m.U%202020.11.23.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350",
+          "mb_nr": "MB8000205"
+        },
+        {
+          "datum": "2020-11-23",
+          "pfad": "SVC:Komax/MB8000206%20m.U%202020.11.23.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350",
+          "mb_nr": "MB8000206"
+        },
+        {
+          "datum": "2020-11-23",
+          "pfad": "SVC:Komax/MB8000207%20m.%20U%202020.11.23.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350",
+          "mb_nr": "MB8000207"
+        },
+        {
+          "datum": "2020-05-27",
+          "pfad": "SVC:Komax/MB8000131%20m.U%202020.05.27.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350",
+          "mb_nr": "MB8000131"
+        },
+        {
+          "datum": "2020-02-11",
+          "pfad": "SVC:Komax/MB8000082%20m.U%202020.02.11.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350",
+          "mb_nr": "MB8000082"
+        },
+        {
+          "datum": "2020-02-11",
+          "pfad": "SVC:Komax/MB8000083%20m.U%202020.02.11.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350",
+          "mb_nr": "MB8000083"
+        },
+        {
+          "datum": "2019-11-20",
+          "pfad": "SVC:Komax/MB8000065%20m.U%202019.11.20.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350",
+          "mb_nr": "MB8000065"
+        },
+        {
+          "datum": "2019-11-20",
+          "pfad": "SVC:Komax/MB8000066%20m.U%202019.11.20.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350",
+          "mb_nr": "MB8000066"
+        },
+        {
+          "datum": "2019-11-20",
+          "pfad": "SVC:Komax/MB8000067%20m.U%202019.11.20.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350",
+          "mb_nr": "MB8000067"
+        },
+        {
+          "datum": "2019-11-20",
+          "pfad": "SVC:Komax/MB8000068%20m.U%202019.11.20.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0350",
+          "mb_nr": "MB8000068"
+        }
+      ]
+    },
+    "0350": {
+      "bezeichnung": "Alpha 355 S Crimpvollautomat",
+      "hersteller": "Komax",
+      "standort": "F1/1000",
+      "wrt": [
+        {
+          "datum": "2025-12-16",
+          "pfad": "WRT:2025/War.%20Inv.%200350%202025.12.16.pdf"
+        },
+        {
+          "datum": "2024-12-17",
+          "pfad": "WRT:2024/War.%20Inv.%200350%202024.12.17.pdf"
+        },
+        {
+          "datum": "2023-12-18",
+          "pfad": "WRT:2023/War.%20Inv.%200350%202023.12.18.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2025-09-10",
+          "pfad": "REP:2025/Rep.%20Inv.%200350%202025.09.10.pdf"
+        },
+        {
+          "datum": "2025-08-22",
+          "pfad": "REP:2025/Rep.%20Inv.%200350%202025.08.22.pdf"
+        },
+        {
+          "datum": "2025-04-07",
+          "pfad": "REP:2025/Rep.%20Inv.%200350%202025.04.07.pdf"
+        },
+        {
+          "datum": "2024-10-16",
+          "pfad": "REP:2024/Rep.%20Inv.%200350%202024.10.16.pdf"
+        },
+        {
+          "datum": "2023-08-07",
+          "pfad": "REP:2023/Rep.%20Inv.%200350%202023.08.07.pdf"
+        },
+        {
+          "datum": "2023-07-13",
+          "pfad": "REP:2023/Rep.%20Inv.%200350%202023.07.13.pdf"
+        },
+        {
+          "datum": "2023-04-14",
+          "pfad": "REP:2023/Rep.%20Inv.%200350%202023.04.14.pdf"
+        }
+      ],
+      "svc": [
+        {
+          "datum": "2025-02-10",
+          "pfad": "SVC:Komax/Serv.%20Inv.%200350%202025.02.10.pdf",
+          "dienstleister": "Komax"
+        },
+        {
+          "datum": "2024-01-09",
+          "pfad": "SVC:Komax/Serv.%20Inv.%200350%202024.01.09.pdf",
+          "dienstleister": "Komax"
+        },
+        {
+          "datum": "2022-11-29",
+          "pfad": "SVC:Komax/Ser.%20Inv.%200350%202022.11.29_30.pdf",
+          "dienstleister": "Komax"
+        },
+        {
+          "datum": "2019-05-22",
+          "pfad": "SVC:Komax/Servicebericht%202019.05.22.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349"
+        },
+        {
+          "datum": "2018-11-15",
+          "pfad": "SVC:Komax/Servicebericht%202018.11.15.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349"
+        },
+        {
+          "datum": "2018-06-07",
+          "pfad": "SVC:Komax/Servicebericht%202018.06.07.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349"
+        },
+        {
+          "datum": "2018-02-05",
+          "pfad": "SVC:Komax/Servicebericht%202018.02.05.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349"
+        },
+        {
+          "datum": "2018-01-22",
+          "pfad": "SVC:Komax/Servicebericht%202018.01.22.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349"
+        },
+        {
+          "datum": "2017-10-05",
+          "pfad": "SVC:Komax/Servicebericht%202017.10.05.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349"
+        },
+        {
+          "datum": "2017-04-19",
+          "pfad": "SVC:Komax/Servicebericht%202017.04.19.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349"
+        },
+        {
+          "datum": "2017-03-06",
+          "pfad": "SVC:Komax/Servicebericht%202017.03.06.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349"
+        },
+        {
+          "datum": "2017-01-16",
+          "pfad": "SVC:Komax/Servicebericht%202017.01.16.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349"
+        },
+        {
+          "datum": "2016-09-07",
+          "pfad": "SVC:Komax/Servicebericht%202016.09.07_08.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349"
+        },
+        {
+          "datum": "2016-06-02",
+          "pfad": "SVC:Komax/Servicebericht%202016.06.02.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349"
+        },
+        {
+          "datum": "2016-04-27",
+          "pfad": "SVC:Komax/Servicebericht%202016.04.27.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349"
+        },
+        {
+          "datum": "2016-03-01",
+          "pfad": "SVC:Komax/Servicebericht%202016.03.01.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349"
+        },
+        {
+          "datum": "2015-12-14",
+          "pfad": "SVC:Komax/Servicebericht%202015.12.14.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349"
+        },
+        {
+          "datum": "2015-08-13",
+          "pfad": "SVC:Komax/Servicebericht%202015.08.13.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349"
+        }
+      ],
+      "mb": [
+        {
+          "datum": "2021-11-11",
+          "pfad": "SVC:Komax/MB8000367%20m.U%202021.11.11.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349",
+          "mb_nr": "MB8000367"
+        },
+        {
+          "datum": "2021-11-10",
+          "pfad": "SVC:Komax/MB8000363%20m.U%202021.11.10.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349",
+          "mb_nr": "MB8000363"
+        },
+        {
+          "datum": "2021-11-10",
+          "pfad": "SVC:Komax/MB8000364%20m.U%202021.11.10.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349",
+          "mb_nr": "MB8000364"
+        },
+        {
+          "datum": "2021-11-10",
+          "pfad": "SVC:Komax/MB8000366%20m.U%202021.11.10.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349",
+          "mb_nr": "MB8000366"
+        },
+        {
+          "datum": "2021-05-17",
+          "pfad": "SVC:Komax/MB8000292%20m.U%202021.05.17.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349",
+          "mb_nr": "MB8000292"
+        },
+        {
+          "datum": "2020-11-24",
+          "pfad": "SVC:Komax/MB8000208%20m.U%202020.11.24.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349",
+          "mb_nr": "MB8000208"
+        },
+        {
+          "datum": "2020-11-23",
+          "pfad": "SVC:Komax/MB8000205%20m.U%202020.11.23.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349",
+          "mb_nr": "MB8000205"
+        },
+        {
+          "datum": "2020-11-23",
+          "pfad": "SVC:Komax/MB8000206%20m.U%202020.11.23.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349",
+          "mb_nr": "MB8000206"
+        },
+        {
+          "datum": "2020-11-23",
+          "pfad": "SVC:Komax/MB8000207%20m.%20U%202020.11.23.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349",
+          "mb_nr": "MB8000207"
+        },
+        {
+          "datum": "2020-05-27",
+          "pfad": "SVC:Komax/MB8000131%20m.U%202020.05.27.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349",
+          "mb_nr": "MB8000131"
+        },
+        {
+          "datum": "2020-02-11",
+          "pfad": "SVC:Komax/MB8000082%20m.U%202020.02.11.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349",
+          "mb_nr": "MB8000082"
+        },
+        {
+          "datum": "2020-02-11",
+          "pfad": "SVC:Komax/MB8000083%20m.U%202020.02.11.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349",
+          "mb_nr": "MB8000083"
+        },
+        {
+          "datum": "2019-11-20",
+          "pfad": "SVC:Komax/MB8000065%20m.U%202019.11.20.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349",
+          "mb_nr": "MB8000065"
+        },
+        {
+          "datum": "2019-11-20",
+          "pfad": "SVC:Komax/MB8000066%20m.U%202019.11.20.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349",
+          "mb_nr": "MB8000066"
+        },
+        {
+          "datum": "2019-11-20",
+          "pfad": "SVC:Komax/MB8000067%20m.U%202019.11.20.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349",
+          "mb_nr": "MB8000067"
+        },
+        {
+          "datum": "2019-11-20",
+          "pfad": "SVC:Komax/MB8000068%20m.U%202019.11.20.pdf",
+          "dienstleister": "Komax",
+          "hinweis": "auch 0349",
+          "mb_nr": "MB8000068"
+        }
+      ]
+    },
+    "0351": {
+      "bezeichnung": "ims 295MC (Domino Inkjet)",
+      "hersteller": "Komax/Domino",
+      "standort": "F2/2000",
+      "wrt": [],
+      "rep": [],
+      "svc": [
+        {
+          "datum": "2025-11-17",
+          "pfad": "SVC:Komax/Serv.%20Inv.%200351%202025.11.17.pdf",
+          "dienstleister": "Komax"
+        },
+        {
+          "datum": "2025-05-19",
+          "pfad": "SVC:Komax/Serv.%20Inv.%200351%202025.05.19.pdf",
+          "dienstleister": "Komax"
+        },
+        {
+          "datum": "2024-12-03",
+          "pfad": "SVC:Komax/Serv.%20Inv.%200351%202024.12.03.pdf",
+          "dienstleister": "Komax"
+        },
+        {
+          "datum": "2024-06-14",
+          "pfad": "SVC:Komax/Serv.%20Inv.%200351%202024.06.14.pdf",
+          "dienstleister": "Komax"
+        },
+        {
+          "datum": "2024-01-09",
+          "pfad": "SVC:Komax/Serv.%20Inv.%200351%202024.01.09.pdf",
+          "dienstleister": "Komax"
+        },
+        {
+          "datum": "2023-05-24",
+          "pfad": "SVC:Komax/Serv.%20Inv.%200351%202023.05.24.pdf",
+          "dienstleister": "Komax"
+        },
+        {
+          "datum": "2022-11-29",
+          "pfad": "SVC:Komax/Serv.%20Inv.%200351%202022.11.29_30.pdf",
+          "dienstleister": "Komax"
+        },
+        {
+          "datum": "2021-08-12",
+          "pfad": "SVC:Domino/Servicebericht%202021.08.12.pdf",
+          "dienstleister": "Domino"
+        },
+        {
+          "datum": "2020-08-13",
+          "pfad": "SVC:Domino/Servicebericht%202020.08.13.pdf",
+          "dienstleister": "Domino"
+        },
+        {
+          "datum": "2019-08-21",
+          "pfad": "SVC:Domino/Servicebericht%202019.08.21.pdf",
+          "dienstleister": "Domino"
+        },
+        {
+          "datum": "2018-09-11",
+          "pfad": "SVC:Domino/Servicebericht%202018.09.11.pdf",
+          "dienstleister": "Domino"
+        },
+        {
+          "datum": "2017-12-18",
+          "pfad": "SVC:Domino/Servicebericht%202017.12.18.pdf",
+          "dienstleister": "Domino"
+        },
+        {
+          "datum": "2017-11-23",
+          "pfad": "SVC:Domino/Servicebericht%202017.11.23.pdf",
+          "dienstleister": "Domino"
+        }
+      ],
+      "mb": []
+    },
+    "0352": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2024-12-18",
+          "pfad": "WRT:2024/War.%20Inv.%200352%202024.12.18.pdf"
+        },
+        {
+          "datum": "2023-12-11",
+          "pfad": "WRT:2023/War.%20Inv.%200352%202023.12.11.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0353": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-07-09",
+          "pfad": "WRT:2025/War.%20Inv.%200353%202025.07.09.pdf"
+        },
+        {
+          "datum": "2024-11-05",
+          "pfad": "WRT:2024/War.%20Inv.%200353%202024.11.05.pdf"
+        },
+        {
+          "datum": "2024-05-13",
+          "pfad": "WRT:2024/War.%20Inv.%200353%202024.05.13.pdf"
+        },
+        {
+          "datum": "2023-05-26",
+          "pfad": "WRT:2023/War.%20Inv.%200353%202023.05.26.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0354": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-12-15",
+          "pfad": "WRT:2025/War.%20Inv.%200354%202025.12.15.pdf"
+        },
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20Inv.%200354%202024.12.16.pdf"
+        },
+        {
+          "datum": "2023-12-19",
+          "pfad": "WRT:2023/War.%20Inv.%200354%202023.12.19.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0355": {
+      "bezeichnung": "CS 405 MR Inkjet",
+      "hersteller": "Schleuniger/Domino",
+      "standort": "F2/2000",
+      "wrt": [],
+      "rep": [],
+      "svc": [
+        {
+          "datum": "2025-09-19",
+          "pfad": "SVC:Domino/Servicebericht%202025.09.19%20SN_43438%3B%2044162.pdf",
+          "dienstleister": "Domino"
+        },
+        {
+          "datum": "2024-08-16",
+          "pfad": "SVC:Domino/Servicebericht%202024.08.16%20SN_43438%3B%2044162.pdf",
+          "dienstleister": "Domino"
+        },
+        {
+          "datum": "2023-08-09",
+          "pfad": "SVC:Domino/Servicebericht%202023.08.09%20SN_43438%3B%2044162.pdf",
+          "dienstleister": "Domino"
+        },
+        {
+          "datum": "2022-07-29",
+          "pfad": "SVC:Domino/Servicebericht%202022.07.29%20SN_44162.pdf",
+          "dienstleister": "Domino"
+        }
+      ],
+      "mb": []
+    },
+    "0356": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20Inv.%200356%202024.12.16.pdf"
+        },
+        {
+          "datum": "2023-12-19",
+          "pfad": "WRT:2023/War.%20Inv.%200356%202023.12.19.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2023-08-02",
+          "pfad": "REP:2023/Rep.%20Inv.%200356%202023.08.02.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0357": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-10-20",
+          "pfad": "WRT:2025/War.%20Inv.%200357%202025.10.20.pdf"
+        },
+        {
+          "datum": "2024-11-21",
+          "pfad": "WRT:2024/War.%20Inv.%200357%202024.11.21.pdf"
+        },
+        {
+          "datum": "2024-11-19",
+          "pfad": "WRT:2024/War.%20Inv.%200357%202024.11.19.pdf"
+        },
+        {
+          "datum": "2023-02-13",
+          "pfad": "WRT:2023/War.%20Inv.%200357%202023.02.13.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0358": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-12-03",
+          "pfad": "WRT:2025/War.%20Inv.%200358%202025.12.03.pdf"
+        },
+        {
+          "datum": "2023-12-11",
+          "pfad": "WRT:2023/War.%20Inv.%200358%202023.12.11.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0359": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-07-02",
+          "pfad": "WRT:2025/War.%20Inv.%200359%202025.07.02.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0362": {
+      "bezeichnung": "Crimpfix Pro-M",
+      "hersteller": "Weidmüller",
+      "standort": "F2/2000",
+      "wrt": [
+        {
+          "datum": "2025-07-04",
+          "pfad": "WRT:2025/War.%20Inv.%200362%202025.07.04.pdf"
+        },
+        {
+          "datum": "2024-11-04",
+          "pfad": "WRT:2024/War.%20Inv.%200362%202024.11.04.pdf"
+        },
+        {
+          "datum": "2024-05-13",
+          "pfad": "WRT:2024/War.%20Inv.%200362%202024.05.13.pdf"
+        },
+        {
+          "datum": "2023-11-09",
+          "pfad": "WRT:2023/War.%20Inv.%200362%202023.11.09.pdf"
+        },
+        {
+          "datum": "2023-05-24",
+          "pfad": "WRT:2023/War.%20Inv.%200362%202023.05.24.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2023-04-12",
+          "pfad": "REP:2023/Rep.%20Inv.%200362%202023.04.12.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0363": {
+      "bezeichnung": "unic 450",
+      "hersteller": "Zoller+Fröhlich",
+      "standort": "F2/2000",
+      "wrt": [
+        {
+          "datum": "2025-07-04",
+          "pfad": "WRT:2025/War.%20Inv.%200363%202025.07.04.pdf"
+        },
+        {
+          "datum": "2024-10-28",
+          "pfad": "WRT:2024/War.%20Inv.%200363%202024.10.28.pdf"
+        },
+        {
+          "datum": "2024-05-14",
+          "pfad": "WRT:2024/War.%20Inv.%200363%202024.05.14.pdf"
+        },
+        {
+          "datum": "2023-11-10",
+          "pfad": "WRT:2023/War.%20Inv.%200363%202023.11.10.pdf"
+        },
+        {
+          "datum": "2023-05-23",
+          "pfad": "WRT:2023/War.%20Inv.%200363%202023.05.23.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2023-04-21",
+          "pfad": "REP:2023/Rep.%20Inv.%200363%202023.04.21.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0364": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-06-30",
+          "pfad": "WRT:2025/War.%20Inv.%200364%202025.06.30.pdf"
+        },
+        {
+          "datum": "2024-03-18",
+          "pfad": "WRT:2024/War.%20Inv.%200364%202024.03.18.pdf"
+        },
+        {
+          "datum": "2023-03-17",
+          "pfad": "WRT:2023/War.%20Inv.%200364%202023.03.17.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2023-06-12",
+          "pfad": "REP:2023/Rep.%20Inv.%200364%202023.06.12.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0365": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2024-11-04",
+          "pfad": "WRT:2024/War.%20Inv.%200365%202024.11.04.pdf"
+        },
+        {
+          "datum": "2023-11-20",
+          "pfad": "WRT:2023/War.%20Inv.%200365%202023.11.20.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0366": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-07-07",
+          "pfad": "WRT:2025/War.%20Inv.%200366%202025.07.07.pdf"
+        },
+        {
+          "datum": "2024-05-29",
+          "pfad": "WRT:2024/War.%20Inv.%200366%202024.05.29.pdf"
+        },
+        {
+          "datum": "2023-05-26",
+          "pfad": "WRT:2023/War.%20Inv.%200366%202023.05.26.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0367": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-08-29",
+          "pfad": "WRT:2025/War.%20Inv.%200367%202025.08.29.pdf"
+        },
+        {
+          "datum": "2024-11-19",
+          "pfad": "WRT:2024/War.%20Inv.%200367%202024.11.19.pdf"
+        },
+        {
+          "datum": "2024-06-21",
+          "pfad": "WRT:2024/War.%20Inv.%200367%202024.06.21.pdf"
+        },
+        {
+          "datum": "2023-06-07",
+          "pfad": "WRT:2023/War.%20Inv.%200367%202023.06.07.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2024-06-27",
+          "pfad": "REP:2024/Rep.%20Inv.%200367%202024.06.27.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0368": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-07-07",
+          "pfad": "WRT:2025/War.%20Inv.%200368%202025.07.07.pdf"
+        },
+        {
+          "datum": "2024-11-20",
+          "pfad": "WRT:2024/War.%20Inv.%200368%202024.11.20.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0369": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2024-11-04",
+          "pfad": "WRT:2024/War.%20Inv.%200369%202024.11.04.pdf"
+        },
+        {
+          "datum": "2023-11-20",
+          "pfad": "WRT:2023/War.%20Inv.%200369%202023.11.20.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0370": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2024-11-14",
+          "pfad": "WRT:2024/War.%20Inv.%200370%202024.11.14.pdf"
+        },
+        {
+          "datum": "2023-12-11",
+          "pfad": "WRT:2023/War.%20Inv.%200370%202023.12.11.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0371": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-08-25",
+          "pfad": "WRT:2025/War.%20Inv.%200371%202025.08.25.pdf"
+        },
+        {
+          "datum": "2024-10-24",
+          "pfad": "WRT:2024/War.%20Inv.%200371%202024.10.24.pdf"
+        },
+        {
+          "datum": "2024-05-07",
+          "pfad": "WRT:2024/War.%20Inv.%200371%202024.05.07.pdf"
+        },
+        {
+          "datum": "2023-05-25",
+          "pfad": "WRT:2023/War.%20Inv.%200371%202023.05.25.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0372": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-06-24",
+          "pfad": "WRT:2025/War.%20Inv.%200372%202025.06.24.pdf"
+        },
+        {
+          "datum": "2024-05-29",
+          "pfad": "WRT:2024/War.%20Inv.%200372%202024.05.29.pdf"
+        },
+        {
+          "datum": "2023-05-22",
+          "pfad": "WRT:2023/War.%20Inv.%200372%202023.05.22.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0373": {
+      "bezeichnung": "Crimp Center CC50",
+      "hersteller": "Komax",
+      "standort": "F2/2000",
+      "wrt": [
+        {
+          "datum": "2025-08-25",
+          "pfad": "WRT:2025/War.%20Inv.%200373%202025.08.25.pdf"
+        },
+        {
+          "datum": "2024-02-19",
+          "pfad": "WRT:2024/War.%20Inv.%200373%202024.02.19.pdf"
+        },
+        {
+          "datum": "2023-01-30",
+          "pfad": "WRT:2023/War.%20Inv.%200373%202023.01.30.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2024-11-12",
+          "pfad": "REP:2024/Rep.%20Inv.%200373%202024.11.12.pdf"
+        },
+        {
+          "datum": "2023-06-27",
+          "pfad": "REP:2023/Rep.%20Inv.%200373%202023.06.27.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0374": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-07-02",
+          "pfad": "WRT:2025/War.%20Inv.%200374%202025.07.02.pdf"
+        },
+        {
+          "datum": "2024-06-07",
+          "pfad": "WRT:2024/War.%20Inv.%200374%202024.06.07.pdf"
+        },
+        {
+          "datum": "2023-06-02",
+          "pfad": "WRT:2023/War.%20Inv.%200374%202023.06.02.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0375": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2024-11-19",
+          "pfad": "WRT:2024/War.%20Inv.%200375%202024.11.19.pdf"
+        },
+        {
+          "datum": "2023-12-04",
+          "pfad": "WRT:2023/War.%20Inv.%200375%202023.12.04.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0376": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-02-28",
+          "pfad": "WRT:2025/War.%20Inv.%200376%202025.02.28.pdf"
+        },
+        {
+          "datum": "2024-05-28",
+          "pfad": "WRT:2024/War.%20Inv.%200376%202024.05.28.pdf"
+        },
+        {
+          "datum": "2023-05-22",
+          "pfad": "WRT:2023/War.%20Inv.%200376%202023.05.22.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0377": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-07-03",
+          "pfad": "WRT:2025/War.%20Inv.%200377%202025.07.03.pdf"
+        },
+        {
+          "datum": "2024-05-07",
+          "pfad": "WRT:2024/War.%20Inv.%200377%202024.05.07.pdf"
+        },
+        {
+          "datum": "2023-05-23",
+          "pfad": "WRT:2023/War.%20Inv.%200377%202023.05.23.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0378": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-07-03",
+          "pfad": "WRT:2025/War.%20Inv.%200378%202025.07.03.pdf"
+        },
+        {
+          "datum": "2024-05-07",
+          "pfad": "WRT:2024/War.%20Inv.%200378%202024.05.07.pdf"
+        },
+        {
+          "datum": "2023-05-23",
+          "pfad": "WRT:2023/War.%20Inv.%200378%202023.05.23.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0381": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-09-08",
+          "pfad": "WRT:2025/War.%20Inv.%200381%202025.09.08.pdf"
+        },
+        {
+          "datum": "2024-10-10",
+          "pfad": "WRT:2024/War.%20Inv.%200381%202024.10.10.pdf"
+        },
+        {
+          "datum": "2024-03-04",
+          "pfad": "WRT:2024/War.%20Inv.%200381%202024.03.04.pdf"
+        },
+        {
+          "datum": "2023-09-18",
+          "pfad": "WRT:2023/War.%20Inv.%200381%202023.09.18.pdf"
+        },
+        {
+          "datum": "2023-03-03",
+          "pfad": "WRT:2023/War.%20Inv.%200381%202023.03.03.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0382": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2024-11-18",
+          "pfad": "WRT:2024/War.%20Inv.%200382%202024.11.18.pdf"
+        },
+        {
+          "datum": "2023-12-04",
+          "pfad": "WRT:2023/War.%20Inv.%200382%202023.12.04.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0383": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-07-03",
+          "pfad": "WRT:2025/War.%20Inv.%200383%202025.07.03.pdf"
+        },
+        {
+          "datum": "2024-05-07",
+          "pfad": "WRT:2024/War.%20Inv.%200383%202024.05.07.pdf"
+        },
+        {
+          "datum": "2023-11-13",
+          "pfad": "WRT:2023/War.%20Inv.%200383%202023.11.13.pdf"
+        },
+        {
+          "datum": "2023-05-23",
+          "pfad": "WRT:2023/War.%20Inv.%200383%202023.05.23.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0384": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2024-11-25",
+          "pfad": "WRT:2024/War.%20Inv.%200384%202024.11.25.pdf"
+        },
+        {
+          "datum": "2023-12-05",
+          "pfad": "WRT:2023/War.%20Inv.%200384%202023.12.05.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2024-10-31",
+          "pfad": "REP:2024/Rep.%20Inv.%200384%202024.10.31.pdf"
+        },
+        {
+          "datum": "2023-01-19",
+          "pfad": "REP:2023/Rep.%20Inv.%200384%202023.01.19.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0385": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-07-02",
+          "pfad": "WRT:2025/War.%20Inv.%200385%202025.07.02.pdf"
+        },
+        {
+          "datum": "2024-05-08",
+          "pfad": "WRT:2024/War.%20Inv.%200385%202024.05.08.pdf"
+        },
+        {
+          "datum": "2023-05-26",
+          "pfad": "WRT:2023/War.%20Inv.%200385%202023.05.26.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0386": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-09-08",
+          "pfad": "WRT:2025/War.%20Inv.%200386%202025.09.08.pdf"
+        },
+        {
+          "datum": "2024-06-10",
+          "pfad": "WRT:2024/War.%20Inv.%200386%202024.06.10.pdf"
+        },
+        {
+          "datum": "2023-06-28",
+          "pfad": "WRT:2023/War.%20Inv.%200386%202023.06.28.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0389": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-07-08",
+          "pfad": "WRT:2025/War.%20Inv.%200389%202025.07.08.pdf"
+        },
+        {
+          "datum": "2024-03-18",
+          "pfad": "WRT:2024/War.%20Inv.%200389%202024.03.18.pdf"
+        },
+        {
+          "datum": "2023-03-15",
+          "pfad": "WRT:2023/War.%20Inv.%200389%202023.03.15.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0390": {
+      "bezeichnung": "Messdorn digital",
+      "hersteller": "Diverse",
+      "standort": "F2/3000",
+      "wrt": [
+        {
+          "datum": "2025-08-25",
+          "pfad": "WRT:2025/War.%20Inv.%200390%202025.08.25.pdf"
+        },
+        {
+          "datum": "2024-06-04",
+          "pfad": "WRT:2024/War.%20Inv.%200390%202024.06.04.pdf"
+        },
+        {
+          "datum": "2023-06-01",
+          "pfad": "WRT:2023/War.%20Inv.%200390%202023.06.01.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2025-03-24",
+          "pfad": "REP:2025/Rep.%20Inv.%200390%202025.03.24.pdf"
+        },
+        {
+          "datum": "2023-07-17",
+          "pfad": "REP:2023/Rep.%20Inv.%200390%202023.07.17.pdf"
+        },
+        {
+          "datum": "2023-01-13",
+          "pfad": "REP:2023/Rep.%20Inv.%200390%202023.01.13.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0391": {
+      "bezeichnung": "Messdorn digital",
+      "hersteller": "Diverse",
+      "standort": "F2/3000",
+      "wrt": [
+        {
+          "datum": "2025-08-25",
+          "pfad": "WRT:2025/War.%20Inv.%200391%202025.08.25.pdf"
+        },
+        {
+          "datum": "2024-10-25",
+          "pfad": "WRT:2024/War.%20Inv.%200391%202024.10.25.pdf"
+        },
+        {
+          "datum": "2023-11-13",
+          "pfad": "WRT:2023/War.%20Inv.%200391%202023.11.13.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2023-12-05",
+          "pfad": "REP:2023/Rep.%20Inv.%200391%202023.12.05.pdf"
+        },
+        {
+          "datum": "2023-10-24",
+          "pfad": "REP:2023/Rep.%20Inv.%200391%202023.10.24.pdf"
+        },
+        {
+          "datum": "2023-10-11",
+          "pfad": "REP:2023/Rep.%20Inv.%200391%202023.10.11.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0392": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-07-07",
+          "pfad": "WRT:2025/War.%20Inv.%200392%202025.07.07.pdf"
+        },
+        {
+          "datum": "2024-06-04",
+          "pfad": "WRT:2024/War.%20Inv.%200392%202024.06.04.pdf"
+        },
+        {
+          "datum": "2023-06-01",
+          "pfad": "WRT:2023/War.%20Inv.%200392%202023.06.01.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0393": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-09-10",
+          "pfad": "WRT:2025/War.%20Inv.%200393%202025.09.10.pdf"
+        },
+        {
+          "datum": "2024-03-19",
+          "pfad": "WRT:2024/War.%20Inv.%200393%202024.03.19.pdf"
+        },
+        {
+          "datum": "2023-03-20",
+          "pfad": "WRT:2023/War.%20Inv.%200393%202023.03.20.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0394": {
+      "bezeichnung": "Etikettendrucker i5100",
+      "hersteller": "Brady",
+      "standort": "F2/2000",
+      "wrt": [
+        {
+          "datum": "2024-11-08",
+          "pfad": "WRT:2024/War.%20Inv.%200394%202024.11.08.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2024-04-23",
+          "pfad": "REP:2024/Rep.%20Inv.%200394%202024.04.23.pdf"
+        }
+      ],
+      "svc": [
+        {
+          "datum": "2023-09-12",
+          "pfad": "SVC:Brady/Servicebericht%20Inv.%200394%202023.09.12.pdf",
+          "dienstleister": "Brady"
+        },
+        {
+          "datum": "2022-09-13",
+          "pfad": "SVC:Brady/Servicebericht%20Inv.%200394%202022.09.13.pdf",
+          "dienstleister": "Brady"
+        },
+        {
+          "datum": "2021-11-23",
+          "pfad": "SVC:Brady/Servicebericht%20Inv.%200394%202021.11.23.pdf",
+          "dienstleister": "Brady"
+        }
+      ],
+      "mb": []
+    },
+    "0396": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-09-08",
+          "pfad": "WRT:2025/War.%20Inv.%200396%202025.09.08.pdf"
+        },
+        {
+          "datum": "2024-03-04",
+          "pfad": "WRT:2024/War.%20Inv.%200396%202024.03.04.pdf"
+        },
+        {
+          "datum": "2023-03-03",
+          "pfad": "WRT:2023/War.%20Inv.%200396%202023.03.03.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2023-02-28",
+          "pfad": "REP:2023/Rep.%20Inv.%200396%202023.02.28.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0397": {
+      "bezeichnung": "Messdorn digital",
+      "hersteller": "Diverse",
+      "standort": "F2/3000",
+      "wrt": [
+        {
+          "datum": "2025-07-04",
+          "pfad": "WRT:2025/War.%20Inv.%200397%202025.07.04.pdf"
+        },
+        {
+          "datum": "2024-11-05",
+          "pfad": "WRT:2024/War.%20Inv.%200397%202024.11.05.pdf"
+        },
+        {
+          "datum": "2024-05-29",
+          "pfad": "WRT:2024/War.%20Inv.%200397%202024.05.29.pdf"
+        },
+        {
+          "datum": "2023-11-10",
+          "pfad": "WRT:2023/War.%20Inv.%200397%202023.11.10.pdf"
+        },
+        {
+          "datum": "2023-05-30",
+          "pfad": "WRT:2023/War.%20Inv.%200397%202023.05.30.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2025-01-29",
+          "pfad": "REP:2025/Rep.%20Inv.%200397%202025.01.29.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0398": {
+      "bezeichnung": "Messdorn digital",
+      "hersteller": "Diverse",
+      "standort": "F2/3000",
+      "wrt": [
+        {
+          "datum": "2025-07-04",
+          "pfad": "WRT:2025/War.%20Inv.%200398%202025.07.04.pdf"
+        },
+        {
+          "datum": "2024-11-05",
+          "pfad": "WRT:2024/War.%20Inv.%200398%202024.11.05.pdf"
+        },
+        {
+          "datum": "2024-05-29",
+          "pfad": "WRT:2024/War.%20Inv.%200398%202024.05.29.pdf"
+        },
+        {
+          "datum": "2023-11-16",
+          "pfad": "WRT:2023/War.%20Inv.%200398%202023.11.16.pdf"
+        },
+        {
+          "datum": "2023-05-30",
+          "pfad": "WRT:2023/War.%20Inv.%200398%202023.05.30.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2023-04-27",
+          "pfad": "REP:2023/Rep.%20Inv.%200398%202023.04.27.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0399": {
+      "bezeichnung": "JET Rapid Inkjet",
+      "hersteller": "Leibinger",
+      "standort": "F2/2000",
+      "wrt": [
+        {
+          "datum": "2025-09-22",
+          "pfad": "WRT:2025/War.%20Inv.%200399%202025.09.22.pdf"
+        },
+        {
+          "datum": "2025-09-02",
+          "pfad": "WRT:2025/War.%20Inv.%200399%202025.09.02.pdf"
+        },
+        {
+          "datum": "2024-09-09",
+          "pfad": "WRT:2024/War.%20Inv.%200399%202024.09.09.pdf"
+        },
+        {
+          "datum": "2024-08-27",
+          "pfad": "WRT:2024/War.%20Inv.%200399%202024.08.27.pdf"
+        },
+        {
+          "datum": "2023-07-11",
+          "pfad": "WRT:2023/War.%20Inv.%200399%202023.07.11.pdf"
+        },
+        {
+          "datum": "2023-05-30",
+          "pfad": "WRT:2023/War.%20Inv.%200399%202023.05.30.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2024-03-20",
+          "pfad": "REP:2024/Rep.%20Inv.%200399%202024.03.20.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0400": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-09-08",
+          "pfad": "WRT:2025/War.%20Inv.%200400%202025.09.08.pdf"
+        },
+        {
+          "datum": "2024-10-10",
+          "pfad": "WRT:2024/War.%20Inv.%200400%202024.10.10.pdf"
+        },
+        {
+          "datum": "2024-03-04",
+          "pfad": "WRT:2024/War.%20Inv.%200400%202024.03.04.pdf"
+        },
+        {
+          "datum": "2023-09-18",
+          "pfad": "WRT:2023/War.%20Inv.%200400%202023.09.18.pdf"
+        },
+        {
+          "datum": "2023-03-03",
+          "pfad": "WRT:2023/War.%20Inv.%200400%202023.03.03.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0406": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2024-11-25",
+          "pfad": "WRT:2024/War.%20Inv.%200406%202024.11.25.pdf"
+        },
+        {
+          "datum": "2023-12-11",
+          "pfad": "WRT:2023/War.%20Inv.%200406%202023.12.11.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2023-08-04",
+          "pfad": "REP:2023/Rep.%20Inv.%200406%202023.08.04.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0407": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-06-23",
+          "pfad": "WRT:2025/War.%20Inv.%200407%202025.06.23.pdf"
+        },
+        {
+          "datum": "2024-11-18",
+          "pfad": "WRT:2024/War.%20Inv.%200407%202024.11.18.pdf"
+        },
+        {
+          "datum": "2024-01-23",
+          "pfad": "WRT:2024/War.%20Inv.%200407%202024.01.23.pdf"
+        },
+        {
+          "datum": "2023-12-07",
+          "pfad": "WRT:2023/War.%20Inv.%200407%202023.12.07.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0408": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2024-11-29",
+          "pfad": "WRT:2024/War.%20Inv.%200408%202024.11.29.pdf"
+        },
+        {
+          "datum": "2023-12-06",
+          "pfad": "WRT:2023/War.%20Inv.%200408%202023.12.06.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0410": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2024-11-29",
+          "pfad": "WRT:2024/War.%20Inv.%200410%202024.11.29.pdf"
+        },
+        {
+          "datum": "2023-12-06",
+          "pfad": "WRT:2023/War.%20Inv.%200410%202023.12.06.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0412": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-09-08",
+          "pfad": "WRT:2025/War.%20Inv.%200412%202025.09.08.pdf"
+        },
+        {
+          "datum": "2024-11-12",
+          "pfad": "WRT:2024/War.%20Inv.%200412%202024.11.12.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0413": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-07-07",
+          "pfad": "WRT:2025/War.%20Inv.%200413%202025.07.07.pdf"
+        },
+        {
+          "datum": "2024-09-24",
+          "pfad": "WRT:2024/War.%20Inv.%200413%202024.09.24.pdf"
+        },
+        {
+          "datum": "2024-03-01",
+          "pfad": "WRT:2024/War.%20Inv.%200413%202024.03.01.pdf"
+        },
+        {
+          "datum": "2023-03-03",
+          "pfad": "WRT:2023/War.%20Inv.%200413%202023.03.03.pdf"
+        }
+      ],
+      "rep": [
+        {
+          "datum": "2023-09-25",
+          "pfad": "REP:2023/Rep.%20Inv.%200413%202023.09.25.pdf"
+        }
+      ],
+      "svc": [],
+      "mb": []
+    },
+    "0415": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-09-12",
+          "pfad": "WRT:2025/War.%20Inv.%200415%202025.09.12.pdf"
+        },
+        {
+          "datum": "2024-09-19",
+          "pfad": "WRT:2024/War.%20Inv.%200415%202024.09.19.pdf"
+        },
+        {
+          "datum": "2023-09-11",
+          "pfad": "WRT:2023/War.%20Inv.%200415%202023.09.11.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0417": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2025-08-25",
+          "pfad": "WRT:2025/War.%20Inv.%200417%202025.08.25.pdf"
+        },
+        {
+          "datum": "2024-11-11",
+          "pfad": "WRT:2024/War.%20Inv.%200417%202024.11.11.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0419": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2024-11-11",
+          "pfad": "WRT:2024/War.%20Inv.%200419%202024.11.11.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0420": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2024-11-11",
+          "pfad": "WRT:2024/War.%20Inv.%200420%202024.11.11.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0421": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2024-11-11",
+          "pfad": "WRT:2024/War.%20Inv.%200421%202024.11.11.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0422": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2024-11-11",
+          "pfad": "WRT:2024/War.%20Inv.%200422%202024.11.11.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0423": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20Inv.%200423%202024.12.16.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0424": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20Inv.%200424%202024.12.16.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    },
+    "0425": {
+      "bezeichnung": "Produktionsmaschine",
+      "hersteller": "Diverse",
+      "standort": "Fertigung",
+      "wrt": [
+        {
+          "datum": "2024-12-17",
+          "pfad": "WRT:2024/War.%20Inv.%200425%202024.12.17.pdf"
+        }
+      ],
+      "rep": [],
+      "svc": [],
+      "mb": []
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "name": "RMS-Massnahmen-API",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "rms-massnahmen",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "webhook-massnahmen",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "rms-massnahmen"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/3768f2d8-878c-4a5f-bd52-7486fe93289d/items",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"fields\": {\n    \"Title\": \"{{ $json.body.title }}\",\n    \"Rekla_IDLookupId\": {{ $json.body.reklaId }},\n    \"Typ\": \"{{ $json.body.typ }}\",\n    \"Termin\": \"{{ $json.body.termin }}\",\n    \"Status\": \"Offen\",\n    \"Verantwortlich\": \"{{ $json.body.verantwortlich }}\"\n  }\n}",
+        "options": {}
+      },
+      "id": "create-massnahme",
+      "name": "Create Massnahme",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [500, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "respond",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [750, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [{ "node": "Create Massnahme", "type": "main", "index": 0 }]
+      ]
+    },
+    "Create Massnahme": {
+      "main": [
+        [{ "node": "Respond to Webhook", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    { "name": "RMS" }
+  ],
+  "triggerCount": 0,
+  "active": false
+}

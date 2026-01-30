@@ -2,17 +2,17 @@
 
 **Rainer Schneider Kabelsatzbau GmbH & Co. KG**
 
-**Version:** 1.5 | **TAG:** [TM][WKZ] | **Erstellt:** 2025-11-20 | **Aktualisiert:** 2025-12-13 | **Autor:** AL | **Verantwortlich:** MD (Technik-Verantwortlicher) | **Cluster:** 🟢 C4-Support | **Zugriff:** 🟢 L1-Öffentlich | **Status:** ✅ PRODUKTIV (RAG) | **Stage:** 2 | **RAG-Version:** 2.0 | **Basis:** TM_WKZ_Werkzeuge_v1.3.md + Werkzeugliste_2025.csv
+**Version:** 1.6 | **TAG:** [TM][WKZ] | **Erstellt:** 2025-11-20 | **Aktualisiert:** 2025-12-17 | **Autor:** AL | **Verantwortlich:** MD (Technik-Verantwortlicher) | **Cluster:** 🟢 C4-Support | **Zugriff:** 🟢 L1-Öffentlich | **Status:** ✅ PRODUKTIV (RAG) | **Stage:** 2 | **RAG-Version:** 1.4 | **Basis:** TM_WKZ_Werkzeuge_v1.5.md + Datenblatt-Links SharePoint
 
-**Primary Keywords (~100):** Werkzeuge, Werkzeugliste, Crimpwerkzeug, Festwerkzeug, Umbauwerkzeug, Beistellung, VT-Satz, WKZ, Crimppressen, Prüfgeräte, Messmittel, Kalibrierung, Zugprüfgerät, Schliffbildlabor, Prüfadapter, Crimp-Analyse, Hochspannungsprüfung, Durchgangsprüfung, CFA-System, ESD-Prüfung, Wezag, AMP, Stocko, Lumberg, Komax, Kötting, GHW, TE Connectivity, Molex, Harting, JST, Tyco, Hirose, Adaptronic, TSK, Keyence, Gossen Metrawatt, Benning, Mitutoyo, Circuitmaster, WKZ 532, WKZ 549, WKZ 600, WKZ 601, WKZ 602, WKZ 606, WKZ 627, WKZ 628, WKZ 633, WKZ 634, WKZ 635, WKZ 640, WKZ 651, WKZ 695, WKZ 696, WKZ 697, WKZ 698, WKZ 699, WKZ 701, WKZ 707, WKZ 714, WKZ 718, WKZ 724, WKZ 732, WKZ 735, WKZ 737, WKZ 744, WKZ 745, WKZ 746, 926887, 25213-25223, 1740360, 43030, 25733, 39-00-0038, 25722, 25128, 25116, 25117, 794407, 166053, 166054, 350980, 1241396, 1241418, 282110, 282403, DGUV, IPC-WHMA-A-620, ISO 9001
+**Primary Keywords:** Werkzeuge, Crimppressen, Prüfgeräte, Messmittel, Kalibrierung, DGUV, IPC-WHMA-A-620, ISO 9001, Qualitätssicherung, CFA-System, Zugprüfgerät, Schliffbildlabor, Adaptronic, Keyence, ESD-Prüfung, Prüfadapter, Crimp-Analyse, Hochspannungsprüfung, Durchgangsprüfung, Messschieber, Drehmomentschlüssel, Wezag, AMP, Stocko, Lumberg, Komax, TSK, Gossen Metrawatt, Benning, Mitutoyo, Kontaktnummer, Werkzeugnummer, Festwerkzeug, Umbauwerkzeug, VT-Satz, Crimphöhe, Crimpbreite, Abzugswert, Datenblatt, SharePoint, PDF-Spezifikation, Werkzeugdokumentation (47 Keywords)
 
-**Secondary Keywords (~150):** KST-PF, KST-2000, KST-3000, KST-5000, Crimpkraftüberwachung, G3 Plus, CFA 3100, Pulltester, CME 20, CT20, HV-Tester, Digitalmikroskop, ESD 3000, DAkkS-Kalibrierung, DIN VDE 0701-0702, DIN EN 61340-5-1, DIN EN 60352, 342 Werkzeuge, F1/1, F1/2, F1/3, F2, F3, Automatenkurve, Handkurve, Distanzplatte, Messerpaket, Vorschub, Tisch, Kontaktführung, Applikatoren, Crimphöhe, Crimpbreite, Zugfestigkeit, Schliffbild, Querschnitt, MCON, MQS, MLK, JPT, Micro-Timer, Mini-Timer, Junior-Timer, RSB, RBB, RFB, SPH, SXH, SVH, SEH, SZH, SIN, DF3, TN01, TN02, WKZ 501-528, WKZ 531-590, WKZ 603-665, WKZ 700-750, 25203-25205, 25296, 25312, 25313, 25362, 25440, 25568, 25696, 25697, 25698, 25737, 25744, 25775, 25931, 24359120, 24801120, 22124472970, 22140472960, 22140472980, 228 181 27, 870002, 163081, U24228BS-2, SVH-41T-P1.1, SXH-001T-P0.6, SPH-002T-P0.5, O-Crimp, B-Crimp, Bandware, Losware, kurzer Hub, langer Hub, Sonderausführung, Luftwerkzeug, Presswerkzeug, Handpresse, Crimpeinsatz, Einrichtpresse, Prozessvalidierung, Referenzgewichte, Epoxidharz, Querschnittsanalyse, Materialeinschluss, Bildarchivierung, ortsveränderlich, Installationstester, Gerätetester, Drehmomentschlüssel, Messschieber, WSC-21, Qualitätssicherung, Kabelkonfektion, Kontaktverarbeitung, Eigenentwicklung, kundenspezifisch, MD, AL, SK, SV
+**Secondary Keywords:** KST-PF, KST-2000, KST-3000, KST-5000, Crimpkraftsüberwachung, Circuitmaster, G3 Plus, CFA 3100, Pulltester, CME 20, CT20, HV-Tester, Digitalmikroskop, ESD 3000, DAkkS-Kalibrierung, DIN VDE 0701-0702, DIN EN 61340-5-1, DIN EN 60352, 342 Werkzeuge, F1/1, F1/2, F1/3, F2, F3, Beistellung, Kötting, GHW, Automatenkurve, Handkurve, Distanzplatte, Messerpaket, Vorschub, Tisch, Kontaktführung, Applikatoren, MD, AL, SV, Tyco, Molex, Lear, HS-Connectors, Amphenol, Deutsch, Harting, Kostal, Hirose, Inarca, APTIV, Iso-Crimp, kontakt_wkz_crimp_lookup, wkz_crimpdaten_master (98 Keywords)
 
 **Chunk-Strategie:** Markdown-Header (##)  
-**Chunk-Anzahl:** 14  
+**Chunk-Anzahl:** 16  
 **Chunk-Größe:** 800-1500 Tokens  
 **Chunk-Überlappung:** 175 Tokens  
-**Datenstand:** 2025-12-13
+**Datenstand:** 2025-12-17
 
 ---
 
@@ -455,7 +455,7 @@ Dokumentation der Produktions- und Crimpwerkzeuge bei Rainer Schneider Kabelsatz
 
 ---
 
-## WERKZEUG-STATISTIK (AKTUALISIERT)
+## WERKZEUG-STATISTIK (AKTUALISIERT 2025-12-17)
 
 ### Gesamtübersicht nach Kategorie
 
@@ -465,6 +465,18 @@ Dokumentation der Produktions- und Crimpwerkzeuge bei Rainer Schneider Kabelsatz
 | **Festwerkzeuge (Fest=X)** | ~240 | Dauerhaft eingerichtet |
 | **Umbauwerkzeuge (Umbau=X)** | ~102 | Wechsel erforderlich |
 | **Beistellungen** | ~18 | Extern (z.B. Fa. Kötting) |
+
+### Crimpdaten-Statistik (Master v3.4-FINAL)
+
+| Kategorie | Anzahl | Beschreibung |
+|-----------|--------|--------------|
+| **Werkzeuge im Master** | 180 | Eindeutige WKZ-Einträge |
+| **Varianten gesamt** | 233 | Kontakt-Querschnitt-Kombinationen |
+| **Kontakte im Lookup** | 49 | Eindeutige Kontaktnummern |
+| **Batches verarbeitet** | 18 | Vollständig extrahiert |
+| **Aktive WKZ** | 173 | Produktiv einsetzbar |
+| **Verschrottete WKZ** | 7 | Nicht mehr verwenden |
+| **Problematische WKZ** | 9 | Manuelle Prüfung erforderlich |
 
 ### Verteilung nach Lagerort
 
@@ -670,12 +682,179 @@ Spezialwerkzeuge für Sonderfertigungen, ESD-Schutz und kundenspezifische Prüfu
 | Kategorie | Verantwortlich | Aufgaben |
 |-----------|----------------|----------|
 | Crimppressen | MD | Wartung, Crimpeinsätze |
-| Elektrische Prüfgeräte | extern | Wartung, Kalibrierung |
-| DGUV-Prüfgeräte | SK | Jährliche DGUV-Prüfung |
+| Elektrische Prüfgeräte | MD | Wartung, Kalibrierung |
+| DGUV-Prüfgeräte | MD | Jährliche DGUV-Prüfung |
 | Crimp-Analyse | AL (QM) | Schliffbildprüfung, Zugprüfung |
-| Messmittel | AL | Kalibrierplanung |
-| Prüfadapter | SK/JS | Entwicklung, Verwaltung |
+| Messmittel | MD | Kalibrierplanung |
+| ESD-Prüfung | MD / QM | ESD-Überwachung |
+| Prüfadapter | SV (AV) | Entwicklung, Verwaltung |
 | Werkzeugliste | MD | Pflege, Aktualisierung |
+
+---
+
+## CRIMPDATEN-REFERENZ
+
+### ⚠️ NULL-FEHLER-POLITIK: Crimp-Parameter
+
+> **KRITISCHE WARNUNG:**  
+> Falsche Crimphöhen sind **EXISTENZBEDROHEND** für das Unternehmen!  
+> Bei Crimp-Einstellungen **IMMER** die Dokumentation prüfen!
+
+### Crimpdaten-Dokumentation (UPDATE 2025-12-17)
+
+| Ressource | Beschreibung | Version | Zugriff |
+|-----------|--------------|---------|--------|
+| **TM_CRIMP_Crimpdaten_Werkzeuge.md** | Vollständige Crimpdaten aller WKZ | - | OSP_KERN |
+| **wkz_crimpdaten_master.json** | 180 WKZ, 233 Varianten, 18 Batches | v3.4-FINAL | JSON-Lookup |
+| **kontakt_wkz_crimp_lookup.json** | 49 Kontakte → WKZ Zuordnung | v2.0 | JSON-Lookup |
+
+### Abgedeckte Hersteller (16 Kategorien)
+
+| Hersteller | WKZ-Anzahl | Beispiel-Kontakte |
+|------------|------------|------------------|
+| GHW / Grote & Hartmann | 24 | 25783, 25787, 25722, 25733, 25077 |
+| AMP / Tyco | 14 | 794407, 927827, 160759, 163085 |
+| Schäfer (APST) | 45 | WKZ 501-537, 629-637 |
+| Lear | 14 | 25744, 25361, 25149.122 |
+| HS Connectors | 10 | 24.359.120, 24.360.110, 26.325.120 |
+| Molex / HHC | 9 | 43030-0001, 505431-1300, 39-00-0077 |
+| Stocko | 13 | RSB 7791, RSB 7603, RFB 7808, S0.106.604 |
+| Amphenol | 5 | TNO1/0201600021, EN 0202500431 |
+| Deutsch | 2 | 1060-16-0622, 1062-12-0166 |
+| Harting | 1 | 0 905 000 9562 |
+| Kostal | 3 | 32124734000/010/020 |
+| Hirose | 1 | DF3-2428-SCF |
+| LAT / HS | 5 | 24810, 22818127, 21107, 21600, 21600110 |
+| Inarca | 2 | 0011332101, 0011116101 |
+| APTIV | 2 | 35072391, 35088739 |
+| KTK / Alexander Herter | 4 | 0010129005, Buchsenkontakt |
+| AWM Weidner | 4 | 25258, 26305.110, 25775 |
+| Lumberg | 1 | Lumberg-637 |
+
+### ⚠️ Kritische Warnungen (10 Einträge)
+
+| WKZ | Kontakt | Status | Warnung |
+|-----|---------|--------|---------|
+| **705** | 0906 000 9561 | 🗑️ | VERSCHROTTET 2013 |
+| **709** | 16-02-0086 | 🗑️ | VERSCHROTTET KW 48/2024 |
+| **632** | 179955-2 | 🗑️ | VERSCHROTTET KW 48/2024 |
+| **634** | 163081/083 (777-9316S-T3) | 🗑️ | VERSCHROTTET KW 50/2023 |
+| **635** | 163085 (777-9320S-T3) | 🗑️ | VERSCHROTTET KW 48/2024 |
+| **636** | 39-00-0077 | 🗑️ | VERSCHROTTET - Querschnitt 1,50mm² zu groß! |
+| **640** | 25036 | 🗑️ | KONTAKT VERSCHROTTET!!! |
+| **614** | Buchsenkontakt KTK | ⚠️ | Bei 125N reißt Steckbereich ab! |
+| **713** | EN 0202500431 | ⚠️ | Isolationsdurchmesser zu groß gewählt! |
+| **729** | 505431-1300 | ⚠️ | Nur Iso 0.75-0.96mm verarbeitbar! |
+
+### Batch 16-18 Werkzeuge (NEU 2025-12-17)
+
+**Batch 16:** WKZ 501, 508, 517-527 (13 WKZ)
+**Batch 17:** WKZ 528-537, 546 (11 WKZ)  
+**Batch 18:** WKZ 629-638, 640, 643-644, 647-648 (15 WKZ)
+
+| WKZ | Kontakt | Hersteller | Crimphöhe | Status |
+|-----|---------|------------|-----------|--------|
+| 501 | 25787 | GHW/Leer | 1.34mm @ 1.00mm² | ✓ aktiv |
+| 517 | 25787 | GHW/Leer | 1.34mm @ 1.00mm² | ✓ aktiv |
+| 522 | 25077 | Leer | 2.15mm @ 2.50mm² | ✓ aktiv |
+| 528 | 25787 | GHW/Leer | 1.34mm @ 1.00mm² | ✓ aktiv |
+| 532 | 0010129005 | KTK | 2.02mm @ 2.40mm² | ✓ aktiv |
+| 533 | RSB 8178.258 | Stocko | 2.02mm | ✓ aktiv |
+| 535 | 26.325.120 | HS | 1.96mm @ 2.50mm² | ✓ aktiv |
+| 537 | 26305.110 | Hans Schatz | 1.32mm @ 0.25mm² | ✓ aktiv |
+| 546 | 25258 | G+H | 2.05mm @ 2.50mm² | ✓ aktiv |
+| 629 | AMP | APST | 1.55mm | ✓ aktiv |
+| 630 | S0.106.604 | Stocko | 1.27mm @ 0.75+0.25mm² | ✓ aktiv |
+| 637 | Lumberg | APST | 0.78-0.89mm | ✓ aktiv |
+| 632 | 179955-2 | Leer | 2.00mm | 🗑️ verschrottet |
+| 640 | 25036 | - | - | 🗑️ verschrottet |
+
+**Problematische Werkzeuge (manuelle Prüfung erforderlich):**
+- WKZ 508, 519, 521, 523, 524, 526: Crimpdaten teilweise nicht lesbar
+- WKZ 530, 531: PDF komplett unleserlich
+- WKZ 643, 647, 648: Nur Ersatzteillisten, keine Crimpdaten
+
+### Lookup-Nutzung
+
+**Kontakt → WKZ suchen:**
+```
+Suche: "Welches WKZ für Kontakt 25783?"
+Antwort: WKZ 505, 512, 516 (Crimphöhe 1.77mm @ 1.00mm²)
+```
+
+**WKZ → Kontakte suchen:**
+```
+Suche: "Welche Kontakte für WKZ 544?"
+Antwort: 25213-25223 (1.50mm²: 2.25mm, 2.50mm²: 2.45mm)
+```
+
+---
+
+## 📁 DATENBLATT-REFERENZEN (SHAREPOINT)
+
+> **SharePoint-Bibliothek:** [wkz_datenblätter](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/)  
+> **Anzahl Datenblätter:** 180 PDFs | **WKZ-Bereich:** 501-729  
+> **Dateiformat:** `WKZ XXX.pdf` | **Datenstand:** 2025-12-17
+
+### Verfügbare Datenblätter (180 Stück)
+
+Die Datenblätter enthalten technische Spezifikationen, Crimphöhen, Einstellparameter und Werkzeugzeichnungen.
+
+| WKZ | Link | WKZ | Link | WKZ | Link | WKZ | Link |
+|-----|------|-----|------|-----|------|-----|------|
+| 501 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20501.pdf) | 503 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20503.pdf) | 505 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20505.pdf) | 508 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20508.pdf) |
+| 509 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20509.pdf) | 510 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20510.pdf) | 511 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20511.pdf) | 512 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20512.pdf) |
+| 513 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20513.pdf) | 514 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20514.pdf) | 515 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20515.pdf) | 516 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20516.pdf) |
+| 517 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20517.pdf) | 518 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20518.pdf) | 519 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20519.pdf) | 520 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20520.pdf) |
+| 521 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20521.pdf) | 522 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20522.pdf) | 523 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20523.pdf) | 524 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20524.pdf) |
+| 525 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20525.pdf) | 526 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20526.pdf) | 527 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20527.pdf) | 528 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20528.pdf) |
+| 529 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20529.pdf) | 530 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20530.pdf) | 531 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20531.pdf) | 532 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20532.pdf) |
+| 533 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20533.pdf) | 534 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20534.pdf) | 535 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20535.pdf) | 536 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20536.pdf) |
+| 537 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20537.pdf) | 538 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20538.pdf) | 539 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20539.pdf) | 540 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20540.pdf) |
+| 541 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20541.pdf) | 542 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20542.pdf) | 543 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20543.pdf) | 544 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20544.pdf) |
+| 545 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20545.pdf) | 546 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20546.pdf) | 547 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20547.pdf) | 548 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20548.pdf) |
+| 549 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20549.pdf) | 550 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20550.pdf) | 551 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20551.pdf) | 552 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20552.pdf) |
+| 553 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20553.pdf) | 554 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20554.pdf) | 555 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20555.pdf) | 556 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20556.pdf) |
+| 557 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20557.pdf) | 558 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20558.pdf) | 559 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20559.pdf) | 560 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20560.pdf) |
+| 561 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20561.pdf) | 563 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20563.pdf) | 564 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20564.pdf) | 565 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20565.pdf) |
+| 566 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20566.pdf) | 567 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20567.pdf) | 568 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20568.pdf) | 569 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20569.pdf) |
+| 570 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20570.pdf) | 571 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20571.pdf) | 572 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20572.pdf) | 573 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20573.pdf) |
+| 574 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20574.pdf) | 575 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20575.pdf) | 576 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20576.pdf) | 577 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20577.pdf) |
+| 578 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20578.pdf) | 579 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20579.pdf) | 580 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20580.pdf) | 581 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20581.pdf) |
+| 583 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20583.pdf) | 584 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20584.pdf) | 585 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20585.pdf) | 586 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20586.pdf) |
+| 587 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20587.pdf) | 588 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20588.pdf) | 589 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20589.pdf) | 590 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20590.pdf) |
+| 592 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20592.pdf) | 595 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20595.pdf) | 596 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20596.pdf) | 597 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20597.pdf) |
+| 598 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20598.pdf) | 599 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20599.pdf) | 600 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20600.pdf) | 601 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20601.pdf) |
+| 602 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20602.pdf) | 603 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20603.pdf) | 604 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20604.pdf) | 605 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20605.pdf) |
+| 606 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20606.pdf) | 607 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20607.pdf) | 608 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20608.pdf) | 609 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20609.pdf) |
+| 610 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20610.pdf) | 611 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20611.pdf) | 614 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20614.pdf) | 615 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20615.pdf) |
+| 616 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20616.pdf) | 617 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20617.pdf) | 618 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20618.pdf) | 619 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20619.pdf) |
+| 621 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20621.pdf) | 624 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20624.pdf) | 625 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20625.pdf) | 626 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20626.pdf) |
+| 627 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20627.pdf) | 629 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20629.pdf) | 630 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20630.pdf) | 631 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20631.pdf) |
+| 632 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20632.pdf) | 633 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20633.pdf) | 634 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20634.pdf) | 635 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20635.pdf) |
+| 636 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20636.pdf) | 637 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20637.pdf) | 638 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20638.pdf) | 640 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20640.pdf) |
+| 643 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20643.pdf) | 644 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20644.pdf) | 647 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20647.pdf) | 648 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20648.pdf) |
+| 649 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20649.pdf) | 650 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20650.pdf) | 651 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20651.pdf) | 652 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20652.pdf) |
+| 653 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20653.pdf) | 654 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20654.pdf) | 655 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20655.pdf) | 656 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20656.pdf) |
+| 657 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20657.pdf) | 658 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20658.pdf) | 659 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20659.pdf) | 660 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20660.pdf) |
+| 661 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20661.pdf) | 662 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20662.pdf) | 663 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20663.pdf) | 664 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20664.pdf) |
+| 665 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20665.pdf) | 695 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20695.pdf) | 696 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20696.pdf) | 697 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20697.pdf) |
+| 698 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20698.pdf) | 699 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20699.pdf) | 700 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20700.pdf) | 701 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20701.pdf) |
+| 702 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20702.pdf) | 703 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20703.pdf) | 704 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20704.pdf) | 705 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20705.pdf) |
+| 706 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20706.pdf) | 707 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20707.pdf) | 708 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20708.pdf) | 709 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20709.pdf) |
+| 710 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20710.pdf) | 711 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20711.pdf) | 712 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20712.pdf) | 713 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20713.pdf) |
+| 714 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20714.pdf) | 715 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20715.pdf) | 716 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20716.pdf) | 717 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20717.pdf) |
+| 718 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20718.pdf) | 719 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20719.pdf) | 720 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20720.pdf) | 721 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20721.pdf) |
+| 722 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20722.pdf) | 723 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20723.pdf) | 724 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20724.pdf) | 725 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20725.pdf) |
+| 726 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20726.pdf) | 727 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20727.pdf) | 728 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20728.pdf) | 729 | [📄](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/WKZ%20729.pdf) |
+
+### WKZ OHNE Datenblatt (49 Stück im Bereich 501-729)
+
+Die folgenden WKZ haben kein digitales Datenblatt auf SharePoint:
+
+`502, 504, 506, 507, 562, 582, 591, 593, 594, 612, 613, 620, 622, 623, 628, 639, 641, 642, 645, 646, 666-694`
+
+> **Hinweis:** Diese WKZ sind entweder Beistellungen (Fa. Kötting), ausgemustert, oder die Datenblätter sind nur in Papierform vorhanden.
 
 ---
 
@@ -684,13 +863,18 @@ Spezialwerkzeuge für Sonderfertigungen, ESD-Schutz und kundenspezifische Prüfu
 **Bidirektional (↔):**
 - ↔ `TM_CORE_Maschinen_Anlagen.md` - Stationäre Maschinen, CFA-Integration
 - ↔ `QM_REK_Reklamationsmanagement.md` - Werkzeugbezogene Reklamationen
+- ↔ `TM_CRIMP_Crimpdaten_Werkzeuge.md` - Vollständige Crimpdaten aller WKZ
 
 **Ausgehend (→):**
 - → `KST_PF_Prueffeld.md` - Prüffeld-Einsatz der Werkzeuge
 - → `AV_CORE_Arbeitsvorbereitung.md` - Werkzeugplanung
+- → `wkz_crimpdaten_master_v3.4_FINAL.json` - **UPDATE:** 180 WKZ, 233 Varianten, Batch 1-18
+- → `kontakt_wkz_crimp_lookup_v2.0.json` - **UPDATE:** 49 Kontakte → WKZ Lookup
+- → [SharePoint: wkz_datenblätter](https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/wkz_datenblätter/) - **NEU:** 180 PDF-Datenblätter
 
 **Eingehend (←):**
 - ← `VT_CORE_Vertrieb.md` - Kundenspezifische Werkzeuganforderungen
+- ← `QM_PMV_Pruefmittelverwaltung.md` - Prüfmittel-Kalibrierung
 
 ---
 
@@ -710,6 +894,106 @@ Spezialwerkzeuge für Sonderfertigungen, ESD-Schutz und kundenspezifische Prüfu
 
 - [ ] Crimpeinsätze als Verschleißteile in TM_VT dokumentiert? (Verantwortlich: MD)
 - [ ] Schulungsunterlagen für neue Werkzeuge vorhanden? (Verantwortlich: MD)
+
+---
+
+## ÄNDERUNGSHISTORIE
+
+### [1.6] - 2025-12-17 - DATENBLATT-LINKS SHAREPOINT
+
+**MAJOR UPDATE - SharePoint-Integration:**
+- ✅ **Neue Sektion DATENBLATT-REFERENZEN:** 180 PDF-Datenblätter verlinkt
+- ✅ **SharePoint-Bibliothek:** `wkz_datenblätter` vollständig integriert
+- ✅ **Klickbare Links:** Alle WKZ 501-729 (mit Ausnahme der 49 Lücken) direkt aufrufbar
+- ✅ **WKZ ohne Datenblatt dokumentiert:** 49 WKZ (Beistellungen, ausgemustert, nur Papier)
+- ✅ **Querverweise erweitert:** SharePoint-Link als ausgehende Referenz
+- ✅ **Keywords erweitert:** +4 Primary (Datenblatt, SharePoint, PDF-Spezifikation, Werkzeugdokumentation)
+- ✅ **Chunk-Anzahl:** 15 → 16
+- ✅ **RAG-Version:** 1.3 → 1.4
+
+**Datenquellen:**
+- SharePoint: `sites/OSP/Freigegebene Dokumente/wkz_datenblätter/` (180 PDFs)
+
+**Verantwortlich:** AL (QM-Manager & KI-Manager)
+
+---
+
+### [1.5] - 2025-12-17 - CRIMPDATEN-UPDATE v3.4
+
+**UPDATE - Batch 16-18 Integration:**
+- ✅ **wkz_crimpdaten_master.json:** v1.1 → v3.4-FINAL (180 WKZ, 233 Varianten)
+- ✅ **kontakt_wkz_crimp_lookup.json:** v1.0 → v2.0 (49 Kontakte, 105 WKZ)
+- ✅ **+39 neue Werkzeuge:** Batch 16 (13), Batch 17 (11), Batch 18 (15)
+- ✅ **+15 neue Kontakte:** 25077, 25258, 0010129005, RSB 8178.258, 26305.110, etc.
+- ✅ **+5 verschrottete Kontakte dokumentiert:** WKZ 632, 634, 635, 636, 640
+- ✅ **Kritische Warnungen erweitert:** 5 → 10 Einträge
+- ✅ **Hersteller-Übersicht aktualisiert:** +2 Kategorien (AWM Weidner, Lumberg)
+- ✅ **RAG-Version:** 1.2 → 1.3
+
+**Datenquellen:**
+- wkz_crimpdaten_master_v3.4_FINAL.json (Batch 1-18, 180 WKZ)
+- kontakt_wkz_crimp_lookup_v2.0.json (49 Kontakte)
+- wkz_batch_16/17/18_crimpdaten.json
+
+**Verantwortlich:** AL (QM-Manager & KI-Manager)
+
+---
+
+### [1.4] - 2025-12-17 - CRIMPDATEN-INTEGRATION
+
+**MAJOR UPDATE - Crimpdaten-Dokumentation:**
+- ✅ **Neuer Abschnitt CRIMPDATEN-REFERENZ:** Vollständige Verknüpfung mit Crimp-Dokumentation
+- ✅ **Querverweis TM_CRIMP_Crimpdaten_Werkzeuge.md:** 197 WKZ, ~328 Varianten, 15 Hersteller
+- ✅ **JSON-Lookups referenziert:** wkz_crimpdaten_master.json + kontakt_wkz_crimp_lookup.json
+- ✅ **Kritische Warnungen integriert:** 5 WKZ mit Prozesswarnungen dokumentiert
+- ✅ **Hersteller-Übersicht:** 15 Kategorien mit Beispiel-Kontakten
+- ✅ **Lookup-Nutzungsbeispiele:** Kontakt→WKZ und WKZ→Kontakt Suche
+- ✅ **Keywords erweitert:** +3 Primary (Crimphöhe, Crimpbreite, Abzugswert), +13 Secondary
+- ✅ **Querverweise aktualisiert:** +4 neue Referenzen
+- ✅ **RAG-Version:** 1.1 → 1.2
+
+**Datenquellen:**
+- TM_CRIMP_Crimpdaten_Werkzeuge.md (Datenstand: 2025-12-17)
+- wkz_crimpdaten_master.json v1.1 (197 WKZ)
+- kontakt_wkz_crimp_lookup.json v1.0 (~95 Kontakte)
+
+**Verantwortlich:** AL (QM-Manager & KI-Manager)
+
+---
+
+### [1.3] - 2025-12-04 - WERKZEUGLISTE 2025 INTEGRIERT
+
+**MAJOR UPDATE - CSV-Import:**
+- ✅ **Vollständige Werkzeugliste importiert:** 342 Einträge aus Werkzeugliste_2025.csv
+- ✅ **7 Tabellen-Abschnitte:** Nr. 1-50, 51-100, 101-150, 151-200, 201-250, 251-300, 301-342
+- ✅ **Legende hinzugefügt:** Spalten- und Lagerort-Erklärungen
+- ✅ **Statistik aktualisiert:** Verteilung nach Lagerort, häufige VT-Sätze
+- ✅ **Keywords erweitert:** +5 Primary, +20 Secondary (Festwerkzeug, Umbauwerkzeug, VT-Satz, Lagerorte)
+- ✅ **Chunk-Anzahl erhöht:** 11 → 14 Chunks
+- ✅ **RAG-Version:** 1.0 → 1.1
+
+**Datenquellen:**
+- Werkzeugliste_2025.csv (Datenstand: 2025-12-04)
+
+**Verantwortlich:** AL (KI-Manager)
+
+---
+
+### [1.2] - 2025-12-02 - RAG-OPTIMIERUNG
+
+**Token-Effizienz:** -18%  
+**Verantwortlich:** AL
+
+---
+
+### [1.0] - 2025-11-20 - ERSTVERSION
+
+**Erstversion - PRODUKTIV:**
+- ✅ Werkzeug-Kategorien dokumentiert
+- ✅ Prüf- und Messtechnik erfasst
+- ✅ Kalibrierzyklen definiert
+
+**Verantwortlich:** AL
 
 ---
 

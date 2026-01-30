@@ -232,17 +232,17 @@ Alle VMs laufen auf **SRV-HV01** (Hyper-V Host).
 
 ---
 
-#### 2.9 OSP-SERVER (Hetzner Cloud) - ✅ NEU (2025-12-07)
+#### 2.9 OSP-SERVER (Hetzner Cloud) - ✅ PRODUKTIV (aktualisiert 2025-12-15)
 
-**Typ:** Cloud-Server (Hetzner)  
-**Modell:** CX33 (ARM64)  
-**IP:** 46.224.102.30  
-**Betriebssystem:** Ubuntu 24.04 LTS  
+**Typ:** Cloud-Server (Hetzner)
+**Modell:** CX43 (AMD EPYC) ⬆️ Upgrade von CX33
+**IP:** 46.224.102.30
+**Betriebssystem:** Ubuntu 24.04 LTS
 **Rolle:** OSP KI-Infrastruktur (Open WebUI, ChromaDB, n8n)
 
 **Hardware:**
-- **CPU:** 4 vCPU (ARM64 Ampere)
-- **RAM:** 16 GB
+- **CPU:** 8 vCPU (AMD EPYC) ⬆️ Upgrade
+- **RAM:** 32 GB ⬆️ Upgrade
 - **Storage:** 160 GB NVMe SSD
 - **Traffic:** 20 TB/Monat inkl.
 
@@ -250,7 +250,7 @@ Alle VMs laufen auf **SRV-HV01** (Hyper-V Host).
 
 | Container | Port | Version | Zweck | Status |
 |-----------|------|---------|-------|--------|
-| **open-webui** | 3000 | v0.6.40 | Frontend für KI-Chat | ✅ Produktiv |
+| **open-webui** | 3000 | v0.6.41 | Frontend für KI-Chat | ✅ Produktiv |
 | **chromadb** | 8000 | v0.5.15 | RAG Vektor-Datenbank | ✅ Produktiv |
 | **ollama** | 11434 | latest | LLM-Fallback (lokal) | ✅ Bereit |
 | **n8n** | 5678 | latest | Workflow-Automation | ✅ Produktiv |
@@ -267,7 +267,7 @@ Alle VMs laufen auf **SRV-HV01** (Hyper-V Host).
 - Wissens-Collections: 3 YAML-Dateien (Prozesse, Cluster, Stakeholder)
 
 **ChromaDB-Konfiguration:**
-- Embedding-Modell: all-MiniLM-L6-v2 (384 Dimensionen)
+- Embedding-Modell: intfloat/multilingual-e5-large (1024 Dimensionen)
 - Chunk-Größe: 800-1500 Tokens
 - Overlap: 175 Tokens
 - Distance-Metrik: Cosine
@@ -281,7 +281,7 @@ Alle VMs laufen auf **SRV-HV01** (Hyper-V Host).
 
 **Backup:**
 - Automatisch: Hetzner Snapshots (wöchentlich)
-- Manuell: /opt/osp/backups/ (täglich via Cron)
+- Manuell: /mnt/HC_Volume_104189729/osp/backups/ (täglich via Cron)
 - Offsite: SharePoint-Sync der Konfigurationsdateien
 
 **Wartung:**
@@ -297,14 +297,17 @@ Alle VMs laufen auf **SRV-HV01** (Hyper-V Host).
 **Kritikalität:** 🟡 HOCH  
 **ISO:** 7.1.3 (Infrastruktur), 7.5 (Dokumentierte Information)
 
-**Migrationsstatus (2025-12-07):**
+**Migrationsstatus (aktualisiert 2025-12-15):**
 - ✅ Server provisioniert und konfiguriert
-- ✅ Docker-Container installiert
+- ✅ Hardware-Upgrade CX33 → CX43 (8 vCPU, 32GB RAM)
+- ✅ Docker-Container installiert (Open WebUI v0.6.41)
 - ✅ SSL-Zertifikat aktiv
 - ✅ System-Prompt konsolidiert (~6.500 Tokens)
 - ✅ 18 User-Accounts konfiguriert
-- ⏳ Initiale Dokumenten-Synchronisation (nächster Schritt)
-- ⏳ Pilot-Test mit 5 Usern (geplant)
+- ✅ 4 Pre-Processing-Module implementiert (15.12.2025)
+- ✅ 58 Dokumente in ChromaDB geladen
+- ✅ Pilot-Test mit 5 Usern läuft
+- ⏳ Vollständige Dokumenten-Synchronisation (Q1/2026)
 
 ---
 
@@ -680,6 +683,18 @@ Relevante verknüpfte Dokumente:
 ---
 
 ## ÄNDERUNGSHISTORIE
+
+### [2.1] - 2025-12-15
+**OSP-Server Hardware-Upgrade:**
+- ✅ Server-Modell aktualisiert: CX33 → CX43
+- ✅ CPU aktualisiert: 4 vCPU → 8 vCPU (AMD EPYC)
+- ✅ RAM aktualisiert: 16 GB → 32 GB
+- ✅ Open WebUI Version: v0.6.40 → v0.6.41
+- ✅ Migrationsstatus aktualisiert (Pre-Processing-Module, Pilot-Test)
+
+**Verantwortlich:** AL (QM/IT)
+
+---
 
 ### [2.0] - 2025-12-01
 **FREIGEGEBEN - Validierung abgeschlossen:**

@@ -1,0 +1,215 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "F-QM-02 Qualitätsabweichung",
+  "description": "Schema für die halbautomatische Formular-Befüllung im RMS-System",
+  "type": "object",
+  "required": [
+    "formblatt_id",
+    "datum",
+    "lieferant",
+    "artikel",
+    "beschreibung",
+    "massnahmen",
+    "ersteller"
+  ],
+  "properties": {
+    "formblatt_id": {
+      "type": "string",
+      "const": "F_QM_02",
+      "description": "Eindeutige Formblatt-ID"
+    },
+    "abweichungs_nr": {
+      "type": "string",
+      "pattern": "^QA-\\d{4}-\\d{3}$",
+      "description": "Abweichungsnummer im Format QA-YYYY-NNN",
+      "examples": ["QA-2025-001"]
+    },
+    "datum": {
+      "type": "string",
+      "format": "date",
+      "description": "Erstelldatum der Qualitätsabweichung"
+    },
+    "lieferant": {
+      "type": "object",
+      "required": ["firma", "ansprechpartner"],
+      "properties": {
+        "firma": {
+          "type": "string",
+          "minLength": 2,
+          "description": "Name des Lieferanten"
+        },
+        "ansprechpartner": {
+          "type": "string",
+          "minLength": 2,
+          "description": "Kontaktperson beim Lieferanten"
+        },
+        "telefon": {
+          "type": "string",
+          "pattern": "^[+]?[0-9\\s\\-/]+$",
+          "description": "Telefonnummer Lieferant"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email-Adresse Lieferant"
+        }
+      }
+    },
+    "artikel": {
+      "type": "object",
+      "required": [
+        "nr_schneider",
+        "bezeichnung",
+        "lieferschein_nr",
+        "lieferdatum",
+        "liefermenge",
+        "beanstandungsmenge"
+      ],
+      "properties": {
+        "nr_schneider": {
+          "type": "string",
+          "description": "Interne Schneider-Artikelnummer"
+        },
+        "nr_lieferant": {
+          "type": "string",
+          "description": "Artikelnummer des Lieferanten"
+        },
+        "bezeichnung": {
+          "type": "string",
+          "minLength": 3,
+          "description": "Artikelbezeichnung"
+        },
+        "lieferschein_nr": {
+          "type": "string",
+          "description": "Lieferscheinnummer"
+        },
+        "lieferdatum": {
+          "type": "string",
+          "format": "date",
+          "description": "Datum der Lieferung"
+        },
+        "liefermenge": {
+          "type": "object",
+          "required": ["wert", "einheit"],
+          "properties": {
+            "wert": {
+              "type": "number",
+              "minimum": 1
+            },
+            "einheit": {
+              "type": "string",
+              "enum": ["Stk", "St.", "pcs", "m", "kg", "Paar", "Set"]
+            }
+          }
+        },
+        "beanstandungsmenge": {
+          "type": "object",
+          "required": ["wert", "einheit"],
+          "properties": {
+            "wert": {
+              "type": "number",
+              "minimum": 1
+            },
+            "einheit": {
+              "type": "string",
+              "enum": ["Stk", "St.", "pcs", "m", "kg", "Paar", "Set"]
+            }
+          }
+        }
+      }
+    },
+    "beschreibung": {
+      "type": "string",
+      "minLength": 50,
+      "maxLength": 2000,
+      "description": "Detaillierte Beschreibung der Qualitätsabweichung"
+    },
+    "massnahmen": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "untersuchung_abstellen",
+          "untersuchung_8d",
+          "ersatzlieferung",
+          "ruecksendung_nacharbeit",
+          "gutschrift"
+        ]
+      },
+      "description": "Geforderte Maßnahmen (mindestens eine)"
+    },
+    "bilder": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "beschreibung": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Dokumentationsbilder zur Qualitätsabweichung"
+    },
+    "ersteller": {
+      "type": "string",
+      "pattern": "^[A-Z]{2,3}$",
+      "description": "MA-Kürzel des Erstellers (gegen HR_CORE validieren)",
+      "examples": ["AL", "SK", "TS"]
+    },
+    "erstellt_am": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Zeitstempel der Erstellung"
+    },
+    "freigabe_qm": {
+      "type": "object",
+      "properties": {
+        "ma_kuerzel": {
+          "type": "string",
+          "pattern": "^[A-Z]{2,3}$"
+        },
+        "datum": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "description": "QM-Freigabe (optional)"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["entwurf", "erstellt", "gesendet", "beantwortet", "abgeschlossen"],
+      "default": "entwurf"
+    },
+    "weiterleitung": {
+      "type": "object",
+      "properties": {
+        "email_gesendet": {
+          "type": "boolean"
+        },
+        "sharepoint_abgelegt": {
+          "type": "boolean"
+        },
+        "teams_benachrichtigt": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "additionalProperties": false,
+
+  "$defs": {
+    "massnahmen_beschreibungen": {
+      "untersuchung_abstellen": "Untersuchen Sie Ihren Prozess und stellen Sie die Mängel ab / Examine your process and remedy the defects",
+      "untersuchung_8d": "Untersuchen Sie Ihren Prozess mittels 8D-Report / Examine your process using 8D report",
+      "ersatzlieferung": "Wir benötigen schnellstmöglich eine Ersatzlieferung / We need a replacement delivery as soon as possible",
+      "ruecksendung_nacharbeit": "Wir senden die Artikel zur Nacharbeit zurück / We will send the items back for rework",
+      "gutschrift": "Wir benötigen eine Gutschrift / We need a credit note"
+    }
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "name": "RMS-Detail-API",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "rms-detail",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "webhook-detail",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "rms-detail"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/e9b1d926-085a-4435-a012-114ca9ba59a8/items/{{ $json.query.id }}?$expand=fields",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "options": {}
+      },
+      "id": "rekla-load",
+      "name": "Reklamation laden",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [450, 200],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/3768f2d8-878c-4a5f-bd52-7486fe93289d/items?$expand=fields&$filter=fields/Rekla_IDLookupId eq {{ $json.query.id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Prefer",
+              "value": "HonorNonIndexedQueriesWarningMayFailRandomly"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "massnahmen-load",
+      "name": "Massnahmen laden",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [450, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists/741c6ae8-88bb-406b-bf85-2e11192a528f/items?$expand=fields&$filter=fields/QA_IDLookupId eq {{ $json.query.id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Prefer",
+              "value": "HonorNonIndexedQueriesWarningMayFailRandomly"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "schriftverkehr-load",
+      "name": "Schriftverkehr laden",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [450, 400],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const webhookData = $('Webhook').item.json;\nconst reklaNode = $('Reklamation laden');\nconst massnahmenNode = $('Massnahmen laden');\nconst svNode = $('Schriftverkehr laden');\n\nconst rekla = reklaNode.first().json;\nconst massnahmen = massnahmenNode.first().json;\nconst schriftverkehr = svNode.first().json;\n\nreturn {\n  reklamation: rekla.fields || rekla,\n  massnahmen: massnahmen.value?.map(m => m.fields) || [],\n  schriftverkehr: schriftverkehr.value?.map(s => s.fields) || [],\n  sharePointUrl: `https://rainerschneiderkabelsatz.sharepoint.com/sites/RMS/Lists/Reklamationen/DispForm.aspx?ID=${rekla.id}`\n};"
+      },
+      "id": "merge-results",
+      "name": "Merge Results",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [700, 300]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "respond",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [900, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          { "node": "Reklamation laden", "type": "main", "index": 0 },
+          { "node": "Massnahmen laden", "type": "main", "index": 0 },
+          { "node": "Schriftverkehr laden", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Reklamation laden": {
+      "main": [
+        [{ "node": "Merge Results", "type": "main", "index": 0 }]
+      ]
+    },
+    "Massnahmen laden": {
+      "main": [
+        [{ "node": "Merge Results", "type": "main", "index": 0 }]
+      ]
+    },
+    "Schriftverkehr laden": {
+      "main": [
+        [{ "node": "Merge Results", "type": "main", "index": 0 }]
+      ]
+    },
+    "Merge Results": {
+      "main": [
+        [{ "node": "Respond to Webhook", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    { "name": "RMS" }
+  ],
+  "triggerCount": 0,
+  "active": false
+}

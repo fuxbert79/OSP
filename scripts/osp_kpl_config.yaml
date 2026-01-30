@@ -12,14 +12,14 @@ collection:
 
 # ChromaDB Settings
 chromadb:
-  path: "/opt/osp/chromadb/data"
+  path: "/mnt/HC_Volume_104189729/osp/chromadb/data"
   host: "localhost"
   port: 8000
 
 # Embedding Configuration
 embedding:
-  model: "sentence-transformers/all-MiniLM-L6-v2"
-  dimension: 384
+  model: "intfloat/multilingual-e5-large"
+  dimension: 1024
   device: "cpu"
 
 # HNSW Index Configuration (Small Dataset ~100-1K Docs)
@@ -157,8 +157,8 @@ test_queries:
 # Server Paths
 paths:
   local_source: "C:\\Users\\andre\\OneDrive - Rainer Schneider Kabelsatzbau und Konfektion\\Kommunikationswebsite - OSP Schneider Kabelsatzbau"
-  server_documents: "/opt/osp/documents_kpl"
-  server_chromadb: "/opt/osp/chromadb/data"
+  server_documents: "/mnt/HC_Volume_104189729/osp/documents_kpl"
+  server_chromadb: "/mnt/HC_Volume_104189729/osp/chromadb/data"
   sharepoint: "https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP"
 
 # Sync Configuration
@@ -179,4 +179,4 @@ backup:
   enabled: true
   schedule: "daily"
   retention_days: 30
-  path: "/opt/osp/backups/chromadb"
+  path: "/mnt/HC_Volume_104189729/osp/backups/chromadb"

@@ -29,17 +29,17 @@ import json
 # =============================================================================
 
 # ChromaDB Connection
-CHROMADB_PATH = "/opt/osp/chromadb/data"
+CHROMADB_PATH = "/mnt/HC_Volume_104189729/osp/chromadb/data"
 COLLECTION_NAME = "osp_kpl"
 
 # Document Paths (Server) - ACHTUNG: Unterstrich, nicht Bindestrich!
-OSP_BASE_PATH = "/opt/osp/documents_kpl"
+OSP_BASE_PATH = "/mnt/HC_Volume_104189729/osp/documents_kpl"
 # Alternative für lokalen Test:
 # OSP_BASE_PATH = r"C:\Users\andre\OneDrive - Rainer Schneider Kabelsatzbau und Konfektion\Kommunikationswebsite - OSP Schneider Kabelsatzbau"
 
-# Embedding Model - Multilingual für bessere deutsche Ergebnisse
-EMBEDDING_MODEL = "paraphrase-multilingual-MiniLM-L12-v2"
-EMBEDDING_DIM = 384
+# Embedding Model - Multilingual E5-large für beste deutsche Ergebnisse
+EMBEDDING_MODEL = "intfloat/multilingual-e5-large"
+EMBEDDING_DIM = 1024
 
 # Chunking Parameters
 CHUNK_SIZE = 1200  # Tokens (ca. 4800 Zeichen)
@@ -352,9 +352,9 @@ class OSPKPLImporter:
             except ImportError:
                 print("⚠ sentence-transformers nicht verfügbar")
                 print("  → Verwende ChromaDB Default Embedding")
-                # Methode 3: ChromaDB Default (all-MiniLM-L6-v2)
+                # Methode 3: ChromaDB Default (Fallback - NICHT EMPFOHLEN für E5-large Collections!)
                 self.embedding_fn = embedding_functions.DefaultEmbeddingFunction()
-                print("✓ Default Embedding Function aktiviert")
+                print("⚠ Default Embedding Function aktiviert (NICHT kompatibel mit E5-large!)")
         
         # Collection erstellen/abrufen
         collection_kwargs = {

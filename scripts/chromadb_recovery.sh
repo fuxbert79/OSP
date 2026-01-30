@@ -3,7 +3,7 @@
 # ChromaDB Collection Recovery Script für Hetzner Server
 # ============================================================
 # Server: 46.224.102.30
-# Ausführung: bash /opt/osp/scripts/chromadb_recovery.sh
+# Ausführung: bash /mnt/HC_Volume_104189729/osp/scripts/chromadb_recovery.sh
 # Erstellt: 2025-12-12
 # ============================================================
 
@@ -27,10 +27,10 @@ docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'
 echo ""
 
 echo "1.2 ChromaDB API-Status:"
-if curl -s http://localhost:8000/api/v1/heartbeat > /dev/null 2>&1; then
+if curl -s http://localhost:8000/api/v2/heartbeat > /dev/null 2>&1; then
     echo "  ✅ ChromaDB erreichbar"
     echo "  Collections:"
-    curl -s http://localhost:8000/api/v1/collections | python3 -c "import json,sys; data=json.load(sys.stdin); [print(f'    - {c[\"name\"]}: {c.get(\"metadata\",{})}') for c in data]" 2>/dev/null || echo "    (keine oder Fehler)"
+    curl -s http://localhost:8000/api/v2/collections | python3 -c "import json,sys; data=json.load(sys.stdin); [print(f'    - {c[\"name\"]}: {c.get(\"metadata\",{})}') for c in data]" 2>/dev/null || echo "    (keine oder Fehler)"
 else
     echo "  ❌ ChromaDB NICHT erreichbar"
 fi
@@ -41,11 +41,11 @@ docker inspect chromadb --format='{{range .Mounts}}  {{.Source}} -> {{.Destinati
 echo ""
 
 echo "1.4 Persistenz-Verzeichnis:"
-if [ -d "/opt/osp/chromadb/data" ]; then
-    echo "  ✅ /opt/osp/chromadb/data existiert"
-    ls -la /opt/osp/chromadb/data/ | head -10
+if [ -d "/mnt/HC_Volume_104189729/osp/chromadb/data" ]; then
+    echo "  ✅ /mnt/HC_Volume_104189729/osp/chromadb/data existiert"
+    ls -la /mnt/HC_Volume_104189729/osp/chromadb/data/ | head -10
 else
-    echo "  ❌ /opt/osp/chromadb/data existiert NICHT"
+    echo "  ❌ /mnt/HC_Volume_104189729/osp/chromadb/data existiert NICHT"
 fi
 echo ""
 
@@ -69,16 +69,16 @@ docker rm chromadb 2>/dev/null || echo "  (existierte nicht)"
 echo "  ✅ Alter Container entfernt"
 
 echo "2.2 Erstelle Datenverzeichnis..."
-mkdir -p /opt/osp/chromadb/data
-chmod 755 /opt/osp/chromadb/data
-echo "  ✅ /opt/osp/chromadb/data erstellt"
+mkdir -p /mnt/HC_Volume_104189729/osp/chromadb/data
+chmod 755 /mnt/HC_Volume_104189729/osp/chromadb/data
+echo "  ✅ /mnt/HC_Volume_104189729/osp/chromadb/data erstellt"
 
 echo "2.3 Starte ChromaDB mit persistentem Volume..."
 docker run -d \
   --name chromadb \
   --network osp-network \
   -p 8000:8000 \
-  -v /opt/osp/chromadb/data:/chroma/chroma \
+  -v /mnt/HC_Volume_104189729/osp/chromadb/data:/chroma/chroma \
   -e IS_PERSISTENT=TRUE \
   -e ANONYMIZED_TELEMETRY=FALSE \
   -e ALLOW_RESET=TRUE \
@@ -89,7 +89,7 @@ echo "  Warte 15 Sekunden auf Start..."
 sleep 15
 
 echo "2.4 Verifiziere ChromaDB..."
-if curl -s http://localhost:8000/api/v1/heartbeat > /dev/null 2>&1; then
+if curl -s http://localhost:8000/api/v2/heartbeat > /dev/null 2>&1; then
     echo "  ✅ ChromaDB läuft und ist erreichbar"
 else
     echo "  ❌ ChromaDB nicht erreichbar!"
@@ -166,7 +166,7 @@ echo ""
 echo "=== PHASE 4: DOKUMENTE IMPORTIEREN ==="
 echo ""
 
-DOCS_PATH="/opt/osp/documents"
+DOCS_PATH="/mnt/HC_Volume_104189729/osp/documents"
 
 if [ ! -d "$DOCS_PATH" ]; then
     echo "  ⚠️ Dokumenten-Verzeichnis $DOCS_PATH existiert nicht."
@@ -189,7 +189,7 @@ import hashlib
 
 CHROMADB_HOST = "localhost"
 CHROMADB_PORT = 8000
-DOCS_PATH = "/opt/osp/documents"
+DOCS_PATH = "/mnt/HC_Volume_104189729/osp/documents"
 
 CLUSTER_KERN = ["ORG", "KOM", "QM", "GF", "PM", "AV", "VT", "EK"]
 CLUSTER_ERWEITERT = ["KST", "DMS", "TM", "IT", "HR", "RES", "CMS", "FIN", "STR", "BN"]
@@ -267,9 +267,9 @@ echo ""
 
 echo "5.1 Erstelle Multi-Collection RAG Pipeline..."
 
-mkdir -p /opt/osp/pipelines
+mkdir -p /mnt/HC_Volume_104189729/osp/pipelines
 
-cat > /opt/osp/pipelines/osp_rag.py << 'PIPELINE_EOF'
+cat > /mnt/HC_Volume_104189729/osp/pipelines/osp_rag.py << 'PIPELINE_EOF'
 """
 OSP Multi-Collection RAG Pipeline
 Verwendet osp_kern und osp_erweitert Collections
@@ -404,7 +404,7 @@ PIPELINE_EOF
 echo "  ✅ Pipeline erstellt"
 
 echo "5.2 Kopiere Pipeline in Container..."
-docker cp /opt/osp/pipelines/osp_rag.py pipelines:/app/pipelines/ 2>/dev/null || echo "  (Pipeline-Container prüfen)"
+docker cp /mnt/HC_Volume_104189729/osp/pipelines/osp_rag.py pipelines:/app/pipelines/ 2>/dev/null || echo "  (Pipeline-Container prüfen)"
 
 echo "5.3 Starte Pipeline neu..."
 docker restart pipelines
@@ -420,7 +420,7 @@ echo "=== PHASE 6: VALIDIERUNG ==="
 echo ""
 
 echo "6.1 Collection-Status:"
-curl -s http://localhost:8000/api/v1/collections | python3 -c "
+curl -s http://localhost:8000/api/v2/collections | python3 -c "
 import json,sys
 try:
     data = json.load(sys.stdin)

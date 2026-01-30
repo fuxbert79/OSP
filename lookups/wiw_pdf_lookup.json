@@ -1,0 +1,2348 @@
+{
+  "meta": {
+    "version": "1.0",
+    "erstellt": "2025-12-16",
+    "sp_basis": "https://rainerschneiderkabelsatz.sharepoint.com/sites/OSP/Freigegebene%20Dokumente/Werkzeuge/Wartung%20Crimpwerkzeuge/Wartungsberichte/",
+    "statistik": {
+      "werkzeuge": 178,
+      "wrt": 111
+    }
+  },
+  "werkzeuge": {
+    "501": {
+      "kontakt": "25787",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-11",
+      "nxt_wrt": "2025-06-11",
+      "wrt": [
+        {
+          "datum": "2024-12-11",
+          "pfad": "WRT:2024/War.%20WKZ%20501%202024.12.11.pdf"
+        }
+      ]
+    },
+    "503": {
+      "kontakt": "RSB 7791 Stahl 2-fach Clip/RSB 7791 2-fach",
+      "hersteller": "APST",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-11",
+      "nxt_wrt": "2025-06-11",
+      "wrt": [
+        {
+          "datum": "2024-12-11",
+          "pfad": "WRT:2024/War.%20WKZ%20503%202024.12.11.pdf"
+        }
+      ]
+    },
+    "505": {
+      "kontakt": "25783",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-11",
+      "nxt_wrt": "2025-06-11",
+      "wrt": [
+        {
+          "datum": "2024-12-11",
+          "pfad": "WRT:2024/War.%20WKZ%20505%202024.12.11.pdf"
+        }
+      ]
+    },
+    "510": {
+      "kontakt": "25362/25128/25136/25568",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-11",
+      "nxt_wrt": "2025-06-11",
+      "wrt": [
+        {
+          "datum": "2024-12-11",
+          "pfad": "WRT:2024/War.%20WKZ%20510%202024.12.11.pdf"
+        }
+      ]
+    },
+    "512": {
+      "kontakt": "25783",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-11",
+      "nxt_wrt": "2025-06-11",
+      "wrt": [
+        {
+          "datum": "2024-12-11",
+          "pfad": "WRT:2024/War.%20WKZ%20512%202024.12.11.pdf"
+        }
+      ]
+    },
+    "513": {
+      "kontakt": "RSB 7791 1-fach Clip/RSB 7791 STAHL 1-fach",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-11",
+      "nxt_wrt": "2025-06-11",
+      "wrt": [
+        {
+          "datum": "2024-12-11",
+          "pfad": "WRT:2024/War.%20WKZ%20513%202024.12.11.pdf"
+        }
+      ]
+    },
+    "514": {
+      "kontakt": "RSB 7791 2-fach Clip/RSB 7791 STAHL 2-fach",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-11",
+      "nxt_wrt": "2025-06-11",
+      "wrt": [
+        {
+          "datum": "2024-12-11",
+          "pfad": "WRT:2024/War.%20WKZ%20514%202024.12.11.pdf"
+        }
+      ]
+    },
+    "515": {
+      "kontakt": "25787",
+      "hersteller": "AWM",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-13",
+      "nxt_wrt": "2025-06-13",
+      "wrt": [
+        {
+          "datum": "2024-12-13",
+          "pfad": "WRT:2024/War.%20WKZ%20515%202024.12.13.pdf"
+        }
+      ]
+    },
+    "516": {
+      "kontakt": "25783",
+      "hersteller": "AWM",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-13",
+      "nxt_wrt": "2025-06-13",
+      "wrt": [
+        {
+          "datum": "2024-12-13",
+          "pfad": "WRT:2024/War.%20WKZ%20516%202024.12.13.pdf"
+        }
+      ]
+    },
+    "517": {
+      "kontakt": "25787",
+      "hersteller": "AWM",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-12",
+      "nxt_wrt": "2025-06-12",
+      "wrt": [
+        {
+          "datum": "2024-12-12",
+          "pfad": "WRT:2024/War.%20WKZ%20517%202024.12.12.pdf"
+        }
+      ]
+    },
+    "518": {
+      "kontakt": "25131 4-fach",
+      "hersteller": "AWM",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-11",
+      "nxt_wrt": "2025-06-11",
+      "wrt": [
+        {
+          "datum": "2024-12-11",
+          "pfad": "WRT:2024/War.%20WKZ%20518%202024.12.11.pdf"
+        }
+      ]
+    },
+    "519": {
+      "kontakt": "25131 2-/3-fach",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-11",
+      "nxt_wrt": "2025-06-11",
+      "wrt": [
+        {
+          "datum": "2024-12-11",
+          "pfad": "WRT:2024/War.%20WKZ%20519%202024.12.11.pdf"
+        }
+      ]
+    },
+    "520": {
+      "kontakt": "25131 4-/5-fach",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-11",
+      "nxt_wrt": "2025-06-11",
+      "wrt": [
+        {
+          "datum": "2024-12-11",
+          "pfad": "WRT:2024/War.%20WKZ%20520%202024.12.11.pdf"
+        }
+      ]
+    },
+    "521": {
+      "kontakt": "25131 1-/3-fach",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-13",
+      "nxt_wrt": "2025-06-13",
+      "wrt": [
+        {
+          "datum": "2024-12-13",
+          "pfad": "WRT:2024/War.%20WKZ%20521%202024.12.13.pdf"
+        }
+      ]
+    },
+    "522": {
+      "kontakt": "25077",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-11",
+      "nxt_wrt": "2025-06-11",
+      "wrt": [
+        {
+          "datum": "2024-12-11",
+          "pfad": "WRT:2024/War.%20WKZ%20522%202024.12.11.pdf"
+        }
+      ]
+    },
+    "523": {
+      "kontakt": "25258 2-/3-fach/25440",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-11",
+      "nxt_wrt": "2025-06-11",
+      "wrt": [
+        {
+          "datum": "2024-12-11",
+          "pfad": "WRT:2024/War.%20WKZ%20523%202024.12.11.pdf"
+        }
+      ]
+    },
+    "524": {
+      "kontakt": "25258 2-/3-fach",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-11",
+      "nxt_wrt": "2025-06-11",
+      "wrt": [
+        {
+          "datum": "2024-12-11",
+          "pfad": "WRT:2024/War.%20WKZ%20524%202024.12.11.pdf"
+        }
+      ]
+    },
+    "525": {
+      "kontakt": "25258 4-fach",
+      "hersteller": "AWM",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-12",
+      "nxt_wrt": "2025-06-12",
+      "wrt": [
+        {
+          "datum": "2024-12-12",
+          "pfad": "WRT:2024/War.%20WKZ%20525%202024.12.12.pdf"
+        }
+      ]
+    },
+    "526": {
+      "kontakt": "21600110",
+      "hersteller": "AWM",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-12",
+      "nxt_wrt": "2025-06-12",
+      "wrt": [
+        {
+          "datum": "2024-12-12",
+          "pfad": "WRT:2024/War.%20WKZ%20526%202024.12.12.pdf"
+        }
+      ]
+    },
+    "527": {
+      "kontakt": "25783",
+      "hersteller": "AWM",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-12",
+      "nxt_wrt": "2025-06-12",
+      "wrt": [
+        {
+          "datum": "2024-12-12",
+          "pfad": "WRT:2024/War.%20WKZ%20527%202024.12.12.pdf"
+        }
+      ]
+    },
+    "528": {
+      "kontakt": "25787",
+      "hersteller": "AWM",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-12",
+      "nxt_wrt": "2025-06-12",
+      "wrt": [
+        {
+          "datum": "2024-12-12",
+          "pfad": "WRT:2024/War.%20WKZ%20528%202024.12.12.pdf"
+        }
+      ]
+    },
+    "531": {
+      "kontakt": "25733/25914",
+      "hersteller": "GHW",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-12",
+      "nxt_wrt": "2025-06-12",
+      "wrt": [
+        {
+          "datum": "2024-12-12",
+          "pfad": "WRT:2024/War.%20WKZ%20531%202024.12.12.pdf"
+        }
+      ]
+    },
+    "532": {
+      "kontakt": "0010129205",
+      "hersteller": "Reinshagen",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-12",
+      "nxt_wrt": "2025-06-12",
+      "wrt": [
+        {
+          "datum": "2024-12-12",
+          "pfad": "WRT:2024/War.%20WKZ%20532%202024.12.12.pdf"
+        }
+      ]
+    },
+    "535": {
+      "kontakt": "25733/25914/26.325.120",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-12",
+      "nxt_wrt": "2025-06-12",
+      "wrt": [
+        {
+          "datum": "2024-12-12",
+          "pfad": "WRT:2024/War.%20WKZ%20535%202024.12.12.pdf"
+        }
+      ]
+    },
+    "536": {
+      "kontakt": "25722/25906",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-13",
+      "nxt_wrt": "2025-06-13",
+      "wrt": [
+        {
+          "datum": "2024-12-13",
+          "pfad": "WRT:2024/War.%20WKZ%20536%202024.12.13.pdf"
+        }
+      ]
+    },
+    "537": {
+      "kontakt": "26305110",
+      "hersteller": "AWM",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-13",
+      "nxt_wrt": "2025-06-13",
+      "wrt": [
+        {
+          "datum": "2024-12-13",
+          "pfad": "WRT:2024/War.%20WKZ%20537%202024.12.13.pdf"
+        }
+      ]
+    },
+    "538": {
+      "kontakt": "25722/25906",
+      "hersteller": "AWM",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-12",
+      "nxt_wrt": "2025-06-12",
+      "wrt": [
+        {
+          "datum": "2024-12-12",
+          "pfad": "WRT:2024/War.%20WKZ%20538%202024.12.12.pdf"
+        }
+      ]
+    },
+    "539": {
+      "kontakt": "25737/25744",
+      "hersteller": "WWT",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-12",
+      "nxt_wrt": "2025-06-12",
+      "wrt": [
+        {
+          "datum": "2024-12-12",
+          "pfad": "WRT:2024/War.%20WKZ%20539%202024.12.12.pdf"
+        }
+      ]
+    },
+    "540": {
+      "kontakt": "25312/25313/25314/25315",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-12",
+      "nxt_wrt": "2025-06-12",
+      "wrt": [
+        {
+          "datum": "2024-12-12",
+          "pfad": "WRT:2024/War.%20WKZ%20540%202024.12.12.pdf"
+        }
+      ]
+    },
+    "541": {
+      "kontakt": "25312/25313/25314/25315",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-06",
+      "nxt_wrt": "2025-07-06",
+      "wrt": [
+        {
+          "datum": "2025-01-06",
+          "pfad": "WRT:2025/War.%20WKZ%20541%202025.01.06.pdf"
+        }
+      ]
+    },
+    "544": {
+      "kontakt": "25093/25213/25215/25217/25218",
+      "hersteller": "AWM",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-12",
+      "nxt_wrt": "2025-06-12",
+      "wrt": [
+        {
+          "datum": "2024-12-12",
+          "pfad": "WRT:2024/War.%20WKZ%20544%202024.12.12.pdf"
+        }
+      ]
+    },
+    "545": {
+      "kontakt": "25229/25231/HS 24 359 120/79107000041501",
+      "hersteller": "AWM",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-12",
+      "nxt_wrt": "2025-06-12",
+      "wrt": [
+        {
+          "datum": "2024-12-12",
+          "pfad": "WRT:2024/War.%20WKZ%20545%202024.12.12.pdf"
+        }
+      ]
+    },
+    "546": {
+      "kontakt": "25258 4-fach Clip",
+      "hersteller": "AWM",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-13",
+      "nxt_wrt": "2025-06-13",
+      "wrt": [
+        {
+          "datum": "2024-12-13",
+          "pfad": "WRT:2024/War.%20WKZ%20546%202024.12.13.pdf"
+        }
+      ]
+    },
+    "547": {
+      "kontakt": "SPS-91T-250S",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-12",
+      "nxt_wrt": "2025-06-12",
+      "wrt": [
+        {
+          "datum": "2024-12-12",
+          "pfad": "WRT:2024/War.%20WKZ%20547%202024.12.12.pdf"
+        }
+      ]
+    },
+    "548": {
+      "kontakt": "22-811-115/25365/25789/26365",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-12",
+      "nxt_wrt": "2025-06-12",
+      "wrt": [
+        {
+          "datum": "2024-12-12",
+          "pfad": "WRT:2024/War.%20WKZ%20548%202024.12.12.pdf"
+        }
+      ]
+    },
+    "549": {
+      "kontakt": "0010916001/24801120/24.810.115",
+      "hersteller": "APST",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-13",
+      "nxt_wrt": "2025-06-13",
+      "wrt": [
+        {
+          "datum": "2024-12-13",
+          "pfad": "WRT:2024/War.%20WKZ%20549%202024.12.13.pdf"
+        }
+      ]
+    },
+    "550": {
+      "kontakt": "25365/25789/26365",
+      "hersteller": "GHW",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-13",
+      "nxt_wrt": "2025-06-13",
+      "wrt": [
+        {
+          "datum": "2024-12-13",
+          "pfad": "WRT:2024/War.%20WKZ%20550%202024.12.13.pdf"
+        }
+      ]
+    },
+    "552": {
+      "kontakt": "22-811-115/25365/25789/26365",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-16",
+      "nxt_wrt": "2025-06-16",
+      "wrt": [
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20WKZ%20552%202024.12.16.pdf"
+        }
+      ]
+    },
+    "553": {
+      "kontakt": "24310128//25203/25209",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-16",
+      "nxt_wrt": "2025-06-16",
+      "wrt": [
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20WKZ%20553%202024.12.16.pdf"
+        }
+      ]
+    },
+    "555": {
+      "kontakt": "RSB 7603 MS",
+      "hersteller": "Püplichhuisen",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-16",
+      "nxt_wrt": "2025-06-16",
+      "wrt": [
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20WKZ%20555%202024.12.16.pdf"
+        }
+      ]
+    },
+    "556": {
+      "kontakt": "25019/25696/25697/25698/22133/9900128",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-16",
+      "nxt_wrt": "2025-06-16",
+      "wrt": [
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20WKZ%20556%202024.12.16.pdf"
+        }
+      ]
+    },
+    "557": {
+      "kontakt": "25258 4-/5-fach Clip",
+      "hersteller": "AWM",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-16",
+      "nxt_wrt": "2025-06-16",
+      "wrt": [
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20WKZ%20557%202024.12.16.pdf"
+        }
+      ]
+    },
+    "558": {
+      "kontakt": "25131 3-fach Clip",
+      "hersteller": "AWM",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-16",
+      "nxt_wrt": "2025-06-16",
+      "wrt": [
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20WKZ%20558%202024.12.16.pdf"
+        }
+      ]
+    },
+    "559": {
+      "kontakt": "25229/25231/HS 24 359 120/79107000041501",
+      "hersteller": "APST",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-16",
+      "nxt_wrt": "2025-06-16",
+      "wrt": [
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20WKZ%20559%202024.12.16.pdf"
+        }
+      ]
+    },
+    "560": {
+      "kontakt": "2951123-00/3",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-16",
+      "nxt_wrt": "2025-06-16",
+      "wrt": [
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20WKZ%20560%202024.12.16.pdf"
+        }
+      ]
+    },
+    "561": {
+      "kontakt": "25016/RBB 7786",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-16",
+      "nxt_wrt": "2025-06-16",
+      "wrt": [
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20WKZ%20561%202024.12.16.pdf"
+        }
+      ]
+    },
+    "563": {
+      "kontakt": "HS 24 360 110",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-16",
+      "nxt_wrt": "2025-06-16",
+      "wrt": [
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20WKZ%20563%202024.12.16.pdf"
+        }
+      ]
+    },
+    "564": {
+      "kontakt": "25219/25221",
+      "hersteller": "AWM",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-16",
+      "nxt_wrt": "2025-06-16",
+      "wrt": [
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20WKZ%20564%202024.12.16.pdf"
+        }
+      ]
+    },
+    "565": {
+      "kontakt": "25361 Luftvorschub",
+      "hersteller": "APST",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-16",
+      "nxt_wrt": "2025-06-16",
+      "wrt": [
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20WKZ%20565%202024.12.16.pdf"
+        }
+      ]
+    },
+    "566": {
+      "kontakt": "25361 Luftvorschub",
+      "hersteller": "APST",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-16",
+      "nxt_wrt": "2025-06-16",
+      "wrt": [
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20WKZ%20566%202024.12.16.pdf"
+        }
+      ]
+    },
+    "567": {
+      "kontakt": "25229/25231/HS 24 359 120/79107000041501",
+      "hersteller": "APST",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-16",
+      "nxt_wrt": "2025-06-16",
+      "wrt": [
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20WKZ%20567%202024.12.16.pdf"
+        }
+      ]
+    },
+    "568": {
+      "kontakt": "25211/25219/25221/25223/25229",
+      "hersteller": "APST",
+      "typ": "L",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-16",
+      "nxt_wrt": "2025-06-16",
+      "wrt": [
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20WKZ%20568%202024.12.16.pdf"
+        }
+      ]
+    },
+    "569": {
+      "kontakt": "25733",
+      "hersteller": "Püplichhuisen",
+      "typ": "L",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-16",
+      "nxt_wrt": "2025-06-16",
+      "wrt": [
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20WKZ%20569%202024.12.16.pdf"
+        }
+      ]
+    },
+    "570": {
+      "kontakt": "RSB7727A4-1",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-16",
+      "nxt_wrt": "2025-06-16",
+      "wrt": [
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20WKZ%20570%202024.12.16.pdf"
+        }
+      ]
+    },
+    "571": {
+      "kontakt": "23715127/25022/25044/25149/HS 24 360 110/RSB7727A4-1",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-16",
+      "nxt_wrt": "2025-06-16",
+      "wrt": [
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20WKZ%20571%202024.12.16.pdf"
+        }
+      ]
+    },
+    "572": {
+      "kontakt": "25215/25217/S0.365.824",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-16",
+      "nxt_wrt": "2025-06-16",
+      "wrt": [
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20WKZ%20572%202024.12.16.pdf"
+        }
+      ]
+    },
+    "573": {
+      "kontakt": "25757",
+      "hersteller": "APST",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-16",
+      "nxt_wrt": "2025-06-16",
+      "wrt": [
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20WKZ%20573%202024.12.16.pdf"
+        }
+      ]
+    },
+    "574": {
+      "kontakt": "25149/25272",
+      "hersteller": "APST",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-16",
+      "nxt_wrt": "2025-06-16",
+      "wrt": [
+        {
+          "datum": "2024-12-16",
+          "pfad": "WRT:2024/War.%20WKZ%20574%202024.12.16.pdf"
+        }
+      ]
+    },
+    "575": {
+      "kontakt": "25233/25235 Luftvorschub",
+      "hersteller": "GHW",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-17",
+      "nxt_wrt": "2025-06-17",
+      "wrt": [
+        {
+          "datum": "2024-12-17",
+          "pfad": "WRT:2024/War.%20WKZ%20575%202024.12.17.pdf"
+        }
+      ]
+    },
+    "577": {
+      "kontakt": "25215/25217/25218/79107000034000",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-17",
+      "nxt_wrt": "2025-06-17",
+      "wrt": [
+        {
+          "datum": "2024-12-17",
+          "pfad": "WRT:2024/War.%20WKZ%20577%202024.12.17.pdf"
+        }
+      ]
+    },
+    "578": {
+      "kontakt": "25219/25221",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-17",
+      "nxt_wrt": "2025-06-17",
+      "wrt": [
+        {
+          "datum": "2024-12-17",
+          "pfad": "WRT:2024/War.%20WKZ%20578%202024.12.17.pdf"
+        }
+      ]
+    },
+    "579": {
+      "kontakt": "25165/25201/25203/25205",
+      "hersteller": "AWM",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2024-12-17",
+      "nxt_wrt": "2025-06-17",
+      "wrt": [
+        {
+          "datum": "2024-12-17",
+          "pfad": "WRT:2024/War.%20WKZ%20579%202024.12.17.pdf"
+        }
+      ]
+    },
+    "580": {
+      "kontakt": "50802-8000/SXH-001T-P0.6",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-06",
+      "nxt_wrt": "2025-07-06",
+      "wrt": [
+        {
+          "datum": "2025-01-06",
+          "pfad": "WRT:2025/War.%20WKZ%20580%202025.01.06.pdf"
+        }
+      ]
+    },
+    "581": {
+      "kontakt": "1062-16-0622",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-06",
+      "nxt_wrt": "2025-07-06",
+      "wrt": [
+        {
+          "datum": "2025-01-06",
+          "pfad": "WRT:2025/War.%20WKZ%20581%202025.01.06.pdf"
+        }
+      ]
+    },
+    "583": {
+      "kontakt": "0-0141075-2",
+      "hersteller": "APST",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-06",
+      "nxt_wrt": "2025-07-06",
+      "wrt": [
+        {
+          "datum": "2025-01-06",
+          "pfad": "WRT:2025/War.%20WKZ%20583%202025.01.06.pdf"
+        }
+      ]
+    },
+    "584": {
+      "kontakt": "25505",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-06",
+      "nxt_wrt": "2025-07-06",
+      "wrt": [
+        {
+          "datum": "2025-01-06",
+          "pfad": "WRT:2025/War.%20WKZ%20584%202025.01.06.pdf"
+        }
+      ]
+    },
+    "585": {
+      "kontakt": "25431",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-06",
+      "nxt_wrt": "2025-07-06",
+      "wrt": [
+        {
+          "datum": "2025-01-06",
+          "pfad": "WRT:2025/War.%20WKZ%20585%202025.01.06.pdf"
+        }
+      ]
+    },
+    "586": {
+      "kontakt": "25733/26.325.120",
+      "hersteller": "APST/Schäfer",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-06",
+      "nxt_wrt": "2025-07-06",
+      "wrt": [
+        {
+          "datum": "2025-01-06",
+          "pfad": "WRT:2025/War.%20WKZ%20586%202025.01.06.pdf"
+        }
+      ]
+    },
+    "587": {
+      "kontakt": "0010129205/25722/25906/9901047",
+      "hersteller": "APST/Schäfer",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-06",
+      "nxt_wrt": "2025-07-06",
+      "wrt": [
+        {
+          "datum": "2025-01-06",
+          "pfad": "WRT:2025/War.%20WKZ%20587%202025.01.06.pdf"
+        }
+      ]
+    },
+    "588": {
+      "kontakt": "0011332101/0011111201",
+      "hersteller": "APST",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-06",
+      "nxt_wrt": "2025-07-06",
+      "wrt": [
+        {
+          "datum": "2025-01-06",
+          "pfad": "WRT:2025/War.%20WKZ%20588%202025.01.06.pdf"
+        }
+      ]
+    },
+    "589": {
+      "kontakt": "21600110",
+      "hersteller": "APST",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-06",
+      "nxt_wrt": "2025-07-06",
+      "wrt": [
+        {
+          "datum": "2025-01-06",
+          "pfad": "WRT:2025/War.%20WKZ%20589%202025.01.06.pdf"
+        }
+      ]
+    },
+    "590": {
+      "kontakt": "25004",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-06",
+      "nxt_wrt": "2025-07-06",
+      "wrt": [
+        {
+          "datum": "2025-01-06",
+          "pfad": "WRT:2025/War.%20WKZ%20590%202025.01.06.pdf"
+        }
+      ]
+    },
+    "592": {
+      "kontakt": "/ / /",
+      "hersteller": "GHW",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "bei Wiederaufnahme",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "600": {
+      "kontakt": "0-0350415/0-0350536/0-0350654/0-0926882/0-0926883/0-0926887",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-06",
+      "nxt_wrt": "2025-07-06",
+      "wrt": [
+        {
+          "datum": "2025-01-06",
+          "pfad": "WRT:2025/War.%20WKZ%20600%202025.01.06.pdf"
+        }
+      ]
+    },
+    "601": {
+      "kontakt": "0-0350415/0-0350654/0-0926882/0-0926883/0-0926887/26980",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-06",
+      "nxt_wrt": "2025-07-06",
+      "wrt": [
+        {
+          "datum": "2025-01-06",
+          "pfad": "WRT:2025/War.%20WKZ%20601%202025.01.06.pdf"
+        }
+      ]
+    },
+    "602": {
+      "kontakt": "0-0170360/0-0170362/0-0794407-1/1-794406-0/9900183/HS 50110120",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-06",
+      "nxt_wrt": "2025-07-06",
+      "wrt": [
+        {
+          "datum": "2025-01-06",
+          "pfad": "WRT:2025/War.%20WKZ%20602%202025.01.06.pdf"
+        }
+      ]
+    },
+    "603": {
+      "kontakt": "25931",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-06",
+      "nxt_wrt": "2025-07-06",
+      "wrt": [
+        {
+          "datum": "2025-01-06",
+          "pfad": "WRT:2025/War.%20WKZ%20603%202025.01.06.pdf"
+        }
+      ]
+    },
+    "604": {
+      "kontakt": "1375819-1",
+      "hersteller": "IT Crimp",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-07",
+      "nxt_wrt": "2025-06-07",
+      "wrt": [
+        {
+          "datum": "2025-01-07",
+          "pfad": "WRT:2025/War.%20WKZ%20604%202025.01.07.pdf"
+        }
+      ]
+    },
+    "605": {
+      "kontakt": "0-0170361-1",
+      "hersteller": "IT Crimp",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-07",
+      "nxt_wrt": "2025-06-07",
+      "wrt": [
+        {
+          "datum": "2025-01-07",
+          "pfad": "WRT:2025/War.%20WKZ%20605%202025.01.07.pdf"
+        }
+      ]
+    },
+    "606": {
+      "kontakt": "0-0170360/0-0170362/0-0794407-1/1-794406-0/9900183/HS 50110120",
+      "hersteller": "IT Crimp",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-07",
+      "nxt_wrt": "2025-06-07",
+      "wrt": [
+        {
+          "datum": "2025-01-07",
+          "pfad": "WRT:2025/War.%20WKZ%20606%202025.01.07.pdf"
+        }
+      ]
+    },
+    "607": {
+      "kontakt": "0-0350566-7",
+      "hersteller": "Utilux",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-07",
+      "nxt_wrt": "2025-06-07",
+      "wrt": [
+        {
+          "datum": "2025-01-07",
+          "pfad": "WRT:2025/War.%20WKZ%20607%202025.01.07.pdf"
+        }
+      ]
+    },
+    "608": {
+      "kontakt": "0-0350556-7 doppelisol. Leitung Fa. Lumberg",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-07",
+      "nxt_wrt": "2025-06-07",
+      "wrt": [
+        {
+          "datum": "2025-01-07",
+          "pfad": "WRT:2025/War.%20WKZ%20608%202025.01.07.pdf"
+        }
+      ]
+    },
+    "609": {
+      "kontakt": "925819",
+      "hersteller": "AMP",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-07",
+      "nxt_wrt": "2025-06-07",
+      "wrt": [
+        {
+          "datum": "2025-01-07",
+          "pfad": "WRT:2025/War.%20WKZ%20609%202025.01.07.pdf"
+        }
+      ]
+    },
+    "610": {
+      "kontakt": "0-0350566-7",
+      "hersteller": "AMP",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-07",
+      "nxt_wrt": "2025-06-07",
+      "wrt": [
+        {
+          "datum": "2025-01-07",
+          "pfad": "WRT:2025/War.%20WKZ%20610%202025.01.07.pdf"
+        }
+      ]
+    },
+    "611": {
+      "kontakt": "3-770060-1",
+      "hersteller": "AMP",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-07",
+      "nxt_wrt": "2025-06-07",
+      "wrt": [
+        {
+          "datum": "2025-01-07",
+          "pfad": "WRT:2025/War.%20WKZ%20611%202025.01.07.pdf"
+        }
+      ]
+    },
+    "614": {
+      "kontakt": "02-06-1101/02-06-2101",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-07",
+      "nxt_wrt": "2025-06-07",
+      "wrt": [
+        {
+          "datum": "2025-01-07",
+          "pfad": "WRT:2025/War.%20WKZ%20614%202025.01.07.pdf"
+        }
+      ]
+    },
+    "615": {
+      "kontakt": "280530-1",
+      "hersteller": "IT Crimp",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-07",
+      "nxt_wrt": "2025-06-07",
+      "wrt": [
+        {
+          "datum": "2025-01-07",
+          "pfad": "WRT:2025/War.%20WKZ%20615%202025.01.07.pdf"
+        }
+      ]
+    },
+    "616": {
+      "kontakt": "TN01/02 016 0002 1/TN01/02 016 0004 1/TN01/02 025 0001 1",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-07",
+      "nxt_wrt": "2025-06-07",
+      "wrt": [
+        {
+          "datum": "2025-01-07",
+          "pfad": "WRT:2025/War.%20WKZ%20616%202025.01.07.pdf"
+        }
+      ]
+    },
+    "617": {
+      "kontakt": "66210113722",
+      "hersteller": "IT Crimp",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-07",
+      "nxt_wrt": "2025-06-07",
+      "wrt": [
+        {
+          "datum": "2025-01-07",
+          "pfad": "WRT:2025/War.%20WKZ%20617%202025.01.07.pdf"
+        }
+      ]
+    },
+    "618": {
+      "kontakt": "25144",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-07",
+      "nxt_wrt": "2025-06-07",
+      "wrt": [
+        {
+          "datum": "2025-01-07",
+          "pfad": "WRT:2025/War.%20WKZ%20618%202025.01.07.pdf"
+        }
+      ]
+    },
+    "619": {
+      "kontakt": "H101.404.012",
+      "hersteller": "Püplichhuisen",
+      "typ": "Q",
+      "fest_umbau": "-",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-07",
+      "nxt_wrt": "2025-06-07",
+      "wrt": [
+        {
+          "datum": "2025-01-07",
+          "pfad": "WRT:2025/War.%20WKZ%20619%202025.01.07.pdf"
+        }
+      ]
+    },
+    "621": {
+      "kontakt": "228 181 17/228 181 27/228 191 17",
+      "hersteller": "AWM",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-07",
+      "nxt_wrt": "2025-06-07",
+      "wrt": [
+        {
+          "datum": "2025-01-07",
+          "pfad": "WRT:2025/War.%20WKZ%20621%202025.01.07.pdf"
+        }
+      ]
+    },
+    "622": {
+      "kontakt": "/ / /",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "bei Wiederaufnahme",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "624": {
+      "kontakt": "08-50-0031",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-07",
+      "nxt_wrt": "2025-06-07",
+      "wrt": [
+        {
+          "datum": "2025-01-07",
+          "pfad": "WRT:2025/War.%20WKZ%20624%202025.01.07.pdf"
+        }
+      ]
+    },
+    "625": {
+      "kontakt": "08-50-0105/08-50-0187",
+      "hersteller": "Molex",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-08",
+      "nxt_wrt": "2025-07-08",
+      "wrt": [
+        {
+          "datum": "2025-01-08",
+          "pfad": "WRT:2025/War.%20WKZ%20625%202025.01.08.pdf"
+        }
+      ]
+    },
+    "626": {
+      "kontakt": "08-50-0105/08-50-0187",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-08",
+      "nxt_wrt": "2025-07-08",
+      "wrt": [
+        {
+          "datum": "2025-01-08",
+          "pfad": "WRT:2025/War.%20WKZ%20626%202025.01.08.pdf"
+        }
+      ]
+    },
+    "627": {
+      "kontakt": "0-0282110-1/0-0282403-1/0-0927770-3/0-0929939-3/171662-1/70311-2",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-08",
+      "nxt_wrt": "2025-07-08",
+      "wrt": [
+        {
+          "datum": "2025-01-08",
+          "pfad": "WRT:2025/War.%20WKZ%20627%202025.01.08.pdf"
+        }
+      ]
+    },
+    "628": {
+      "kontakt": "26851",
+      "hersteller": "Kirsten",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-08",
+      "nxt_wrt": "2025-07-08",
+      "wrt": [
+        {
+          "datum": "2025-01-08",
+          "pfad": "WRT:2025/War.%20WKZ%20628%202025.01.08.pdf"
+        }
+      ]
+    },
+    "629": {
+      "kontakt": "927827",
+      "hersteller": "AMP",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-08",
+      "nxt_wrt": "2025-07-08",
+      "wrt": [
+        {
+          "datum": "2025-01-08",
+          "pfad": "WRT:2025/War.%20WKZ%20629%202025.01.08.pdf"
+        }
+      ]
+    },
+    "630": {
+      "kontakt": "/ / /",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "bei Wiederaufnahme",
+      "ltz_wrt": "2025-01-08",
+      "nxt_wrt": "2025-07-08",
+      "wrt": [
+        {
+          "datum": "2025-01-08",
+          "pfad": "WRT:2025/War.%20WKZ%20630%202025.01.08.pdf"
+        }
+      ]
+    },
+    "631": {
+      "kontakt": "0967 000 7158/0967 000 7258",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-08",
+      "nxt_wrt": "2025-07-08",
+      "wrt": [
+        {
+          "datum": "2025-01-08",
+          "pfad": "WRT:2025/War.%20WKZ%20631%202025.01.08.pdf"
+        }
+      ]
+    },
+    "632": {
+      "kontakt": "25116/25117/RSB 7630.158",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-08",
+      "nxt_wrt": "2025-07-08",
+      "wrt": [
+        {
+          "datum": "2025-01-08",
+          "pfad": "WRT:2025/War.%20WKZ%20632%202025.01.08.pdf"
+        }
+      ]
+    },
+    "633": {
+      "kontakt": "0-0350415/0-0350654/0-0926882/0-0926883/0-0926887",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-08",
+      "nxt_wrt": "2025-07-08",
+      "wrt": [
+        {
+          "datum": "2025-01-08",
+          "pfad": "WRT:2025/War.%20WKZ%20633%202025.01.08.pdf"
+        }
+      ]
+    },
+    "634": {
+      "kontakt": "0-0163081/0-0163083/0-0164161/0-0927886/163301-6/990067",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-08",
+      "nxt_wrt": "2025-07-08",
+      "wrt": [
+        {
+          "datum": "2025-01-08",
+          "pfad": "WRT:2025/War.%20WKZ%20634%202025.01.08.pdf"
+        }
+      ]
+    },
+    "635": {
+      "kontakt": "0-0163085/0-0163087",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-08",
+      "nxt_wrt": "2025-07-08",
+      "wrt": [
+        {
+          "datum": "2025-01-08",
+          "pfad": "WRT:2025/War.%20WKZ%20635%202025.01.08.pdf"
+        }
+      ]
+    },
+    "636": {
+      "kontakt": "39-00-0077",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-08",
+      "nxt_wrt": "2025-07-08",
+      "wrt": [
+        {
+          "datum": "2025-01-08",
+          "pfad": "WRT:2025/War.%20WKZ%20636%202025.01.08.pdf"
+        }
+      ]
+    },
+    "637": {
+      "kontakt": "3111 03 G",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-08",
+      "nxt_wrt": "2025-07-08",
+      "wrt": [
+        {
+          "datum": "2025-01-08",
+          "pfad": "WRT:2025/War.%20WKZ%20637%202025.01.08.pdf"
+        }
+      ]
+    },
+    "638": {
+      "kontakt": "A2V00156015204/A2V00156018561/0967 000 8158/0967 000 8258",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-08",
+      "nxt_wrt": "2025-07-08",
+      "wrt": [
+        {
+          "datum": "2025-01-08",
+          "pfad": "WRT:2025/War.%20WKZ%20638%202025.01.08.pdf"
+        }
+      ]
+    },
+    "640": {
+      "kontakt": "25029/25036",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-08",
+      "nxt_wrt": "2025-07-08",
+      "wrt": [
+        {
+          "datum": "2025-01-08",
+          "pfad": "WRT:2025/War.%20WKZ%20640%202025.01.08.pdf"
+        }
+      ]
+    },
+    "644": {
+      "kontakt": "25863/030-2410-001",
+      "hersteller": "Schäfer",
+      "typ": "L",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-09",
+      "nxt_wrt": "2025-07-09",
+      "wrt": [
+        {
+          "datum": "2025-01-09",
+          "pfad": "WRT:2025/War.%20WKZ%20644%202025.01.09.pdf"
+        }
+      ]
+    },
+    "650": {
+      "kontakt": "S0.106.604 Einzel- & Doppelanschlag",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-09",
+      "nxt_wrt": "2025-07-09",
+      "wrt": [
+        {
+          "datum": "2025-01-09",
+          "pfad": "WRT:2025/War.%20WKZ%20650%202025.01.09.pdf"
+        }
+      ]
+    },
+    "651": {
+      "kontakt": "2-927771-1/927827/927865-2/9900221",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-09",
+      "nxt_wrt": "2025-07-09",
+      "wrt": [
+        {
+          "datum": "2025-01-09",
+          "pfad": "WRT:2025/War.%20WKZ%20651%202025.01.09.pdf"
+        }
+      ]
+    },
+    "652": {
+      "kontakt": "25029/25036",
+      "hersteller": "AWM",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "2025-01-09",
+      "nxt_wrt": "2025-07-09",
+      "wrt": [
+        {
+          "datum": "2025-01-09",
+          "pfad": "WRT:2025/War.%20WKZ%20652%202025.01.09.pdf"
+        }
+      ]
+    },
+    "653": {
+      "kontakt": "0-160759/154717-6/9900179",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "654": {
+      "kontakt": "02-09-2116",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "655": {
+      "kontakt": "927827",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "656": {
+      "kontakt": "/ / /",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "bei Wiederaufnahme",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "657": {
+      "kontakt": "25139",
+      "hersteller": "GHW",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "658": {
+      "kontakt": "0011116101",
+      "hersteller": "AAC",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "659": {
+      "kontakt": "S0.102.104/SO.102.105/106/25039",
+      "hersteller": "Stocko",
+      "typ": "L",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "660": {
+      "kontakt": "S0.102.198",
+      "hersteller": "Stocko",
+      "typ": "L",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "661": {
+      "kontakt": "439026/027/029",
+      "hersteller": "Stocko",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "662": {
+      "kontakt": "/ / /",
+      "hersteller": "Stocko",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "bei Wiederaufnahme",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "663": {
+      "kontakt": "25773",
+      "hersteller": "AWM",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "664": {
+      "kontakt": "25768",
+      "hersteller": "AWM",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "665": {
+      "kontakt": "25733/25768/26.325.120",
+      "hersteller": "APST",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "695": {
+      "kontakt": "0-0946943-1/1241380-1/1241374-1",
+      "hersteller": "APST",
+      "typ": "Q",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "696": {
+      "kontakt": "7-1452656-1/7-1452665-1/7-1452665-3/7-1452668-1",
+      "hersteller": "APST",
+      "typ": "Q",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "697": {
+      "kontakt": "0-1241396-1/0-1241390-1/1241396-3/1-968857-3",
+      "hersteller": "APST",
+      "typ": "Q",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "698": {
+      "kontakt": "1241408-1/1241418-4/1-1241418-4",
+      "hersteller": "APST",
+      "typ": "Q",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "699": {
+      "kontakt": "3-0350980-1/721770/9900781/SVH-21T-P1.1/U24228BS-2",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "700": {
+      "kontakt": "RFB 7808",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "701": {
+      "kontakt": "43030/43031/66200313722/881-396.203",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "702": {
+      "kontakt": "25128/25136/25568/S0.283.145",
+      "hersteller": "AWM",
+      "typ": "L",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "703": {
+      "kontakt": "TN01/02 016 0002 1/TN01/02 016 0004 1",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "704": {
+      "kontakt": "/ / /",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "bei Wiederaufnahme",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "705": {
+      "kontakt": "0906 000 6481",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "706": {
+      "kontakt": "25128/25136/25568/S0.283.145",
+      "hersteller": "AWM",
+      "typ": "L",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "707": {
+      "kontakt": "0-0173681/175180/61900113722/722046",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "708": {
+      "kontakt": "TN01/02 016 0005 1/TN01/02 025 0010 1",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "709": {
+      "kontakt": "/ / /",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "bei Wiederaufnahme",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "710": {
+      "kontakt": "188744-1",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "711": {
+      "kontakt": "SPH-002GW-P0.5S/SPH-002T-P0.5",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "712": {
+      "kontakt": "721934/SPH-002T-P0.5",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "713": {
+      "kontakt": "TN01/02 025 0043 1",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "714": {
+      "kontakt": "3-794037-1",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "715": {
+      "kontakt": "Gedrehte Kontakte Fa. Harting",
+      "hersteller": "Schäfer",
+      "typ": "///",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "716": {
+      "kontakt": "DF3-2428-SCF",
+      "hersteller": "APST",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "717": {
+      "kontakt": "5-0104505-6",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "718": {
+      "kontakt": "39-00-0038/0040/0046/0059/0428/0430/9900708",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "719": {
+      "kontakt": "1-104480-3/720926",
+      "hersteller": "APST",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "720": {
+      "kontakt": "91403120",
+      "hersteller": "APST",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "721": {
+      "kontakt": "25775",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "723": {
+      "kontakt": "39-00-0021/8700002",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "724": {
+      "kontakt": "43030/43031/66200313722",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "726": {
+      "kontakt": "32124734000",
+      "hersteller": "APST",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "727": {
+      "kontakt": "32124734010",
+      "hersteller": "APST",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "728": {
+      "kontakt": "32124734020",
+      "hersteller": "APST",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "730": {
+      "kontakt": "21010119",
+      "hersteller": "AWM",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "731": {
+      "kontakt": "50394-8051/8052",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "732": {
+      "kontakt": "0-0926868/869/899",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "733": {
+      "kontakt": "22140472980/50253226088",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "734": {
+      "kontakt": " SEH-001T-P0.6",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "735": {
+      "kontakt": "0-0926868/869/899",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "736": {
+      "kontakt": "SZH-002T-P0.5",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "737": {
+      "kontakt": "0-0170360/0-0170362/0-0794407-1/1-794406-0/9900183/HS 50110120",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "738": {
+      "kontakt": "25362 Luftvorschub",
+      "hersteller": "GHW",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "739": {
+      "kontakt": "TN01/02 015 0046-1/016 0003 2",
+      "hersteller": "Schäfer",
+      "typ": "Q",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "740": {
+      "kontakt": "0010916001/24.810.115/25313/25314",
+      "hersteller": "AWM",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "742": {
+      "kontakt": "0-0166500-2",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "743": {
+      "kontakt": "50011-8000",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "744": {
+      "kontakt": "0-0350699/0-0350851/0-0926884/0-0926886",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "745": {
+      "kontakt": "22124472970/22140472960/9900550",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "746": {
+      "kontakt": "22124472970/9900550",
+      "hersteller": "AWM",
+      "typ": "Q",
+      "fest_umbau": "Umbau",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "747": {
+      "kontakt": "SIN-01T-1.2",
+      "hersteller": "APST",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "748": {
+      "kontakt": "SPH-001GW-P0.5S",
+      "hersteller": "APST",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "749": {
+      "kontakt": "25233/25235",
+      "hersteller": "Püplichhuisen",
+      "typ": "L",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    },
+    "1201-5921-KS": {
+      "kontakt": "90119-0110",
+      "hersteller": "Püplichhuisen",
+      "typ": "Q",
+      "fest_umbau": "Fest",
+      "wrt_intervall": "halbjährlich",
+      "ltz_wrt": "-",
+      "nxt_wrt": "-",
+      "wrt": []
+    }
+  }
+}

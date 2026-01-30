@@ -276,7 +276,7 @@ schneider.local
 5. `ChromaDB_Wissen_Collections/` - 3 Wissens-Dateien
 
 **ChromaDB-RAG:**
-- Embedding: all-MiniLM-L6-v2 (384 Dim.)
+- Embedding: intfloat/multilingual-e5-large (1024 Dim.)
 - Chunk-Size: 800-1500 Tokens
 - Collections: OSP_COMPLETE + OSP_C1-C4
 - Sync: Täglich 02:00 Uhr
@@ -289,7 +289,7 @@ schneider.local
 
 **Wartung:**
 - Verantwortlich: AL (QM & KI-Manager)
-- Backup: Hetzner Snapshots + /opt/osp/backups/
+- Backup: Hetzner Snapshots + /mnt/HC_Volume_104189729/osp/backups/
 - Updates: Docker-Images monatlich
 
 **Dokumentation:**

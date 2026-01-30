@@ -1,0 +1,4841 @@
+{
+  "meta": {
+    "version": "3.4-BATCH18-FINAL",
+    "erstellt_am": "2025-12-17",
+    "aktualisiert_am": "2025-12-17",
+    "erstellt_durch": "AL / Claude",
+    "quellen": [
+      "wkz_batch_01_crimpdaten.json (WKZ 503-516)",
+      "wkz_batch_02_crimpdaten.json (WKZ 538-548)",
+      "wkz_batch_03_crimpdaten.json (WKZ 549-558)",
+      "wkz_batch_04_crimpdaten.json (WKZ 559-568)",
+      "wkz_batch_05_crimpdaten.json (WKZ 569-578)",
+      "wkz_batch_06_crimpdaten.json (WKZ 579-588)",
+      "wkz_batch_07_crimpdaten.json (WKZ 589-598)",
+      "wkz_batch_08_crimpdaten.json (WKZ 599-608)",
+      "wkz_batch_09_crimpdaten.json (WKZ 609-618)",
+      "wkz_batch_10_crimpdaten.json (WKZ 619-628)",
+      "wkz_batch_11_crimpdaten.json (WKZ 649-658)",
+      "wkz_batch_12_crimpdaten.json (WKZ 659-665)",
+      "wkz_batch_13_crimpdaten.json (WKZ 695-704)",
+      "wkz_batch_14_crimpdaten.json (WKZ 705-714)",
+      "wkz_batch_15_crimpdaten.json (WKZ 715-729)",
+      "wkz_batch_16_crimpdaten.json (WKZ 501, 508, 517-527)",
+      "wkz_batch_17_crimpdaten.json (WKZ 528-537, 546)",
+      "wkz_batch_18_crimpdaten.json (WKZ 629-638, 640, 643-644, 647-648)"
+    ],
+    "batches_verarbeitet": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18
+    ],
+    "batches_ausstehend": [],
+    "anzahl_werkzeuge": 180,
+    "anzahl_varianten": 233,
+    "null_fehler_politik": true,
+    "status": "ALLE BATCHES 1-18 VERARBEITET"
+  },
+  "statistik": {
+    "nach_status": {
+      "aktiv": 173,
+      "pdf_fehlt": 12,
+      "verschrottet": 7
+    },
+    "nach_qualitaet": {
+      "vollstaendig": 107,
+      "teilweise": 59,
+      "problematisch": 9
+    },
+    "nach_hersteller": {
+      "APST": 22,
+      "Alexander_Herter": 10,
+      "Schaefer": 14,
+      "Grote_Hartmann": 12,
+      "KTK": 8,
+      "AWM_Weidner": 3,
+      "AMP_Tyco": 6,
+      "IT_Crimp": 2,
+      "Sonstige": 23
+    }
+  },
+  "problematisch": [
+    {
+      "wkz_nr": "509",
+      "problem": "OCR-Qualität unzureichend",
+      "batch": 1,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "600",
+      "problem": "Schäfer-Anleitung ohne Crimpdaten",
+      "batch": 8,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "601",
+      "problem": "Schäfer-Anleitung ohne Crimpdaten",
+      "batch": 8,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "610",
+      "problem": "Crimpdaten teilweise beschädigt/unlesbar",
+      "batch": 9,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "611",
+      "problem": "Zuordnung Querschnitt/Crimphöhe unklar",
+      "batch": 9,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "615",
+      "problem": "Crimpdaten-Felder leer",
+      "batch": 9,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "617",
+      "problem": "Crimpdaten-Felder leer",
+      "batch": 9,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "652",
+      "problem": "Kontakt 25036 verschrottet, keine Crimphöhen",
+      "batch": 11,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "657",
+      "problem": "PDF-Struktur fragmentiert",
+      "batch": 11,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "659",
+      "problem": "Crimpdaten auf externem Datenblatt F 43/43-1",
+      "batch": 12,
+      "status": "datenblatt_pruefen"
+    },
+    {
+      "wkz_nr": "660",
+      "problem": "Crimpdaten auf externem Datenblatt F 268",
+      "batch": 12,
+      "status": "datenblatt_pruefen"
+    },
+    {
+      "wkz_nr": "661",
+      "problem": "Crimpdaten auf externem Datenblatt F 157",
+      "batch": 12,
+      "status": "datenblatt_pruefen"
+    },
+    {
+      "wkz_nr": "662",
+      "problem": "Kontakt verschrottet",
+      "batch": 12,
+      "status": "pruefen_ob_aktiv"
+    },
+    {
+      "wkz_nr": "698",
+      "problem": "Crimpbreite nicht lesbar",
+      "batch": 13,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "699",
+      "problem": "PDF-Encoding problematisch",
+      "batch": 13,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "705",
+      "problem": "Kontakt verschrottet (2013)",
+      "batch": 14,
+      "status": "verschrottet"
+    },
+    {
+      "wkz_nr": "708",
+      "problem": "PDF-Tabelle nicht lesbar",
+      "batch": 14,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "709",
+      "problem": "Kontakt verschrottet (KW 48/2024)",
+      "batch": 14,
+      "status": "verschrottet"
+    },
+    {
+      "wkz_nr": "711",
+      "problem": "Kontakt/Crimpdaten unbekannt",
+      "batch": 14,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "714",
+      "problem": "Crimpdaten unvollständig",
+      "batch": 14,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "718",
+      "problem": "VT-Satz, 7 Kontakte, keine Crimpdaten",
+      "batch": 15,
+      "status": "datenblatt_pruefen"
+    },
+    {
+      "wkz_nr": "721",
+      "problem": "AWM Weidner, Crimptabelle nicht lesbar",
+      "batch": 15,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "722",
+      "problem": "Tyco Applicator ohne Crimpdaten",
+      "batch": 15,
+      "status": "tyco_doku_anfordern"
+    },
+    {
+      "wkz_nr": "723",
+      "problem": "AWM Weidner, Crimptabelle nicht lesbar",
+      "batch": 15,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "725",
+      "problem": "Doppelcrimp, Crimpdaten unvollständig",
+      "batch": 15,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "508",
+      "problem": "Crimpdaten teilweise nicht lesbar (HANKE-Format)",
+      "batch": 16,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "519",
+      "problem": "Crimphöhen nicht im Dokument angegeben",
+      "batch": 16,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "521",
+      "problem": "Crimphöhen nicht im Dokument angegeben",
+      "batch": 16,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "523",
+      "problem": "AWM Weidner Tabellenformat nicht extrahierbar",
+      "batch": 16,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "524",
+      "problem": "AWM Weidner Tabellenformat nicht extrahierbar",
+      "batch": 16,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "526",
+      "problem": "Crimphöhen fehlen trotz Querschnitt",
+      "batch": 16,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "529",
+      "problem": "PDF-Qualität sehr schlecht",
+      "batch": 17,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "530",
+      "problem": "PDF komplett unleserlich",
+      "batch": 17,
+      "status": "kritisch_pruefen"
+    },
+    {
+      "wkz_nr": "531",
+      "problem": "PDF komplett unleserlich",
+      "batch": 17,
+      "status": "kritisch_pruefen"
+    },
+    {
+      "wkz_nr": "534",
+      "problem": "Crimpdaten Format anders als Standard",
+      "batch": 17,
+      "status": "manuell_pruefen"
+    },
+    {
+      "wkz_nr": "631",
+      "problem": "Crimphöhen nicht im Dokument",
+      "batch": 18,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "632",
+      "problem": "Kontakt 179955-2 verschrottet KW 48/2024",
+      "batch": 18,
+      "status": "verschrottet"
+    },
+    {
+      "wkz_nr": "633",
+      "problem": "PDF schlecht lesbar",
+      "batch": 18,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "634",
+      "problem": "Kontakt 777-9316S-T3 verschrottet KW 50/2023",
+      "batch": 18,
+      "status": "verschrottet"
+    },
+    {
+      "wkz_nr": "635",
+      "problem": "Kontakt 777-9320S-T3 verschrottet KW 48/2024",
+      "batch": 18,
+      "status": "verschrottet"
+    },
+    {
+      "wkz_nr": "636",
+      "problem": "Kontakt 39-00-0077 verschrottet",
+      "batch": 18,
+      "status": "verschrottet"
+    },
+    {
+      "wkz_nr": "638",
+      "problem": "Crimpdaten nicht extrahierbar",
+      "batch": 18,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "640",
+      "problem": "Kontakt 25036 verschrottet",
+      "batch": 18,
+      "status": "verschrottet"
+    },
+    {
+      "wkz_nr": "643",
+      "problem": "Nur Ersatzteilliste, keine Crimpdaten",
+      "batch": 18,
+      "status": "kein_datenblatt"
+    },
+    {
+      "wkz_nr": "644",
+      "problem": "Crimpdaten in separater Tabelle",
+      "batch": 18,
+      "status": "manuell_nachtragen"
+    },
+    {
+      "wkz_nr": "647",
+      "problem": "Nur Ersatzteilliste",
+      "batch": 18,
+      "status": "kein_datenblatt"
+    },
+    {
+      "wkz_nr": "648",
+      "problem": "Nur Ersatzteilliste",
+      "batch": 18,
+      "status": "kein_datenblatt"
+    }
+  ],
+  "kritische_warnungen": [
+    {
+      "wkz_nr": "514",
+      "warnung": "⚠️ ACHTUNG: Nicht ohne Kontakte crimpen!"
+    },
+    {
+      "wkz_nr": "614",
+      "warnung": "⚠️ ACHTUNG: Bei 125N reißt der Steckbereich des Kontaktes ab!"
+    },
+    {
+      "wkz_nr": "713",
+      "warnung": "⚠️ Isolationsdurchmesser bei beiden Litzen zu groß gewählt!"
+    },
+    {
+      "wkz_nr": "718",
+      "warnung": "⚠️ Beim Umbau auf Molex-Kontakte Tisch individuell einstellen!"
+    },
+    {
+      "wkz_nr": "725",
+      "warnung": "⚠️ Doppelcrimp 0.75 + 1.00 mm²"
+    },
+    {
+      "wkz_nr": "729",
+      "warnung": "⚠️ Isolation nur 0.75mm - max. 0.96mm verarbeitbar!"
+    },
+    {
+      "wkz_nr": "530",
+      "warnung": "⚠️ KRITISCH: PDF komplett unleserlich - manuelle Prüfung!"
+    },
+    {
+      "wkz_nr": "531",
+      "warnung": "⚠️ KRITISCH: PDF komplett unleserlich - manuelle Prüfung!"
+    },
+    {
+      "wkz_nr": "636",
+      "warnung": "⚠️ Querschnitt 1,50mm² ist für diesen Kontakt zu groß!"
+    },
+    {
+      "wkz_nr": "640",
+      "warnung": "⚠️ KRITISCH: Kontakt 25036 verschrottet!!!"
+    }
+  ],
+  "archiv_luecken": [
+    {
+      "bereich": "517-537",
+      "anzahl": 21,
+      "hinweis": "Keine PDFs vorhanden"
+    },
+    {
+      "bereich": "546",
+      "anzahl": 1,
+      "hinweis": "Fehlt in Batch 02"
+    }
+  ],
+  "duplikate_erkannt": [
+    {
+      "wkz_nummern": [
+        "505",
+        "512",
+        "516"
+      ],
+      "kontakt": "25783",
+      "hinweis": "Identische GHW-Crimpdaten"
+    },
+    {
+      "wkz_nummern": [
+        "540",
+        "541"
+      ],
+      "kontakt": "26312",
+      "hinweis": "Identische Teillisten"
+    },
+    {
+      "wkz_nummern": [
+        "542",
+        "543"
+      ],
+      "kontakt": "56313 116 075",
+      "hinweis": "Identische SAW"
+    },
+    {
+      "wkz_nummern": [
+        "548",
+        "552"
+      ],
+      "kontakt": "25029/7093036/365",
+      "hinweis": "Identische Lear-Daten"
+    },
+    {
+      "wkz_nummern": [
+        "564",
+        "572",
+        "577",
+        "578"
+      ],
+      "kontakt": "25213-25223",
+      "hinweis": "Gleiche GHW-Kontakte"
+    },
+    {
+      "wkz_nummern": [
+        "565",
+        "566"
+      ],
+      "kontakt": "25361",
+      "hinweis": "Identische Lear-Daten"
+    },
+    {
+      "wkz_nummern": [
+        "536",
+        "538",
+        "587",
+        "569",
+        "586"
+      ],
+      "kontakt": "25733",
+      "hinweis": "Identische GHW/Lear-Daten"
+    },
+    {
+      "wkz_nummern": [
+        "575",
+        "576",
+        "595",
+        "596",
+        "597"
+      ],
+      "kontakt": "SAW",
+      "hinweis": "Identische SAW Teillisten"
+    },
+    {
+      "wkz_nummern": [
+        "602",
+        "606"
+      ],
+      "kontakt": "794407",
+      "hinweis": "Identische AMP/Tyco-Daten"
+    },
+    {
+      "wkz_nummern": [
+        "607",
+        "608"
+      ],
+      "kontakt": "Löthilfe",
+      "hinweis": "Identische AMP-Daten"
+    },
+    {
+      "wkz_nummern": [
+        "625",
+        "626"
+      ],
+      "kontakt": "08-50-0187",
+      "hinweis": "Identische Molex-Daten"
+    },
+    {
+      "wkz_nummern": [
+        "651",
+        "655",
+        "629"
+      ],
+      "kontakt": "927827",
+      "hinweis": "Gleicher Kontakt, 651=Einzel, 655=Doppel"
+    },
+    {
+      "wkz_nummern": [
+        "616",
+        "703"
+      ],
+      "kontakt": "TN 01/0201600021",
+      "hinweis": "Identische Amphenol-Daten"
+    },
+    {
+      "wkz_nummern": [
+        "569",
+        "586",
+        "665"
+      ],
+      "kontakt": "25733/26.325.120",
+      "hinweis": "WKZ-Gruppe für HS-Kontakte"
+    },
+    {
+      "wkz_nummern": [
+        "701",
+        "724"
+      ],
+      "kontakt": "43030-0001",
+      "hinweis": "Identische Molex-Daten"
+    },
+    {
+      "wkz_nummern": [
+        "702",
+        "706"
+      ],
+      "kontakt": "25568",
+      "hinweis": "Identische GHW-Daten"
+    },
+    {
+      "wkz_nummern": [
+        "501",
+        "515",
+        "517",
+        "528"
+      ],
+      "kontakt": "25787",
+      "hinweis": "Identische GHW-Crimpdaten Batch16"
+    },
+    {
+      "wkz_nummern": [
+        "518",
+        "520"
+      ],
+      "kontakt": "Aderendhülse",
+      "hinweis": "Identisches Datenblatt"
+    },
+    {
+      "wkz_nummern": [
+        "519",
+        "521"
+      ],
+      "kontakt": "25131",
+      "hinweis": "1-fach/2-fach Clip"
+    },
+    {
+      "wkz_nummern": [
+        "523",
+        "524"
+      ],
+      "kontakt": "25258",
+      "hinweis": "AWM Weidner identisch"
+    },
+    {
+      "wkz_nummern": [
+        "530",
+        "531"
+      ],
+      "hinweis": "Beide unleserlich"
+    },
+    {
+      "wkz_nummern": [
+        "630",
+        "650"
+      ],
+      "kontakt": "Stocko S0.106.604",
+      "hinweis": "Identisches Datenblatt"
+    },
+    {
+      "wkz_nummern": [
+        "640",
+        "652"
+      ],
+      "kontakt": "25036",
+      "hinweis": "Beide verschrottet"
+    }
+  ],
+  "werkzeuge": [
+    {
+      "wkz_nr": "501",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "Schäfer (APST)",
+      "batch_quelle": 16,
+      "varianten": [
+        {
+          "confidence": 95,
+          "kontakt_nr": "25787",
+          "querschnitt_mm2": "1.00",
+          "draht_crimphoehe_mm": "1.34",
+          "draht_crimpbreite_mm": "1.56",
+          "bemerkung": "AE-Bremse, AE-Bremsrahmen"
+        },
+        {
+          "confidence": 95,
+          "kontakt_nr": "25787",
+          "querschnitt_mm2": "0.75",
+          "draht_crimphoehe_mm": "1.33",
+          "draht_crimpbreite_mm": "1.56"
+        }
+      ],
+      "warnungen": [],
+      "kontakt_nr": "25787",
+      "kontakt_hersteller": "GHW / Leer",
+      "bemerkung": "Identisches Datenblatt mit WKZ 515, 517, 528"
+    },
+    {
+      "wkz_nr": "503",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 60,
+      "wkz_hersteller": "Alexander Herter",
+      "kontakt_nr": "RSB 7791 V-6",
+      "kontakt_hersteller": "Stocko",
+      "querschnittsbereich_mm2": "4.00-6.00",
+      "batch_quelle": 1,
+      "varianten": [
+        {
+          "kontakt_nr": "RSB 7791 V-6",
+          "querschnitt_mm2": "4.00-6.00",
+          "confidence": 60
+        }
+      ],
+      "warnungen": [
+        "Crimpdaten-Felder leer"
+      ]
+    },
+    {
+      "wkz_nr": "505",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST",
+      "kontakt_nr": "25783",
+      "kontakt_hersteller": "GHW",
+      "querschnittsbereich_mm2": "1.00",
+      "batch_quelle": 1,
+      "varianten": [
+        {
+          "kontakt_nr": "25783",
+          "querschnitt_mm2": "1.00",
+          "draht_crimphoehe_mm": "1.77",
+          "draht_crimpbreite_mm": "1.67",
+          "confidence": 100
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "508",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 60,
+      "wkz_hersteller": "HANKE CRIMP-TECHNIK GmbH",
+      "batch_quelle": 16,
+      "varianten": [
+        {
+          "confidence": 60,
+          "kontakt_nr": "25783",
+          "querschnitt_mm2": "1.0",
+          "bemerkung": "Aderendhülse 13,5 mm lang, Crimphöhen nicht klar extrahierbar",
+          "nicht_lesbar": true
+        }
+      ],
+      "warnungen": [
+        "Crimpdaten teilweise nicht lesbar aus PDF"
+      ],
+      "kontakt_nr": "25783",
+      "kontakt_hersteller": "Aderendhülse"
+    },
+    {
+      "wkz_nr": "509",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 50,
+      "wkz_hersteller": "Hanke Crimp-Technik",
+      "kontakt_nr": "Aderendhülse",
+      "batch_quelle": 1,
+      "varianten": [
+        {
+          "kontakt_nr": "Aderendhülse",
+          "querschnitt_mm2": "1.0",
+          "confidence": 50
+        }
+      ],
+      "warnungen": [
+        "OCR-Qualität unzureichend"
+      ]
+    },
+    {
+      "wkz_nr": "510",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 60,
+      "wkz_hersteller": "Schäfer",
+      "kontakt_nr": "25128/25136",
+      "batch_quelle": 1,
+      "varianten": [
+        {
+          "kontakt_nr": "25128",
+          "querschnitt_mm2": "0.5-1.0",
+          "confidence": 60
+        },
+        {
+          "kontakt_nr": "25136",
+          "querschnitt_mm2": "1.5",
+          "confidence": 60
+        }
+      ],
+      "warnungen": [
+        "Nur Teilliste"
+      ]
+    },
+    {
+      "wkz_nr": "511",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 40,
+      "wkz_hersteller": "EHK/GHW",
+      "kontakt_nr": "621 012",
+      "batch_quelle": 1,
+      "varianten": [
+        {
+          "kontakt_nr": "621 012",
+          "confidence": 40
+        }
+      ],
+      "warnungen": [
+        "Nur Ersatzteilliste"
+      ]
+    },
+    {
+      "wkz_nr": "512",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST",
+      "kontakt_nr": "25783",
+      "kontakt_hersteller": "GHW",
+      "batch_quelle": 1,
+      "varianten": [
+        {
+          "kontakt_nr": "25783",
+          "querschnitt_mm2": "1.00",
+          "draht_crimphoehe_mm": "1.77",
+          "draht_crimpbreite_mm": "1.67",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "Identisch mit WKZ 505",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "513",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 70,
+      "wkz_hersteller": "AWM Weidner",
+      "kontakt_nr": "RSB 7791",
+      "kontakt_hersteller": "Stocko",
+      "batch_quelle": 1,
+      "varianten": [
+        {
+          "kontakt_nr": "RSB 7791",
+          "confidence": 70
+        }
+      ],
+      "warnungen": [
+        "Crimpdaten leer"
+      ]
+    },
+    {
+      "wkz_nr": "514",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 60,
+      "wkz_hersteller": "Alexander Herter",
+      "kontakt_nr": "RSB 7791 V-6",
+      "kontakt_hersteller": "Stocko",
+      "batch_quelle": 1,
+      "varianten": [
+        {
+          "kontakt_nr": "RSB 7791 V-6",
+          "querschnitt_mm2": "4.00-6.00",
+          "confidence": 60
+        }
+      ],
+      "warnungen": [
+        "⚠️ ACHTUNG: Nicht ohne Kontakte crimpen!"
+      ]
+    },
+    {
+      "wkz_nr": "515",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST",
+      "kontakt_nr": "25787",
+      "kontakt_hersteller": "GHW",
+      "batch_quelle": 1,
+      "varianten": [
+        {
+          "kontakt_nr": "25787",
+          "querschnitt_mm2": "1.00",
+          "draht_crimphoehe_mm": "1.34",
+          "draht_crimpbreite_mm": "1.56",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "25787",
+          "querschnitt_mm2": "0.75",
+          "draht_crimphoehe_mm": "1.33",
+          "draht_crimpbreite_mm": "1.56",
+          "confidence": 100
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "516",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST",
+      "kontakt_nr": "25783",
+      "kontakt_hersteller": "GHW",
+      "batch_quelle": 1,
+      "varianten": [
+        {
+          "kontakt_nr": "25783",
+          "querschnitt_mm2": "1.00",
+          "draht_crimphoehe_mm": "1.77",
+          "draht_crimpbreite_mm": "1.67",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "Identisch mit WKZ 505/512",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "517",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "Schäfer (APST)",
+      "batch_quelle": 16,
+      "varianten": [
+        {
+          "confidence": 95,
+          "kontakt_nr": "25787",
+          "querschnitt_mm2": "1.00",
+          "draht_crimphoehe_mm": "1.34",
+          "draht_crimpbreite_mm": "1.56",
+          "bemerkung": "AE-Bremse"
+        }
+      ],
+      "warnungen": [],
+      "kontakt_nr": "25787",
+      "kontakt_hersteller": "GHW / Leer",
+      "bemerkung": "Identisches Datenblatt mit WKZ 501, 515, 528"
+    },
+    {
+      "wkz_nr": "518",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 80,
+      "wkz_hersteller": "Unbekannt",
+      "batch_quelle": 16,
+      "varianten": [
+        {
+          "confidence": 80,
+          "draht_crimphoehe_mm": "1.48",
+          "draht_crimpbreite_mm": "2.09",
+          "bemerkung": "Variante 1"
+        },
+        {
+          "confidence": 80,
+          "draht_crimphoehe_mm": "1.58",
+          "draht_crimpbreite_mm": "2.12",
+          "bemerkung": "Variante 2"
+        },
+        {
+          "confidence": 80,
+          "draht_crimpbreite_mm": "2.15",
+          "bemerkung": "Variante 3"
+        }
+      ],
+      "warnungen": [
+        "Querschnitte nicht eindeutig zuordenbar"
+      ],
+      "kontakt_hersteller": "Aderendhülse",
+      "bemerkung": "Referenziert WKZ 520"
+    },
+    {
+      "wkz_nr": "519",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 70,
+      "wkz_hersteller": "Schäfer",
+      "batch_quelle": 16,
+      "varianten": [
+        {
+          "confidence": 70,
+          "kontakt_nr": "25131",
+          "querschnitt_mm2": "0.5 - 1.0",
+          "bemerkung": "1-fach-Clip, Umbausatz",
+          "nicht_lesbar": true
+        }
+      ],
+      "warnungen": [
+        "Crimphöhen nicht im Dokument angegeben"
+      ],
+      "kontakt_nr": "25131"
+    },
+    {
+      "wkz_nr": "520",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 80,
+      "wkz_hersteller": "Unbekannt",
+      "batch_quelle": 16,
+      "varianten": [
+        {
+          "confidence": 80,
+          "draht_crimphoehe_mm": "1.48",
+          "draht_crimpbreite_mm": "2.09"
+        }
+      ],
+      "warnungen": [],
+      "kontakt_hersteller": "Aderendhülse",
+      "bemerkung": "Identisches Datenblatt mit WKZ 518"
+    },
+    {
+      "wkz_nr": "521",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 70,
+      "wkz_hersteller": "Schäfer",
+      "batch_quelle": 16,
+      "varianten": [
+        {
+          "confidence": 70,
+          "kontakt_nr": "25131",
+          "querschnitt_mm2": "0.5 - 1.0",
+          "bemerkung": "2-fach-Clip",
+          "nicht_lesbar": true
+        }
+      ],
+      "warnungen": [
+        "Crimphöhen nicht im Dokument angegeben"
+      ],
+      "kontakt_nr": "25131",
+      "bemerkung": "Identisches Datenblatt mit WKZ 519"
+    },
+    {
+      "wkz_nr": "522",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "Schäfer (APST)",
+      "batch_quelle": 16,
+      "varianten": [
+        {
+          "confidence": 95,
+          "kontakt_nr": "25077",
+          "querschnitt_mm2": "2.50",
+          "draht_crimphoehe_mm": "2.15",
+          "draht_crimpbreite_mm": "2.73",
+          "iso_crimphoehe_mm": "2.78",
+          "bemerkung": "Sonderwerkzeug, VT-Satz"
+        }
+      ],
+      "warnungen": [],
+      "kontakt_nr": "25077",
+      "kontakt_hersteller": "Leer"
+    },
+    {
+      "wkz_nr": "523",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 60,
+      "wkz_hersteller": "AWM Weidner",
+      "batch_quelle": 16,
+      "varianten": [
+        {
+          "confidence": 60,
+          "kontakt_nr": "25258",
+          "bemerkung": "2-fach Clip, Crimpdaten in Tabelle nicht extrahierbar",
+          "nicht_lesbar": true
+        }
+      ],
+      "warnungen": [
+        "Crimpdaten in Tabellenformat - nicht vollständig extrahierbar"
+      ],
+      "kontakt_nr": "25258",
+      "bemerkung": "Identisches Datenblatt mit WKZ 524"
+    },
+    {
+      "wkz_nr": "524",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 60,
+      "wkz_hersteller": "AWM Weidner",
+      "batch_quelle": 16,
+      "varianten": [
+        {
+          "confidence": 60,
+          "kontakt_nr": "25258",
+          "bemerkung": "2-fach Clip",
+          "nicht_lesbar": true
+        }
+      ],
+      "warnungen": [
+        "Crimpdaten in Tabellenformat - nicht vollständig extrahierbar"
+      ],
+      "kontakt_nr": "25258",
+      "bemerkung": "Identisches Datenblatt mit WKZ 523"
+    },
+    {
+      "wkz_nr": "525",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 90,
+      "wkz_hersteller": "Schäfer (APST)",
+      "batch_quelle": 16,
+      "varianten": [
+        {
+          "confidence": 90,
+          "querschnitt_mm2": "2.50",
+          "draht_crimphoehe_mm": "2.05",
+          "draht_crimpbreite_mm": "2.61",
+          "bemerkung": "MWSA, Sonderwerkzeug"
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "526",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 70,
+      "wkz_hersteller": "Schäfer (APST)",
+      "batch_quelle": 16,
+      "varianten": [
+        {
+          "confidence": 70,
+          "kontakt_nr": "21600",
+          "querschnitt_mm2": "10.00",
+          "bemerkung": "Aderendhülse, WKZ-Nr: 0221/SB 47",
+          "nicht_lesbar": true
+        }
+      ],
+      "warnungen": [
+        "Crimphöhen nicht lesbar"
+      ],
+      "kontakt_nr": "21600",
+      "kontakt_hersteller": "LAT"
+    },
+    {
+      "wkz_nr": "527",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 85,
+      "wkz_hersteller": "Schäfer (APST)",
+      "batch_quelle": 16,
+      "varianten": [
+        {
+          "confidence": 85,
+          "querschnitt_mm2": "1.50",
+          "draht_crimphoehe_mm": "1.77",
+          "bemerkung": "WKZ-Nr: 0273/SB 37"
+        }
+      ],
+      "warnungen": [],
+      "kontakt_hersteller": "GHW / Leer",
+      "bemerkung": "Identisches Datenblatt mit WKZ 505, 512, 516"
+    },
+    {
+      "wkz_nr": "528",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "Schäfer (APST)",
+      "batch_quelle": 17,
+      "varianten": [
+        {
+          "confidence": 95,
+          "kontakt_nr": "25787",
+          "querschnitt_mm2": "1.00",
+          "draht_crimphoehe_mm": "1.34",
+          "draht_crimpbreite_mm": "1.56",
+          "bemerkung": "AE-Bremse"
+        },
+        {
+          "confidence": 95,
+          "kontakt_nr": "25787",
+          "querschnitt_mm2": "0.75",
+          "draht_crimphoehe_mm": "1.33",
+          "draht_crimpbreite_mm": "1.56"
+        }
+      ],
+      "warnungen": [],
+      "kontakt_nr": "25787",
+      "kontakt_hersteller": "GHW / Leer",
+      "bemerkung": "Identisches Datenblatt mit WKZ 501, 515, 517"
+    },
+    {
+      "wkz_nr": "529",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 60,
+      "wkz_hersteller": "Unbekannt",
+      "batch_quelle": 17,
+      "varianten": [
+        {
+          "confidence": 60,
+          "draht_crimphoehe_mm": "1.45",
+          "draht_crimpbreite_mm": "1.8",
+          "bemerkung": "PDF schlecht lesbar, nur Einzelwerte extrahierbar",
+          "nicht_lesbar": true
+        }
+      ],
+      "warnungen": [
+        "PDF-Qualität sehr schlecht, Daten unsicher"
+      ]
+    },
+    {
+      "wkz_nr": "530",
+      "status": "aktiv",
+      "extraktions_qualitaet": "problematisch",
+      "confidence": 0,
+      "wkz_hersteller": "Unbekannt",
+      "batch_quelle": 17,
+      "varianten": [
+        {
+          "confidence": 0,
+          "bemerkung": "PDF nicht lesbar - keine Textextraktion möglich",
+          "nicht_lesbar": true
+        }
+      ],
+      "warnungen": [
+        "KRITISCH: PDF komplett unleserlich"
+      ]
+    },
+    {
+      "wkz_nr": "531",
+      "status": "aktiv",
+      "extraktions_qualitaet": "problematisch",
+      "confidence": 0,
+      "wkz_hersteller": "Unbekannt",
+      "batch_quelle": 17,
+      "varianten": [
+        {
+          "confidence": 0,
+          "bemerkung": "PDF nicht lesbar - keine Textextraktion möglich",
+          "nicht_lesbar": true
+        }
+      ],
+      "warnungen": [
+        "KRITISCH: PDF komplett unleserlich"
+      ],
+      "bemerkung": "Identisches Datenblatt mit WKZ 530"
+    },
+    {
+      "wkz_nr": "532",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "Alexander Herter (KTK)",
+      "batch_quelle": 17,
+      "varianten": [
+        {
+          "confidence": 95,
+          "kontakt_nr": "0010129005",
+          "querschnitt_mm2": "2.40",
+          "draht_crimphoehe_mm": "2.02",
+          "draht_crimpbreite_mm": "2.64",
+          "iso_crimphoehe_mm": "3.78",
+          "iso_crimpbreite_mm": "3.82",
+          "bemerkung": "Eigene Konstruktion, VT-Satz"
+        }
+      ],
+      "warnungen": [],
+      "kontakt_nr": "0010129005"
+    },
+    {
+      "wkz_nr": "533",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "Schäfer (APST)",
+      "batch_quelle": 17,
+      "varianten": [
+        {
+          "confidence": 95,
+          "kontakt_nr": "RSB 8178.258",
+          "draht_crimphoehe_mm": "2.02",
+          "draht_crimpbreite_mm": "2.64",
+          "iso_crimphoehe_mm": "3.78",
+          "iso_crimpbreite_mm": "3.82",
+          "bemerkung": "Datum: 21.06.2012"
+        }
+      ],
+      "warnungen": [],
+      "kontakt_nr": "RSB 8178.258",
+      "kontakt_hersteller": "Stocko"
+    },
+    {
+      "wkz_nr": "534",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 70,
+      "wkz_hersteller": "GHW",
+      "batch_quelle": 17,
+      "varianten": [
+        {
+          "confidence": 70,
+          "draht_crimphoehe_mm": "2.70",
+          "draht_crimpbreite_mm": "6.00",
+          "bemerkung": "FLACHSTECKHÜLSE 6,3X0,8-1, Außendurchmesser ca. 2,4 mm"
+        }
+      ],
+      "warnungen": [
+        "Crimpdaten Format anders als Standard"
+      ]
+    },
+    {
+      "wkz_nr": "535",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST",
+      "batch_quelle": 17,
+      "varianten": [
+        {
+          "confidence": 100,
+          "kontakt_nr": "26.325.120",
+          "querschnitt_mm2": "2.50",
+          "draht_crimphoehe_mm": "1.96",
+          "draht_crimpbreite_mm": "3.08",
+          "iso_crimphoehe_mm": "3.97",
+          "iso_crimpbreite_mm": "4.47",
+          "bemerkung": "VT-Satz, Referenz WKZ 665, Datum: 24.10.2024"
+        },
+        {
+          "confidence": 95,
+          "kontakt_nr": "26.325.120",
+          "querschnitt_mm2": "2.50",
+          "draht_crimphoehe_mm": "1.75",
+          "draht_crimpbreite_mm": "2.90",
+          "bemerkung": "Variante 2"
+        },
+        {
+          "confidence": 95,
+          "kontakt_nr": "26.325.120",
+          "querschnitt_mm2": "2.50",
+          "draht_crimphoehe_mm": "2.05",
+          "draht_crimpbreite_mm": "2.92",
+          "bemerkung": "Variante 3"
+        }
+      ],
+      "warnungen": [],
+      "kontakt_nr": "26.325.120",
+      "kontakt_hersteller": "HS"
+    },
+    {
+      "wkz_nr": "536",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "Schäfer (APST)",
+      "batch_quelle": 17,
+      "varianten": [
+        {
+          "confidence": 95,
+          "querschnitt_mm2": "0.75",
+          "draht_crimphoehe_mm": "1.49",
+          "draht_crimpbreite_mm": "2.40",
+          "iso_crimphoehe_mm": "2.61",
+          "iso_crimpbreite_mm": "3.53",
+          "bemerkung": "WKZ-Nr: 0078/SB 45, Datum: 12.10.2010"
+        }
+      ],
+      "warnungen": [],
+      "kontakt_hersteller": "GHW",
+      "bemerkung": "Identisches Datenblatt mit WKZ 538, 587"
+    },
+    {
+      "wkz_nr": "537",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "AWM Weidner",
+      "batch_quelle": 17,
+      "varianten": [
+        {
+          "confidence": 95,
+          "kontakt_nr": "26305.110",
+          "querschnitt_mm2": "0.25",
+          "draht_crimphoehe_mm": "1.32",
+          "draht_crimpbreite_mm": "2.30",
+          "iso_crimphoehe_mm": "2.91",
+          "iso_crimpbreite_mm": "3.54",
+          "bemerkung": "WKZ-Nr: 0023/SB 63, Messerdistanz 6,00 mm, Niederhalter eingebaut"
+        }
+      ],
+      "warnungen": [],
+      "kontakt_nr": "26305.110",
+      "kontakt_hersteller": "Hans Schatz"
+    },
+    {
+      "wkz_nr": "538",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "Schäfer",
+      "kontakt_nr": "25722",
+      "kontakt_hersteller": "GHW",
+      "batch_quelle": 2,
+      "varianten": [
+        {
+          "kontakt_nr": "25722",
+          "querschnitt_mm2": "0.75",
+          "draht_crimphoehe_mm": "1.49",
+          "draht_crimpbreite_mm": "2.40",
+          "iso_crimphoehe_mm": "2.61",
+          "iso_crimpbreite_mm": "3.53",
+          "abzugswert_n": "160",
+          "confidence": 100
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "539",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "Alexander Herter / APST",
+      "kontakt_nr": "25737.417/25744",
+      "kontakt_hersteller": "Lear",
+      "batch_quelle": 2,
+      "varianten": [
+        {
+          "kontakt_nr": "25737.417",
+          "querschnitt_mm2": "3.00",
+          "draht_crimphoehe_mm": "2.20",
+          "draht_crimpbreite_mm": "3.70",
+          "abzugswert_n": "500",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "25744",
+          "querschnitt_mm2": "4.00",
+          "draht_crimphoehe_mm": "2.45",
+          "draht_crimpbreite_mm": "4.01",
+          "abzugswert_n": ">500",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "25744",
+          "querschnitt_mm2": "6.00",
+          "draht_crimphoehe_mm": "2.65",
+          "draht_crimpbreite_mm": "4.05",
+          "abzugswert_n": ">500",
+          "confidence": 100
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "540",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 40,
+      "wkz_hersteller": "Schäfer",
+      "kontakt_nr": "26312",
+      "batch_quelle": 2,
+      "varianten": [
+        {
+          "kontakt_nr": "26312",
+          "querschnitt_mm2": "1.5-2.5",
+          "confidence": 40
+        }
+      ],
+      "warnungen": [
+        "Nur Teilliste"
+      ]
+    },
+    {
+      "wkz_nr": "541",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 40,
+      "wkz_hersteller": "Schäfer",
+      "kontakt_nr": "26312",
+      "batch_quelle": 2,
+      "varianten": [
+        {
+          "kontakt_nr": "26312",
+          "querschnitt_mm2": "1.5-2.5",
+          "confidence": 40
+        }
+      ],
+      "bemerkung": "Identisch mit WKZ 540",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "542",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 40,
+      "wkz_hersteller": "Grote & Hartmann",
+      "kontakt_nr": "56313 116 075",
+      "batch_quelle": 2,
+      "varianten": [
+        {
+          "kontakt_nr": "56313 116 075",
+          "querschnitt_mm2": "0.5-1.0",
+          "confidence": 40
+        }
+      ],
+      "warnungen": [
+        "Nur Ersatzteilliste"
+      ]
+    },
+    {
+      "wkz_nr": "543",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 40,
+      "wkz_hersteller": "Grote & Hartmann",
+      "kontakt_nr": "56313 116 075",
+      "batch_quelle": 2,
+      "varianten": [
+        {
+          "kontakt_nr": "56313 116 075",
+          "querschnitt_mm2": "0.5-1.0",
+          "confidence": 40
+        }
+      ],
+      "bemerkung": "Identisch mit WKZ 542",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "544",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST",
+      "kontakt_nr": "25213-25223",
+      "kontakt_hersteller": "GHW",
+      "batch_quelle": 2,
+      "varianten": [
+        {
+          "kontakt_nr": "25213-25223",
+          "querschnitt_mm2": "1.50",
+          "draht_crimphoehe_mm": "2.25",
+          "draht_crimpbreite_mm": "3.43",
+          "abzugswert_n": "300",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "25213-25223",
+          "querschnitt_mm2": "2.50",
+          "draht_crimphoehe_mm": "2.45",
+          "draht_crimpbreite_mm": "3.46",
+          "abzugswert_n": "450",
+          "confidence": 100
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "545",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST",
+      "kontakt_nr": "25231/24.359.120",
+      "kontakt_hersteller": "GHW/HS Connectors",
+      "batch_quelle": 2,
+      "varianten": [
+        {
+          "kontakt_nr": "25231",
+          "querschnitt_mm2": "6.00",
+          "draht_crimphoehe_mm": "3.35",
+          "draht_crimpbreite_mm": "5.20",
+          "abzugswert_n": "500+",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "24.359.120",
+          "querschnitt_mm2": "4.00",
+          "draht_crimphoehe_mm": "2.92",
+          "draht_crimpbreite_mm": "5.17",
+          "abzugswert_n": ">500",
+          "confidence": 100
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "546",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 90,
+      "wkz_hersteller": "Schäfer (APST)",
+      "batch_quelle": 17,
+      "varianten": [
+        {
+          "confidence": 90,
+          "kontakt_nr": "25258",
+          "querschnitt_mm2": "2.50",
+          "draht_crimphoehe_mm": "2.05",
+          "bemerkung": "4 Clip, WKZ-Nr: 0289/SB 17, Datum: 19.05.2014"
+        }
+      ],
+      "warnungen": [],
+      "kontakt_nr": "25258",
+      "kontakt_hersteller": "G + H"
+    },
+    {
+      "wkz_nr": "547",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST",
+      "kontakt_nr": "SPS-91T-25OS",
+      "kontakt_hersteller": "JST",
+      "batch_quelle": 2,
+      "varianten": [
+        {
+          "kontakt_nr": "SPS-91T-25OS",
+          "querschnitt_mm2": "4.00",
+          "draht_crimphoehe_mm": "2.30",
+          "draht_crimpbreite_mm": "3.83",
+          "abzugswert_n": "500+",
+          "confidence": 100
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "548",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "Alexander Herter",
+      "kontakt_nr": "25029/7093036/365",
+      "kontakt_hersteller": "Lear",
+      "batch_quelle": 2,
+      "varianten": [
+        {
+          "kontakt_nr": "25029/7093036/365",
+          "querschnitt_mm2": "0.75",
+          "draht_crimphoehe_mm": "1.20",
+          "draht_crimpbreite_mm": "1.87",
+          "abzugswert_n": "120",
+          "confidence": 100
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "549",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST / Alexander Herter",
+      "kontakt_nr": "24810/0010916001",
+      "batch_quelle": 3,
+      "varianten": [
+        {
+          "kontakt_nr": "24810",
+          "querschnitt_mm2": "0.50",
+          "draht_crimphoehe_mm": "1.30",
+          "abzugswert_n": "95",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "24810",
+          "querschnitt_mm2": "0.75",
+          "draht_crimphoehe_mm": "1.38",
+          "abzugswert_n": "135",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "24810",
+          "querschnitt_mm2": "1.00",
+          "draht_crimphoehe_mm": "1.46",
+          "abzugswert_n": "185",
+          "confidence": 100
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "550",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 60,
+      "wkz_hersteller": "EHK/GHW",
+      "kontakt_nr": "621 012",
+      "batch_quelle": 3,
+      "varianten": [
+        {
+          "kontakt_nr": "621 012",
+          "querschnitt_mm2": "0.5",
+          "draht_crimphoehe_mm": "1.55",
+          "confidence": 60
+        }
+      ],
+      "warnungen": [
+        "Nur Teilliste"
+      ]
+    },
+    {
+      "wkz_nr": "551",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 40,
+      "wkz_hersteller": "Schäfer",
+      "kontakt_nr": "25365",
+      "batch_quelle": 3,
+      "varianten": [
+        {
+          "kontakt_nr": "25365",
+          "querschnitt_mm2": "0.5-1.0",
+          "confidence": 40
+        }
+      ],
+      "warnungen": [
+        "Nur Teilliste"
+      ]
+    },
+    {
+      "wkz_nr": "552",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "Alexander Herter",
+      "kontakt_nr": "25029/7093036/365",
+      "batch_quelle": 3,
+      "varianten": [
+        {
+          "kontakt_nr": "25029/7093036/365",
+          "querschnitt_mm2": "0.75",
+          "draht_crimphoehe_mm": "1.20",
+          "abzugswert_n": "120",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "Identisch mit WKZ 548",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "553",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "KTK/APST",
+      "kontakt_nr": "Ringkabelschuh/15404",
+      "batch_quelle": 3,
+      "varianten": [
+        {
+          "kontakt_nr": "Ringkabelschuh",
+          "querschnitt_mm2": "1.00",
+          "draht_crimphoehe_mm": "1.98",
+          "abzugswert_n": "185",
+          "confidence": 100
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "554",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 90,
+      "wkz_hersteller": "Grote & Hartmann",
+      "kontakt_nr": "25029",
+      "batch_quelle": 3,
+      "varianten": [
+        {
+          "kontakt_nr": "25029",
+          "querschnitt_mm2": "0.50",
+          "draht_crimphoehe_mm": "2.10-2.20",
+          "abzugswert_n": "350",
+          "confidence": 90
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "555",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "Alexander Herter",
+      "kontakt_nr": "RSB 7603",
+      "kontakt_hersteller": "Stocko",
+      "batch_quelle": 3,
+      "varianten": [
+        {
+          "kontakt_nr": "RSB 7603",
+          "querschnitt_mm2": "0.75",
+          "draht_crimphoehe_mm": "1.35",
+          "abzugswert_n": "145",
+          "confidence": 100
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "556",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 40,
+      "wkz_hersteller": "AWM Weidner / Schäfer",
+      "kontakt_nr": "25696/25697/25698",
+      "batch_quelle": 3,
+      "varianten": [
+        {
+          "kontakt_nr": "25696",
+          "confidence": 40
+        }
+      ],
+      "warnungen": [
+        "Nur Teilliste"
+      ]
+    },
+    {
+      "wkz_nr": "557",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 90,
+      "wkz_hersteller": "APST",
+      "kontakt_nr": "25258",
+      "batch_quelle": 3,
+      "varianten": [
+        {
+          "kontakt_nr": "25258",
+          "querschnitt_mm2": "2.50",
+          "draht_crimphoehe_mm": "2.05",
+          "confidence": 90
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "558",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 65,
+      "wkz_hersteller": "Schäfer / APST",
+      "kontakt_nr": "25131/25258",
+      "batch_quelle": 3,
+      "varianten": [
+        {
+          "kontakt_nr": "25258",
+          "querschnitt_mm2": "2.50",
+          "draht_crimphoehe_mm": "2.05",
+          "confidence": 90
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "559",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST",
+      "kontakt_nr": "24.359.120",
+      "kontakt_hersteller": "HS Connectors",
+      "batch_quelle": 4,
+      "varianten": [
+        {
+          "kontakt_nr": "24.359.120",
+          "querschnitt_mm2": "4.00",
+          "draht_crimphoehe_mm": "2.92",
+          "abzugswert_n": ">500",
+          "confidence": 100
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "560",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 40,
+      "wkz_hersteller": "Schäfer",
+      "kontakt_nr": "Zünder",
+      "batch_quelle": 4,
+      "varianten": [
+        {
+          "kontakt_nr": "Zünder",
+          "confidence": 40
+        }
+      ],
+      "warnungen": [
+        "Nur Teilliste"
+      ]
+    },
+    {
+      "wkz_nr": "561",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 40,
+      "wkz_hersteller": "Schäfer",
+      "kontakt_nr": "25016",
+      "batch_quelle": 4,
+      "varianten": [
+        {
+          "kontakt_nr": "25016",
+          "querschnitt_mm2": "0.75",
+          "confidence": 40
+        }
+      ],
+      "warnungen": [
+        "Nur Teilliste"
+      ]
+    },
+    {
+      "wkz_nr": "563",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "APST / Alexander Herter",
+      "kontakt_nr": "24.360.110",
+      "kontakt_hersteller": "HS Connectors",
+      "batch_quelle": 4,
+      "varianten": [
+        {
+          "kontakt_nr": "24.360.110",
+          "querschnitt_mm2": "0.75",
+          "draht_crimphoehe_mm": "1.65",
+          "confidence": 90
+        },
+        {
+          "kontakt_nr": "24.360.110",
+          "querschnitt_mm2": "1.00",
+          "draht_crimphoehe_mm": "1.75",
+          "abzugswert_n": "180",
+          "confidence": 100
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "564",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST",
+      "kontakt_nr": "25213-25223",
+      "kontakt_hersteller": "GHW",
+      "batch_quelle": 4,
+      "varianten": [
+        {
+          "kontakt_nr": "25213-25223",
+          "querschnitt_mm2": "1.50",
+          "draht_crimphoehe_mm": "2.25",
+          "abzugswert_n": "300",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "25213-25223",
+          "querschnitt_mm2": "2.50",
+          "draht_crimphoehe_mm": "2.45",
+          "abzugswert_n": "450",
+          "confidence": 100
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "565",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST",
+      "kontakt_nr": "25361",
+      "kontakt_hersteller": "Lear",
+      "batch_quelle": 4,
+      "varianten": [
+        {
+          "kontakt_nr": "25361",
+          "querschnitt_mm2": "4.00",
+          "draht_crimphoehe_mm": "3.25",
+          "abzugswert_n": ">500",
+          "confidence": 100
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "566",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST",
+      "kontakt_nr": "25361",
+      "batch_quelle": 4,
+      "varianten": [
+        {
+          "kontakt_nr": "25361",
+          "querschnitt_mm2": "4.00",
+          "draht_crimphoehe_mm": "3.25",
+          "abzugswert_n": ">500",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "Identisch mit WKZ 565",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "567",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST",
+      "kontakt_nr": "24.359.120/25231",
+      "batch_quelle": 4,
+      "varianten": [
+        {
+          "kontakt_nr": "24.359.120",
+          "querschnitt_mm2": "4.00",
+          "draht_crimphoehe_mm": "2.92",
+          "abzugswert_n": ">500",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "25231",
+          "querschnitt_mm2": "6.00",
+          "draht_crimphoehe_mm": "3.35",
+          "abzugswert_n": "500+",
+          "confidence": 100
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "568",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "KTK / APST",
+      "kontakt_nr": "25213-25223",
+      "batch_quelle": 4,
+      "varianten": [
+        {
+          "kontakt_nr": "GHW",
+          "querschnitt_mm2": "1.00",
+          "draht_crimphoehe_mm": "1.98",
+          "abzugswert_n": "185",
+          "confidence": 100
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "569",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST / GHW",
+      "kontakt_nr": "25733",
+      "kontakt_hersteller": "Lear/GHW",
+      "batch_quelle": 5,
+      "varianten": [
+        {
+          "kontakt_nr": "25733",
+          "querschnitt_mm2": "1.00",
+          "draht_crimphoehe_mm": "1.75",
+          "abzugswert_n": "240",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "25733",
+          "querschnitt_mm2": "1.50/2.50",
+          "draht_crimphoehe_mm": "2.05",
+          "abzugswert_n": "380",
+          "confidence": 100
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "570",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 40,
+      "wkz_hersteller": "Schäfer",
+      "kontakt_nr": "RSB 7727",
+      "batch_quelle": 5,
+      "varianten": [
+        {
+          "kontakt_nr": "RSB 7727",
+          "querschnitt_mm2": "1.50",
+          "confidence": 40
+        }
+      ],
+      "warnungen": [
+        "Nur Teilliste"
+      ]
+    },
+    {
+      "wkz_nr": "571",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 93,
+      "wkz_hersteller": "APST / Alexander Herter",
+      "kontakt_nr": "23715/25149.122/24.360.110",
+      "batch_quelle": 5,
+      "varianten": [
+        {
+          "kontakt_nr": "25149.122",
+          "querschnitt_mm2": "1.50",
+          "draht_crimphoehe_mm": "1.70",
+          "abzugswert_n": "230",
+          "confidence": 100
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "572",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST",
+      "kontakt_nr": "25213-25223",
+      "batch_quelle": 5,
+      "varianten": [
+        {
+          "kontakt_nr": "25213-25223",
+          "querschnitt_mm2": "1.50",
+          "draht_crimphoehe_mm": "2.25",
+          "abzugswert_n": "300",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "Identisch mit WKZ 564",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "573",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 90,
+      "wkz_hersteller": "Alexander Herter",
+      "kontakt_nr": "25757.123.178",
+      "batch_quelle": 5,
+      "varianten": [
+        {
+          "kontakt_nr": "25757.123.178",
+          "querschnitt_mm2": "2x0.50",
+          "draht_crimphoehe_mm": "1.35",
+          "confidence": 90
+        }
+      ],
+      "bemerkung": "Doppelcrimp",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "574",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "Alexander Herter",
+      "kontakt_nr": "25149.122",
+      "batch_quelle": 5,
+      "varianten": [
+        {
+          "kontakt_nr": "25149.122",
+          "querschnitt_mm2": "1.50",
+          "draht_crimphoehe_mm": "1.70",
+          "abzugswert_n": "230",
+          "confidence": 100
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "575",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 40,
+      "wkz_hersteller": "Grote & Hartmann",
+      "kontakt_nr": "SAW",
+      "batch_quelle": 5,
+      "varianten": [
+        {
+          "kontakt_nr": "SAW",
+          "confidence": 40
+        }
+      ],
+      "warnungen": [
+        "Nur Teilliste"
+      ]
+    },
+    {
+      "wkz_nr": "576",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 40,
+      "wkz_hersteller": "Grote & Hartmann",
+      "kontakt_nr": "SAW",
+      "batch_quelle": 5,
+      "varianten": [
+        {
+          "kontakt_nr": "SAW",
+          "confidence": 40
+        }
+      ],
+      "bemerkung": "Identisch mit WKZ 575",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "577",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST",
+      "kontakt_nr": "25213-25223/25360",
+      "batch_quelle": 5,
+      "varianten": [
+        {
+          "kontakt_nr": "25213-25223",
+          "querschnitt_mm2": "1.50",
+          "draht_crimphoehe_mm": "2.25",
+          "abzugswert_n": "300",
+          "confidence": 100
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "578",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST",
+      "kontakt_nr": "25213-25223",
+      "batch_quelle": 5,
+      "varianten": [
+        {
+          "kontakt_nr": "25213-25223",
+          "querschnitt_mm2": "1.50",
+          "draht_crimphoehe_mm": "2.25",
+          "abzugswert_n": "300",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "Identisch mit WKZ 564",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "579",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "KTK",
+      "kontakt_nr": "GHW/Ring-Gabelkabelschuh",
+      "kontakt_hersteller": "GHW",
+      "batch_quelle": 6,
+      "varianten": [
+        {
+          "kontakt_nr": "GHW",
+          "querschnitt_mm2": "1.00",
+          "draht_crimphoehe_mm": "1.98",
+          "draht_crimpbreite_mm": "2.70",
+          "iso_crimphoehe_mm": "3.65",
+          "iso_crimpbreite_mm": "5.78",
+          "abzugswert_n": "185",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "Ring-Gabelkabelschuh",
+          "querschnitt_mm2": "1.00",
+          "draht_crimphoehe_mm": "1.98",
+          "draht_crimpbreite_mm": "2.73",
+          "iso_crimphoehe_mm": "3.60",
+          "iso_crimpbreite_mm": "5.84",
+          "abzugswert_n": "185",
+          "confidence": 100
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "580",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "Alexander Herter / AWM / KTK",
+      "kontakt_nr": "SXH-001T-P0,6/50802-8000",
+      "batch_quelle": 6,
+      "varianten": [
+        {
+          "kontakt_nr": "SXH-001T-P0,6",
+          "kontakt_hersteller": "AST",
+          "querschnitt_mm2": "0.20",
+          "draht_crimphoehe_mm": "0.68",
+          "draht_crimpbreite_mm": "1.41",
+          "abzugswert_n": "20",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "SXH-001T-P0,6",
+          "querschnitt_mm2": "0.34",
+          "draht_crimphoehe_mm": "0.73",
+          "draht_crimpbreite_mm": "1.43",
+          "abzugswert_n": "40",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "Kontaktfeder",
+          "kontakt_hersteller": "KTK",
+          "draht_crimphoehe_mm": "0.87",
+          "draht_crimpbreite_mm": "1.34",
+          "abzugswert_n": "45",
+          "confidence": 100
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "581",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST",
+      "kontakt_nr": "1060-16-0622/1062-12-0166",
+      "kontakt_hersteller": "Deutsch",
+      "batch_quelle": 6,
+      "varianten": [
+        {
+          "kontakt_nr": "1060-16-0622",
+          "querschnitt_mm2": "0.75",
+          "draht_crimphoehe_mm": "1.25",
+          "draht_crimpbreite_mm": "2.07",
+          "abzugswert_n": "140",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "1060-16-0622",
+          "querschnitt_mm2": "1.00",
+          "draht_crimphoehe_mm": "1.30",
+          "draht_crimpbreite_mm": "2.08",
+          "abzugswert_n": "170",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "1062-12-0166",
+          "querschnitt_mm2": "2.50",
+          "draht_crimphoehe_mm": "1.92",
+          "draht_crimpbreite_mm": "3.20",
+          "abzugswert_n": "350",
+          "confidence": 100
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "583",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST",
+      "kontakt_nr": "21107",
+      "kontakt_hersteller": "LAT",
+      "batch_quelle": 6,
+      "varianten": [
+        {
+          "kontakt_nr": "21107",
+          "querschnitt_mm2": "0.14",
+          "draht_crimphoehe_mm": "1.01",
+          "draht_crimpbreite_mm": "1.61",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "21107",
+          "querschnitt_mm2": "0.22",
+          "draht_crimphoehe_mm": "1.05",
+          "draht_crimpbreite_mm": "1.62",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "21107",
+          "querschnitt_mm2": "0.34",
+          "draht_crimphoehe_mm": "1.12",
+          "draht_crimpbreite_mm": "1.63",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "Aderendhülse mit Isolation",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "584",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 40,
+      "wkz_hersteller": "Schäfer",
+      "kontakt_nr": "25505",
+      "batch_quelle": 6,
+      "varianten": [
+        {
+          "kontakt_nr": "25505",
+          "querschnitt_mm2": "0.5-1.0",
+          "confidence": 40
+        }
+      ],
+      "warnungen": [
+        "Nur Teilliste"
+      ]
+    },
+    {
+      "wkz_nr": "585",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 40,
+      "wkz_hersteller": "Schäfer",
+      "kontakt_nr": "25431",
+      "batch_quelle": 6,
+      "varianten": [
+        {
+          "kontakt_nr": "25431",
+          "querschnitt_mm2": "1.5-2.5",
+          "confidence": 40
+        }
+      ],
+      "warnungen": [
+        "Nur Teilliste"
+      ]
+    },
+    {
+      "wkz_nr": "586",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST / GHW",
+      "kontakt_nr": "25733",
+      "kontakt_hersteller": "GHW/Lear",
+      "batch_quelle": 6,
+      "varianten": [
+        {
+          "kontakt_nr": "25733",
+          "querschnitt_mm2": "1.00",
+          "draht_crimphoehe_mm": "1.70",
+          "draht_crimpbreite_mm": "2.90",
+          "abzugswert_n": "240",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "25733",
+          "querschnitt_mm2": "1.50",
+          "draht_crimphoehe_mm": "1.75",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "25733",
+          "querschnitt_mm2": "2.50",
+          "draht_crimphoehe_mm": "2.05",
+          "abzugswert_n": "380",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "Identisch mit WKZ 569",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "587",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST / Schäfer",
+      "kontakt_nr": "25722/25733",
+      "batch_quelle": 6,
+      "varianten": [
+        {
+          "kontakt_nr": "25722",
+          "querschnitt_mm2": "0.75",
+          "draht_crimphoehe_mm": "1.49",
+          "draht_crimpbreite_mm": "2.40",
+          "abzugswert_n": "160",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "25733",
+          "querschnitt_mm2": "1.00-2.50",
+          "draht_crimphoehe_mm": "1.75-2.05",
+          "abzugswert_n": "240-380",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "Identisch mit WKZ 569/586",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "588",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST",
+      "kontakt_nr": "0011332101",
+      "kontakt_hersteller": "Inarca",
+      "batch_quelle": 6,
+      "varianten": [
+        {
+          "kontakt_nr": "0011332101",
+          "querschnitt_mm2": "1.00",
+          "draht_crimphoehe_mm": "1.35",
+          "draht_crimpbreite_mm": "2.35",
+          "iso_crimphoehe_mm": "2.80",
+          "iso_crimpbreite_mm": "3.48",
+          "abzugswert_n": "185",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "Kunde: Kötting",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "589",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "Alexander Herter",
+      "kontakt_nr": "21600",
+      "kontakt_hersteller": "LAT/HSH",
+      "batch_quelle": 7,
+      "varianten": [
+        {
+          "kontakt_nr": "21600",
+          "querschnitt_mm2": "10.00",
+          "draht_crimphoehe_mm": "4.30",
+          "draht_crimpbreite_mm": "4.87",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "Großer Querschnitt, Litze vom Kunden",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "590",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 40,
+      "wkz_hersteller": "Schäfer",
+      "kontakt_nr": "25004L/25009",
+      "batch_quelle": 7,
+      "varianten": [
+        {
+          "kontakt_nr": "25004L/25009",
+          "confidence": 40
+        }
+      ],
+      "warnungen": [
+        "Nur Teilliste"
+      ]
+    },
+    {
+      "wkz_nr": "592",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "Grote & Hartmann",
+      "kontakt_nr": "Rundsteckhülse 3.5",
+      "kontakt_hersteller": "GHW",
+      "batch_quelle": 7,
+      "varianten": [
+        {
+          "kontakt_nr": "Rundsteckhülse 3.5",
+          "querschnitt_mm2": "1.50",
+          "draht_crimphoehe_mm": "1.45",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "Rundsteckhülse 3.5",
+          "querschnitt_mm2": "2.50",
+          "draht_crimphoehe_mm": "1.55",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "FLRY/FLY",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "595",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 40,
+      "wkz_hersteller": "Grote & Hartmann",
+      "kontakt_nr": "SAW",
+      "batch_quelle": 7,
+      "varianten": [
+        {
+          "kontakt_nr": "SAW",
+          "querschnitt_mm2": "0.75-1.50",
+          "confidence": 40
+        }
+      ],
+      "bemerkung": "Crimpform B",
+      "warnungen": [
+        "Nur Teilliste"
+      ]
+    },
+    {
+      "wkz_nr": "596",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 40,
+      "wkz_hersteller": "Grote & Hartmann",
+      "kontakt_nr": "SAW",
+      "batch_quelle": 7,
+      "varianten": [
+        {
+          "kontakt_nr": "SAW",
+          "confidence": 40
+        }
+      ],
+      "warnungen": [
+        "Nur Teilliste"
+      ]
+    },
+    {
+      "wkz_nr": "597",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 40,
+      "wkz_hersteller": "Grote & Hartmann",
+      "kontakt_nr": "SAW",
+      "batch_quelle": 7,
+      "varianten": [
+        {
+          "kontakt_nr": "SAW",
+          "querschnitt_mm2": "1.50-2.50",
+          "confidence": 40
+        }
+      ],
+      "bemerkung": "FLY",
+      "warnungen": [
+        "Nur Teilliste"
+      ]
+    },
+    {
+      "wkz_nr": "598",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "Grote & Hartmann",
+      "kontakt_nr": "25116",
+      "kontakt_hersteller": "GHW",
+      "batch_quelle": 7,
+      "varianten": [
+        {
+          "kontakt_nr": "25116",
+          "querschnitt_mm2": "0.50",
+          "draht_crimphoehe_mm": "1.30",
+          "draht_crimpbreite_mm": "2.40",
+          "iso_crimphoehe_mm": "2.50",
+          "iso_crimpbreite_mm": "3.60",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "25116",
+          "querschnitt_mm2": "0.75",
+          "draht_crimphoehe_mm": "1.40",
+          "draht_crimpbreite_mm": "2.40",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "25116",
+          "querschnitt_mm2": "1.00",
+          "draht_crimphoehe_mm": "1.50",
+          "draht_crimpbreite_mm": "2.40",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "SAW, Crimpform B, FLY",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "599",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 50,
+      "wkz_hersteller": "GHW / GROTE & HARTMANN",
+      "kontakt_nr": "SAW 56980 610 305",
+      "batch_quelle": 8,
+      "varianten": [
+        {
+          "kontakt_nr": "SAW 56980 610 305",
+          "querschnitt_mm2": "0.50-1.40",
+          "confidence": 50
+        }
+      ],
+      "warnungen": [
+        "Keine Crimphöhen im Dokument"
+      ]
+    },
+    {
+      "wkz_nr": "600",
+      "status": "aktiv",
+      "extraktions_qualitaet": "problematisch",
+      "confidence": 0,
+      "wkz_hersteller": "Bernhard Schäfer",
+      "batch_quelle": 8,
+      "varianten": [],
+      "bemerkung": "Generische Betriebsanleitung ohne Crimpdaten",
+      "warnungen": [
+        "Schäfer-Anleitung ohne werkzeugspezifische Crimpdaten"
+      ]
+    },
+    {
+      "wkz_nr": "601",
+      "status": "aktiv",
+      "extraktions_qualitaet": "problematisch",
+      "confidence": 0,
+      "wkz_hersteller": "Bernhard Schäfer",
+      "batch_quelle": 8,
+      "varianten": [],
+      "bemerkung": "Generische Betriebsanleitung ohne Crimpdaten",
+      "warnungen": [
+        "Schäfer-Anleitung ohne werkzeugspezifische Crimpdaten"
+      ]
+    },
+    {
+      "wkz_nr": "602",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "Alexander Herter / KTK",
+      "kontakt_nr": "794407",
+      "kontakt_hersteller": "AMP / Tyco",
+      "batch_quelle": 8,
+      "varianten": [
+        {
+          "kontakt_nr": "794407",
+          "querschnitt_mm2": "0.75",
+          "draht_crimphoehe_mm": "1.08",
+          "draht_crimpbreite_mm": "1.72",
+          "iso_crimphoehe_mm": "3.01",
+          "iso_crimpbreite_mm": "2.97",
+          "abzugswert_n": "140",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "KTK Litze vom Kunden",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "603",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 40,
+      "wkz_hersteller": "AWM Weidner",
+      "kontakt_nr": "75-330-11",
+      "batch_quelle": 8,
+      "varianten": [
+        {
+          "kontakt_nr": "75-330-11",
+          "confidence": 40
+        }
+      ],
+      "warnungen": [
+        "OCR-Qualität eingeschränkt"
+      ]
+    },
+    {
+      "wkz_nr": "604",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 60,
+      "wkz_hersteller": "IT-Crimp",
+      "kontakt_nr": "1375 819-1",
+      "kontakt_hersteller": "Tyco",
+      "batch_quelle": 8,
+      "varianten": [
+        {
+          "kontakt_nr": "1375 819-1",
+          "querschnitt_mm2": "AWG 26-22",
+          "confidence": 60
+        }
+      ],
+      "bemerkung": "Seriennummer 3612",
+      "warnungen": [
+        "Crimpdaten nur teilweise lesbar"
+      ]
+    },
+    {
+      "wkz_nr": "605",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "IT-Crimp",
+      "kontakt_nr": "170 361-1",
+      "kontakt_hersteller": "Tyco",
+      "batch_quelle": 8,
+      "varianten": [
+        {
+          "kontakt_nr": "170 361-1",
+          "querschnitt_mm2": "0.14",
+          "draht_crimphoehe_mm": "0.66",
+          "draht_crimpbreite_mm": "1.72",
+          "confidence": 95
+        }
+      ],
+      "bemerkung": "Seriennummer 38215, Schliffbild vorhanden",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "606",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "Alexander Herter / KTK",
+      "kontakt_nr": "794407",
+      "kontakt_hersteller": "AMP / Tyco",
+      "batch_quelle": 8,
+      "varianten": [
+        {
+          "kontakt_nr": "794407",
+          "querschnitt_mm2": "0.75",
+          "draht_crimphoehe_mm": "1.08",
+          "draht_crimpbreite_mm": "1.72",
+          "abzugswert_n": "140",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "Identisch mit WKZ 602",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "607",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "KTK",
+      "kontakt_nr": "Löthilfe (0350566)",
+      "kontakt_hersteller": "AMP / Tyco",
+      "batch_quelle": 8,
+      "varianten": [
+        {
+          "kontakt_nr": "Löthilfe",
+          "querschnitt_mm2": "0.75",
+          "draht_crimphoehe_mm": "1.03",
+          "draht_crimpbreite_mm": "1.69",
+          "iso_crimphoehe_mm": "2.52",
+          "iso_crimpbreite_mm": "2.50",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "Umbau von WKZ 508, Lfd.Nr. 1069",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "608",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "KTK",
+      "kontakt_nr": "Löthilfe",
+      "kontakt_hersteller": "AMP / Tyco",
+      "batch_quelle": 8,
+      "varianten": [
+        {
+          "kontakt_nr": "Löthilfe",
+          "querschnitt_mm2": "0.75",
+          "draht_crimphoehe_mm": "1.03",
+          "draht_crimpbreite_mm": "1.69",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "Identisch mit WKZ 607",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "609",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 90,
+      "wkz_hersteller": "AMP/Tyco",
+      "werkzeug_typ": "MIN.APPLICATOR SF",
+      "kontakt_nr": "925819",
+      "kontakt_bezeichnung": "MINI AMP-IN Sidefeed",
+      "batch_quelle": 9,
+      "varianten": [
+        {
+          "kontakt_nr": "925819",
+          "querschnitt_mm2": "0.33",
+          "querschnitt_awg": "23",
+          "draht_crimphoehe_mm": "1.03",
+          "draht_crimpbreite_mm": "1.33",
+          "iso_crimphoehe_mm": "2.39",
+          "iso_crimpbreite_mm": "2.36",
+          "confidence": 90
+        }
+      ],
+      "bemerkung": "AMP-O-LECTRIC Applicator",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "610",
+      "status": "aktiv",
+      "extraktions_qualitaet": "nur_teillisten",
+      "confidence": 60,
+      "wkz_hersteller": "AMP/Tyco",
+      "werkzeug_typ": "MQC-APPLICATOR/HD",
+      "kontakt_nr": "0350566",
+      "batch_quelle": 9,
+      "varianten": [],
+      "bemerkung": "Crimpdaten teilweise beschädigt/unlesbar",
+      "warnungen": [
+        "Manuell nachtragen"
+      ]
+    },
+    {
+      "wkz_nr": "611",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 70,
+      "wkz_hersteller": "AMP/Tyco",
+      "werkzeug_typ": "MQC-APPLICATOR 878493-2",
+      "kontakt_nr": "0770060/0794013",
+      "batch_quelle": 9,
+      "varianten": [
+        {
+          "index": "A",
+          "draht_crimphoehe_mm": "1.52",
+          "draht_crimpbreite_mm": "2.50",
+          "confidence": 70
+        },
+        {
+          "index": "B",
+          "draht_crimphoehe_mm": "1.48",
+          "draht_crimpbreite_mm": "2.44",
+          "confidence": 70
+        }
+      ],
+      "bemerkung": "Zuordnung Querschnitt/Crimphöhe unklar",
+      "warnungen": [
+        "Manuell prüfen"
+      ]
+    },
+    {
+      "wkz_nr": "614",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "KTK",
+      "werkzeug_typ": "Sidefeed, Drehkopf MR, MWSA",
+      "kontakt_nr": "Buchsenkontakt",
+      "batch_quelle": 9,
+      "varianten": [
+        {
+          "kontakt_nr": "Buchsenkontakt",
+          "querschnitt_mm2": "0.25",
+          "draht_crimphoehe_mm": "0.75",
+          "draht_crimpbreite_mm": "1.78",
+          "iso_crimphoehe_mm": "2.18",
+          "iso_crimpbreite_mm": "2.60",
+          "abzugswert_n": "70",
+          "confidence": 95
+        },
+        {
+          "querschnitt_mm2": "0.50",
+          "draht_crimphoehe_mm": "0.85",
+          "draht_crimpbreite_mm": "1.80",
+          "abzugswert_n": "140",
+          "confidence": 95
+        },
+        {
+          "querschnitt_mm2": "1.00",
+          "draht_crimphoehe_mm": "0.97",
+          "draht_crimpbreite_mm": "1.86",
+          "abzugswert_n": "125",
+          "confidence": 95
+        }
+      ],
+      "warnungen": [
+        "⚠️ ACHTUNG: Bei 125N reißt der Steckbereich des Kontaktes ab!"
+      ]
+    },
+    {
+      "wkz_nr": "615",
+      "status": "aktiv",
+      "extraktions_qualitaet": "leeres_formular",
+      "confidence": 30,
+      "wkz_hersteller": "Tyco",
+      "werkzeug_typ": "IT-Crimp",
+      "kontakt_nr": "280 530",
+      "batch_quelle": 9,
+      "varianten": [],
+      "bemerkung": "Crimpdaten-Felder leer",
+      "warnungen": [
+        "Manuell nachtragen"
+      ]
+    },
+    {
+      "wkz_nr": "616",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "Amphenol",
+      "werkzeug_typ": "KTK/APST Sidefeed MWSA",
+      "kontakt_nr": "TNO1/0201600021",
+      "batch_quelle": 9,
+      "datum": "27.01.2014",
+      "varianten": [
+        {
+          "kontakt_nr": "TNO1",
+          "querschnitt_mm2": "0.50",
+          "draht_crimphoehe_mm": "1.25",
+          "draht_crimpbreite_mm": "2.23",
+          "iso_crimphoehe_mm": "2.87",
+          "iso_crimpbreite_mm": "3.22",
+          "abzugswert_n": "95",
+          "confidence": 95
+        },
+        {
+          "querschnitt_mm2": "0.75",
+          "draht_crimphoehe_mm": "1.31",
+          "draht_crimpbreite_mm": "2.24",
+          "abzugswert_n": "140",
+          "confidence": 95
+        },
+        {
+          "querschnitt_mm2": "1.50",
+          "draht_crimphoehe_mm": "1.50",
+          "draht_crimpbreite_mm": "2.28",
+          "abzugswert_n": "210",
+          "confidence": 95
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "617",
+      "status": "aktiv",
+      "extraktions_qualitaet": "leeres_formular",
+      "confidence": 30,
+      "wkz_hersteller": "Würth",
+      "werkzeug_typ": "IT-Crimp",
+      "kontakt_nr": "662 002 137 22",
+      "batch_quelle": 9,
+      "varianten": [],
+      "bemerkung": "Crimpdaten-Felder leer",
+      "warnungen": [
+        "Manuell nachtragen"
+      ]
+    },
+    {
+      "wkz_nr": "618",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "Schäfer",
+      "werkzeug_typ": "Schnellwechselwerkzeug Längstransport",
+      "kontakt_nr": "28CT08-10D",
+      "batch_quelle": 9,
+      "datum": "28.03.2002",
+      "varianten": [
+        {
+          "kontakt_nr": "28CT08-10D",
+          "querschnitt_mm2": "0.75",
+          "einstellung_draht": "F/l",
+          "einstellung_iso": "2/5",
+          "draht_crimphoehe_mm": "1.29",
+          "draht_crimpbreite_mm": "2.35",
+          "iso_crimphoehe_mm": "2.71",
+          "iso_crimpbreite_mm": "2.94",
+          "abzugswert_n": "183",
+          "confidence": 95
+        }
+      ],
+      "distanzscheibe_mm": "8.682",
+      "bemerkung": "Umbausatz 0.75mm²",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "619",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "KM Corporate / HATKO",
+      "werkzeug_typ": "Miniapplicator",
+      "kontakt_nr": "TMHTC009K2J001956",
+      "seriennummer": "TM.029559",
+      "batch_quelle": 10,
+      "datum": "09.06.2020",
+      "varianten": [
+        {
+          "querschnitt_mm2": "2.50",
+          "index": "E1",
+          "draht_crimphoehe_mm": "1.80",
+          "draht_crimpbreite_mm": "3.10",
+          "abzugswert_n": "32.62",
+          "confidence": 95
+        },
+        {
+          "querschnitt_mm2": "1.50",
+          "index": "G1",
+          "draht_crimphoehe_mm": "1.60",
+          "draht_crimpbreite_mm": "3.10",
+          "abzugswert_n": "29.04",
+          "confidence": 95
+        },
+        {
+          "querschnitt_mm2": "1.00",
+          "index": "H1",
+          "draht_crimphoehe_mm": "1.50",
+          "draht_crimpbreite_mm": "3.10",
+          "abzugswert_n": "18.63",
+          "confidence": 95
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "621",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "LAT / HS",
+      "werkzeug_typ": "KTK Endfeed Rastkopf MWSA",
+      "kontakt_nr": "22818127",
+      "seriennummer": "0362/88 18",
+      "batch_quelle": 10,
+      "datum": "08.02.2021",
+      "varianten": [
+        {
+          "kontakt_nr": "22818127",
+          "querschnitt_mm2": "0.34",
+          "draht_crimphoehe_mm": "0.92",
+          "draht_crimpbreite_mm": "1.36",
+          "iso_crimphoehe_mm": "1.55",
+          "iso_crimpbreite_mm": "1.95",
+          "abzugswert_n": "80",
+          "confidence": 95
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "624",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "Schäfer",
+      "werkzeug_typ": "Schäfer Drehkopf Quertransport",
+      "kontakt_nr": "4809",
+      "batch_quelle": 10,
+      "datum": "26.05.1998",
+      "varianten": [
+        {
+          "kontakt_nr": "4809",
+          "querschnitt_mm2": "0.25",
+          "draht_crimphoehe_mm": "0.85",
+          "draht_crimpbreite_mm": "1.44",
+          "iso_crimphoehe_mm": "1.58",
+          "iso_crimpbreite_mm": "1.80",
+          "abzugswert_n": "65",
+          "confidence": 95
+        }
+      ],
+      "distanzscheibe_mm": "8.68",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "625",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "Molex / Schäfer",
+      "werkzeug_typ": "Schäfer Drehkopf Quertransport",
+      "kontakt_nr": "08-50-0187",
+      "batch_quelle": 10,
+      "datum": "10.06.1998",
+      "varianten": [
+        {
+          "kontakt_nr": "08-50-0187",
+          "querschnitt_mm2": "0.34",
+          "draht_crimphoehe_mm": "1.12",
+          "draht_crimpbreite_mm": "2.01",
+          "iso_crimphoehe_mm": "2.70",
+          "iso_crimpbreite_mm": "2.47",
+          "abzugswert_n": "100",
+          "confidence": 95
+        }
+      ],
+      "distanzscheibe_mm": "8.682",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "626",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "Molex / Schäfer",
+      "kontakt_nr": "08-50-0187",
+      "batch_quelle": 10,
+      "varianten": [
+        {
+          "kontakt_nr": "08-50-0187",
+          "querschnitt_mm2": "0.34",
+          "draht_crimphoehe_mm": "1.12",
+          "draht_crimpbreite_mm": "2.01",
+          "abzugswert_n": "100",
+          "confidence": 95
+        }
+      ],
+      "bemerkung": "DUPLIKAT von WKZ 625",
+      "warnungen": [
+        "Duplikat prüfen"
+      ]
+    },
+    {
+      "wkz_nr": "627",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 90,
+      "wkz_hersteller": "Diverse (VT-Satz)",
+      "werkzeug_typ": "VT-Satz Sidefeed MWSA Rastkopf",
+      "batch_quelle": 10,
+      "datum": "2014-2015",
+      "varianten": [
+        {
+          "kontakt_nr": "282403-1",
+          "kontakt_hersteller": "Tyco",
+          "querschnitt_mm2": "0.35",
+          "draht_crimphoehe_mm": "0.97",
+          "abzugswert_n": "60",
+          "confidence": 90
+        },
+        {
+          "kontakt_nr": "282403-1",
+          "querschnitt_mm2": "0.50",
+          "draht_crimphoehe_mm": "1.08",
+          "abzugswert_n": "95",
+          "confidence": 90
+        },
+        {
+          "kontakt_nr": "171662",
+          "kontakt_hersteller": "AMP/Tyco",
+          "querschnitt_mm2": "1.00",
+          "draht_crimphoehe_mm": "1.30",
+          "abzugswert_n": "185",
+          "confidence": 90
+        },
+        {
+          "kontakt_nr": "282110",
+          "querschnitt_mm2": "0.75-1.50",
+          "draht_crimphoehe_mm": "1.26",
+          "abzugswert_n": "145",
+          "confidence": 90
+        },
+        {
+          "kontakt_nr": "964273",
+          "kontakt_hersteller": "Schäfer",
+          "querschnitt_mm2": "2.50",
+          "draht_crimphoehe_mm": "1.88",
+          "abzugswert_n": "350",
+          "confidence": 90
+        }
+      ],
+      "bemerkung": "VT-Satz mit mehreren Kontakten",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "629",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "Schäfer (APST)",
+      "batch_quelle": 18,
+      "varianten": [
+        {
+          "confidence": 95,
+          "draht_crimphoehe_mm": "1.55",
+          "draht_crimpbreite_mm": "2.12",
+          "iso_crimphoehe_mm": "3.70",
+          "iso_crimpbreite_mm": "3.60",
+          "bemerkung": "WKZ-Nr: 0285/SB 23, Sidefeed, MWSA"
+        }
+      ],
+      "warnungen": [],
+      "kontakt_hersteller": "AMP",
+      "bemerkung": "Identisches Datenblatt mit WKZ 651, 655"
+    },
+    {
+      "wkz_nr": "630",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "Schäfer (APST)",
+      "batch_quelle": 18,
+      "varianten": [
+        {
+          "confidence": 95,
+          "kontakt_nr": "S0.106.604",
+          "querschnitt_mm2": "0.75 + 0.25",
+          "draht_crimphoehe_mm": "1.27",
+          "draht_crimpbreite_mm": "1.62",
+          "iso_crimphoehe_mm": "2.88",
+          "iso_crimpbreite_mm": "2.91",
+          "bemerkung": "WKZ-Nr: 0082/SB 01, zur freien Verwendung, Einzel- & Doppelanschlag"
+        }
+      ],
+      "warnungen": [],
+      "kontakt_nr": "S0.106.604",
+      "kontakt_hersteller": "Stocko",
+      "bemerkung": "Identisches Datenblatt mit WKZ 650"
+    },
+    {
+      "wkz_nr": "631",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 70,
+      "wkz_hersteller": "Schäfer",
+      "batch_quelle": 18,
+      "varianten": [
+        {
+          "confidence": 70,
+          "kontakt_nr": "166054",
+          "querschnitt_mm2": "0.14",
+          "bemerkung": "Kurze Automatenkurve, Quertransport, Umbausatz",
+          "nicht_lesbar": true
+        }
+      ],
+      "warnungen": [
+        "Crimphöhen nicht im Dokument angegeben"
+      ],
+      "kontakt_nr": "166054"
+    },
+    {
+      "wkz_nr": "632",
+      "status": "verschrottet",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 85,
+      "wkz_hersteller": "Schäfer (APST)",
+      "batch_quelle": 18,
+      "varianten": [
+        {
+          "confidence": 85,
+          "kontakt_nr": "179955-2",
+          "draht_crimphoehe_mm": "2.00",
+          "iso_crimphoehe_mm": "3.30",
+          "bemerkung": "WKZ-Nr: 0466/Umbau, Kontakt in KW 48/2024 verschrottet"
+        }
+      ],
+      "warnungen": [
+        "Kontakt verschrottet"
+      ],
+      "kontakt_nr": "179955-2",
+      "kontakt_hersteller": "Leer"
+    },
+    {
+      "wkz_nr": "633",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 50,
+      "wkz_hersteller": "USB ELEKTRO",
+      "batch_quelle": 18,
+      "varianten": [
+        {
+          "confidence": 50,
+          "bemerkung": "PDF schlecht lesbar",
+          "nicht_lesbar": true
+        }
+      ],
+      "warnungen": [
+        "Crimpdaten nicht extrahierbar"
+      ]
+    },
+    {
+      "wkz_nr": "634",
+      "status": "verschrottet",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 60,
+      "wkz_hersteller": "Schäfer",
+      "batch_quelle": 18,
+      "varianten": [
+        {
+          "confidence": 60,
+          "kontakt_nr": "163081/083",
+          "querschnitt_mm2": "0.75",
+          "bemerkung": "Einstelltabelle, Kontakt 777-9316S-T3 in KW 50/2023 verschrottet",
+          "nicht_lesbar": true
+        }
+      ],
+      "warnungen": [
+        "Kontakt verschrottet",
+        "Crimpdaten in Tabellenformat"
+      ],
+      "kontakt_nr": "163081/083"
+    },
+    {
+      "wkz_nr": "635",
+      "status": "verschrottet",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 60,
+      "wkz_hersteller": "Alexander Herter (KTK)",
+      "batch_quelle": 18,
+      "varianten": [
+        {
+          "confidence": 60,
+          "kontakt_nr": "163085",
+          "bemerkung": "VT-Satz, Kontakt 777-9320S-T3 in KW 48/2024 verschrottet",
+          "nicht_lesbar": true
+        }
+      ],
+      "warnungen": [
+        "Kontakt verschrottet",
+        "Crimpdaten nicht vollständig lesbar"
+      ],
+      "kontakt_nr": "163085",
+      "kontakt_hersteller": "AMP/Tyco"
+    },
+    {
+      "wkz_nr": "636",
+      "status": "verschrottet",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 70,
+      "wkz_hersteller": "Schäfer (APST)",
+      "batch_quelle": 18,
+      "varianten": [
+        {
+          "confidence": 70,
+          "kontakt_nr": "39-00-0077",
+          "querschnitt_mm2": "1.50",
+          "bemerkung": "WKZ-Nr: 0076/SB 82, Hinweis: Querschnitt 1,50mm² ist für diesen Kontakt zu groß",
+          "nicht_lesbar": true
+        }
+      ],
+      "warnungen": [
+        "Kontakt verschrottet",
+        "Querschnitt-Warnung im Dokument"
+      ],
+      "kontakt_nr": "39-00-0077",
+      "kontakt_hersteller": "Molex"
+    },
+    {
+      "wkz_nr": "637",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "Schäfer (APST)",
+      "batch_quelle": 18,
+      "varianten": [
+        {
+          "confidence": 95,
+          "querschnitt_mm2": "0.25",
+          "draht_crimphoehe_mm": "0.78",
+          "draht_crimpbreite_mm": "1.71",
+          "iso_crimphoehe_mm": "1.60",
+          "iso_crimpbreite_mm": "1.84",
+          "bemerkung": "VT-Satz"
+        },
+        {
+          "confidence": 95,
+          "querschnitt_mm2": "0.35",
+          "draht_crimphoehe_mm": "0.84",
+          "draht_crimpbreite_mm": "1.72",
+          "iso_crimphoehe_mm": "1.78",
+          "iso_crimpbreite_mm": "1.88"
+        },
+        {
+          "confidence": 90,
+          "draht_crimphoehe_mm": "0.89",
+          "draht_crimpbreite_mm": "1.72",
+          "bemerkung": "Variante 3"
+        }
+      ],
+      "warnungen": [],
+      "kontakt_hersteller": "Lumberg"
+    },
+    {
+      "wkz_nr": "638",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 60,
+      "wkz_hersteller": "Schäfer",
+      "batch_quelle": 18,
+      "varianten": [
+        {
+          "confidence": 60,
+          "kontakt_nr": "1000-00234",
+          "bemerkung": "Drehkopf, Kurze Automatenkurve, Stripper 516953",
+          "nicht_lesbar": true
+        }
+      ],
+      "warnungen": [
+        "Crimpdaten nicht extrahierbar"
+      ],
+      "kontakt_nr": "1000-00234",
+      "kontakt_hersteller": "EPS"
+    },
+    {
+      "wkz_nr": "640",
+      "status": "verschrottet",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 60,
+      "wkz_hersteller": "Schäfer",
+      "batch_quelle": 18,
+      "varianten": [
+        {
+          "confidence": 60,
+          "kontakt_nr": "25036",
+          "querschnitt_mm2": "0.5",
+          "bemerkung": "Umbausatz, Längstransport, KONTAKT VERSCHROTTET",
+          "nicht_lesbar": true
+        }
+      ],
+      "warnungen": [
+        "KRITISCH: Kontakt verschrottet!!!"
+      ],
+      "kontakt_nr": "25036",
+      "bemerkung": "Identisches Datenblatt mit WKZ 652"
+    },
+    {
+      "wkz_nr": "643",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 50,
+      "wkz_hersteller": "GHW",
+      "batch_quelle": 18,
+      "varianten": [
+        {
+          "confidence": 50,
+          "bemerkung": "Ersatzteilliste, keine Crimpdaten im Dokument",
+          "nicht_lesbar": true
+        }
+      ],
+      "warnungen": [
+        "Nur Ersatzteilliste, keine Crimpdaten"
+      ]
+    },
+    {
+      "wkz_nr": "644",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 70,
+      "wkz_hersteller": "Schäfer",
+      "batch_quelle": 18,
+      "varianten": [
+        {
+          "confidence": 70,
+          "kontakt_nr": "25863",
+          "querschnitt_mm2": "0.75",
+          "bemerkung": "Handkurve (12°)",
+          "nicht_lesbar": true
+        }
+      ],
+      "warnungen": [
+        "Crimpdaten in separater Tabelle"
+      ],
+      "kontakt_nr": "25863"
+    },
+    {
+      "wkz_nr": "647",
+      "status": "aktiv",
+      "extraktions_qualitaet": "problematisch",
+      "confidence": 40,
+      "wkz_hersteller": "GHW",
+      "batch_quelle": 18,
+      "varianten": [
+        {
+          "confidence": 40,
+          "bemerkung": "Nur Ersatzteilliste mit Artikelnummern",
+          "nicht_lesbar": true
+        }
+      ],
+      "warnungen": [
+        "Keine Crimpdaten im Dokument"
+      ]
+    },
+    {
+      "wkz_nr": "648",
+      "status": "aktiv",
+      "extraktions_qualitaet": "problematisch",
+      "confidence": 40,
+      "wkz_hersteller": "GHW",
+      "batch_quelle": 18,
+      "varianten": [
+        {
+          "confidence": 40,
+          "bemerkung": "Nur Ersatzteilliste mit Artikelnummern",
+          "nicht_lesbar": true
+        }
+      ],
+      "warnungen": [
+        "Keine Crimpdaten im Dokument"
+      ]
+    },
+    {
+      "wkz_nr": "649",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "GHW (Grote & Hartmann)",
+      "kontakt_nr": "25131",
+      "kontakt_hersteller": "GHW",
+      "batch_quelle": 11,
+      "varianten": [
+        {
+          "kontakt_nr": "25131",
+          "querschnitt_mm2": "0.50",
+          "draht_crimphoehe_mm": "1.10",
+          "draht_crimpbreite_mm": "2.15",
+          "confidence": 95,
+          "bemerkung": "1XFLY Leitertyp"
+        },
+        {
+          "kontakt_nr": "25131",
+          "querschnitt_mm2": "0.75",
+          "draht_crimphoehe_mm": "1.20",
+          "draht_crimpbreite_mm": "2.15",
+          "confidence": 95
+        },
+        {
+          "kontakt_nr": "25131",
+          "querschnitt_mm2": "1.00",
+          "draht_crimphoehe_mm": "1.30",
+          "draht_crimpbreite_mm": "2.15",
+          "confidence": 95
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "650",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "Schneider Eigenbau",
+      "kontakt_nr": "S0.106.604",
+      "kontakt_hersteller": "Stocko",
+      "batch_quelle": 11,
+      "varianten": [
+        {
+          "kontakt_nr": "S0.106.604",
+          "querschnitt_mm2": "0.75-1.00",
+          "draht_crimphoehe_mm": "1.27",
+          "draht_crimpbreite_mm": "1.62",
+          "iso_crimphoehe_mm": "2.88",
+          "iso_crimpbreite_mm": "2.91",
+          "abzugswert_n": "145",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "Aufbau H. Fehr, WKZ 630/650 Kombination",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "651",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST (Schäfer)",
+      "kontakt_nr": "927827",
+      "kontakt_hersteller": "AMP / Tyco",
+      "batch_quelle": 11,
+      "varianten": [
+        {
+          "kontakt_nr": "927827",
+          "querschnitt_mm2": "0.50",
+          "draht_crimphoehe_mm": "1.39",
+          "draht_crimpbreite_mm": "2.11",
+          "iso_crimphoehe_mm": "3.14",
+          "iso_crimpbreite_mm": "3.49",
+          "abzugswert_n": "95",
+          "confidence": 100,
+          "bemerkung": "AWG 20, Referenz nach Tyco"
+        }
+      ],
+      "bemerkung": "Reparatur-WKZ, WKZ 629/651/655 Gruppe",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "652",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 65,
+      "wkz_hersteller": "Schäfer",
+      "kontakt_nr": "25036/141075",
+      "batch_quelle": 11,
+      "varianten": [
+        {
+          "kontakt_nr": "25036",
+          "querschnitt_mm2": "0.50",
+          "confidence": 60,
+          "bemerkung": "KONTAKT VERSCHROTTET"
+        },
+        {
+          "kontakt_nr": "141075",
+          "querschnitt_mm2": "0.25-0.50",
+          "confidence": 70,
+          "bemerkung": "Drehkopf, EPS 1000"
+        }
+      ],
+      "bemerkung": "WKZ 640/652 Kombination",
+      "warnungen": [
+        "Crimphöhen nicht im PDF"
+      ]
+    },
+    {
+      "wkz_nr": "653",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST (Schäfer)",
+      "kontakt_nr": "160759",
+      "kontakt_hersteller": "AMP / Tyco",
+      "batch_quelle": 11,
+      "varianten": [
+        {
+          "kontakt_nr": "160759",
+          "querschnitt_mm2": "0.80",
+          "draht_crimphoehe_mm": "1.60",
+          "draht_crimpbreite_mm": "2.40",
+          "iso_crimphoehe_mm": "3.08",
+          "iso_crimpbreite_mm": "3.50",
+          "abzugswert_n": "145",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "160759",
+          "querschnitt_mm2": "1.50",
+          "draht_crimphoehe_mm": "1.80",
+          "draht_crimpbreite_mm": "2.43",
+          "iso_crimpbreite_mm": "3.80",
+          "confidence": 95
+        }
+      ],
+      "bemerkung": "VT-Satz",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "654",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "Schäfer",
+      "kontakt_nr": "02-09-2116",
+      "batch_quelle": 11,
+      "varianten": [
+        {
+          "kontakt_nr": "02-09-2116",
+          "querschnitt_mm2": "0.35",
+          "draht_crimphoehe_mm": "1.15",
+          "draht_crimpbreite_mm": "1.94",
+          "iso_crimphoehe_mm": "2.00",
+          "iso_crimpbreite_mm": "2.35",
+          "abzugswert_n": "74",
+          "confidence": 100,
+          "bemerkung": "AWG 22, Quertransport"
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "655",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST (Schäfer)",
+      "kontakt_nr": "927827",
+      "kontakt_hersteller": "AMP / Tyco",
+      "batch_quelle": 11,
+      "varianten": [
+        {
+          "kontakt_nr": "927827",
+          "querschnitt_mm2": "2x0.50",
+          "draht_crimphoehe_mm": "1.55",
+          "draht_crimpbreite_mm": "2.12",
+          "iso_crimphoehe_mm": "3.70",
+          "iso_crimpbreite_mm": "3.60",
+          "abzugswert_n": "160",
+          "confidence": 100,
+          "bemerkung": "DOPPELANSCHLAG, Niederhalter eingebaut"
+        }
+      ],
+      "bemerkung": "WKZ 629/651/655 Gruppe, gleicher Kontakt wie 651",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "656",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "KTK (Alexander Herter)",
+      "kontakt_nr": "0 905 000 9562",
+      "kontakt_hersteller": "Harting",
+      "batch_quelle": 11,
+      "varianten": [
+        {
+          "kontakt_nr": "0 905 000 9562",
+          "querschnitt_mm2": "0.36",
+          "draht_crimphoehe_mm": "1.40",
+          "draht_crimpbreite_mm": "2.35",
+          "iso_crimphoehe_mm": "2.60",
+          "iso_crimpbreite_mm": "2.84",
+          "abzugswert_n": "130",
+          "confidence": 100,
+          "bemerkung": "Crimpform R, Doppelcrimp"
+        },
+        {
+          "querschnitt_mm2": "0.75",
+          "draht_crimphoehe_mm": "1.40",
+          "draht_crimpbreite_mm": "2.35",
+          "iso_crimphoehe_mm": "2.85",
+          "abzugswert_n": "130",
+          "confidence": 100
+        },
+        {
+          "querschnitt_mm2": "1.50",
+          "draht_crimphoehe_mm": "1.65",
+          "draht_crimpbreite_mm": "2.38",
+          "iso_crimphoehe_mm": "2.75",
+          "abzugswert_n": "260",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "Kontakt 0906 000 6482 in 2014 verschrottet",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "657",
+      "status": "aktiv",
+      "extraktions_qualitaet": "problematisch",
+      "confidence": 40,
+      "wkz_hersteller": "AWM Weidner",
+      "batch_quelle": 11,
+      "varianten": [],
+      "bemerkung": "PDF-Struktur fragmentiert, TE 16719 S erkannt",
+      "warnungen": [
+        "Manuell prüfen"
+      ]
+    },
+    {
+      "wkz_nr": "658",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "KTK (Alexander Herter)",
+      "kontakt_nr": "0011116101",
+      "kontakt_hersteller": "Inarca",
+      "batch_quelle": 11,
+      "datum": "08.12.2020",
+      "varianten": [
+        {
+          "kontakt_nr": "0011116101",
+          "querschnitt_mm2": "1.00",
+          "draht_crimphoehe_mm": "1.30",
+          "draht_crimpbreite_mm": "2.55",
+          "iso_crimphoehe_mm": "2.80",
+          "iso_crimpbreite_mm": "3.72",
+          "abzugswert_n": "190",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "VT-Satz, Eigene Konstruktion, Aufbau A. Herter",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "659",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 70,
+      "wkz_hersteller": "Stocko",
+      "kontakt_nr": "25039 / S0.102.104",
+      "kontakt_hersteller": "Stocko",
+      "batch_quelle": 12,
+      "varianten": [
+        {
+          "kontakt_nr": "25039 / S0.102.104",
+          "confidence": 70
+        }
+      ],
+      "bemerkung": "Crimpdaten auf separatem Datenblatt F 43/43-1",
+      "warnungen": [
+        "Crimpdaten extern referenziert"
+      ]
+    },
+    {
+      "wkz_nr": "660",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 70,
+      "wkz_hersteller": "Stocko",
+      "kontakt_nr": "S0.102.198",
+      "kontakt_hersteller": "Stocko",
+      "batch_quelle": 12,
+      "varianten": [
+        {
+          "kontakt_nr": "S0.102.198",
+          "confidence": 70
+        }
+      ],
+      "bemerkung": "Crimpdaten auf separatem Datenblatt F 268",
+      "warnungen": [
+        "Crimpdaten extern referenziert"
+      ]
+    },
+    {
+      "wkz_nr": "661",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 70,
+      "wkz_hersteller": "Stocko",
+      "kontakt_nr": "RSB 7936.002/003",
+      "kontakt_hersteller": "Stocko",
+      "batch_quelle": 12,
+      "varianten": [
+        {
+          "kontakt_nr": "RSB 7936.002/003",
+          "confidence": 70
+        },
+        {
+          "kontakt_nr": "RSB 8186.155/158",
+          "confidence": 70
+        }
+      ],
+      "bemerkung": "Crimpdaten auf separatem Datenblatt F 157",
+      "warnungen": [
+        "Crimpdaten extern referenziert"
+      ]
+    },
+    {
+      "wkz_nr": "662",
+      "status": "aktiv",
+      "extraktions_qualitaet": "problematisch",
+      "confidence": 40,
+      "wkz_hersteller": "Stocko",
+      "kontakt_nr": "RSB 7785/7990",
+      "kontakt_hersteller": "Stocko",
+      "batch_quelle": 12,
+      "varianten": [],
+      "bemerkung": "KONTAKT VERSCHROTTET",
+      "warnungen": [
+        "Kontakt verschrottet"
+      ]
+    },
+    {
+      "wkz_nr": "663",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "KTK (Alexander Herter)",
+      "batch_quelle": 12,
+      "varianten": [
+        {
+          "querschnitt_mm2": "4.50",
+          "draht_crimphoehe_mm": "2.94",
+          "draht_crimpbreite_mm": "4.00",
+          "confidence": 100
+        },
+        {
+          "querschnitt_mm2": "6.00",
+          "draht_crimphoehe_mm": "3.15",
+          "draht_crimpbreite_mm": "4.06",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "Sonderwerkzeug, Sidefeed, MWSA, Lfd.Nr. 1064",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "664",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "KTK (Alexander Herter)",
+      "batch_quelle": 12,
+      "varianten": [
+        {
+          "querschnitt_mm2": "3.75",
+          "draht_crimphoehe_mm": "2.80",
+          "draht_crimpbreite_mm": "3.95",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "Sonderwerkzeug, Sidefeed, MWSA, Lfd.Nr. 1066, Litze von Tesla",
+      "warnungen": [
+        "Vorschlag: 0,10mm tiefer crimpen"
+      ]
+    },
+    {
+      "wkz_nr": "665",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST (Schäfer)",
+      "kontakt_nr": "26.325.120",
+      "kontakt_hersteller": "HS",
+      "batch_quelle": 12,
+      "datum": "24.10.2024",
+      "varianten": [
+        {
+          "kontakt_nr": "26.325.120",
+          "querschnitt_mm2": "2.50",
+          "draht_crimphoehe_mm": "1.96",
+          "draht_crimpbreite_mm": "3.08",
+          "iso_crimphoehe_mm": "3.97",
+          "iso_crimpbreite_mm": "4.47",
+          "abzugswert_n": "280",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "VT-Satz, Musteraufbau, WKZ 535/569/586/665 Gruppe",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "695",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST",
+      "kontakt_nr": "35072391",
+      "kontakt_hersteller": "APTIV",
+      "batch_quelle": 13,
+      "varianten": [
+        {
+          "kontakt_nr": "35072391",
+          "querschnitt_mm2": "0.50",
+          "draht_crimphoehe_mm": "0.85",
+          "draht_crimpbreite_mm": "1.53",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "Musteraufbau zur Ermittlung der Spezifikationen",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "696",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST",
+      "kontakt_nr": "35088739",
+      "kontakt_hersteller": "APTIV",
+      "batch_quelle": 13,
+      "varianten": [
+        {
+          "kontakt_nr": "35088739",
+          "querschnitt_mm2": "0.50",
+          "draht_crimphoehe_mm": "0.89",
+          "draht_crimpbreite_mm": "1.54",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "Musteraufbau",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "697",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "KTK (Alexander Herter)",
+      "kontakt_nr": "1241396-1",
+      "kontakt_hersteller": "TE Connectivity",
+      "batch_quelle": 13,
+      "varianten": [
+        {
+          "kontakt_nr": "1241396-1",
+          "querschnitt_mm2": "2.50",
+          "draht_crimphoehe_mm": "1.95",
+          "draht_crimpbreite_mm": "2.73",
+          "confidence": 95
+        }
+      ],
+      "bemerkung": "Eigene Konstruktion",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "698",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 85,
+      "wkz_hersteller": "KTK (Alexander Herter)",
+      "kontakt_nr": "1241408",
+      "kontakt_hersteller": "TYCO",
+      "batch_quelle": 13,
+      "varianten": [
+        {
+          "kontakt_nr": "1241408",
+          "querschnitt_mm2": "4.00",
+          "draht_crimphoehe_mm": "2.50",
+          "confidence": 85
+        }
+      ],
+      "bemerkung": "Crimpbreite nicht lesbar",
+      "warnungen": [
+        "Crimpbreite fehlt"
+      ]
+    },
+    {
+      "wkz_nr": "699",
+      "status": "aktiv",
+      "extraktions_qualitaet": "problematisch",
+      "confidence": 30,
+      "wkz_hersteller": "IT-Crimp",
+      "batch_quelle": 13,
+      "varianten": [],
+      "bemerkung": "PDF-Encoding problematisch, WKZ 022003/8239",
+      "warnungen": [
+        "Manuell prüfen"
+      ]
+    },
+    {
+      "wkz_nr": "700",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST",
+      "kontakt_nr": "RFB 7808",
+      "kontakt_hersteller": "Stocko",
+      "batch_quelle": 13,
+      "varianten": [
+        {
+          "kontakt_nr": "RFB 7808",
+          "querschnitt_mm2": "0.14",
+          "draht_crimphoehe_mm": "0.80",
+          "draht_crimpbreite_mm": "1.45",
+          "iso_crimphoehe_mm": "1.45",
+          "iso_crimpbreite_mm": "1.97",
+          "confidence": 100
+        },
+        {
+          "querschnitt_mm2": "0.25",
+          "draht_crimphoehe_mm": "0.85",
+          "draht_crimpbreite_mm": "1.46",
+          "confidence": 100
+        },
+        {
+          "querschnitt_mm2": "0.50",
+          "draht_crimphoehe_mm": "0.98",
+          "draht_crimpbreite_mm": "1.47",
+          "confidence": 100
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "701",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST / KTK",
+      "kontakt_nr": "43030-0001",
+      "kontakt_hersteller": "Molex",
+      "batch_quelle": 13,
+      "varianten": [
+        {
+          "kontakt_nr": "43030-0001",
+          "querschnitt_mm2": "0.13 (26 AWG)",
+          "draht_crimphoehe_mm": "0.80",
+          "draht_crimpbreite_mm": "1.45",
+          "iso_crimphoehe_mm": "1.60",
+          "iso_crimpbreite_mm": "1.84",
+          "confidence": 100
+        },
+        {
+          "querschnitt_mm2": "0.21 (24 AWG)",
+          "draht_crimphoehe_mm": "0.85",
+          "draht_crimpbreite_mm": "1.45",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "VT-Satz auch für 66200313722",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "702",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "GHW / KTK",
+      "kontakt_nr": "25568/297/22",
+      "kontakt_hersteller": "GHW/Stocko",
+      "batch_quelle": 13,
+      "varianten": [
+        {
+          "kontakt_nr": "25568",
+          "querschnitt_mm2": "2.50",
+          "draht_crimphoehe_mm": "1.92",
+          "draht_crimpbreite_mm": "2.93",
+          "iso_crimphoehe_mm": "3.42",
+          "iso_crimpbreite_mm": "4.05",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "297/22",
+          "querschnitt_mm2": "0.38",
+          "draht_crimphoehe_mm": "1.35",
+          "iso_crimphoehe_mm": "2.06",
+          "abzugswert_n": "100",
+          "confidence": 90
+        }
+      ],
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "703",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "KTK (Alexander Herter)",
+      "kontakt_nr": "TN 01/0201600021",
+      "kontakt_hersteller": "Amphenol",
+      "batch_quelle": 13,
+      "varianten": [
+        {
+          "kontakt_nr": "TN 01/0201600021",
+          "querschnitt_mm2": "0.50",
+          "draht_crimphoehe_mm": "1.25",
+          "draht_crimpbreite_mm": "2.23",
+          "iso_crimphoehe_mm": "2.87",
+          "iso_crimpbreite_mm": "3.22",
+          "abzugswert_n": "100",
+          "confidence": 100
+        },
+        {
+          "querschnitt_mm2": "0.75",
+          "draht_crimphoehe_mm": "1.31",
+          "draht_crimpbreite_mm": "2.24",
+          "iso_crimphoehe_mm": "3.07",
+          "iso_crimpbreite_mm": "3.27",
+          "confidence": 100
+        },
+        {
+          "querschnitt_mm2": "1.50",
+          "draht_crimphoehe_mm": "1.48",
+          "draht_crimpbreite_mm": "2.28",
+          "iso_crimphoehe_mm": "3.46",
+          "iso_crimpbreite_mm": "3.38",
+          "abzugswert_n": "140-220",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "Stift- und Buchsenkontakt",
+      "warnungen": [
+        "Bei Umstellung auf Buchse evtl. Tischposition verstellen"
+      ]
+    },
+    {
+      "wkz_nr": "704",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 98,
+      "wkz_hersteller": "APST / KTK",
+      "kontakt_nr": "76823-0321",
+      "kontakt_hersteller": "MOLEX",
+      "batch_quelle": 13,
+      "varianten": [
+        {
+          "kontakt_nr": "76823-0321",
+          "querschnitt_mm2": "1.50",
+          "draht_crimphoehe_mm": "1.56",
+          "draht_crimpbreite_mm": "2.66",
+          "confidence": 100,
+          "status": "aktiv"
+        },
+        {
+          "kontakt_nr": "353715-2",
+          "kontakt_hersteller": "AMP",
+          "querschnitt_mm2": "1.60",
+          "draht_crimphoehe_mm": "1.47",
+          "abzugswert_n": "220",
+          "confidence": 95,
+          "status": "VERSCHROTTET KW 48/2024"
+        },
+        {
+          "kontakt_nr": "175196",
+          "kontakt_hersteller": "AMP/Tyco",
+          "querschnitt_mm2": "0.50-1.00",
+          "draht_crimphoehe_mm": "1.20",
+          "abzugswert_n": "85",
+          "confidence": 100,
+          "status": "VERSCHROTTET KW 50/2018"
+        },
+        {
+          "kontakt_nr": "917484/4135",
+          "querschnitt_mm2": "1.00-1.50",
+          "draht_crimphoehe_mm": "1.48",
+          "confidence": 100,
+          "status": "VERSCHROTTET KW 50/2023"
+        }
+      ],
+      "bemerkung": "Multi-Kontakt-Werkzeug mit 3 verschrotteten Kontakten",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "705",
+      "status": "verschrottet",
+      "extraktions_qualitaet": "verschrottet",
+      "confidence": 100,
+      "wkz_hersteller": "KTK",
+      "kontakt_nr": "0906 000 9561",
+      "batch_quelle": 14,
+      "varianten": [],
+      "bemerkung": "KONTAKT VERSCHROTTET in 2013",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "706",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "Schneider Eigenbau",
+      "kontakt_nr": "25568",
+      "kontakt_hersteller": "GHW",
+      "batch_quelle": 14,
+      "datum": "04.04.2011",
+      "varianten": [
+        {
+          "kontakt_nr": "25568",
+          "querschnitt_mm2": "2.50",
+          "draht_crimphoehe_mm": "1.92",
+          "draht_crimpbreite_mm": "2.93",
+          "iso_crimphoehe_mm": "3.42",
+          "iso_crimpbreite_mm": "4.05",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "Umbau WKZ 0124, Litze vom Kunden, Aufbau H. Fehr",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "707",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST (Schäfer)",
+      "kontakt_nr": "61900113722",
+      "kontakt_hersteller": "Würth",
+      "batch_quelle": 14,
+      "datum": "14.10.2016",
+      "varianten": [
+        {
+          "kontakt_nr": "61900113722",
+          "querschnitt_mm2": "0.25",
+          "draht_crimphoehe_mm": "0.83",
+          "draht_crimpbreite_mm": "1.39",
+          "iso_crimphoehe_mm": "1.40",
+          "iso_crimpbreite_mm": "1.60",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "VT-Satz, Aufbau H. Fehr",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "708",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 60,
+      "wkz_hersteller": "KTK (Alexander Herter)",
+      "kontakt_nr": "0545/5537",
+      "kontakt_hersteller": "Amphenol",
+      "batch_quelle": 14,
+      "datum": "05.06.2006",
+      "varianten": [
+        {
+          "kontakt_nr": "0545/5537",
+          "confidence": 60,
+          "bemerkung": "Stift- und Buchsenkontakt"
+        }
+      ],
+      "bemerkung": "KTK Drehkopf, PDF-Tabelle nicht vollständig lesbar",
+      "warnungen": [
+        "Manuell prüfen"
+      ]
+    },
+    {
+      "wkz_nr": "709",
+      "status": "verschrottet",
+      "extraktions_qualitaet": "verschrottet",
+      "confidence": 100,
+      "wkz_hersteller": "KTK",
+      "kontakt_nr": "16-02-0086",
+      "batch_quelle": 14,
+      "varianten": [],
+      "bemerkung": "KONTAKT VERSCHROTTET in KW 48/2024, Lfd.Nr. 1012",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "710",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "APST (Schäfer)",
+      "kontakt_nr": "188744",
+      "kontakt_hersteller": "AMP",
+      "batch_quelle": 14,
+      "datum": "31.03.2014",
+      "varianten": [
+        {
+          "kontakt_nr": "188744",
+          "querschnitt_mm2": "0.25",
+          "draht_crimphoehe_mm": "0.82",
+          "draht_crimpbreite_mm": "1.15",
+          "confidence": 95
+        }
+      ],
+      "bemerkung": "Umbau WKZ 0710, Aufbau H. Fehr, NL Müssen",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "711",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 40,
+      "wkz_hersteller": "KTK",
+      "kontakt_nr": "Kontaktfeder",
+      "batch_quelle": 14,
+      "varianten": [],
+      "bemerkung": "KTK Sidefeed, Lfd.Nr. 1011, PDF unvollständig",
+      "warnungen": [
+        "Manuell prüfen"
+      ]
+    },
+    {
+      "wkz_nr": "712",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 90,
+      "wkz_hersteller": "KTK",
+      "kontakt_nr": "Kontaktfeder",
+      "batch_quelle": 14,
+      "varianten": [
+        {
+          "kontakt_nr": "Kontaktfeder",
+          "querschnitt_mm2": "0.21",
+          "draht_crimphoehe_mm": "0.65",
+          "draht_crimpbreite_mm": "1.30",
+          "iso_crimphoehe_mm": "1.65",
+          "iso_crimpbreite_mm": "1.58",
+          "abzugswert_n": "45",
+          "confidence": 90,
+          "bemerkung": "AWG 24, Litze vom Kunden"
+        }
+      ],
+      "bemerkung": "KTK Sidefeed, Lfd.Nr. 1011",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "713",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "KTK (Alexander Herter)",
+      "kontakt_nr": "EN 0202500431",
+      "kontakt_hersteller": "Amphenol",
+      "batch_quelle": 14,
+      "datum": "12.06.2006",
+      "varianten": [
+        {
+          "kontakt_nr": "EN 0202500431",
+          "querschnitt_mm2": "5.67",
+          "draht_crimphoehe_mm": "2.55",
+          "draht_crimpbreite_mm": "2.72",
+          "iso_crimphoehe_mm": "4.63",
+          "iso_crimpbreite_mm": "4.50",
+          "abzugswert_n": "300",
+          "confidence": 100,
+          "bemerkung": "Rundsteckhülse, Crimpform R"
+        },
+        {
+          "kontakt_nr": "EN 0202500431",
+          "querschnitt_mm2": "4.25",
+          "draht_crimphoehe_mm": "2.75",
+          "draht_crimpbreite_mm": "2.72",
+          "iso_crimphoehe_mm": "3.78",
+          "iso_crimpbreite_mm": "4.60",
+          "abzugswert_n": "350",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "WKZ 0546/SB3, KTK Sidefeed",
+      "warnungen": [
+        "⚠️ Isolationsdurchmesser bei beiden Litzen zu groß gewählt!"
+      ]
+    },
+    {
+      "wkz_nr": "714",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 70,
+      "wkz_hersteller": "Schäfer",
+      "kontakt_nr": "794037-1",
+      "batch_quelle": 14,
+      "datum": "31.05.2007",
+      "varianten": [
+        {
+          "kontakt_nr": "794037-1",
+          "querschnitt_mm2": "3.31",
+          "abzugswert_n": "90",
+          "confidence": 70,
+          "bemerkung": "AWG 12, Handkurve Quertransport"
+        }
+      ],
+      "bemerkung": "Schäfer Handkurve, Verstellkeil 3-fach",
+      "warnungen": [
+        "Crimpdaten unvollständig"
+      ]
+    },
+    {
+      "wkz_nr": "715",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "Schäfer",
+      "kontakt_nr": "093220006207",
+      "batch_quelle": 15,
+      "datum": "05.05.2006",
+      "varianten": [
+        {
+          "kontakt_nr": "093220006207",
+          "querschnitt_mm2": "4.00",
+          "draht_crimphoehe_mm": "2.26",
+          "iso_crimphoehe_mm": "2.28",
+          "abzugswert_n": "780",
+          "confidence": 95,
+          "bemerkung": "Einstelltabelle, Quertransport"
+        }
+      ],
+      "bemerkung": "Schäfer Handkurve",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "716",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST (Schäfer)",
+      "kontakt_nr": "DF3-2428-SCF",
+      "kontakt_hersteller": "Hirose",
+      "batch_quelle": 15,
+      "datum": "15.02.2015",
+      "varianten": [
+        {
+          "kontakt_nr": "DF3-2428-SCF",
+          "querschnitt_mm2": "0.14",
+          "draht_crimphoehe_mm": "0.65",
+          "draht_crimpbreite_mm": "1.22",
+          "iso_crimphoehe_mm": "1.60",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "DF3-2428-SCF",
+          "querschnitt_mm2": "0.25",
+          "draht_crimphoehe_mm": "0.70",
+          "draht_crimpbreite_mm": "1.22",
+          "iso_crimphoehe_mm": "1.60",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "WKZ 0021/SB 11, MWSA Sidefeed, Aufbau H. Fehr",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "717",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "Alexander Herter",
+      "kontakt_nr": "104505",
+      "kontakt_hersteller": "AMP/Tyco",
+      "batch_quelle": 15,
+      "datum": "16.12.2019",
+      "varianten": [
+        {
+          "kontakt_nr": "104505",
+          "querschnitt_mm2": "0.14",
+          "draht_crimphoehe_mm": "0.72",
+          "draht_crimpbreite_mm": "1.11",
+          "iso_crimphoehe_mm": "1.00",
+          "iso_crimpbreite_mm": "1.40",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "WKZ 1144/SB 828, MWSA Sidefeed",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "718",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 70,
+      "wkz_hersteller": "KTK",
+      "kontakt_nr": "39-00-0038",
+      "kontakt_hersteller": "Molex/Stocko",
+      "batch_quelle": 15,
+      "varianten": [
+        {
+          "kontakt_nr": "39-00-0038/0040/0046/0059/0428/0430/9900708",
+          "confidence": 70,
+          "bemerkung": "VT-Satz für 7 Kontakte"
+        }
+      ],
+      "bemerkung": "KTK Sidefeed, Lfd.Nr. 1283, neu 17.11.2023",
+      "warnungen": [
+        "⚠️ Beim Umbau auf Molex-Kontakte Tisch individuell einstellen"
+      ]
+    },
+    {
+      "wkz_nr": "719",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "APST (Schäfer)",
+      "kontakt_nr": "1-104479-0/1-104480-3",
+      "kontakt_hersteller": "400K-SD",
+      "batch_quelle": 15,
+      "datum": "06.11.2017",
+      "varianten": [
+        {
+          "kontakt_nr": "1-104479-0",
+          "querschnitt_mm2": "0.32",
+          "querschnitt_awg": "22",
+          "draht_crimphoehe_mm": "0.80",
+          "confidence": 95,
+          "bemerkung": "Sonderwerkzeug, Rastkopf"
+        },
+        {
+          "kontakt_nr": "1-104480-3",
+          "querschnitt_mm2": "0.32",
+          "querschnitt_awg": "22",
+          "draht_crimphoehe_mm": "0.80",
+          "confidence": 95
+        }
+      ],
+      "bemerkung": "WKZ 0178/SB 22, Sonderwerkzeug",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "720",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST",
+      "kontakt_nr": "91.403.120",
+      "kontakt_hersteller": "HS",
+      "batch_quelle": 15,
+      "datum": "29.09.2024",
+      "varianten": [
+        {
+          "kontakt_nr": "91.403.120",
+          "querschnitt_mm2": "0.34",
+          "draht_crimphoehe_mm": "1.02",
+          "draht_crimpbreite_mm": "1.28",
+          "iso_crimphoehe_mm": "1.50",
+          "iso_crimpbreite_mm": "1.92",
+          "abzugswert_n": "50",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "Eigenkonstruktion, Kundenkontakte/-litze, WKZ 0495/2208562",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "721",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 50,
+      "wkz_hersteller": "AWM Weidner",
+      "kontakt_nr": "25775",
+      "batch_quelle": 15,
+      "datum": "10.11.2020",
+      "varianten": [],
+      "bemerkung": "Crimptabelle nicht extrahierbar",
+      "warnungen": [
+        "Manuell prüfen"
+      ]
+    },
+    {
+      "wkz_nr": "722",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 40,
+      "wkz_hersteller": "Tyco Electronics",
+      "kontakt_nr": "2034505?",
+      "kontakt_hersteller": "Tyco",
+      "batch_quelle": 15,
+      "varianten": [],
+      "bemerkung": "Applicator-Nr. 0878099 HAND, keine Crimpdaten",
+      "warnungen": [
+        "Tyco-Doku anfordern"
+      ]
+    },
+    {
+      "wkz_nr": "723",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 60,
+      "wkz_hersteller": "AWM Weidner",
+      "kontakt_nr": "8700002",
+      "batch_quelle": 15,
+      "datum": "04.03.2020",
+      "varianten": [],
+      "bemerkung": "Sidefeed MWSA, Aufbau D. Schwarz",
+      "warnungen": [
+        "Manuell prüfen"
+      ]
+    },
+    {
+      "wkz_nr": "724",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST (Schäfer)",
+      "kontakt_nr": "43030-0001",
+      "kontakt_hersteller": "Molex",
+      "batch_quelle": 15,
+      "datum": "28.11.2014",
+      "varianten": [
+        {
+          "kontakt_nr": "43030-0001",
+          "querschnitt_mm2": "0.13",
+          "querschnitt_awg": "26",
+          "draht_crimphoehe_mm": "0.80",
+          "draht_crimpbreite_mm": "1.45",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "43030-0001",
+          "querschnitt_mm2": "0.21",
+          "querschnitt_awg": "24",
+          "draht_crimphoehe_mm": "0.85",
+          "draht_crimpbreite_mm": "1.45",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "VT-Satz, MWSA Sidefeed, Aufbau H. Fehr",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "725",
+      "status": "aktiv",
+      "extraktions_qualitaet": "teilweise",
+      "confidence": 60,
+      "wkz_hersteller": "KTK",
+      "kontakt_nr": "Buchsenkontakt",
+      "batch_quelle": 15,
+      "varianten": [
+        {
+          "kontakt_nr": "Buchsenkontakt",
+          "querschnitt_mm2": "1.75",
+          "confidence": 60
+        }
+      ],
+      "bemerkung": "KTK Sidefeed Drehkopf MR, Lfd.Nr. 1199",
+      "warnungen": [
+        "⚠️ Doppelcrimp 0.75 + 1.00 mm²"
+      ]
+    },
+    {
+      "wkz_nr": "726",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "APST (Schäfer)",
+      "kontakt_nr": "32124734000",
+      "kontakt_hersteller": "Kostal",
+      "batch_quelle": 15,
+      "datum": "09.12.2014",
+      "varianten": [
+        {
+          "kontakt_nr": "32124734000",
+          "querschnitt_mm2": "0.25",
+          "draht_crimphoehe_mm": "0.82",
+          "confidence": 95
+        }
+      ],
+      "bemerkung": "WKZ 0013/ML 49680, Kostal-Spezifikation, Aufbau H. Fehr",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "727",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 95,
+      "wkz_hersteller": "APST (Schäfer)",
+      "kontakt_nr": "32124734010",
+      "kontakt_hersteller": "Kostal",
+      "batch_quelle": 15,
+      "datum": "09.12.2014",
+      "varianten": [
+        {
+          "kontakt_nr": "32124734010",
+          "querschnitt_mm2": "0.35",
+          "draht_crimphoehe_mm": "0.78",
+          "confidence": 95
+        }
+      ],
+      "bemerkung": "WKZ 0011/ML 49439, Kostal-Spezifikation, Aufbau H. Fehr",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "728",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "APST (Schäfer)",
+      "kontakt_nr": "32124734020",
+      "kontakt_hersteller": "Kostal",
+      "batch_quelle": 15,
+      "datum": "09.12.2014",
+      "varianten": [
+        {
+          "kontakt_nr": "32124734020",
+          "querschnitt_mm2": "0.50",
+          "draht_crimphoehe_mm": "0.92",
+          "draht_crimpbreite_mm": "1.65",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "WKZ 0012/ML 70629, Kostal-Spezifikation, Aufbau H. Fehr",
+      "warnungen": []
+    },
+    {
+      "wkz_nr": "729",
+      "status": "aktiv",
+      "extraktions_qualitaet": "vollstaendig",
+      "confidence": 100,
+      "wkz_hersteller": "HHC/Molex",
+      "kontakt_nr": "505431-1300",
+      "kontakt_hersteller": "Molex",
+      "batch_quelle": 15,
+      "datum": "08.10.2025",
+      "varianten": [
+        {
+          "kontakt_nr": "505431-1300",
+          "querschnitt_mm2": "0.05",
+          "querschnitt_awg": "30",
+          "draht_crimphoehe_mm": "0.46-0.51",
+          "draht_crimpbreite_mm": "0.86",
+          "abzugswert_n": "4.9",
+          "confidence": 100,
+          "bemerkung": "Micro-Lock Plus 1.25 WTB"
+        },
+        {
+          "kontakt_nr": "505431-1300",
+          "querschnitt_mm2": "0.08",
+          "querschnitt_awg": "28",
+          "draht_crimphoehe_mm": "0.49-0.54",
+          "draht_crimpbreite_mm": "0.91",
+          "abzugswert_n": "9.8",
+          "confidence": 100
+        },
+        {
+          "kontakt_nr": "505431-1300",
+          "querschnitt_mm2": "0.12",
+          "querschnitt_awg": "26",
+          "draht_crimphoehe_mm": "0.54-0.59",
+          "abzugswert_n": "19.6",
+          "confidence": 100
+        }
+      ],
+      "bemerkung": "Seriennr. 2510-10936-G8, Micro-Lock Plus Kleinstquerschnitte",
+      "warnungen": [
+        "⚠️ Isolation nur 0.75mm - max. 0.96mm verarbeitbar!"
+      ]
+    }
+  ],
+  "fehlende_datenblaetter": {
+    "anzahl": 0,
+    "bereiche": [],
+    "liste": []
+  },
+  "verschrottete_kontakte": [
+    {
+      "wkz": "632",
+      "kontakt": "179955-2",
+      "datum": "KW 48/2024"
+    },
+    {
+      "wkz": "634",
+      "kontakt": "777-9316S-T3",
+      "datum": "KW 50/2023"
+    },
+    {
+      "wkz": "635",
+      "kontakt": "777-9320S-T3",
+      "datum": "KW 48/2024"
+    },
+    {
+      "wkz": "636",
+      "kontakt": "39-00-0077",
+      "hinweis": "verschrottet"
+    },
+    {
+      "wkz": "640",
+      "kontakt": "25036",
+      "hinweis": "Kontakt verschrottet!!!"
+    }
+  ]
+}

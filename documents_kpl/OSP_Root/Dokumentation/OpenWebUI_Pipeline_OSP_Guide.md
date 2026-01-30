@@ -461,11 +461,11 @@ ssh root@46.224.102.30 "docker ps"  # Sollte Container-Liste zeigen
 
 ```bash
 # Auf Hetzner Server
-mkdir -p /opt/osp/{docker,pipelines,docs}
-cd /opt/osp
+mkdir -p /mnt/HC_Volume_104189729/osp/{docker,pipelines,docs}
+cd /mnt/HC_Volume_104189729/osp
 
 # Verzeichnisstruktur
-/opt/osp/
+/mnt/HC_Volume_104189729/osp/
 ├── docker/
 │   ├── docker-compose.yml
 │   └── .env
@@ -482,7 +482,7 @@ cd /opt/osp
 
 ```bash
 # 1. docker-compose.yml erstellen
-cat > /opt/osp/docker/docker-compose.yml << 'EOF'
+cat > /mnt/HC_Volume_104189729/osp/docker/docker-compose.yml << 'EOF'
 version: '3.8'
 
 services:
@@ -564,7 +564,7 @@ networks:
 EOF
 
 # 2. .env Datei erstellen
-cat > /opt/osp/docker/.env << 'EOF'
+cat > /mnt/HC_Volume_104189729/osp/docker/.env << 'EOF'
 # Anthropic
 ANTHROPIC_API_KEY=sk-ant-...
 
@@ -577,24 +577,24 @@ PIPELINES_API_KEY=0p3n-w3bu!
 EOF
 
 # 3. Umgebungsvariablen sichern
-chmod 600 /opt/osp/docker/.env
+chmod 600 /mnt/HC_Volume_104189729/osp/docker/.env
 ```
 
 ### 4.4 Pipeline-Dateien Deployment
 
 ```bash
 # 1. OSP Production System kopieren
-scp /root/osp_production_system.py root@46.224.102.30:/opt/osp/pipelines/
-scp /root/osp_router.py root@46.224.102.30:/opt/osp/pipelines/
+scp /root/osp_production_system.py root@46.224.102.30:/mnt/HC_Volume_104189729/osp/pipelines/
+scp /root/osp_router.py root@46.224.102.30:/mnt/HC_Volume_104189729/osp/pipelines/
 
 # 2. OSP RAG Pipeline kopieren (NÄCHSTER SCHRITT)
-scp /root/osp_rag.py root@46.224.102.30:/opt/osp/pipelines/
+scp /root/osp_rag.py root@46.224.102.30:/mnt/HC_Volume_104189729/osp/pipelines/
 
 # 3. Rechtevergabe
-ssh root@46.224.102.30 "chmod 755 /opt/osp/pipelines/*.py"
+ssh root@46.224.102.30 "chmod 755 /mnt/HC_Volume_104189729/osp/pipelines/*.py"
 
 # 4. Verify
-ssh root@46.224.102.30 "ls -lah /opt/osp/pipelines/"
+ssh root@46.224.102.30 "ls -lah /mnt/HC_Volume_104189729/osp/pipelines/"
 # Output:
 # -rw-r--r-- 1 root root  5.2K osp_rag.py
 # -rw-r--r-- 1 root root  8.4K osp_router.py
@@ -604,7 +604,7 @@ ssh root@46.224.102.30 "ls -lah /opt/osp/pipelines/"
 ### 4.5 Container Starten
 
 ```bash
-cd /opt/osp/docker
+cd /mnt/HC_Volume_104189729/osp/docker
 
 # 1. Container hochfahren
 docker-compose up -d
@@ -656,7 +656,7 @@ docker logs pipelines -f | head -50
 
 ```bash
 # Wenn Sie bereits Daten haben:
-python3 /opt/osp/load_chromadb.py
+python3 /mnt/HC_Volume_104189729/osp/load_chromadb.py
 
 # Logs verfolgen:
 docker logs pipelines -f | grep -E "ChromaDB|Collection|Added"
@@ -883,7 +883,7 @@ docker ps | grep chromadb
 docker-compose up -d chromadb
 
 # 2. ChromaDB erreichbar?
-curl http://localhost:8000/api/v1/heartbeat
+curl http://localhost:8000/api/v2/heartbeat
 
 # 3. In Pipeline Code: hostname anpassen
 # Wenn ChromaDB in Docker Compose:
@@ -1375,14 +1375,14 @@ class Pipeline:
 
 ```bash
 # 1. Python Virtual Environment
-python3 -m venv /opt/osp/venv
-source /opt/osp/venv/bin/activate
+python3 -m venv /mnt/HC_Volume_104189729/osp/venv
+source /mnt/HC_Volume_104189729/osp/venv/bin/activate
 
 # 2. Dependencies installieren
 pip install llama-index chromadb anthropic
 
 # 3. Pipeline local testen
-cd /opt/osp
+cd /mnt/HC_Volume_104189729/osp
 python3 << 'EOF'
 import sys
 sys.path.insert(0, '.')
@@ -1403,7 +1403,7 @@ print(f"✅ Response: {response[:100]}...")
 EOF
 
 # 4. Syntax-Validierung
-python3 -m py_compile /opt/osp/osp_rag.py
+python3 -m py_compile /mnt/HC_Volume_104189729/osp/osp_rag.py
 echo "✅ Syntax OK"
 ```
 
@@ -2022,5 +2022,5 @@ else:
 **Kontakt & Support:**
 
 Falls Fragen: Dokumentation updaten oder in  
-`/opt/osp/docs/troubleshooting.md` eintragen
+`/mnt/HC_Volume_104189729/osp/docs/troubleshooting.md` eintragen
 

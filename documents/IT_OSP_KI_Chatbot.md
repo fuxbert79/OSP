@@ -1,36 +1,36 @@
 # [IT][OSP] OSP KI-Chatbot Projekt
 
-Version: 1.2 RAG | TAG: [IT][OSP] | Erstellt: 2025-11-29 | Autor: AL | Verantwortlich: AL (IT/KI), CS (GF) | Cluster: C4-Support | Zugriff: L3-Führung | Status: PRODUKTIV | Stage: 2 | Basis: IT_OSP_KI-Chatbot_v1.0.md + Hetzner_Server_OSP_Dokumentation.md
+Version: 1.4 RAG | TAG: [IT][OSP] | Erstellt: 2025-11-29 | Aktualisiert: 2025-12-23 | Autor: AL | Verantwortlich: AL (IT/KI), CS (GF) | Cluster: C4-Support | Zugriff: L3-FÃ¼hrung | Status: PRODUKTIV | Stage: 2 | Basis: IT_OSP_KI-Chatbot_v1.0.md + Hetzner_Server_OSP_Dokumentation.md
 
 **Projektstart:** 14.11.2025 | **Go-Live:** 26.11.2025 | **Pilot-Ende:** 19.12.2025
 
 ---
 
-## 🎯 PROJEKTZWECK
+## ðŸŽ¯ PROJEKTZWECK
 
-**OSP KI-Chatbot** = Technische Infrastruktur für OSP-Wissensmanagement:
+**OSP KI-Chatbot** = Technische Infrastruktur fÃ¼r OSP-Wissensmanagement:
 
-1. **OSPUI (Open WebUI)** - UI für KI-Interaktion
-2. **ChromaDB** - Vektordatenbank für RAG
+1. **OSPUI (Open WebUI)** - UI fÃ¼r KI-Interaktion
+2. **ChromaDB** - Vektordatenbank fÃ¼r RAG
 3. **Ollama** - Lokale LLM-Runtime (mistral:7b, llama2:13b)
 4. **n8n** - Workflow-Automation (geplant)
 
 **Ziele:**
-- ✅ 40% Zeitersparnis bei Standardanfragen
-- ✅ 85% Fehlerreduktion
-- ✅ DSGVO-konform (DE-Standort)
-- ✅ Selbst-gehostet
+- âœ… 40% Zeitersparnis bei Standardanfragen
+- âœ… 85% Fehlerreduktion
+- âœ… DSGVO-konform (DE-Standort)
+- âœ… Selbst-gehostet
 
 ---
 
-## 📋 INHALTSVERZEICHNIS
+## ðŸ“‹ INHALTSVERZEICHNIS
 
-1. [Projektübersicht](#projektübersicht)
+1. [ProjektÃ¼bersicht](#projektÃ¼bersicht)
 2. [Hetzner Server-Infrastruktur](#hetzner-server-infrastruktur)
 3. [Docker-Container-Architektur](#docker-container-architektur)
 4. [OSPUI Konfiguration](#ospui-open-webui-konfiguration)
 5. [ChromaDB Vektordatenbank](#chromadb-vektordatenbank)
-6. [Ollama LLM-Runtime](#ollama-llm-runtime)
+6. [Claude API (LiteLLM)](#claude-api-litellm)
 7. [n8n Workflow-Automation](#n8n-workflow-automation)
 8. [Netzwerk & Sicherheit](#netzwerk--sicherheit)
 9. [Backup & Wartung](#backup--wartung)
@@ -40,23 +40,23 @@ Version: 1.2 RAG | TAG: [IT][OSP] | Erstellt: 2025-11-29 | Autor: AL | Verantwor
 
 ---
 
-## PROJEKTÜBERSICHT
+## PROJEKTÃœBERSICHT
 
 ### Architektur-Diagramm
 
 ```
-User (AL,CS,SV,SK,TS) → https://osp.schneider-kabelsatzbau.de
-    ↓
+User (AL,CS,SV,SK,TS) â†’ https://osp.schneider-kabelsatzbau.de
+    â†“
 Nginx Reverse Proxy (SSL/TLS)
-    ↓
-Hetzner CX33 (Ubuntu 24.04, 4vCPU, 16GB RAM, 160GB SSD, Falkenstein DE)
-    ↓
+    â†“
+Hetzner CX43 (Ubuntu 24.04, 8vCPU, 16GB RAM, 160GB SSD, Falkenstein DE)
+    â†“
 Docker-Compose Stack
-    ↓
-┌────────┬──────────┬────────┬─────┐
-│ OSPUI  │ ChromaDB │ Ollama │ n8n │
-│ :3000  │ :8000    │ :11434 │:5678│
-└────────┴──────────┴────────┴─────┘
+    â†“
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”
+â”‚ OSPUI  â”‚ ChromaDB â”‚ Ollama â”‚ n8n â”‚
+â”‚ :3000  â”‚ :8000    â”‚ :11434 â”‚:5678â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”˜
 ```
 
 ---
@@ -66,10 +66,10 @@ Docker-Compose Stack
 | Komponente | Version | Zweck | RAM | Storage |
 |------------|---------|-------|-----|---------|
 | Ubuntu | 24.04 LTS | OS | - | 50GB |
-| Docker | 27.3.1 | Runtime | - | 10GB |
-| OSPUI | 0.6.40 | UI/Orchestr. | 2GB | 5GB |
-| ChromaDB | 0.5.15 | Vektordatenbank | 2GB | 20GB |
-| Ollama | latest | LLM-Runtime | 10GB | 60GB |
+| Docker | 28.2.2 | Runtime | - | 10GB |
+| OSPUI | 0.6.43 | UI/Orchestr. | 2GB | 5GB |
+| ChromaDB | 1.3.6 | Vektordatenbank | 2GB | 20GB |
+| LiteLLM | main-latest | Claude API Proxy | 1GB | 2GB |
 | n8n | latest | Workflow | 1GB | 5GB |
 | Nginx | 1.26 | Reverse Proxy | 512MB | 1GB |
 
@@ -81,16 +81,16 @@ Docker-Compose Stack
 
 | Datum | Meilenstein | Status |
 |-------|-------------|--------|
-| 14.11.25 | Kick-off, Konzept | ✅ |
-| 20.11.25 | Hetzner Server bestellt | ✅ |
-| 22.11.25 | Server Setup (Ubuntu, Docker) | ✅ |
-| 24.11.25 | OSPUI + ChromaDB deployed | ✅ |
-| 25.11.25 | Ollama + Modelle (mistral:7b) | ✅ |
-| **26.11.25** | **GO-LIVE** - 5 Pilot-User | ✅ |
-| 29.11.25 | RAG-Import Infrastruktur | ✅ |
-| 06.12.25 | Erste RAG-Dokumente | ⏳ |
-| 19.12.25 | **Pilot-Ende** - Evaluation | ⏳ |
-| 15.01.26 | Rollout Phase 2 (20+ User) | ⏳ |
+| 14.11.25 | Kick-off, Konzept | âœ… |
+| 20.11.25 | Hetzner Server bestellt | âœ… |
+| 22.11.25 | Server Setup (Ubuntu, Docker) | âœ… |
+| 24.11.25 | OSPUI + ChromaDB deployed | âœ… |
+| 25.11.25 | Ollama + Modelle (mistral:7b) | âœ… |
+| **26.11.25** | **GO-LIVE** - 5 Pilot-User | âœ… |
+| 29.11.25 | RAG-Import Infrastruktur | âœ… |
+| 06.12.25 | Erste RAG-Dokumente | â³ |
+| 19.12.25 | **Pilot-Ende** - Evaluation | â³ |
+| 15.01.26 | Rollout Phase 2 (20+ User) | â³ |
 
 ---
 
@@ -98,22 +98,22 @@ Docker-Compose Stack
 
 ### Server-Details
 
-**Hetzner Cloud CX33**
+**Hetzner Cloud CX43** â¬†ï¸ Upgrade von CX33
 
 | Eigenschaft | Wert |
 |-------------|------|
 | Server-Name | osp-webui |
-| CPU | 4 vCPU (AMD EPYC) |
-| RAM | 16GB DDR4 |
+| CPU | 8 vCPU (AMD EPYC) â¬†ï¸ Upgrade |
+| RAM | 16GB DDR4 â¬†ï¸ Upgrade |
 | Storage | 160GB NVMe SSD |
 | Netzwerk | 20TB Traffic/Monat |
-| Standort | Falkenstein, DE 🇩🇪 |
+| Standort | Falkenstein, DE ðŸ‡©ðŸ‡ª |
 | IPv4 | 46.224.102.30 |
 | IPv6 | 2a01:4f8:c013:b41c:: |
 | OS | Ubuntu 24.04.1 LTS |
 | Kernel | 6.8.0-49-generic |
 
-**Kosten:** €6/Monat (inkl. Backup)
+**Kosten:** â‚¬6/Monat (inkl. Backup)
 
 ---
 
@@ -124,7 +124,7 @@ Docker-Compose Stack
 | Port | Protokoll | Quelle | Zweck |
 |------|-----------|--------|-------|
 | 22 | TCP | 0.0.0.0/0 | SSH (Key-Auth) |
-| 80 | TCP | 0.0.0.0/0 | HTTP→HTTPS Redirect |
+| 80 | TCP | 0.0.0.0/0 | HTTPâ†’HTTPS Redirect |
 | 443 | TCP | 0.0.0.0/0 | HTTPS (OSPUI) |
 
 **Blockiert:** 3000 (OSPUI), 8000 (ChromaDB), 11434 (Ollama), 5678 (n8n)
@@ -137,8 +137,8 @@ Docker-Compose Stack
 
 | Dienst | URL | Status |
 |--------|-----|--------|
-| OSPUI | https://osp.schneider-kabelsatzbau.de | ✅ Aktiv |
-| n8n | https://n8n.schneider-kabelsatzbau.de | ✅ Aktiv |
+| OSPUI | https://osp.schneider-kabelsatzbau.de | âœ… Aktiv |
+| n8n | https://n8n.schneider-kabelsatzbau.de | âœ… Aktiv |
 
 ---
 
@@ -151,13 +151,13 @@ Docker-Compose Stack
 
 **Domain:** schneider-kabelsatzbau.de
 
-**DNS-Einträge:**
+**DNS-EintrÃ¤ge:**
 ```
-osp.schneider-kabelsatzbau.de   → A: 46.224.102.XXX, AAAA: 2a01:4f8:c013:b41c::
-n8n.schneider-kabelsatzbau.de   → A: 46.224.102.XXX, AAAA: 2a01:4f8:c013:b41c::
+osp.schneider-kabelsatzbau.de   â†’ A: 46.224.102.XXX, AAAA: 2a01:4f8:c013:b41c::
+n8n.schneider-kabelsatzbau.de   â†’ A: 46.224.102.XXX, AAAA: 2a01:4f8:c013:b41c::
 ```
 
-**Neue Subdomain:** Anfrage an Attentio nötig!
+**Neue Subdomain:** Anfrage an Attentio nÃ¶tig!
 
 ---
 
@@ -185,20 +185,20 @@ Host osp-server
 
 ```
 / (Root)                160GB NVMe
-├── /var/lib/docker/    120GB
-│   ├── volumes/
-│   │   ├── open-webui_data/      5GB
-│   │   ├── chromadb_data/       20GB
-│   │   ├── ollama_data/         60GB
-│   │   └── n8n_data/             5GB
-│   └── images/                  10GB
-├── /opt/osp/                    10GB
-│   ├── docker-compose.yml
-│   ├── nginx/
-│   ├── backups/
-│   └── scripts/
-├── /home/                        5GB
-└── /var/log/                     5GB
+â”œâ”€â”€ /var/lib/docker/    120GB
+â”‚   â”œâ”€â”€ volumes/
+â”‚   â”‚   â”œâ”€â”€ open-webui_data/      5GB
+â”‚   â”‚   â”œâ”€â”€ chromadb_data/       20GB
+â”‚   â”‚   â”œâ”€â”€ ollama_data/         60GB
+â”‚   â”‚   â””â”€â”€ n8n_data/             5GB
+â”‚   â””â”€â”€ images/                  10GB
+â”œâ”€â”€ /mnt/HC_Volume_104189729/osp/                    10GB
+â”‚   â”œâ”€â”€ docker-compose.yml
+â”‚   â”œâ”€â”€ nginx/
+â”‚   â”œâ”€â”€ backups/
+â”‚   â””â”€â”€ scripts/
+â”œâ”€â”€ /home/                        5GB
+â””â”€â”€ /var/log/                     5GB
 ```
 
 ---
@@ -222,7 +222,7 @@ Docker Compose v2.29.7
 
 ### Docker-Compose-Datei
 
-**Pfad:** `/opt/osp/docker-compose.yml`
+**Pfad:** `/mnt/HC_Volume_104189729/osp/docker-compose.yml`
 
 ```yaml
 version: '3.8'
@@ -242,7 +242,7 @@ services:
     restart: always
     networks: [osp-network]
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/heartbeat"]
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v2/heartbeat"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -278,7 +278,7 @@ services:
       CHROMA_HTTP_HOST: "chromadb"
       CHROMA_HTTP_PORT: "8000"
       CHROMA_TENANT: "osp_tenant"
-      RAG_EMBEDDING_MODEL: "all-MiniLM-L6-v2"
+      RAG_EMBEDDING_MODEL: "multilingual-e5-large"
       ENABLE_SIGNUP: "false"
       DEFAULT_USER_ROLE: "user"
       DEFAULT_LOCALE: "de"
@@ -354,13 +354,13 @@ networks:
 
 ### OSP-Level-Mapping
 
-**OSPUI unterstützt keine nativen OSP-Level → Workaround via ChromaDB-Metadata-Filter**
+**OSPUI unterstÃ¼tzt keine nativen OSP-Level â†’ Workaround via ChromaDB-Metadata-Filter**
 
 | OSP-Level | Beschreibung | OSPUI-Rolle | User |
 |-----------|--------------|-------------|------|
-| **L1** | Öffentlich | User | Alle |
+| **L1** | Ã–ffentlich | User | Alle |
 | **L2** | Abteilung | User | SK, MD |
-| **L3** | Führung | User/Admin | AL, TS |
+| **L3** | FÃ¼hrung | User/Admin | AL, TS |
 | **L4** | Geheim | Admin | CS, SV |
 
 **Filterung:** Im Backend via ChromaDB-Metadata (`user_level: L1/L2/L3/L4`)
@@ -370,19 +370,19 @@ networks:
 ### OSPUI-Funktionen
 
 **Aktiviert:**
-- ✅ Chat mit RAG-Unterstützung
-- ✅ Modell-Auswahl (mistral, llama2, gpt-4)
-- ✅ Dokumente hochladen
-- ✅ Custom-Modelle erstellen
-- ✅ Chat-Export
-- ✅ Message-Rating
+- âœ… Chat mit RAG-UnterstÃ¼tzung
+- âœ… Modell-Auswahl (mistral, llama2, gpt-4)
+- âœ… Dokumente hochladen
+- âœ… Custom-Modelle erstellen
+- âœ… Chat-Export
+- âœ… Message-Rating
 
 **Deaktiviert:**
-- ❌ Signup (nur Admin-Invite)
-- ❌ Community-Sharing
-- ❌ Web-Search (noch)
-- ❌ Image-Generation (noch)
-- ❌ Admin-Chat-Access (DSGVO)
+- âŒ Signup (nur Admin-Invite)
+- âŒ Community-Sharing
+- âŒ Web-Search (noch)
+- âŒ Image-Generation (noch)
+- âŒ Admin-Chat-Access (DSGVO)
 
 ---
 
@@ -406,7 +406,7 @@ networks:
 **Konfiguration:**
 ```python
 collection_name = "OSP_COMPLETE"
-embedding_function = "all-MiniLM-L6-v2"
+embedding_function = "multilingual-e5-large"
 distance_metric = "cosine"
 ```
 
@@ -414,14 +414,14 @@ distance_metric = "cosine"
 
 ### Embedding-Modell
 
-**all-MiniLM-L6-v2 (lokal)**
+**multilingual-e5-large (lokal)**
 - **Sprache:** Multilingual (de, en)
 - **Dimensionen:** 384
 - **Speed:** ~120 Embeddings/s
-- **Qualität:** Gut für deutsche Fachtexte
-- **Größe:** ~80MB
+- **QualitÃ¤t:** Gut fÃ¼r deutsche Fachtexte
+- **GrÃ¶ÃŸe:** ~80MB
 
-**Alternative (geplant):** OpenAI `text-embedding-3-small` (höhere Qualität, Kosten: €0.02/1M Tokens)
+**Alternative (geplant):** OpenAI `text-embedding-3-small` (hÃ¶here QualitÃ¤t, Kosten: â‚¬0.02/1M Tokens)
 
 ---
 
@@ -443,7 +443,7 @@ metadata = {
 ### Import-Workflow
 
 **Schritt 1: Dokument RAG-optimieren**  
-→ Siehe `IT_RAG_Richtlinie.md`
+â†’ Siehe `IT_RAG_Richtlinie.md`
 
 **Schritt 2: Dokument nach `/main/[TAG]/` verschieben**
 
@@ -463,7 +463,7 @@ for doc in docs:
     collection.add(documents=chunks, embeddings=embeddings, metadatas=metadata)
 ```
 
-**Schritt 4: Test-Queries durchführen**
+**Schritt 4: Test-Queries durchfÃ¼hren**
 
 ---
 
@@ -482,16 +482,99 @@ results = collection.query(
 
 ---
 
-### Statistiken (Pilot-Phase)
+### Statistiken (Stand 15.12.2025)
 
 | Metrik | Aktuell | Ziel |
 |--------|---------|------|
-| Collections | 1 | 1 |
-| Dokumente | 5 | 50+ |
-| Chunks | ~80 | 800+ |
-| Embeddings | ~80 | 800+ |
-| Query-Latenz | 1.2s | <2s |
-| Speicher | 2GB | 20GB |
+| Collections | 2 | 3 |
+| Dokumente | 58 | 80+ |
+| Chunks | ~580 | 800+ |
+| Embeddings | ~580 | 800+ |
+| Query-Latenz | 250ms | <500ms |
+| Speicher | 8GB | 20GB |
+
+---
+
+## PIPELINE-ARCHITEKTUR (NEU v1.3)
+
+### Pre-Processing-Module (15.12.2025)
+
+Am 15.12.2025 wurden **4 Pre-Processing-Module** implementiert, die die RAG-QualitÃ¤t signifikant verbessern:
+
+```
+USER MESSAGE
+     â”‚
+     â–¼
+STEP -1: Query-Normalisierung
+     â”‚    "Mitarbieter AL" â†’ "mitarbeiter al"
+     â”‚    Modul: query_normalizer.py
+     â–¼
+STEP 0: MA-KÃ¼rzel Expansion
+     â”‚    "mitarbeiter al" â†’ "mitarbeiter al Personalstamm HR_CORE..."
+     â”‚    Modul: ma_preprocessing.py
+     â–¼
+STEP 1: Kontakt-Lookup (WKZ-Nummern)
+     â”‚    "WKZ fÃ¼r 0460-202-2091" â†’ Direktantwort
+     â”‚    Modul: kontakt_lookup.py
+     â–¼
+STEP 1.5: Keyword-Filter
+     â”‚    "NULL-FEHLER" â†’ QM_CORE direkt laden
+     â”‚    Modul: keyword_filter.py
+     â–¼
+STEP 2: RAG mit TAG-FILTER
+     â”‚    ChromaDB WHERE: {"tag": "HR"}
+     â”‚    Modul: tag_router.py
+     â–¼
+LLM Response
+```
+
+---
+
+### Modul-Ãœbersicht
+
+| Modul | Problem gelÃ¶st | Verbesserung |
+|-------|----------------|--------------|
+| **Query-Normalizer** | Tippfehler nicht gefunden | 70% â†’ 90%+ |
+| **MA-Preprocessing** | KÃ¼rzel (AL, MD) nicht gefunden | 0% â†’ 100% |
+| **Keyword-Filter** | Kritische Begriffe falsch geroutet | 70% â†’ 95%+ |
+| **Tag-Router** | KERN-Layer PrÃ¤zision unzureichend | 70% â†’ 100% |
+
+---
+
+### Neue Valves (Konfiguration)
+
+| Valve | Default | Beschreibung |
+|-------|---------|--------------|
+| `ENABLE_QUERY_NORMALIZATION` | True | Tippfehler-Korrektur aktivieren |
+| `ENABLE_MA_PREPROCESSING` | True | MA-KÃ¼rzel Expansion aktivieren |
+| `ENABLE_KEYWORD_FILTER` | True | Keyword-Trigger Pre-RAG aktivieren |
+| `ENABLE_TAG_ROUTING` | True | ChromaDB WHERE-Filter aktivieren |
+| `MA_KUERZEL_PATH` | /app/.../ma_kuerzel.json | Pfad zur KÃ¼rzel-JSON |
+| `DOCUMENTS_PATH` | /app/.../docs | Pfad zum Documents-Verzeichnis |
+
+---
+
+### Container-Pfade fÃ¼r Module
+
+| Host-Pfad | Container-Pfad |
+|-----------|----------------|
+| /opt/osp/pipelines/ | /app/backend/data/pipelines/ |
+| /opt/osp/pipelines/modules/ | /app/backend/data/pipelines/modules/ |
+| /opt/osp/lookups/ | /app/backend/data/lookups/ |
+| /opt/osp/documents/ | /app/backend/data/docs/ |
+
+---
+
+### Metriken (Stand 15.12.2025)
+
+| Metrik | Vorher | Nachher | Ziel |
+|--------|--------|---------|------|
+| Overall Retrieval | 80% | ~95% | 95%+ |
+| KERN-Layer PrÃ¤zision | 70% | 100% | 100% |
+| Tippfehler-Toleranz | 70% | ~90% | 90%+ |
+| MA-KÃ¼rzel Queries | 0% | 100% | 100% |
+| Keyword PrÃ¤zision | 70% | ~95% | 100% |
+| Avg. Query Latenz | 206ms | ~250ms | <500ms |
 
 ---
 
@@ -499,11 +582,11 @@ results = collection.query(
 
 ### Installierte Modelle
 
-| Modell | Größe | RAM | Zweck | Status |
+| Modell | GrÃ¶ÃŸe | RAM | Zweck | Status |
 |--------|-------|-----|-------|--------|
-| mistral:7b | 4GB | 6GB | Standard-Chat | ✅ Aktiv |
-| llama2:13b | 7.3GB | 10GB | Komplexe Anfragen | ✅ Aktiv |
-| codellama:7b | 3.8GB | 6GB | Code-Generierung | ⏳ Geplant |
+| mistral:7b | 4GB | 6GB | Standard-Chat | âœ… Aktiv |
+| llama2:13b | 7.3GB | 10GB | Komplexe Anfragen | âœ… Aktiv |
+| codellama:7b | 3.8GB | 6GB | Code-Generierung | â³ Geplant |
 
 **Gesamt:** ~15GB Modelle, ~10GB RAM-Nutzung
 
@@ -522,21 +605,21 @@ docker exec osp-ollama ollama pull llama2:13b
 
 **Kriterien:**
 - **Geschwindigkeit:** mistral:7b (Standard)
-- **Qualität:** llama2:13b (komplexe Anfragen)
+- **QualitÃ¤t:** llama2:13b (komplexe Anfragen)
 - **Deutsch:** Beide gut (multilingual)
-- **Kosten:** Lokal = €0
+- **Kosten:** Lokal = â‚¬0
 
-**Fallback:** gpt-4 (OpenAI API) für kritische Anfragen
+**Fallback:** gpt-4 (OpenAI API) fÃ¼r kritische Anfragen
 
 ---
 
 ### Performance
 
-| Modell | Tokens/s | Response-Zeit | Qualität |
+| Modell | Tokens/s | Response-Zeit | QualitÃ¤t |
 |--------|----------|---------------|----------|
-| mistral:7b | 40 | 3.2s | ⭐⭐⭐⭐ |
-| llama2:13b | 25 | 5.1s | ⭐⭐⭐⭐⭐ |
-| gpt-4 (API) | 60 | 2.8s | ⭐⭐⭐⭐⭐ |
+| mistral:7b | 40 | 3.2s | â­â­â­â­ |
+| llama2:13b | 25 | 5.1s | â­â­â­â­â­ |
+| gpt-4 (API) | 60 | 2.8s | â­â­â­â­â­ |
 
 ---
 
@@ -544,14 +627,14 @@ docker exec osp-ollama ollama pull llama2:13b
 
 ### Status
 
-**⏳ GEPLANT - Q1 2026**
+**â³ GEPLANT - Q1 2026**
 
 **Workflows (geplant):**
-1. **Dokument-Import:** SharePoint → ChromaDB Auto-Sync
-2. **Benachrichtigungen:** Neue RAG-Docs → Slack/E-Mail
-3. **Backup:** ChromaDB → Terra Cloud (wöchentlich)
-4. **Monitoring:** Container-Health → Webhook
-5. **User-Onboarding:** Neuer MA → OSPUI-Account + E-Mail
+1. **Dokument-Import:** SharePoint â†’ ChromaDB Auto-Sync
+2. **Benachrichtigungen:** Neue RAG-Docs â†’ Slack/E-Mail
+3. **Backup:** ChromaDB â†’ Terra Cloud (wÃ¶chentlich)
+4. **Monitoring:** Container-Health â†’ Webhook
+5. **User-Onboarding:** Neuer MA â†’ OSPUI-Account + E-Mail
 
 ---
 
@@ -574,8 +657,8 @@ certbot --nginx -d osp.schneider-kabelsatzbau.de
 
 **Details:**
 - **Anbieter:** Let's Encrypt
-- **Gültig bis:** 26.02.2026
-- **Auto-Renewal:** ✅ Alle 90 Tage via Certbot Cron
+- **GÃ¼ltig bis:** 26.02.2026
+- **Auto-Renewal:** âœ… Alle 90 Tage via Certbot Cron
 - **Registrierte E-Mail:** a.loehr@schneider-kabelsatzbau.de
 - **Zertifikat-Pfad:** `/etc/letsencrypt/live/osp.schneider-kabelsatzbau.de/`
 - **Cipher Suites:** TLS 1.2+ (A+ Rating)
@@ -584,7 +667,7 @@ certbot --nginx -d osp.schneider-kabelsatzbau.de
 ```bash
 certbot renew                 # Manuell erneuern
 certbot renew --dry-run       # Test-Renewal
-certbot certificates          # Status prüfen
+certbot certificates          # Status prÃ¼fen
 systemctl reload nginx        # Nach Erneuerung
 ```
 
@@ -623,18 +706,18 @@ server {
 
 ### Firewall
 
-**UFW Status:** ✅ Aktiv
+**UFW Status:** âœ… Aktiv
 
 | Port | Protokoll | Dienst | Zweck |
 |------|-----------|--------|-------|
 | 22 | TCP | SSH | Server-Verwaltung |
-| 80 | TCP | HTTP | → 443 Redirect |
+| 80 | TCP | HTTP | â†’ 443 Redirect |
 | 443 | TCP | HTTPS | Nginx Reverse Proxy |
 
 **Befehle:**
 ```bash
 ufw status                     # Status anzeigen
-ufw allow 443/tcp              # Regel hinzufügen
+ufw allow 443/tcp              # Regel hinzufÃ¼gen
 ufw delete allow 80/tcp        # Regel entfernen
 ufw enable                     # Firewall aktivieren
 ufw reload                     # Neu laden
@@ -645,13 +728,13 @@ ufw reload                     # Neu laden
 
 ---
 
-### DSGVO-Konformität
+### DSGVO-KonformitÃ¤t
 
 **Datenstandort:** Deutschland (Falkenstein)  
 **Datenverarbeitung:** Lokal (kein Cloud-Export)  
 **Backups:** Terra Cloud (DE)  
 **Datenschutz:**
-- Keine externen APIs (außer optional gpt-4)
+- Keine externen APIs (auÃŸer optional gpt-4)
 - Keine Telemetrie
 - User-Daten isoliert
 - 90 Tage Retention
@@ -665,20 +748,20 @@ ufw reload                     # Neu laden
 **Hetzner Server-Backup (Cloud):**
 - **Anbieter:** Hetzner Cloud (integriert)
 - **Slots:** 7 Backups (automatisch rotierend)
-- **Automatisch:** ✅ Täglich, 7 Tage Retention
-- **Kosten:** ~€1/Monat (20% Server-Tarif)
-- **Verwaltung:** https://console.hetzner.com → Server → Backups
-- **Wiederherstellung:** Backup auswählen → "Wiederherstellen" → ~10 Min
+- **Automatisch:** âœ… TÃ¤glich, 7 Tage Retention
+- **Kosten:** ~â‚¬1/Monat (20% Server-Tarif)
+- **Verwaltung:** https://console.hetzner.com â†’ Server â†’ Backups
+- **Wiederherstellung:** Backup auswÃ¤hlen â†’ "Wiederherstellen" â†’ ~10 Min
 
 **Docker-Volumes (Lokal):**
 
-**Täglich (02:00 Uhr):**
+**TÃ¤glich (02:00 Uhr):**
 ```bash
 #!/bin/bash
-# /opt/osp/scripts/backup-daily.sh
+# /mnt/HC_Volume_104189729/osp/scripts/backup-daily.sh
 
 DATE=$(date +%Y%m%d_%H%M%S)
-BACKUP_DIR=/opt/osp/backups
+BACKUP_DIR=/mnt/HC_Volume_104189729/osp/backups
 mkdir -p $BACKUP_DIR
 
 docker run --rm \
@@ -700,16 +783,16 @@ find $BACKUP_DIR -name "*.tar.gz" -mtime +7 -delete
 echo "Backup completed: $DATE"
 ```
 
-**Cron:** `0 2 * * * /opt/osp/scripts/backup-daily.sh >> /var/log/osp-backup.log 2>&1`
+**Cron:** `0 2 * * * /mnt/HC_Volume_104189729/osp/scripts/backup-daily.sh >> /var/log/osp-backup.log 2>&1`
 
 ---
 
 ### Offsite-Backup
 
 **Terra Cloud (extern):**
-- Wöchentlich (So 03:00)
+- WÃ¶chentlich (So 03:00)
 - 4 Wochen Retention
-- Verschlüsselt (AES-256)
+- VerschlÃ¼sselt (AES-256)
 
 ---
 
@@ -719,29 +802,29 @@ echo "Backup completed: $DATE"
 ```bash
 apt update                    # Paketlisten aktualisieren
 apt upgrade -y                # Pakete upgraden
-apt autoremove -y             # Nicht benötigte Pakete entfernen
+apt autoremove -y             # Nicht benÃ¶tigte Pakete entfernen
 reboot                        # Bei Kernel-Updates
 ```
 
 **Docker-Container (monatlich - 1. So, 04:00):**
 ```bash
 #!/bin/bash
-# /opt/osp/scripts/update-monthly.sh
+# /mnt/HC_Volume_104189729/osp/scripts/update-monthly.sh
 
 cd /opt/open-webui
 
 docker-compose pull           # Neueste Images herunterladen
 docker-compose down           # Container stoppen
 docker-compose up -d          # Mit neuen Images starten
-docker image prune -a -f      # Alte Images löschen
-docker-compose logs --tail=50 # Logs prüfen
+docker image prune -a -f      # Alte Images lÃ¶schen
+docker-compose logs --tail=50 # Logs prÃ¼fen
 ```
 
 **Speicherplatz freigeben:**
 ```bash
 docker system prune -a        # Docker-Cleanup (Container, Images, Volumes)
-journalctl --vacuum-time=7d   # Alte Logs löschen
-du -sh /var/log/*             # Log-Größen prüfen
+journalctl --vacuum-time=7d   # Alte Logs lÃ¶schen
+du -sh /var/log/*             # Log-GrÃ¶ÃŸen prÃ¼fen
 ```
 
 ---
@@ -750,12 +833,12 @@ du -sh /var/log/*             # Log-Größen prüfen
 
 | Task | Frequenz | Zeit | Verantw. |
 |------|----------|------|----------|
-| Backup lokal | Täglich | 02:00 | Auto |
-| Backup offsite | Wöchentlich | So 03:00 | Auto |
+| Backup lokal | TÃ¤glich | 02:00 | Auto |
+| Backup offsite | WÃ¶chentlich | So 03:00 | Auto |
 | Updates | Monatlich | 1.So 04:00 | AL |
 | SSL-Erneuerung | 90 Tage | Auto | Certbot |
-| Disk-Space | Wöchentlich | Mo 08:00 | AL |
-| Log-Rotation | Täglich | 00:00 | Auto |
+| Disk-Space | WÃ¶chentlich | Mo 08:00 | AL |
+| Log-Rotation | TÃ¤glich | 00:00 | Auto |
 
 ---
 
@@ -779,11 +862,11 @@ du -sh /var/log/*             # Log-Größen prüfen
 
 | Metrik | Ziel | Aktuell | Status |
 |--------|------|---------|--------|
-| RAG-Query-Latenz | <2s | 1.2s | ✅ |
-| LLM-Response | <5s | 3.8s | ✅ |
-| Embedding-Speed | >100/s | 120/s | ✅ |
-| Concurrent Users | 5 | 5 | ✅ |
-| Uptime | >99% | 99.8% | ✅ |
+| RAG-Query-Latenz | <2s | 1.2s | âœ… |
+| LLM-Response | <5s | 3.8s | âœ… |
+| Embedding-Speed | >100/s | 120/s | âœ… |
+| Concurrent Users | 5 | 5 | âœ… |
+| Uptime | >99% | 99.8% | âœ… |
 
 ---
 
@@ -813,9 +896,9 @@ du -sh /var/log/*             # Log-Größen prüfen
 
 ### Problem: Container startet nicht
 
-**Symptome:** `docker-compose ps` → Exited (1)
+**Symptome:** `docker-compose ps` â†’ Exited (1)
 
-**Lösung:**
+**LÃ¶sung:**
 ```bash
 docker-compose logs [container]
 docker-compose restart [container]
@@ -829,10 +912,10 @@ docker-compose up -d --build
 
 **Symptome:** "Failed to connect to ChromaDB" / Keine RAG-Ergebnisse
 
-**Lösung:**
+**LÃ¶sung:**
 ```bash
 docker ps | grep chromadb
-curl http://localhost:8000/api/v1/heartbeat
+curl http://localhost:8000/api/v2/heartbeat
 docker-compose restart chromadb
 docker logs osp-chromadb --tail=100
 ```
@@ -843,10 +926,10 @@ docker logs osp-chromadb --tail=100
 
 **Symptome:** Container unerwartet beendet / "OOM Killed"
 
-**Lösung:**
+**LÃ¶sung:**
 ```bash
 docker stats
-# In docker-compose.yml: memory: 12G → 10G
+# In docker-compose.yml: memory: 12G â†’ 10G
 docker-compose down
 docker-compose up -d
 ```
@@ -857,13 +940,13 @@ docker-compose up -d
 
 **Symptome:** "No space left on device"
 
-**Lösung:**
+**LÃ¶sung:**
 ```bash
 df -h
 docker system df
 docker image prune -a
 docker system prune -a --volumes
-find /opt/osp/backups -mtime +7 -delete
+find /mnt/HC_Volume_104189729/osp/backups -mtime +7 -delete
 ```
 
 ---
@@ -872,9 +955,9 @@ find /opt/osp/backups -mtime +7 -delete
 
 **Symptome:** Browser-Warnung: "Connection not private"
 
-**Lösung:**
+**LÃ¶sung:**
 ```bash
-certbot certificates          # Status prüfen
+certbot certificates          # Status prÃ¼fen
 certbot renew --nginx         # Manuell erneuern
 certbot renew --dry-run       # Test ohne Erneuerung
 systemctl reload nginx        # Nginx neu laden
@@ -914,10 +997,10 @@ ss -tlnp | grep 443
 ### Problem: Server reagiert nicht (Notfall)
 
 **Hetzner Console:**
-1. https://console.hetzner.com → Projekt: OSP-Chatbot
-2. Server "osp-webui" auswählen
-3. **Option A:** Reiter "Konsole" → VNC-Konsole (SSH-Zugriff)
-4. **Option B:** Reiter "Power" → "Neu starten" (Hard Reboot)
+1. https://console.hetzner.com â†’ Projekt: OSP-Chatbot
+2. Server "osp-webui" auswÃ¤hlen
+3. **Option A:** Reiter "Konsole" â†’ VNC-Konsole (SSH-Zugriff)
+4. **Option B:** Reiter "Power" â†’ "Neu starten" (Hard Reboot)
 
 ---
 
@@ -925,7 +1008,7 @@ ss -tlnp | grep 443
 
 **Symptome:** 502 Bad Gateway, 404 Not Found
 
-**Lösung:**
+**LÃ¶sung:**
 ```bash
 nginx -t                      # Konfig testen
 cat /etc/nginx/sites-enabled/osp
@@ -940,9 +1023,9 @@ tail -f /var/log/nginx/error.log
 
 **Symptome:** `docker ps` zeigt "Restarting" oder Exited
 
-**Lösung:**
+**LÃ¶sung:**
 ```bash
-# Logs prüfen
+# Logs prÃ¼fen
 docker logs open-webui
 
 # Rebuild ohne Cache
@@ -960,18 +1043,18 @@ docker-compose up -d
 
 ### Problem: Passwort vergessen (OSPUI)
 
-**Lösung:**
+**LÃ¶sung:**
 ```bash
 # Container betreten
 docker exec -it open-webui bash
 
-# SQLite-DB öffnen
+# SQLite-DB Ã¶ffnen
 sqlite3 /app/backend/data/webui.db
 
-# Admin-E-Mail prüfen
+# Admin-E-Mail prÃ¼fen
 SELECT email FROM auth WHERE role = 'admin';
 
-# Benutzer löschen (Neuanmeldung nötig)
+# Benutzer lÃ¶schen (Neuanmeldung nÃ¶tig)
 DELETE FROM auth WHERE email = 'user@example.com';
 ```
 
@@ -987,8 +1070,8 @@ DELETE FROM auth WHERE email = 'user@example.com';
 |------|--------|
 | `/opt/open-webui/` | Docker-Compose & Konfiguration |
 | `/opt/open-webui/docker-compose.yml` | Haupt-Konfiguration |
-| `/opt/osp/scripts/` | Backup & Wartungs-Skripte |
-| `/opt/osp/backups/` | Lokale Backups (7 Tage) |
+| `/mnt/HC_Volume_104189729/osp/scripts/` | Backup & Wartungs-Skripte |
+| `/mnt/HC_Volume_104189729/osp/backups/` | Lokale Backups (7 Tage) |
 | `/etc/nginx/sites-enabled/` | Nginx-Konfigurationen |
 | `/etc/nginx/sites-enabled/osp` | OSPUI Reverse Proxy |
 | `/etc/nginx/sites-enabled/n8n` | n8n Reverse Proxy |
@@ -1035,50 +1118,98 @@ DELETE FROM auth WHERE email = 'user@example.com';
 | Bereich | Kontakt | Info |
 |---------|---------|------|
 | **DNS (Subdomains)** | Kevin Lieser, Attentio GmbH | 02662 948007-0, k.lieser@attentio.de |
-| **Hetzner Support** | Hetzner Online GmbH | https://console.hetzner.com → Support |
-| **OSP-Projekt** | Andreas Löhr (AL) | a.loehr@schneider-kabelsatzbau.de |
+| **Hetzner Support** | Hetzner Online GmbH | https://console.hetzner.com â†’ Support |
+| **OSP-Projekt** | Andreas LÃ¶hr (AL) | a.loehr@schneider-kabelsatzbau.de |
 
 ---
 
 ## QUERVERWEISE
 
-**Bidirektional (↔):**
-- ↔ `BN_CORE_Identitaet.md` - User-Rollen, OSP-Level
-- ↔ `IT_DOKU_IT-Dokumentation.md` - Server-Infrastruktur
-- ↔ `IT_RAG_Richtlinie.md` - ChromaDB-Import-Standards
+**Bidirektional (â†”):**
+- â†” `BN_CORE_Identitaet.md` - User-Rollen, OSP-Level
+- â†” `IT_DOKU_IT-Dokumentation.md` - Server-Infrastruktur
+- â†” `IT_RAG_Richtlinie.md` - ChromaDB-Import-Standards
 
-**Ausgehend (→):**
-- → `KOM_KGS_System-Gedaechtnis.md` - Projekt-Meilensteine
-- → `OSP_TAG_System.md` - TAG-System, OSP-Level
+**Ausgehend (â†’):**
+- â†’ `KOM_KGS_System-Gedaechtnis.md` - Projekt-Meilensteine
+- â†’ `OSP_TAG_System.md` - TAG-System, OSP-Level
 
-**Eingehend (←):**
-- ← `HR_CORE_Personalstamm.md` - Mitarbeiter-E-Mails
-- ← `QM_CORE_Qualitaetspolitik.md` - KI-Nutzung im QM
+**Eingehend (â†):**
+- â† `HR_CORE_Personalstamm.md` - Mitarbeiter-E-Mails
+- â† `QM_CORE_Qualitaetspolitik.md` - KI-Nutzung im QM
 
 ---
 
-## ÄNDERUNGSHISTORIE
+## Ã„NDERUNGSHISTORIE
+
+### [1.4] - 2025-12-23 - ARCHITEKTUR-UPDATE & RAM-KORREKTUR
+**Quelle:** Server-Erhebung 2025-12-23, docker-compose.yml
+
+**Architektur-Änderungen:**
+- ❌ Ollama ENTFERNT (lokale LLMs nicht mehr genutzt)
+- ✅ LiteLLM (anthropic-proxy) für Claude API Integration
+- ✅ Portainer für Docker-Management hinzugefügt
+- ✅ DocCompare für Dokumentenvergleich hinzugefügt
+
+**Version-Updates:**
+- ✅ Docker: 27.3.1 → 28.2.2
+- ✅ Open WebUI: 0.6.41 → 0.6.43
+- ✅ ChromaDB: 0.5.15 → 1.3.6 (Major Update!)
+- ✅ Embedding-Modell: all-MiniLM-L6-v2 → multilingual-e5-large
+
+**RAM-Korrektur:**
+- ❌ Fehlerhafte Angabe an 4 Stellen: 32GB RAM
+- ✅ Korrigiert auf: 16GB RAM (verifiziert via `free -h`)
+
+**Verantwortlich:** AL (QM & KI-Manager)
+
+---
+
+### [1.3] - 2025-12-15 - PIPELINE-MODULE & HARDWARE-UPGRADE
+**Quelle:** OSP-RAG-Skill v1.2, Hetzner Console
+
+**Server-Hardware:**
+- âœ… Upgrade CX33 â†’ CX43 (8 vCPU, 16GB RAM)
+- âœ… Open WebUI v0.6.40 â†’ v0.6.41
+
+**Pipeline-Architektur (NEU):**
+- âœ… Neuer Abschnitt "PIPELINE-ARCHITEKTUR" hinzugefÃ¼gt
+- âœ… 4 Pre-Processing-Module dokumentiert:
+  - Query-Normalizer (Tippfehler-Korrektur)
+  - MA-Preprocessing (KÃ¼rzel-Expansion)
+  - Keyword-Filter (Direktes Laden)
+  - Tag-Router (ChromaDB WHERE-Filter)
+- âœ… 6 neue Valves dokumentiert
+- âœ… Container-Pfade fÃ¼r Module dokumentiert
+
+**Metriken:**
+- âœ… Statistiken aktualisiert (58 Dokumente, 250ms Latenz)
+- âœ… Retrieval-Metriken hinzugefÃ¼gt (95% Overall, 100% KERN)
+
+**Verantwortlich:** AL (QM & KI-Manager)
+
+---
 
 ### [1.2] - 2025-11-29 - HETZNER-DOKU INTEGRATION
 **Quelle:** Hetzner_Server_OSP_Dokumentation.md v1.0
 
-**Ergänzungen:**
-- ✅ Server-Details aktualisiert (korrekte IP: 46.224.102.XXX, Kosten: €6/Monat)
-- ✅ SSH-Zugang aktualisiert (SSH-Config, Hetzner Console Link)
-- ✅ DNS-Verwaltung hinzugefügt (Attentio GmbH, Kevin Lieser-Kontakt)
-- ✅ Domains & URLs dokumentiert (osp.schneider-kabelsatzbau.de, n8n.schneider-kabelsatzbau.de)
-- ✅ Hetzner Backup integriert (7 Slots, automatisch, €1/Monat)
-- ✅ SSL-Details erweitert (Gültig bis 26.02.2026, Auto-Renewal, Befehle)
-- ✅ Firewall erweitert (UFW-Status, detaillierte Befehle, Ports-Tabelle)
-- ✅ Update-Prozedur erweitert (Ubuntu System-Updates, Docker-Updates, Speicherplatz)
-- ✅ Troubleshooting massiv erweitert (9 Szenarien: Dienst nicht erreichbar, Server reagiert nicht, Nginx-Fehler, Container wird beendet, Passwort vergessen, etc.)
-- ✅ Wichtige Pfade & Befehle hinzugefügt (Dateipfade, Docker-Befehle, System-Befehle)
-- ✅ Support-Kontakte dokumentiert (Attentio DNS, Hetzner Support, AL)
+**ErgÃ¤nzungen:**
+- âœ… Server-Details aktualisiert (korrekte IP: 46.224.102.XXX, Kosten: â‚¬6/Monat)
+- âœ… SSH-Zugang aktualisiert (SSH-Config, Hetzner Console Link)
+- âœ… DNS-Verwaltung hinzugefÃ¼gt (Attentio GmbH, Kevin Lieser-Kontakt)
+- âœ… Domains & URLs dokumentiert (osp.schneider-kabelsatzbau.de, n8n.schneider-kabelsatzbau.de)
+- âœ… Hetzner Backup integriert (7 Slots, automatisch, â‚¬1/Monat)
+- âœ… SSL-Details erweitert (GÃ¼ltig bis 26.02.2026, Auto-Renewal, Befehle)
+- âœ… Firewall erweitert (UFW-Status, detaillierte Befehle, Ports-Tabelle)
+- âœ… Update-Prozedur erweitert (Ubuntu System-Updates, Docker-Updates, Speicherplatz)
+- âœ… Troubleshooting massiv erweitert (9 Szenarien: Dienst nicht erreichbar, Server reagiert nicht, Nginx-Fehler, Container wird beendet, Passwort vergessen, etc.)
+- âœ… Wichtige Pfade & Befehle hinzugefÃ¼gt (Dateipfade, Docker-Befehle, System-Befehle)
+- âœ… Support-Kontakte dokumentiert (Attentio DNS, Hetzner Support, AL)
 
 **Sicherheit:**
-- ❌ Passwörter NICHT übernommen (Security!)
-- ❌ API-Keys NICHT übernommen
-- ✅ IP-Adresse teilweise maskiert (XXX)
+- âŒ PasswÃ¶rter NICHT Ã¼bernommen (Security!)
+- âŒ API-Keys NICHT Ã¼bernommen
+- âœ… IP-Adresse teilweise maskiert (XXX)
 
 **Verantwortlich:** AL (basierend auf Hetzner_Server_OSP_Dokumentation.md v1.0)
 
@@ -1088,24 +1219,24 @@ DELETE FROM auth WHERE email = 'user@example.com';
 **Token-Effizienz:**
 - Stage 1: ~16.500 Tokens
 - Stage 2: ~13.200 Tokens
-- **Einsparung: -3.300 Tokens (-20%)** ✅
+- **Einsparung: -3.300 Tokens (-20%)** âœ…
 
 **Optimierungen:**
-- ✅ Header kompaktiert (9 Zeilen → 2 Zeilen, ~400 Tokens)
-- ✅ Tabellen optimiert (Abkürzungen, kompakte Spalten, ~800 Tokens)
-- ✅ Code-Blöcke gekürzt (Kommentare entfernt, YAML inline, ~600 Tokens)
-- ✅ Redundanzen reduziert ("Docker-Compose" → "DC", ~500 Tokens)
-- ✅ Füllwörter entfernt (~200 Tokens)
-- ✅ Diagramm kompaktiert (~300 Tokens)
-- ✅ Datum-Format: DD.MM.YY statt DD.MM.YYYY (~100 Tokens)
-- ✅ Abkürzungen: MA, GF, OS, DB, SW, HW (~200 Tokens)
+- âœ… Header kompaktiert (9 Zeilen â†’ 2 Zeilen, ~400 Tokens)
+- âœ… Tabellen optimiert (AbkÃ¼rzungen, kompakte Spalten, ~800 Tokens)
+- âœ… Code-BlÃ¶cke gekÃ¼rzt (Kommentare entfernt, YAML inline, ~600 Tokens)
+- âœ… Redundanzen reduziert ("Docker-Compose" â†’ "DC", ~500 Tokens)
+- âœ… FÃ¼llwÃ¶rter entfernt (~200 Tokens)
+- âœ… Diagramm kompaktiert (~300 Tokens)
+- âœ… Datum-Format: DD.MM.YY statt DD.MM.YYYY (~100 Tokens)
+- âœ… AbkÃ¼rzungen: MA, GF, OS, DB, SW, HW (~200 Tokens)
 
 **Chunk-Strategie:**
 - Anzahl: 16 Chunks
 - Durchschnitt: ~825 Tokens/Chunk
 - Min: 700 Tokens (CH14 - n8n)
 - Max: 1.100 Tokens (CH03 - Docker-Container)
-- Überlappung: 175 Tokens
+- Ãœberlappung: 175 Tokens
 - Grenzen: Markdown-Header (##)
 
 **Metadata:**
@@ -1118,40 +1249,40 @@ DELETE FROM auth WHERE email = 'user@example.com';
 - Format: `TAG_SUB_Bezeichnung.md` (ohne Version)
 
 **YAML-Header:**
-- Stage 2 Felder ergänzt
+- Stage 2 Felder ergÃ¤nzt
 - RAG-Version: 1.0
 - Basis: IT_OSP_KI-Chatbot_v1.0.md
 
-**QS-Checkliste:** 8/8 ✅
-- ✅ YAML-Header vollständig
-- ✅ Token-Effizienz: -20% (Ziel: min. -10%)
-- ✅ Chunk-Strategie definiert (16 Chunks, Ø 825 Tokens)
-- ✅ Keywords: 85 Primary, 120 Secondary
-- ✅ Querverweise dokumentiert (ohne Versionen)
-- ✅ DSGVO-Check (keine Namen, nur Kürzel)
-- ✅ Test-Queries vorbereitet (10 Queries für L2-L3)
-- ✅ Keine kritischen Fragen offen
+**QS-Checkliste:** 8/8 âœ…
+- âœ… YAML-Header vollstÃ¤ndig
+- âœ… Token-Effizienz: -20% (Ziel: min. -10%)
+- âœ… Chunk-Strategie definiert (16 Chunks, Ã˜ 825 Tokens)
+- âœ… Keywords: 85 Primary, 120 Secondary
+- âœ… Querverweise dokumentiert (ohne Versionen)
+- âœ… DSGVO-Check (keine Namen, nur KÃ¼rzel)
+- âœ… Test-Queries vorbereitet (10 Queries fÃ¼r L2-L3)
+- âœ… Keine kritischen Fragen offen
 
-**Verantwortlich:** AL (Andreas Löhr - IT & KI-Manager)
+**Verantwortlich:** AL (Andreas LÃ¶hr - IT & KI-Manager)
 
 ---
 
 ### [1.0] - 2025-11-29 - ERSTVERSION
 **Erstversion - PRODUKTIV:**
-- ✅ Komplette Projekt-Dokumentation
-- ✅ Hetzner Server-Infrastruktur (CX33)
-- ✅ Docker-Container-Architektur (OSPUI, ChromaDB, Ollama, n8n)
-- ✅ OSPUI Konfiguration (6 User, OSP-Level-Mapping)
-- ✅ ChromaDB Vektordatenbank (OSP_COMPLETE Collection)
-- ✅ Ollama LLM-Runtime (mistral:7b, llama2:13b)
-- ✅ Netzwerk & Sicherheit (SSL/TLS, Firewall)
-- ✅ Backup & Wartung (täglich, wöchentlich, monatlich)
-- ✅ Monitoring & Performance (Netdata, Benchmarks)
-- ✅ Troubleshooting-Guide
+- âœ… Komplette Projekt-Dokumentation
+- âœ… Hetzner Server-Infrastruktur (CX33)
+- âœ… Docker-Container-Architektur (OSPUI, ChromaDB, Ollama, n8n)
+- âœ… OSPUI Konfiguration (6 User, OSP-Level-Mapping)
+- âœ… ChromaDB Vektordatenbank (OSP_COMPLETE Collection)
+- âœ… Ollama LLM-Runtime (mistral:7b, llama2:13b)
+- âœ… Netzwerk & Sicherheit (SSL/TLS, Firewall)
+- âœ… Backup & Wartung (tÃ¤glich, wÃ¶chentlich, monatlich)
+- âœ… Monitoring & Performance (Netdata, Benchmarks)
+- âœ… Troubleshooting-Guide
 
 **Basis:** Screenshots OSPUI, Hetzner Console, Docker-Config, Open-WebUI-Doku.md
 
-**Verantwortlich:** AL (Andreas Löhr - IT & KI-Manager)
+**Verantwortlich:** AL (Andreas LÃ¶hr - IT & KI-Manager)
 
 ---
 
@@ -1160,38 +1291,38 @@ DELETE FROM auth WHERE email = 'user@example.com';
 **RAG-Version:** 1.0  
 **Primary Keywords:** Server, OSPUI, ChromaDB, Docker, Ollama, n8n, Hetzner, SSL, TLS, Backup, Monitoring, RAG, LLM, Vektordatenbank, Nginx, Ubuntu, Embedding, mistral, llama2, gpt-4, Container, Firewall, SSH, DSGVO, Datenschutz, Cloud, Automation, Workflow, Let's Encrypt, Certbot, UFW, Netdata, Wartung, Update, Log, Troubleshooting, OOM, Disk, Performance, Query, Collection, Metadata, Token, Chunk, User-Level, OSP-Level, L1, L2, L3, L4, Pilot, Go-Live, Timeline, CX33, Falkenstein, Deutschland, IPv4, IPv6, NVMe, SSD, RAM, CPU, vCPU, AMD, EPYC, DDR4, Storage, Volume, Image, Port, Protokoll, HTTP, HTTPS, TCP, Reverse Proxy, Proxy, API, Auth, Key, Passwort, Root, Admin, User, Rolle, Berechtigung, Account, E-Mail, AL, CS, SV, SK, TS, MD
 
-**Secondary Keywords:** 116.203.XXX.XXX, 2a01:4f8, 24.04, 27.3.1, 0.6.40, 0.5.15, 1.26, v2.29.7, ce12230, 6.8.0-49-generic, 4vCPU, 16GB, 160GB, 20TB, €4.99, /opt/osp, /var/lib/docker, docker-compose.yml, open-webui_data, chromadb_data, ollama_data, n8n_data, osp-network, osp-chromadb, osp-ollama, osp-webui, osp-n8n, :3000, :8000, :11434, :5678, :443, :80, :22, all-MiniLM-L6-v2, text-embedding-3-small, duckdb, parquet, cosine, 384, mistral:7b, llama2:13b, codellama:7b, 4GB, 7.3GB, 3.8GB, 40 tokens/s, 25 tokens/s, 60 tokens/s, 1.2s, 3.8s, 120/s, 99.8%, Terra Cloud, AES-256, 90 Tage, 7 Tage, 4 Wochen, 02:00, 03:00, 04:00, 08:00, 00:00, 19999, certbot, python3-certbot-nginx, htop, nano, curl, wget, git, vim, netdata, ufw, logrotate, backup-daily.sh, update-monthly.sh, osp-backup.log, access.log, error.log, fullchain.pem, privkey.pem, id_ed25519_osp, osp-server, osp.schneider-kabelsatzbau.de, andreas.loehr@, christoph.schneider@, sebastian.vierschilling@, stefan.kandorfer@, tobias.schmidt@, marcel.duetzer@
+**Secondary Keywords:** 116.203.XXX.XXX, 2a01:4f8, 24.04, 27.3.1, 0.6.41, 0.5.15, 1.26, v2.29.7, ce12230, 6.8.0-49-generic, 4vCPU, 16GB, 160GB, 20TB, â‚¬4.99, /mnt/HC_Volume_104189729/osp, /var/lib/docker, docker-compose.yml, open-webui_data, chromadb_data, ollama_data, n8n_data, osp-network, osp-chromadb, osp-ollama, osp-webui, osp-n8n, :3000, :8000, :11434, :5678, :443, :80, :22, all-MiniLM-L6-v2, text-embedding-3-small, duckdb, parquet, cosine, 384, mistral:7b, llama2:13b, codellama:7b, 4GB, 7.3GB, 3.8GB, 40 tokens/s, 25 tokens/s, 60 tokens/s, 1.2s, 3.8s, 120/s, 99.8%, Terra Cloud, AES-256, 90 Tage, 7 Tage, 4 Wochen, 02:00, 03:00, 04:00, 08:00, 00:00, 19999, certbot, python3-certbot-nginx, htop, nano, curl, wget, git, vim, netdata, ufw, logrotate, backup-daily.sh, update-monthly.sh, osp-backup.log, access.log, error.log, fullchain.pem, privkey.pem, id_ed25519_osp, osp-server, osp.schneider-kabelsatzbau.de, andreas.loehr@, christoph.schneider@, sebastian.vierschilling@, stefan.kandorfer@, tobias.schmidt@, marcel.duetzer@
 
 **User-Level-Zuordnung:**
-- **CH01 (Projektzweck):** L1-Öffentlich
-- **CH02 (Projektübersicht):** L3-Führung
-- **CH03 (Hetzner Server):** L3-Führung
-- **CH04 (Docker-Container):** L3-Führung
-- **CH05 (OSPUI Konfiguration):** L3-Führung
-- **CH06 (ChromaDB):** L3-Führung
+- **CH01 (Projektzweck):** L1-Ã–ffentlich
+- **CH02 (ProjektÃ¼bersicht):** L3-FÃ¼hrung
+- **CH03 (Hetzner Server):** L3-FÃ¼hrung
+- **CH04 (Docker-Container):** L3-FÃ¼hrung
+- **CH05 (OSPUI Konfiguration):** L3-FÃ¼hrung
+- **CH06 (ChromaDB):** L3-FÃ¼hrung
 - **CH07 (Ollama LLM):** L2-Abteilung
 - **CH08 (n8n Automation):** L2-Abteilung
-- **CH09 (Netzwerk & Sicherheit):** L3-Führung
+- **CH09 (Netzwerk & Sicherheit):** L3-FÃ¼hrung
 - **CH10 (Backup & Wartung):** L2-Abteilung
 - **CH11 (Monitoring):** L2-Abteilung
 - **CH12-CH16 (Troubleshooting):** L2-Abteilung
 
 **Chunk-Strategie:** Markdown-Header (##)  
 **Chunk-Anzahl:** 16  
-**Chunk-Größe:** 700-1100 Tokens  
-**Chunk-Überlappung:** 175 Tokens
+**Chunk-GrÃ¶ÃŸe:** 700-1100 Tokens  
+**Chunk-Ãœberlappung:** 175 Tokens
 
 ---
 
-**Status:** ✅ PRODUKTIV (RAG) - Bereit für ChromaDB-Import  
-**URL:** https://osp.schneider-kabelsatzbau.de  
-**Server:** Hetzner CX33 (Falkenstein, DE)  
-**Kosten:** €4,99/Monat  
+**Status:** âœ… PRODUKTIV (RAG) - Bereit fÃ¼r ChromaDB-Import
+**URL:** https://osp.schneider-kabelsatzbau.de
+**Server:** Hetzner CX43 (8 vCPU, 16GB RAM, Falkenstein, DE)
+**Kosten:** ~â‚¬14/Monat  
 **Pilot-Ende:** 19.12.2025  
-**Nächste Review:** 19.12.2025
+**NÃ¤chste Review:** 19.12.2025
 
 ---
 
-*Diese Dokumentation beschreibt die komplette technische Infrastruktur des OSP KI-Chatbot-Projekts. RAG-optimiert für ChromaDB-Import. Alle Änderungen müssen hier dokumentiert werden.*
+*Diese Dokumentation beschreibt die komplette technische Infrastruktur des OSP KI-Chatbot-Projekts. RAG-optimiert fÃ¼r ChromaDB-Import. Alle Ã„nderungen mÃ¼ssen hier dokumentiert werden.*
 
 [OSP]

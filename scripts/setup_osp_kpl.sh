@@ -25,7 +25,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Konfiguration
-OSP_BASE="/opt/osp"
+OSP_BASE="/mnt/HC_Volume_104189729/osp"
 CHROMADB_DATA="${OSP_BASE}/chromadb/data"
 DOCUMENTS_PATH="${OSP_BASE}/documents_kpl"
 SCRIPT_PATH="${OSP_BASE}/scripts/osp_kpl_collection_setup.py"

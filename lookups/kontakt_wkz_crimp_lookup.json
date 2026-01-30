@@ -1,0 +1,1772 @@
+{
+  "meta": {
+    "version": "2.0",
+    "erstellt_am": "2025-12-17",
+    "erstellt_durch": "AL / Claude Desktop",
+    "beschreibung": "Kontakt-zu-WKZ-Crimpdaten Lookup für schnelle Suche",
+    "quellen": "wkz_batch_01-18_crimpdaten.json",
+    "null_fehler_politik": true,
+    "anzahl_kontakte": 49,
+    "anzahl_eintraege": 103,
+    "verwendung": "Suche nach Kontakt-Nr. → liefert alle WKZ mit Crimpdaten",
+    "aktualisiert_am": "2025-12-17"
+  },
+  "kritische_warnungen": [
+    {
+      "kontakt": "0906 000 9561",
+      "wkz": "705",
+      "warnung": "VERSCHROTTET 2013"
+    },
+    {
+      "kontakt": "16-02-0086",
+      "wkz": "709",
+      "warnung": "VERSCHROTTET KW 48/2024"
+    },
+    {
+      "kontakt": "EN 0202500431",
+      "wkz": "713",
+      "warnung": "Isolationsdurchmesser zu groß gewählt!"
+    },
+    {
+      "kontakt": "505431-1300",
+      "wkz": "729",
+      "warnung": "Nur Isolation 0.75-0.96mm!"
+    },
+    {
+      "kontakt": "Buchsenkontakt",
+      "wkz": "614",
+      "warnung": "Bei 125N reißt Steckbereich ab!"
+    },
+    {
+      "kontakt": "179955-2",
+      "wkz": "632",
+      "warnung": "VERSCHROTTET KW 48/2024"
+    },
+    {
+      "kontakt": "163081/083",
+      "wkz": "634",
+      "warnung": "VERSCHROTTET KW 50/2023"
+    },
+    {
+      "kontakt": "163085",
+      "wkz": "635",
+      "warnung": "VERSCHROTTET KW 48/2024"
+    },
+    {
+      "kontakt": "39-00-0077",
+      "wkz": "636",
+      "warnung": "VERSCHROTTET - Querschnitt zu groß!"
+    },
+    {
+      "kontakt": "25036",
+      "wkz": "640",
+      "warnung": "KONTAKT VERSCHROTTET!!!"
+    }
+  ],
+  "lookup": {
+    "25783": {
+      "kontakt_nr": "25783",
+      "hersteller": "GHW",
+      "wkz_nummern": [
+        "505",
+        "512",
+        "516"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "505",
+          "querschnitt_mm2": "1.00",
+          "crimphoehe_mm": "1.77",
+          "crimpbreite_mm": "1.67",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "512",
+          "querschnitt_mm2": "1.00",
+          "crimphoehe_mm": "1.77",
+          "crimpbreite_mm": "1.67",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "512",
+          "querschnitt_mm2": "1.50",
+          "crimphoehe_mm": "",
+          "crimpbreite_mm": "",
+          "confidence": 80
+        },
+        {
+          "wkz_nr": "516",
+          "querschnitt_mm2": "1.00",
+          "crimphoehe_mm": "1.77",
+          "crimpbreite_mm": "1.67",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "516",
+          "querschnitt_mm2": "1.50",
+          "crimphoehe_mm": "",
+          "crimpbreite_mm": "",
+          "confidence": 80
+        }
+      ]
+    },
+    "25787": {
+      "kontakt_nr": "25787",
+      "hersteller": "GHW",
+      "wkz_nummern": [
+        "501",
+        "515",
+        "517",
+        "528"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "515",
+          "querschnitt_mm2": "1.00",
+          "crimphoehe_mm": "1.34",
+          "crimpbreite_mm": "1.56",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "515",
+          "querschnitt_mm2": "0.75",
+          "crimphoehe_mm": "1.33",
+          "crimpbreite_mm": "1.56",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "501",
+          "querschnitt_mm2": "1.00",
+          "crimphoehe_mm": "1.34",
+          "crimpbreite_mm": "1.56",
+          "confidence": 95,
+          "bemerkung": "AE-Bremse"
+        },
+        {
+          "wkz_nr": "501",
+          "querschnitt_mm2": "0.75",
+          "crimphoehe_mm": "1.33",
+          "crimpbreite_mm": "1.56",
+          "confidence": 95
+        },
+        {
+          "wkz_nr": "517",
+          "querschnitt_mm2": "1.00",
+          "crimphoehe_mm": "1.34",
+          "crimpbreite_mm": "1.56",
+          "confidence": 95,
+          "bemerkung": "AE-Bremse"
+        },
+        {
+          "wkz_nr": "528",
+          "querschnitt_mm2": "1.00",
+          "crimphoehe_mm": "1.34",
+          "crimpbreite_mm": "1.56",
+          "confidence": 95,
+          "bemerkung": "AE-Bremse"
+        },
+        {
+          "wkz_nr": "528",
+          "querschnitt_mm2": "0.75",
+          "crimphoehe_mm": "1.33",
+          "crimpbreite_mm": "1.56",
+          "confidence": 95
+        }
+      ]
+    },
+    "25722": {
+      "kontakt_nr": "25722",
+      "hersteller": "GHW",
+      "wkz_nummern": [
+        "538",
+        "587"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "538",
+          "querschnitt_mm2": "0.75",
+          "crimphoehe_mm": "1.49",
+          "crimpbreite_mm": "2.40",
+          "iso_crimphoehe_mm": "2.61",
+          "iso_crimpbreite_mm": "3.53",
+          "abzugswert_n": "160",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "587",
+          "querschnitt_mm2": "0.75",
+          "crimphoehe_mm": "1.49",
+          "crimpbreite_mm": "2.40",
+          "iso_crimphoehe_mm": "2.61",
+          "iso_crimpbreite_mm": "3.53",
+          "abzugswert_n": "160",
+          "confidence": 100
+        }
+      ]
+    },
+    "25744": {
+      "kontakt_nr": "25744",
+      "hersteller": "Lear",
+      "wkz_nummern": [
+        "539"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "539",
+          "querschnitt_mm2": "4.00",
+          "crimphoehe_mm": "2.45",
+          "crimpbreite_mm": "4.01",
+          "iso_crimphoehe_mm": "4.15",
+          "iso_crimpbreite_mm": "4.93",
+          "abzugswert_n": ">500",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "539",
+          "querschnitt_mm2": "6.00",
+          "crimphoehe_mm": "2.65",
+          "crimpbreite_mm": "4.05",
+          "iso_crimphoehe_mm": "4.55",
+          "iso_crimpbreite_mm": "5.05",
+          "abzugswert_n": ">500",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "539",
+          "querschnitt_mm2": "2x2.50",
+          "crimphoehe_mm": "2.84",
+          "crimpbreite_mm": "4.08",
+          "iso_crimphoehe_mm": "5.70",
+          "iso_crimpbreite_mm": "5.07",
+          "abzugswert_n": "400",
+          "confidence": 100
+        }
+      ]
+    },
+    "25213-25223": {
+      "kontakt_nr": "25213-25223",
+      "hersteller": "GHW",
+      "wkz_nummern": [
+        "544",
+        "564",
+        "568",
+        "572",
+        "577",
+        "578"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "544",
+          "querschnitt_mm2": "1.50",
+          "crimphoehe_mm": "2.25",
+          "crimpbreite_mm": "3.43",
+          "iso_crimphoehe_mm": "3.65",
+          "iso_crimpbreite_mm": "4.52",
+          "abzugswert_n": "300",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "544",
+          "querschnitt_mm2": "2.50",
+          "crimphoehe_mm": "2.45",
+          "crimpbreite_mm": "3.46",
+          "iso_crimphoehe_mm": "3.78",
+          "iso_crimpbreite_mm": "4.54",
+          "abzugswert_n": "450",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "564",
+          "querschnitt_mm2": "1.50",
+          "crimphoehe_mm": "2.25",
+          "crimpbreite_mm": "3.43",
+          "iso_crimphoehe_mm": "3.65",
+          "iso_crimpbreite_mm": "4.52",
+          "abzugswert_n": "300",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "564",
+          "querschnitt_mm2": "2.50",
+          "crimphoehe_mm": "2.45",
+          "crimpbreite_mm": "3.46",
+          "iso_crimphoehe_mm": "3.78",
+          "iso_crimpbreite_mm": "4.54",
+          "abzugswert_n": "450",
+          "confidence": 100
+        }
+      ]
+    },
+    "24.359.120": {
+      "kontakt_nr": "24.359.120",
+      "hersteller": "HS Connectors",
+      "wkz_nummern": [
+        "545",
+        "559",
+        "567",
+        "568"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "545",
+          "querschnitt_mm2": "4.00",
+          "crimphoehe_mm": "2.92",
+          "crimpbreite_mm": "5.17",
+          "iso_crimphoehe_mm": "5.25",
+          "iso_crimpbreite_mm": "6.70",
+          "abzugswert_n": ">500",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "559",
+          "querschnitt_mm2": "4.00",
+          "crimphoehe_mm": "2.92",
+          "crimpbreite_mm": "5.17",
+          "iso_crimphoehe_mm": "5.25",
+          "iso_crimpbreite_mm": "6.70",
+          "abzugswert_n": ">500",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "567",
+          "querschnitt_mm2": "4.00",
+          "crimphoehe_mm": "2.92",
+          "crimpbreite_mm": "5.17",
+          "iso_crimphoehe_mm": "5.25",
+          "iso_crimpbreite_mm": "6.70",
+          "abzugswert_n": ">500",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "568",
+          "querschnitt_mm2": "4.00",
+          "crimphoehe_mm": "2.92",
+          "crimpbreite_mm": "5.17",
+          "iso_crimphoehe_mm": "5.25",
+          "iso_crimpbreite_mm": "6.70",
+          "abzugswert_n": ">500",
+          "confidence": 100
+        }
+      ]
+    },
+    "24810": {
+      "kontakt_nr": "24810",
+      "hersteller": "LAT/HS",
+      "wkz_nummern": [
+        "549"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "549",
+          "querschnitt_mm2": "0.50",
+          "crimphoehe_mm": "1.30",
+          "crimpbreite_mm": "2.27",
+          "iso_crimphoehe_mm": "2.70",
+          "iso_crimpbreite_mm": "3.30",
+          "abzugswert_n": "95",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "549",
+          "querschnitt_mm2": "0.75",
+          "crimphoehe_mm": "1.38",
+          "crimpbreite_mm": "2.28",
+          "iso_crimphoehe_mm": "2.75",
+          "iso_crimpbreite_mm": "3.33",
+          "abzugswert_n": "135",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "549",
+          "querschnitt_mm2": "1.00",
+          "crimphoehe_mm": "1.46",
+          "crimpbreite_mm": "2.29",
+          "iso_crimphoehe_mm": "3.00",
+          "iso_crimpbreite_mm": "3.33",
+          "abzugswert_n": "185",
+          "confidence": 100
+        }
+      ]
+    },
+    "925819": {
+      "kontakt_nr": "925819",
+      "hersteller": "AMP/Tyco",
+      "wkz_nummern": [
+        "609"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "609",
+          "querschnitt_mm2": "0.33",
+          "crimphoehe_mm": "1.03",
+          "crimpbreite_mm": "1.33",
+          "iso_crimphoehe_mm": "2.39",
+          "iso_crimpbreite_mm": "2.36",
+          "confidence": 90
+        }
+      ]
+    },
+    "TNO1/0201600021": {
+      "kontakt_nr": "TNO1/0201600021",
+      "hersteller": "Amphenol",
+      "wkz_nummern": [
+        "616"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "616",
+          "querschnitt_mm2": "0.50",
+          "crimphoehe_mm": "1.25",
+          "crimpbreite_mm": "2.23",
+          "iso_crimphoehe_mm": "2.87",
+          "iso_crimpbreite_mm": "3.22",
+          "abzugswert_n": "95",
+          "confidence": 95
+        },
+        {
+          "wkz_nr": "616",
+          "querschnitt_mm2": "0.75",
+          "crimphoehe_mm": "1.31",
+          "crimpbreite_mm": "2.24",
+          "iso_crimphoehe_mm": "3.07",
+          "iso_crimpbreite_mm": "3.27",
+          "abzugswert_n": "140",
+          "confidence": 95
+        },
+        {
+          "wkz_nr": "616",
+          "querschnitt_mm2": "1.50",
+          "crimphoehe_mm": "1.50",
+          "crimpbreite_mm": "2.28",
+          "iso_crimphoehe_mm": "3.46",
+          "iso_crimpbreite_mm": "3.38",
+          "abzugswert_n": "210",
+          "confidence": 95
+        }
+      ]
+    },
+    "TMHTC009K2J001956": {
+      "kontakt_nr": "TMHTC009K2J001956",
+      "hersteller": "HATKO/KM",
+      "wkz_nummern": [
+        "619"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "619",
+          "querschnitt_mm2": "2.50",
+          "crimphoehe_mm": "1.80",
+          "crimpbreite_mm": "3.10",
+          "abzugswert_n": "32.62",
+          "confidence": 95
+        },
+        {
+          "wkz_nr": "619",
+          "querschnitt_mm2": "1.50",
+          "crimphoehe_mm": "1.60",
+          "crimpbreite_mm": "3.10",
+          "abzugswert_n": "29.04",
+          "confidence": 95
+        },
+        {
+          "wkz_nr": "619",
+          "querschnitt_mm2": "1.00",
+          "crimphoehe_mm": "1.50",
+          "crimpbreite_mm": "3.10",
+          "abzugswert_n": "18.63",
+          "confidence": 95
+        }
+      ]
+    },
+    "22818127": {
+      "kontakt_nr": "22818127",
+      "hersteller": "LAT/HS",
+      "wkz_nummern": [
+        "621"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "621",
+          "querschnitt_mm2": "0.34",
+          "crimphoehe_mm": "0.92",
+          "crimpbreite_mm": "1.36",
+          "iso_crimphoehe_mm": "1.55",
+          "iso_crimpbreite_mm": "1.95",
+          "abzugswert_n": "80",
+          "confidence": 95
+        }
+      ]
+    },
+    "08-50-0187": {
+      "kontakt_nr": "08-50-0187",
+      "hersteller": "Molex",
+      "wkz_nummern": [
+        "625",
+        "626"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "625",
+          "querschnitt_mm2": "0.34",
+          "crimphoehe_mm": "1.12",
+          "crimpbreite_mm": "2.01",
+          "iso_crimphoehe_mm": "2.70",
+          "iso_crimpbreite_mm": "2.47",
+          "abzugswert_n": "100",
+          "confidence": 95
+        },
+        {
+          "wkz_nr": "626",
+          "querschnitt_mm2": "0.34",
+          "crimphoehe_mm": "1.12",
+          "crimpbreite_mm": "2.01",
+          "iso_crimphoehe_mm": "2.70",
+          "iso_crimpbreite_mm": "2.47",
+          "abzugswert_n": "100",
+          "confidence": 95,
+          "warnung": "DUPLIKAT von WKZ 625"
+        }
+      ]
+    },
+    "927827": {
+      "kontakt_nr": "927827",
+      "hersteller": "AMP/Tyco",
+      "wkz_nummern": [
+        "651",
+        "655",
+        "629"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "651",
+          "querschnitt_mm2": "0.50",
+          "crimphoehe_mm": "1.39",
+          "crimpbreite_mm": "2.11",
+          "iso_crimphoehe_mm": "3.14",
+          "iso_crimpbreite_mm": "3.49",
+          "abzugswert_n": "95",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "655",
+          "querschnitt_mm2": "2x0.50",
+          "crimphoehe_mm": "1.55",
+          "crimpbreite_mm": "2.12",
+          "iso_crimphoehe_mm": "3.70",
+          "iso_crimpbreite_mm": "3.60",
+          "abzugswert_n": "160",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "629",
+          "crimphoehe_mm": "1.55",
+          "crimpbreite_mm": "2.12",
+          "iso_crimphoehe_mm": "3.70",
+          "iso_crimpbreite_mm": "3.60",
+          "confidence": 95,
+          "bemerkung": "Sidefeed, MWSA"
+        }
+      ]
+    },
+    "0 905 000 9562": {
+      "kontakt_nr": "0 905 000 9562",
+      "hersteller": "Harting",
+      "wkz_nummern": [
+        "656"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "656",
+          "querschnitt_mm2": "0.36",
+          "crimphoehe_mm": "1.40",
+          "crimpbreite_mm": "2.35",
+          "iso_crimphoehe_mm": "2.60",
+          "iso_crimpbreite_mm": "2.84",
+          "abzugswert_n": "130",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "656",
+          "querschnitt_mm2": "0.75",
+          "crimphoehe_mm": "1.40",
+          "crimpbreite_mm": "2.35",
+          "iso_crimphoehe_mm": "2.85",
+          "iso_crimpbreite_mm": "2.85",
+          "abzugswert_n": "130",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "656",
+          "querschnitt_mm2": "1.50",
+          "crimphoehe_mm": "1.65",
+          "crimpbreite_mm": "2.38",
+          "iso_crimphoehe_mm": "2.75",
+          "iso_crimpbreite_mm": "2.85",
+          "abzugswert_n": "260",
+          "confidence": 100
+        }
+      ]
+    },
+    "43030-0001": {
+      "kontakt_nr": "43030-0001",
+      "hersteller": "Molex",
+      "wkz_nummern": [
+        "701",
+        "724"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "701",
+          "querschnitt_mm2": "0.13",
+          "crimphoehe_mm": "0.80",
+          "crimpbreite_mm": "1.45",
+          "iso_crimphoehe_mm": "1.60",
+          "iso_crimpbreite_mm": "1.84",
+          "abzugswert_n": "30",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "701",
+          "querschnitt_mm2": "0.21",
+          "crimphoehe_mm": "0.85",
+          "crimpbreite_mm": "1.45",
+          "iso_crimphoehe_mm": "1.62",
+          "iso_crimpbreite_mm": "1.86",
+          "abzugswert_n": "50",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "724",
+          "querschnitt_mm2": "0.13",
+          "crimphoehe_mm": "0.80",
+          "crimpbreite_mm": "1.45",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "724",
+          "querschnitt_mm2": "0.21",
+          "crimphoehe_mm": "0.85",
+          "crimpbreite_mm": "1.45",
+          "confidence": 100
+        }
+      ]
+    },
+    "32124734000": {
+      "kontakt_nr": "32124734000",
+      "hersteller": "Kostal",
+      "wkz_nummern": [
+        "726"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "726",
+          "querschnitt_mm2": "0.25",
+          "crimphoehe_mm": "0.82",
+          "confidence": 95
+        }
+      ]
+    },
+    "32124734010": {
+      "kontakt_nr": "32124734010",
+      "hersteller": "Kostal",
+      "wkz_nummern": [
+        "727"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "727",
+          "querschnitt_mm2": "0.35",
+          "crimphoehe_mm": "0.78",
+          "confidence": 95
+        }
+      ]
+    },
+    "32124734020": {
+      "kontakt_nr": "32124734020",
+      "hersteller": "Kostal",
+      "wkz_nummern": [
+        "728"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "728",
+          "querschnitt_mm2": "0.50",
+          "crimphoehe_mm": "0.92",
+          "crimpbreite_mm": "1.65",
+          "confidence": 100
+        }
+      ]
+    },
+    "505431-1300": {
+      "kontakt_nr": "505431-1300",
+      "hersteller": "Molex",
+      "wkz_nummern": [
+        "729"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "729",
+          "querschnitt_mm2": "0.05",
+          "crimphoehe_mm": "0.46-0.51",
+          "crimpbreite_mm": "0.86",
+          "abzugswert_n": "4.9",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "729",
+          "querschnitt_mm2": "0.08",
+          "crimphoehe_mm": "0.49-0.54",
+          "crimpbreite_mm": "0.91",
+          "abzugswert_n": "9.8",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "729",
+          "querschnitt_mm2": "0.12",
+          "crimphoehe_mm": "0.54-0.59",
+          "abzugswert_n": "19.6",
+          "confidence": 100,
+          "warnung": "Nur Isolation 0.75-0.96mm!"
+        }
+      ]
+    },
+    "25733": {
+      "kontakt_nr": "25733",
+      "hersteller": "Lear/GHW",
+      "wkz_nummern": [
+        "569",
+        "586",
+        "587"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "569",
+          "querschnitt_mm2": "1.00",
+          "crimphoehe_mm": "1.75",
+          "crimpbreite_mm": "2.90",
+          "iso_crimphoehe_mm": "3.65",
+          "iso_crimpbreite_mm": "4.26",
+          "abzugswert_n": "240",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "569",
+          "querschnitt_mm2": "1.50/2.50",
+          "crimphoehe_mm": "2.05",
+          "crimpbreite_mm": "2.92",
+          "iso_crimphoehe_mm": "3.94",
+          "iso_crimpbreite_mm": "4.00",
+          "abzugswert_n": "380",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "586",
+          "querschnitt_mm2": "1.00",
+          "crimphoehe_mm": "1.70",
+          "crimpbreite_mm": "2.90",
+          "iso_crimphoehe_mm": "3.65",
+          "iso_crimpbreite_mm": "4.26",
+          "abzugswert_n": "240",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "586",
+          "querschnitt_mm2": "1.50",
+          "crimphoehe_mm": "1.75",
+          "crimpbreite_mm": "2.92",
+          "iso_crimphoehe_mm": "3.94",
+          "iso_crimpbreite_mm": "4.00",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "586",
+          "querschnitt_mm2": "2.50",
+          "crimphoehe_mm": "2.05",
+          "abzugswert_n": "380",
+          "confidence": 100
+        }
+      ]
+    },
+    "1060-16-0622": {
+      "kontakt_nr": "1060-16-0622",
+      "hersteller": "Deutsch",
+      "wkz_nummern": [
+        "581"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "581",
+          "querschnitt_mm2": "0.75",
+          "crimphoehe_mm": "1.25",
+          "crimpbreite_mm": "2.07",
+          "iso_crimphoehe_mm": "2.40",
+          "iso_crimpbreite_mm": "2.54",
+          "abzugswert_n": "140",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "581",
+          "querschnitt_mm2": "1.00",
+          "crimphoehe_mm": "1.30",
+          "crimpbreite_mm": "2.08",
+          "iso_crimphoehe_mm": "2.40",
+          "iso_crimpbreite_mm": "2.54",
+          "abzugswert_n": "170",
+          "confidence": 100
+        }
+      ]
+    },
+    "1062-12-0166": {
+      "kontakt_nr": "1062-12-0166",
+      "hersteller": "Deutsch",
+      "wkz_nummern": [
+        "581"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "581",
+          "querschnitt_mm2": "2.50",
+          "crimphoehe_mm": "1.92",
+          "crimpbreite_mm": "3.20",
+          "iso_crimphoehe_mm": "3.52",
+          "iso_crimpbreite_mm": "4.15",
+          "abzugswert_n": "350",
+          "confidence": 100
+        }
+      ]
+    },
+    "794407": {
+      "kontakt_nr": "794407",
+      "hersteller": "AMP/Tyco",
+      "wkz_nummern": [
+        "602",
+        "606"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "602",
+          "querschnitt_mm2": "0.75",
+          "crimphoehe_mm": "1.08",
+          "crimpbreite_mm": "1.72",
+          "iso_crimphoehe_mm": "3.01",
+          "iso_crimpbreite_mm": "2.97",
+          "abzugswert_n": "140",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "606",
+          "querschnitt_mm2": "0.75",
+          "crimphoehe_mm": "1.08",
+          "crimpbreite_mm": "1.72",
+          "iso_crimphoehe_mm": "3.01",
+          "iso_crimpbreite_mm": "2.97",
+          "abzugswert_n": "140",
+          "confidence": 100
+        }
+      ]
+    },
+    "0350566": {
+      "kontakt_nr": "0350566",
+      "hersteller": "AMP/Tyco",
+      "wkz_nummern": [
+        "607",
+        "608",
+        "610"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "607",
+          "querschnitt_mm2": "0.75",
+          "crimphoehe_mm": "1.03",
+          "crimpbreite_mm": "1.69",
+          "iso_crimphoehe_mm": "2.52",
+          "iso_crimpbreite_mm": "2.50",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "608",
+          "querschnitt_mm2": "0.75",
+          "crimphoehe_mm": "1.03",
+          "crimpbreite_mm": "1.69",
+          "iso_crimphoehe_mm": "2.52",
+          "iso_crimpbreite_mm": "2.50",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "610",
+          "querschnitt_mm2": "0.3-0.9",
+          "confidence": 60
+        }
+      ]
+    },
+    "25361": {
+      "kontakt_nr": "25361",
+      "hersteller": "Lear",
+      "wkz_nummern": [
+        "565",
+        "566"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "565",
+          "querschnitt_mm2": "4.00",
+          "crimphoehe_mm": "3.25",
+          "crimpbreite_mm": "5.15",
+          "iso_crimphoehe_mm": "5.27",
+          "iso_crimpbreite_mm": "6.68",
+          "abzugswert_n": ">500",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "566",
+          "querschnitt_mm2": "4.00",
+          "crimphoehe_mm": "3.25",
+          "crimpbreite_mm": "5.15",
+          "iso_crimphoehe_mm": "5.27",
+          "iso_crimpbreite_mm": "6.68",
+          "abzugswert_n": ">500",
+          "confidence": 100
+        }
+      ]
+    },
+    "25231": {
+      "kontakt_nr": "25231",
+      "hersteller": "GHW",
+      "wkz_nummern": [
+        "545",
+        "567"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "545",
+          "querschnitt_mm2": "6.00",
+          "crimphoehe_mm": "3.35",
+          "crimpbreite_mm": "5.20",
+          "iso_crimphoehe_mm": "5.42",
+          "iso_crimpbreite_mm": "6.73",
+          "abzugswert_n": "500+",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "567",
+          "querschnitt_mm2": "6.00",
+          "crimphoehe_mm": "3.35",
+          "crimpbreite_mm": "5.20",
+          "iso_crimphoehe_mm": "5.42",
+          "iso_crimpbreite_mm": "6.73",
+          "abzugswert_n": "500+",
+          "confidence": 100
+        }
+      ]
+    },
+    "RFB 7808": {
+      "kontakt_nr": "RFB 7808",
+      "hersteller": "Stocko",
+      "wkz_nummern": [
+        "700"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "700",
+          "querschnitt_mm2": "0.14",
+          "crimphoehe_mm": "0.80",
+          "crimpbreite_mm": "1.45",
+          "iso_crimphoehe_mm": "1.45",
+          "iso_crimpbreite_mm": "1.97",
+          "abzugswert_n": "35",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "700",
+          "querschnitt_mm2": "0.25",
+          "crimphoehe_mm": "0.85",
+          "crimpbreite_mm": "1.46",
+          "iso_crimphoehe_mm": "1.45",
+          "iso_crimpbreite_mm": "1.97",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "700",
+          "querschnitt_mm2": "0.50",
+          "crimphoehe_mm": "0.98",
+          "crimpbreite_mm": "1.47",
+          "iso_crimphoehe_mm": "1.45",
+          "iso_crimpbreite_mm": "1.97",
+          "confidence": 100
+        }
+      ]
+    },
+    "35072391": {
+      "kontakt_nr": "35072391",
+      "hersteller": "APTIV",
+      "wkz_nummern": [
+        "695"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "695",
+          "querschnitt_mm2": "0.50",
+          "crimphoehe_mm": "0.85",
+          "crimpbreite_mm": "1.53",
+          "iso_crimphoehe_mm": "1.30",
+          "iso_crimpbreite_mm": "1.85",
+          "abzugswert_n": "90",
+          "confidence": 100
+        }
+      ]
+    },
+    "1241396-1": {
+      "kontakt_nr": "1241396-1",
+      "hersteller": "Tyco",
+      "wkz_nummern": [
+        "697"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "697",
+          "querschnitt_mm2": "2.50",
+          "crimphoehe_mm": "1.95",
+          "crimpbreite_mm": "2.73",
+          "iso_crimphoehe_mm": "4.25",
+          "iso_crimpbreite_mm": "4.23",
+          "abzugswert_n": "350",
+          "confidence": 100
+        }
+      ]
+    },
+    "1241408": {
+      "kontakt_nr": "1241408",
+      "hersteller": "Tyco",
+      "wkz_nummern": [
+        "698"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "698",
+          "querschnitt_mm2": "4.00",
+          "crimphoehe_mm": "2.50",
+          "crimpbreite_mm": "4.05",
+          "iso_crimphoehe_mm": "4.70",
+          "iso_crimpbreite_mm": "4.95",
+          "abzugswert_n": ">500",
+          "confidence": 100
+        }
+      ]
+    },
+    "DF3-2428-SCF": {
+      "kontakt_nr": "DF3-2428-SCF",
+      "hersteller": "Hirose",
+      "wkz_nummern": [
+        "716"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "716",
+          "querschnitt_mm2": "0.14",
+          "crimphoehe_mm": "0.65",
+          "crimpbreite_mm": "1.22",
+          "iso_crimphoehe_mm": "1.60",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "716",
+          "querschnitt_mm2": "0.25",
+          "crimphoehe_mm": "0.70",
+          "crimpbreite_mm": "1.22",
+          "iso_crimphoehe_mm": "1.60",
+          "confidence": 100
+        }
+      ]
+    },
+    "EN 0202500431": {
+      "kontakt_nr": "EN 0202500431",
+      "hersteller": "Amphenol",
+      "wkz_nummern": [
+        "713"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "713",
+          "querschnitt_mm2": "5.67",
+          "crimphoehe_mm": "2.55",
+          "crimpbreite_mm": "2.72",
+          "iso_crimphoehe_mm": "4.63",
+          "iso_crimpbreite_mm": "4.50",
+          "abzugswert_n": "300",
+          "confidence": 100
+        },
+        {
+          "wkz_nr": "713",
+          "querschnitt_mm2": "4.25",
+          "crimphoehe_mm": "2.75",
+          "crimpbreite_mm": "2.72",
+          "iso_crimphoehe_mm": "3.78",
+          "iso_crimpbreite_mm": "4.60",
+          "abzugswert_n": "350",
+          "confidence": 100,
+          "warnung": "Isolationsdurchmesser zu groß gewählt!"
+        }
+      ]
+    },
+    "0906 000 9561": {
+      "kontakt_nr": "0906 000 9561",
+      "hersteller": "unbekannt",
+      "wkz_nummern": [
+        "705"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "705",
+          "status": "verschrottet",
+          "confidence": 100,
+          "warnung": "VERSCHROTTET 2013"
+        }
+      ]
+    },
+    "16-02-0086": {
+      "kontakt_nr": "16-02-0086",
+      "hersteller": "unbekannt",
+      "wkz_nummern": [
+        "709"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "709",
+          "status": "verschrottet",
+          "confidence": 100,
+          "warnung": "VERSCHROTTET KW 48/2024"
+        }
+      ]
+    },
+    "25077": {
+      "kontakt_nr": "25077",
+      "hersteller": "Leer",
+      "wkz_nummern": [
+        "522"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "522",
+          "querschnitt_mm2": "2.50",
+          "crimphoehe_mm": "2.15",
+          "crimpbreite_mm": "2.73",
+          "iso_crimphoehe_mm": "2.78",
+          "confidence": 95,
+          "bemerkung": "Sonderwerkzeug, VT-Satz"
+        }
+      ]
+    },
+    "25258": {
+      "kontakt_nr": "25258",
+      "hersteller": "G + H",
+      "wkz_nummern": [
+        "523",
+        "524",
+        "546"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "523",
+          "confidence": 60,
+          "nicht_lesbar": true,
+          "bemerkung": "2-fach Clip, Crimpdaten nicht extrahierbar"
+        },
+        {
+          "wkz_nr": "524",
+          "confidence": 60,
+          "nicht_lesbar": true,
+          "bemerkung": "2-fach Clip"
+        },
+        {
+          "wkz_nr": "546",
+          "querschnitt_mm2": "2.50",
+          "crimphoehe_mm": "2.05",
+          "confidence": 90,
+          "bemerkung": "4 Clip"
+        }
+      ]
+    },
+    "21600": {
+      "kontakt_nr": "21600",
+      "hersteller": "LAT",
+      "wkz_nummern": [
+        "526"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "526",
+          "querschnitt_mm2": "10.00",
+          "confidence": 70,
+          "nicht_lesbar": true,
+          "bemerkung": "Aderendhülse"
+        }
+      ]
+    },
+    "0010129005": {
+      "kontakt_nr": "0010129005",
+      "hersteller": "KTK/Eigenkonstruktion",
+      "wkz_nummern": [
+        "532"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "532",
+          "querschnitt_mm2": "2.40",
+          "crimphoehe_mm": "2.02",
+          "crimpbreite_mm": "2.64",
+          "iso_crimphoehe_mm": "3.78",
+          "iso_crimpbreite_mm": "3.82",
+          "confidence": 95,
+          "bemerkung": "Eigene Konstruktion, VT-Satz"
+        }
+      ]
+    },
+    "RSB 8178.258": {
+      "kontakt_nr": "RSB 8178.258",
+      "hersteller": "Stocko",
+      "wkz_nummern": [
+        "533"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "533",
+          "crimphoehe_mm": "2.02",
+          "crimpbreite_mm": "2.64",
+          "iso_crimphoehe_mm": "3.78",
+          "iso_crimpbreite_mm": "3.82",
+          "confidence": 95
+        }
+      ]
+    },
+    "26305.110": {
+      "kontakt_nr": "26305.110",
+      "hersteller": "Hans Schatz",
+      "wkz_nummern": [
+        "537"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "537",
+          "querschnitt_mm2": "0.25",
+          "crimphoehe_mm": "1.32",
+          "crimpbreite_mm": "2.30",
+          "iso_crimphoehe_mm": "2.91",
+          "iso_crimpbreite_mm": "3.54",
+          "confidence": 95,
+          "bemerkung": "Messerdistanz 6,00 mm, Niederhalter eingebaut"
+        }
+      ]
+    },
+    "166054": {
+      "kontakt_nr": "166054",
+      "hersteller": "unbekannt",
+      "wkz_nummern": [
+        "631"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "631",
+          "querschnitt_mm2": "0.14",
+          "confidence": 70,
+          "nicht_lesbar": true,
+          "bemerkung": "Kurze Automatenkurve, Quertransport, Umbausatz"
+        }
+      ]
+    },
+    "179955-2": {
+      "kontakt_nr": "179955-2",
+      "hersteller": "Leer",
+      "wkz_nummern": [
+        "632"
+      ],
+      "status": "verschrottet",
+      "varianten": [
+        {
+          "wkz_nr": "632",
+          "crimphoehe_mm": "2.00",
+          "iso_crimphoehe_mm": "3.30",
+          "confidence": 85,
+          "status": "verschrottet",
+          "warnung": "VERSCHROTTET KW 48/2024"
+        }
+      ]
+    },
+    "163081/083": {
+      "kontakt_nr": "163081/083",
+      "hersteller": "unbekannt",
+      "wkz_nummern": [
+        "634"
+      ],
+      "status": "verschrottet",
+      "varianten": [
+        {
+          "wkz_nr": "634",
+          "querschnitt_mm2": "0.75",
+          "confidence": 60,
+          "status": "verschrottet",
+          "warnung": "Kontakt 777-9316S-T3 VERSCHROTTET KW 50/2023"
+        }
+      ]
+    },
+    "163085": {
+      "kontakt_nr": "163085",
+      "hersteller": "AMP/Tyco",
+      "wkz_nummern": [
+        "635"
+      ],
+      "status": "verschrottet",
+      "varianten": [
+        {
+          "wkz_nr": "635",
+          "confidence": 60,
+          "status": "verschrottet",
+          "warnung": "Kontakt 777-9320S-T3 VERSCHROTTET KW 48/2024"
+        }
+      ]
+    },
+    "39-00-0077": {
+      "kontakt_nr": "39-00-0077",
+      "hersteller": "Molex",
+      "wkz_nummern": [
+        "636"
+      ],
+      "status": "verschrottet",
+      "varianten": [
+        {
+          "wkz_nr": "636",
+          "querschnitt_mm2": "1.50",
+          "confidence": 70,
+          "status": "verschrottet",
+          "warnung": "VERSCHROTTET - Querschnitt 1,50mm² ist für diesen Kontakt zu groß!"
+        }
+      ]
+    },
+    "Lumberg-637": {
+      "kontakt_nr": "Lumberg-637",
+      "hersteller": "Lumberg",
+      "wkz_nummern": [
+        "637"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "637",
+          "querschnitt_mm2": "0.25",
+          "crimphoehe_mm": "0.78",
+          "crimpbreite_mm": "1.71",
+          "iso_crimphoehe_mm": "1.60",
+          "iso_crimpbreite_mm": "1.84",
+          "confidence": 95,
+          "bemerkung": "VT-Satz"
+        },
+        {
+          "wkz_nr": "637",
+          "querschnitt_mm2": "0.35",
+          "crimphoehe_mm": "0.84",
+          "crimpbreite_mm": "1.72",
+          "iso_crimphoehe_mm": "1.78",
+          "iso_crimpbreite_mm": "1.88",
+          "confidence": 95
+        },
+        {
+          "wkz_nr": "637",
+          "crimphoehe_mm": "0.89",
+          "crimpbreite_mm": "1.72",
+          "confidence": 90,
+          "bemerkung": "Variante 3"
+        }
+      ]
+    },
+    "1000-00234": {
+      "kontakt_nr": "1000-00234",
+      "hersteller": "EPS",
+      "wkz_nummern": [
+        "638"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "638",
+          "confidence": 60,
+          "nicht_lesbar": true,
+          "bemerkung": "Drehkopf, Kurze Automatenkurve, Stripper 516953"
+        }
+      ]
+    },
+    "25036": {
+      "kontakt_nr": "25036",
+      "hersteller": "unbekannt",
+      "wkz_nummern": [
+        "640",
+        "652"
+      ],
+      "status": "verschrottet",
+      "varianten": [
+        {
+          "wkz_nr": "640",
+          "querschnitt_mm2": "0.5",
+          "confidence": 60,
+          "status": "verschrottet",
+          "warnung": "KONTAKT VERSCHROTTET!!!"
+        },
+        {
+          "wkz_nr": "652",
+          "confidence": 60,
+          "status": "verschrottet",
+          "warnung": "Kontakt verschrottet"
+        }
+      ]
+    },
+    "25863": {
+      "kontakt_nr": "25863",
+      "hersteller": "unbekannt",
+      "wkz_nummern": [
+        "644"
+      ],
+      "varianten": [
+        {
+          "wkz_nr": "644",
+          "querschnitt_mm2": "0.75",
+          "confidence": 70,
+          "nicht_lesbar": true,
+          "bemerkung": "Handkurve (12°)"
+        }
+      ]
+    }
+  },
+  "wkz_index": {
+    "505": [
+      "25783"
+    ],
+    "512": [
+      "25783"
+    ],
+    "515": [
+      "25787"
+    ],
+    "516": [
+      "25783"
+    ],
+    "538": [
+      "25722"
+    ],
+    "539": [
+      "25737.417",
+      "25744"
+    ],
+    "544": [
+      "25213-25223",
+      "25360"
+    ],
+    "545": [
+      "25231",
+      "24.359.120"
+    ],
+    "547": [
+      "SPS-91T-25OS"
+    ],
+    "549": [
+      "24810",
+      "0010916001",
+      "24801.120"
+    ],
+    "559": [
+      "24.359.120"
+    ],
+    "563": [
+      "24.360.110"
+    ],
+    "564": [
+      "25213-25223"
+    ],
+    "565": [
+      "25361"
+    ],
+    "566": [
+      "25361"
+    ],
+    "567": [
+      "24.359.120",
+      "25231"
+    ],
+    "568": [
+      "25213-25223",
+      "25223",
+      "24.359.120"
+    ],
+    "569": [
+      "25733"
+    ],
+    "571": [
+      "23715",
+      "25149.122",
+      "24.360.110"
+    ],
+    "572": [
+      "25213-25223"
+    ],
+    "574": [
+      "25149.122"
+    ],
+    "577": [
+      "25213-25223",
+      "25360"
+    ],
+    "578": [
+      "25213-25223"
+    ],
+    "580": [
+      "SXH-001T-P0,6",
+      "50802-8000"
+    ],
+    "581": [
+      "1060-16-0622",
+      "1062-12-0166"
+    ],
+    "583": [
+      "21107"
+    ],
+    "586": [
+      "25733"
+    ],
+    "587": [
+      "25722",
+      "25733"
+    ],
+    "588": [
+      "0011332101"
+    ],
+    "589": [
+      "21600"
+    ],
+    "598": [
+      "25116"
+    ],
+    "602": [
+      "794407"
+    ],
+    "605": [
+      "170 361-1"
+    ],
+    "606": [
+      "794407"
+    ],
+    "607": [
+      "0350566"
+    ],
+    "608": [
+      "0350566"
+    ],
+    "609": [
+      "925819"
+    ],
+    "610": [
+      "0350566"
+    ],
+    "616": [
+      "TNO1/0201600021"
+    ],
+    "619": [
+      "TMHTC009K2J001956"
+    ],
+    "621": [
+      "22818127"
+    ],
+    "624": [
+      "4809"
+    ],
+    "625": [
+      "08-50-0187"
+    ],
+    "626": [
+      "08-50-0187"
+    ],
+    "627": [
+      "282403-1",
+      "171662",
+      "70311-02",
+      "282110",
+      "964273"
+    ],
+    "649": [
+      "25131"
+    ],
+    "650": [
+      "S0.106.604"
+    ],
+    "651": [
+      "927827"
+    ],
+    "653": [
+      "160759"
+    ],
+    "654": [
+      "02-09-2116"
+    ],
+    "655": [
+      "927827"
+    ],
+    "656": [
+      "0 905 000 9562"
+    ],
+    "658": [
+      "0011116101"
+    ],
+    "665": [
+      "26.325.120"
+    ],
+    "695": [
+      "35072391",
+      "962943"
+    ],
+    "696": [
+      "35088739"
+    ],
+    "697": [
+      "1241396-1"
+    ],
+    "698": [
+      "1241408"
+    ],
+    "700": [
+      "RFB 7808"
+    ],
+    "701": [
+      "43030-0001"
+    ],
+    "702": [
+      "25568"
+    ],
+    "703": [
+      "TTN 01/0201600021"
+    ],
+    "704": [
+      "76823-0321"
+    ],
+    "705": [
+      "0906 000 9561"
+    ],
+    "706": [
+      "25568"
+    ],
+    "707": [
+      "61900113722"
+    ],
+    "709": [
+      "16-02-0086"
+    ],
+    "710": [
+      "188744"
+    ],
+    "713": [
+      "EN 0202500431"
+    ],
+    "715": [
+      "093220006207"
+    ],
+    "716": [
+      "DF3-2428-SCF"
+    ],
+    "717": [
+      "104505"
+    ],
+    "719": [
+      "1-104479-0",
+      "1-104480-3"
+    ],
+    "720": [
+      "91.403.120"
+    ],
+    "724": [
+      "43030-0001"
+    ],
+    "726": [
+      "32124734000"
+    ],
+    "727": [
+      "32124734010"
+    ],
+    "728": [
+      "32124734020"
+    ],
+    "729": [
+      "505431-1300"
+    ],
+    "501": [
+      "25787"
+    ],
+    "517": [
+      "25787"
+    ],
+    "519": [
+      "25131"
+    ],
+    "521": [
+      "25131"
+    ],
+    "522": [
+      "25077"
+    ],
+    "523": [
+      "25258"
+    ],
+    "524": [
+      "25258"
+    ],
+    "526": [
+      "21600"
+    ],
+    "528": [
+      "25787"
+    ],
+    "532": [
+      "0010129005"
+    ],
+    "533": [
+      "RSB 8178.258"
+    ],
+    "535": [
+      "26.325.120"
+    ],
+    "537": [
+      "26305.110"
+    ],
+    "546": [
+      "25258"
+    ],
+    "629": [
+      "927827"
+    ],
+    "630": [
+      "S0.106.604"
+    ],
+    "631": [
+      "166054"
+    ],
+    "632": [
+      "179955-2"
+    ],
+    "634": [
+      "163081/083"
+    ],
+    "635": [
+      "163085"
+    ],
+    "636": [
+      "39-00-0077"
+    ],
+    "637": [
+      "Lumberg-637"
+    ],
+    "638": [
+      "1000-00234"
+    ],
+    "640": [
+      "25036"
+    ],
+    "644": [
+      "25863"
+    ],
+    "652": [
+      "25036"
+    ]
+  }
+}

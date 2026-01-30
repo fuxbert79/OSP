@@ -2,7 +2,7 @@
 
 **Rainer Schneider Kabelsatzbau GmbH & Co. KG**
 
-**Version:** 1.4 | **TAG:** [TM][WKZ] | **Erstellt:** 2025-11-20 | **Aktualisiert:** 2025-12-12 | **Autor:** AL | **Verantwortlich:** MD (Technik-Verantwortlicher) | **Cluster:** 🟢 C4-Support | **Zugriff:** 🟢 L1-Öffentlich | **Status:** ✅ PRODUKTIV (RAG) | **Stage:** 2 | **RAG-Version:** 1.2 | **Basis:** TM_WKZ_Werkzeuge_v1.3.md + Werkzeugliste_2025.csv
+**Version:** 1.3 | **TAG:** [TM][WKZ] | **Erstellt:** 2025-11-20 | **Aktualisiert:** 2025-12-04 | **Autor:** AL | **Verantwortlich:** MD (Technik-Verantwortlicher) | **Cluster:** 🟢 C4-Support | **Zugriff:** 🟢 L1-Öffentlich | **Status:** ✅ PRODUKTIV (RAG) | **Stage:** 2 | **RAG-Version:** 1.1 | **Basis:** TM_WKZ_Werkzeuge_v1.2.md + Werkzeugliste_2025.csv
 
 **Primary Keywords:** Werkzeuge, Crimppressen, Prüfgeräte, Messmittel, Kalibrierung, DGUV, IPC-WHMA-A-620, ISO 9001, Qualitätssicherung, CFA-System, Zugprüfgerät, Schliffbildlabor, Adaptronic, Keyence, ESD-Prüfung, Prüfadapter, Crimp-Analyse, Hochspannungsprüfung, Durchgangsprüfung, Messschieber, Drehmomentschlüssel, Wezag, AMP, Stocko, Lumberg, Komax, TSK, Gossen Metrawatt, Benning, Mitutoyo, Kontaktnummer, Werkzeugnummer, Festwerkzeug, Umbauwerkzeug, VT-Satz (40 Keywords)
 
@@ -670,11 +670,12 @@ Spezialwerkzeuge für Sonderfertigungen, ESD-Schutz und kundenspezifische Prüfu
 | Kategorie | Verantwortlich | Aufgaben |
 |-----------|----------------|----------|
 | Crimppressen | MD | Wartung, Crimpeinsätze |
-| Elektrische Prüfgeräte | extern | Wartung, Kalibrierung |
-| DGUV-Prüfgeräte | SK | Jährliche DGUV-Prüfung |
+| Elektrische Prüfgeräte | MD | Wartung, Kalibrierung |
+| DGUV-Prüfgeräte | MD | Jährliche DGUV-Prüfung |
 | Crimp-Analyse | AL (QM) | Schliffbildprüfung, Zugprüfung |
-| Messmittel | AL | Kalibrierplanung |
-| Prüfadapter | SK/JS | Entwicklung, Verwaltung |
+| Messmittel | MD | Kalibrierplanung |
+| ESD-Prüfung | MD / QM | ESD-Überwachung |
+| Prüfadapter | SV (AV) | Entwicklung, Verwaltung |
 | Werkzeugliste | MD | Pflege, Aktualisierung |
 
 ---
@@ -710,6 +711,44 @@ Spezialwerkzeuge für Sonderfertigungen, ESD-Schutz und kundenspezifische Prüfu
 
 - [ ] Crimpeinsätze als Verschleißteile in TM_VT dokumentiert? (Verantwortlich: MD)
 - [ ] Schulungsunterlagen für neue Werkzeuge vorhanden? (Verantwortlich: MD)
+
+---
+
+## ÄNDERUNGSHISTORIE
+
+### [1.3] - 2025-12-04 - WERKZEUGLISTE 2025 INTEGRIERT
+
+**MAJOR UPDATE - CSV-Import:**
+- ✅ **Vollständige Werkzeugliste importiert:** 342 Einträge aus Werkzeugliste_2025.csv
+- ✅ **7 Tabellen-Abschnitte:** Nr. 1-50, 51-100, 101-150, 151-200, 201-250, 251-300, 301-342
+- ✅ **Legende hinzugefügt:** Spalten- und Lagerort-Erklärungen
+- ✅ **Statistik aktualisiert:** Verteilung nach Lagerort, häufige VT-Sätze
+- ✅ **Keywords erweitert:** +5 Primary, +20 Secondary (Festwerkzeug, Umbauwerkzeug, VT-Satz, Lagerorte)
+- ✅ **Chunk-Anzahl erhöht:** 11 → 14 Chunks
+- ✅ **RAG-Version:** 1.0 → 1.1
+
+**Datenquellen:**
+- Werkzeugliste_2025.csv (Datenstand: 2025-12-04)
+
+**Verantwortlich:** AL (KI-Manager)
+
+---
+
+### [1.2] - 2025-12-02 - RAG-OPTIMIERUNG
+
+**Token-Effizienz:** -18%  
+**Verantwortlich:** AL
+
+---
+
+### [1.0] - 2025-11-20 - ERSTVERSION
+
+**Erstversion - PRODUKTIV:**
+- ✅ Werkzeug-Kategorien dokumentiert
+- ✅ Prüf- und Messtechnik erfasst
+- ✅ Kalibrierzyklen definiert
+
+**Verantwortlich:** AL
 
 ---
 

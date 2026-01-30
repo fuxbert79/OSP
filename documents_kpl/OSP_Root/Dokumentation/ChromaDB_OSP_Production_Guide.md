@@ -41,7 +41,7 @@ import chromadb
 from chromadb.config import Settings
 
 # Standard-Konfiguration
-client = chromadb.PersistentClient(path="/opt/osp/chromadb/data")
+client = chromadb.PersistentClient(path="/mnt/HC_Volume_104189729/osp/chromadb/data")
 
 # Mit erweiterten Settings
 settings = Settings(
@@ -50,7 +50,7 @@ settings = Settings(
     chroma_db_impl="duckdb+parquet"  # Standard Backend
 )
 client = chromadb.PersistentClient(
-    path="/opt/osp/chromadb/data",
+    path="/mnt/HC_Volume_104189729/osp/chromadb/data",
     settings=settings
 )
 ```
@@ -823,7 +823,7 @@ docker ps | grep chromadb
 docker-compose -f docker-compose.yml up -d chromadb
 
 # 2. Teste Konnektivität
-curl http://localhost:8000/api/v1
+curl http://localhost:8000/api/v2
 
 # 3. Prüfe Logs
 docker logs chromadb
@@ -845,7 +845,7 @@ def wait_for_chromadb(host="localhost", port=8000, timeout=30):
     start = time.time()
     while time.time() - start < timeout:
         try:
-            urllib.request.urlopen(f"http://{host}:{port}/api/v1")
+            urllib.request.urlopen(f"http://{host}:{port}/api/v2")
             print("✓ ChromaDB ist erreichbar")
             return True
         except:
@@ -905,7 +905,7 @@ except ValueError as e:
 
 **Symptom:**
 ```
-FileNotFoundError: [Errno 2] No such file or directory: '/opt/osp/chromadb/data'
+FileNotFoundError: [Errno 2] No such file or directory: '/mnt/HC_Volume_104189729/osp/chromadb/data'
 ```
 
 **Root Cause:**
@@ -920,7 +920,7 @@ FileNotFoundError: [Errno 2] No such file or directory: '/opt/osp/chromadb/data'
 import os
 from pathlib import Path
 
-def ensure_chromadb_path(path="/opt/osp/chromadb/data"):
+def ensure_chromadb_path(path="/mnt/HC_Volume_104189729/osp/chromadb/data"):
     """Stelle sicher, dass der Pfad existiert"""
     Path(path).mkdir(parents=True, exist_ok=True)
     
@@ -955,7 +955,7 @@ mkdir -p ./chromadb_data
 chmod 755 ./chromadb_data
 
 # Oder mit Docker
-docker exec chromadb mkdir -p /opt/osp/chromadb/data
+docker exec chromadb mkdir -p /mnt/HC_Volume_104189729/osp/chromadb/data
 ```
 
 **Prävention:**
@@ -1690,7 +1690,7 @@ docker-compose down
 docker-compose up -d chromadb
 
 # 6. Health-Check
-curl -I http://localhost:8000/api/v1
+curl -I http://localhost:8000/api/v2
 ```
 
 **docker-compose.yml Verbesserungen:**
@@ -1701,7 +1701,7 @@ services:
     image: chromadb/chroma:0.5.15
     restart: on-failure:5  # Nur 5x restart
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1"]
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v2"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -1765,11 +1765,11 @@ def repair_database(backup_path, data_path):
         print("✗ Kein Backup verfügbar")
 
 # Startup-Überprüfung
-client = chromadb.PersistentClient(path="/opt/osp/chromadb/data")
+client = chromadb.PersistentClient(path="/mnt/HC_Volume_104189729/osp/chromadb/data")
 if not check_database_integrity(client):
     repair_database(
         "/backups/chromadb_backup",
-        "/opt/osp/chromadb/data"
+        "/mnt/HC_Volume_104189729/osp/chromadb/data"
     )
 ```
 
@@ -1837,8 +1837,8 @@ def migrate_chromadb_version(old_path, new_path):
 
 # Verwendung
 migrate_chromadb_version(
-    "/opt/osp/chromadb/data_old",
-    "/opt/osp/chromadb/data_new"
+    "/mnt/HC_Volume_104189729/osp/chromadb/data_old",
+    "/mnt/HC_Volume_104189729/osp/chromadb/data_new"
 )
 ```
 
@@ -2171,7 +2171,7 @@ class DiskIOOptimizer:
         print("✓ SQLite I/O Optimierungen angewendet")
 
 # Anwendung nach ChromaDB-Startup
-db_path = "/opt/osp/chromadb/data/chroma.sqlite3"
+db_path = "/mnt/HC_Volume_104189729/osp/chromadb/data/chroma.sqlite3"
 if os.path.exists(db_path):
     DiskIOOptimizer.optimize_sqlite_settings(db_path)
 ```
@@ -2190,7 +2190,7 @@ from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
 import chromadb
 
 chroma_client = chromadb.PersistentClient(
-    path="/opt/osp/chromadb/data"
+    path="/mnt/HC_Volume_104189729/osp/chromadb/data"
 )
 
 kern_collection = chroma_client.get_or_create_collection(
@@ -2351,7 +2351,7 @@ class BackupManager:
 
 # Verwendung
 backup_mgr = BackupManager(
-    source_path="/opt/osp/chromadb/data",
+    source_path="/mnt/HC_Volume_104189729/osp/chromadb/data",
     backup_dir="./chromadb_backups"
 )
 
@@ -2371,10 +2371,10 @@ backup_mgr.list_backups()
 ```bash
 # crontab -e
 # Täglich um 02:00 Uhr Backup erstellen
-0 2 * * * python /opt/osp/scripts/backup_chromadb.py
+0 2 * * * python /mnt/HC_Volume_104189729/osp/scripts/backup_chromadb.py
 
 # Wöchentlich (Sonntag um 03:00) alten Backup löschen
-0 3 * * 0 python /opt/osp/scripts/cleanup_backups.py
+0 3 * * 0 python /mnt/HC_Volume_104189729/osp/scripts/cleanup_backups.py
 ```
 
 **backup_chromadb.py:**
@@ -2382,19 +2382,19 @@ backup_mgr.list_backups()
 ```python
 #!/usr/bin/env python3
 import sys
-sys.path.insert(0, '/opt/osp')
+sys.path.insert(0, '/mnt/HC_Volume_104189729/osp')
 
 from chromadb_backup import BackupManager
 
 backup_mgr = BackupManager(
-    source_path="/opt/osp/chromadb/data",
-    backup_dir="/opt/osp/backups/chromadb"
+    source_path="/mnt/HC_Volume_104189729/osp/chromadb/data",
+    backup_dir="/mnt/HC_Volume_104189729/osp/backups/chromadb"
 )
 
 backup_path = backup_mgr.create_backup(tag="daily")
 if backup_path:
     # Log Backup-Success
-    with open("/opt/osp/logs/chromadb_backup.log", "a") as f:
+    with open("/mnt/HC_Volume_104189729/osp/logs/chromadb_backup.log", "a") as f:
         from datetime import datetime
         f.write(f"{datetime.now().isoformat()} - Backup OK\n")
 
@@ -2592,7 +2592,7 @@ services:
     
     # Health Check
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/heartbeat"]
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v2/heartbeat"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -2647,7 +2647,7 @@ docker-compose -f docker-compose.yml up -d chromadb
 # Warte auf Startup
 echo "Waiting for ChromaDB to be ready..."
 for i in {1..30}; do
-  if curl -f http://localhost:8000/api/v1/heartbeat > /dev/null 2>&1; then
+  if curl -f http://localhost:8000/api/v2/heartbeat > /dev/null 2>&1; then
     echo "✓ ChromaDB ist online"
     break
   fi
@@ -2656,7 +2656,7 @@ for i in {1..30}; do
 done
 
 # Health Check
-if curl -f http://localhost:8000/api/v1 > /dev/null 2>&1; then
+if curl -f http://localhost:8000/api/v2 > /dev/null 2>&1; then
   echo "✓ ChromaDB gesund und bereit"
   docker-compose logs chromadb | tail -20
 else
@@ -2687,7 +2687,7 @@ class OSPChromaDB:
     """Wrapper für OSP ChromaDB Operations"""
     
     def __init__(self, 
-                 db_path="/opt/osp/chromadb/data",
+                 db_path="/mnt/HC_Volume_104189729/osp/chromadb/data",
                  embedding_model="BAAI/bge-small-en-v1.5"):
         
         # Client initialisieren
@@ -3041,7 +3041,7 @@ Problem gemeldet
 **Kontakt OSP-Team:**
 - QM: [Email]
 - IT-Support: [Email]
-- Backup-Location: /opt/osp/backups/
+- Backup-Location: /mnt/HC_Volume_104189729/osp/backups/
 
 ---
 

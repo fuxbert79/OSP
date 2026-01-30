@@ -8,7 +8,7 @@ bei exakten Kontaktnummer-Anfragen.
 
 Autor: AL
 Stand: 2025-12-13
-Deployment: /opt/osp/modules/kontakt_lookup.py
+Deployment: /mnt/HC_Volume_104189729/osp/modules/kontakt_lookup.py
 """
 
 import re
@@ -19,12 +19,12 @@ from typing import Optional, Dict, Any
 
 logger = logging.getLogger(__name__)
 
-# Kontaktnummer-Pattern (TE Connectivity Format)
-# Beispiele: 0-0350415-1, 0-0282110-1, 0-1235712-9
-KONTAKT_PATTERN = r'\d-\d{6,7}-\d'
+# Kontaktnummer-Pattern (10-stellig, VT-Satz Format)
+# Beispiele: 0010129205, 0010916001, 0011111201
+KONTAKT_PATTERN = r'\b\d{10}\b'
 
 # Lookup-Datei Pfad
-LOOKUP_PATH = Path('/opt/osp/lookups/kontakt_wkz_mapping.json')
+LOOKUP_PATH = Path('/mnt/HC_Volume_104189729/osp/lookups/kontakt_wkz_mapping.json')
 
 # Cache für wiederholte Anfragen
 _lookup_cache: Optional[Dict] = None
@@ -48,7 +48,7 @@ def _load_lookup_data() -> Dict:
     try:
         with open(LOOKUP_PATH, 'r', encoding='utf-8') as f:
             _lookup_cache = json.load(f)
-            logger.info(f"✅ Lookup-Daten geladen: {_lookup_cache['meta']['eintraege']} Einträge")
+            logger.info(f"✅ Lookup-Daten geladen: {_lookup_cache['meta']['eintraege_gesamt']} Einträge")
             return _lookup_cache
     except FileNotFoundError:
         logger.warning(f"⚠️ Lookup-Datei nicht gefunden: {LOOKUP_PATH}")
@@ -120,40 +120,66 @@ Mögliche Ursachen:
         return None  # Bei Fehler: RAG übernimmt
 
 
-def format_wkz_response(kontakt_nr: str, entry: Dict[str, Any]) -> str:
+def format_wkz_response(kontakt_nr: str, entries) -> str:
     """
     Formatiert die Lookup-Antwort im OSP-Standard-Format.
-    
+
     Parameters:
         kontakt_nr: Die gefundene Kontaktnummer
-        entry: Dict mit Werkzeug-Daten
-    
+        entries: Liste von Dicts mit Werkzeug-Daten (eine Kontaktnummer kann mehrere WKZ haben)
+
     Returns:
         Formatierte Markdown-Antwort
     """
-    # Bemerkung aufbereiten (None → "keine")
-    bemerkung = entry.get('bemerkung') or 'keine'
-    
     # Stand aus Cache holen
     stand = _lookup_cache['meta']['stand'] if _lookup_cache else 'unbekannt'
-    
-    response = f"""**Werkzeug für Kontakt {kontakt_nr}:**
+
+    # Sicherstellen dass entries eine Liste ist
+    if not isinstance(entries, list):
+        entries = [entries]
+
+    if len(entries) == 1:
+        # Einzelnes WKZ
+        entry = entries[0]
+        bemerkung = entry.get('bemerkung') or 'keine'
+        response = f"""**Werkzeug für Kontakt {kontakt_nr}:**
 
 | Eigenschaft | Wert |
 |-------------|------|
 | **WKZ** | {entry.get('wkz', 'N/A')} |
 | **Typ** | {entry.get('wkz_typ', 'N/A')} |
 | **VT-Satz** | {entry.get('vt_satz', 'N/A')} |
-| **Hersteller** | {entry.get('hersteller', 'N/A')} |
-| **Kontaktbezeichnung** | {entry.get('kontakt_bezeichnung', 'N/A')} |
-| **Querschnitt** | {entry.get('querschnitt', 'N/A')} |
+| **Hersteller** | {entry.get('hersteller', 'N/A') or 'N/A'} |
+| **Kontaktbezeichnung** | {entry.get('kontakt_bezeichnung', 'N/A') or 'N/A'} |
+| **Querschnitt** | {entry.get('querschnitt', 'N/A') or 'N/A'} |
 | **Standort** | {entry.get('standort', 'N/A')} |
 | **Bemerkung** | {bemerkung} |
 
 **Quelle:** TM_WKZ_Werkzeuge.md (Stand: {stand})
 
 (C: 100%) [OSP-Lookup]"""
-    
+    else:
+        # Mehrere WKZ für dieselbe Kontaktnummer
+        response = f"""**Werkzeuge für Kontakt {kontakt_nr}:**
+
+⚠️ *{len(entries)} verschiedene WKZ-Zuordnungen gefunden:*
+
+"""
+        for i, entry in enumerate(entries, 1):
+            bemerkung = entry.get('bemerkung') or 'keine'
+            response += f"""**Option {i}: {entry.get('wkz', 'N/A')}**
+| Eigenschaft | Wert |
+|-------------|------|
+| **Typ** | {entry.get('wkz_typ', 'N/A')} |
+| **VT-Satz** | {entry.get('vt_satz', 'N/A')} |
+| **Standort** | {entry.get('standort', 'N/A')} |
+| **Bemerkung** | {bemerkung} |
+
+"""
+        response += f"""**Quelle:** TM_WKZ_Werkzeuge.md (Stand: {stand})
+
+(C: 100%) [OSP-Lookup]"""
+
     return response
 
 
@@ -170,7 +196,8 @@ def get_lookup_stats() -> Dict[str, Any]:
             "verfügbar": True,
             "version": data['meta']['version'],
             "stand": data['meta']['stand'],
-            "eintraege": data['meta']['eintraege'],
+            "eintraege": data['meta']['eintraege_gesamt'],
+            "kontakte_unique": data['meta']['kontakte_unique'],
             "quelle": data['meta']['quelle']
         }
     except Exception:

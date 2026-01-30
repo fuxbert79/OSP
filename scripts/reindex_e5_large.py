@@ -43,9 +43,9 @@ EMBEDDING_DIM = 1024
 
 # Dokumentenpfade
 PATHS = {
-    "osp_kern": "/opt/osp/documents",
-    "osp_erweitert": "/opt/osp/documents_erweitert",
-    "osp_kpl": "/opt/osp/documents_kpl"
+    "osp_kern": "/mnt/HC_Volume_104189729/osp/documents",
+    "osp_erweitert": "/mnt/HC_Volume_104189729/osp/documents_erweitert",
+    "osp_kpl": "/mnt/HC_Volume_104189729/osp/documents_kpl"
 }
 
 # Chunking-Parameter

@@ -1,0 +1,800 @@
+{
+  "version": "1.1",
+  "generated_at": "2025-12-16T22:30:00",
+  "description": "OSP Formblatt-Schema-Registry - 8 Formblätter validiert",
+  "forms": {
+
+    "F_QM_02": {
+      "id": "F_QM_02",
+      "title": "Qualitätsabweichung / Quality Deviation",
+      "file": "F-QM-02_Qualitätsabweichung.xlsx",
+      "format": "xlsx",
+      "bilingual": true,
+      "purpose": "Reklamation an Lieferanten bei Qualitätsabweichungen",
+      "fields": {
+        "abweichungs_nr": {
+          "label": "Abweichungs-Nr. / deviation no.",
+          "cell": "I1",
+          "required": true,
+          "type": "text",
+          "prefix": "QA-",
+          "auto_generate": true
+        },
+        "datum": {
+          "label": "Datum / date",
+          "cell": "I3:I4",
+          "required": true,
+          "type": "date"
+        },
+        "lieferant_name": {
+          "label": "Lieferant / supplier (Name)",
+          "cell": "A17",
+          "required": true,
+          "type": "text"
+        },
+        "lieferant_adresse": {
+          "label": "Lieferant Adresse",
+          "cell": "A18:A21",
+          "required": false,
+          "type": "text_multiline"
+        },
+        "lieferant_ansprechpartner": {
+          "label": "Ansprechpartner Lieferant",
+          "cell": "G17",
+          "required": false,
+          "type": "text"
+        },
+        "artikel_nr_schneider": {
+          "label": "Artikel Nr. Schneider / part no. Schneider",
+          "cell": "E23",
+          "required": true,
+          "type": "text"
+        },
+        "artikel_nr_lieferant": {
+          "label": "Artikel Nr. Lieferant / part no. supplier",
+          "cell": "E24",
+          "required": false,
+          "type": "text"
+        },
+        "artikel_bezeichnung": {
+          "label": "Artikel Bezeichnung / part description",
+          "cell": "E25",
+          "required": true,
+          "type": "text"
+        },
+        "lieferschein_nr": {
+          "label": "Lieferschein Nr. / delivery note no.",
+          "cell": "E26",
+          "required": false,
+          "type": "text"
+        },
+        "lieferdatum": {
+          "label": "Lieferdatum / delivery date",
+          "cell": "E27",
+          "required": false,
+          "type": "date"
+        },
+        "liefermenge": {
+          "label": "Liefermenge / quantity delivered",
+          "cell": "E28",
+          "required": false,
+          "type": "number"
+        },
+        "beanstandungsmenge": {
+          "label": "Beanstandungsmenge / quantity complained",
+          "cell": "E29",
+          "required": true,
+          "type": "number"
+        },
+        "beschreibung_abweichung": {
+          "label": "Beschreibung der Qualitätsabweichung",
+          "cell": "A33:I42",
+          "required": true,
+          "type": "text_multiline"
+        }
+      },
+      "required_fields": ["abweichungs_nr", "datum", "lieferant_name", "artikel_nr_schneider", "artikel_bezeichnung", "beanstandungsmenge", "beschreibung_abweichung"],
+      "optional_fields": ["lieferant_adresse", "lieferant_ansprechpartner", "artikel_nr_lieferant", "lieferschein_nr", "lieferdatum", "liefermenge"]
+    },
+
+    "F_QM_03": {
+      "id": "F_QM_03",
+      "title": "8D-Report / Fehleranalyse",
+      "file": "F-QM-03_8D_Report.xlsx",
+      "format": "xlsx",
+      "bilingual": true,
+      "purpose": "Strukturierte Problemlösung nach 8D-Methodik",
+      "fields": {
+        "vorgangs_nr": {
+          "label": "Vorgangs Nr. / Operation no.",
+          "cell": "D4",
+          "required": true,
+          "type": "text",
+          "prefix": "QA-"
+        },
+        "status": {
+          "label": "Status",
+          "cell": "A3",
+          "required": true,
+          "type": "enum",
+          "values": ["Eröffnet / Open", "In Bearbeitung", "Abgeschlossen / Closed"]
+        },
+        "verfasser": {
+          "label": "Verfasser / Author",
+          "cell": "D5",
+          "required": true,
+          "type": "text"
+        },
+        "lieferant_kunde": {
+          "label": "Lieferant / Customer",
+          "cell": "A10:C16",
+          "required": true,
+          "type": "text_multiline"
+        },
+        "artikel_nr": {
+          "label": "Artikel Nr. / Part no.",
+          "cell": "D10:F10",
+          "required": true,
+          "type": "text"
+        },
+        "bezeichnung": {
+          "label": "Bezeichnung / Description",
+          "cell": "D12:F12",
+          "required": true,
+          "type": "text"
+        },
+        "menge_geliefert": {
+          "label": "Menge geliefert / Total Quantity",
+          "cell": "G10",
+          "required": false,
+          "type": "number"
+        },
+        "menge_reklamiert": {
+          "label": "Menge reklamiert / Affected Quantity",
+          "cell": "G12",
+          "required": true,
+          "type": "number"
+        },
+        "reklamations_nr": {
+          "label": "Reklamations Nr. / Complaint no.",
+          "cell": "G14",
+          "required": false,
+          "type": "text"
+        },
+        "lieferschein_nr": {
+          "label": "LS.-Nr. / Delivery no.",
+          "cell": "D15",
+          "required": false,
+          "type": "text"
+        },
+        "lieferdatum": {
+          "label": "Lieferdatum / Delivery date",
+          "cell": "D17",
+          "required": false,
+          "type": "date"
+        },
+        "d1_bearbeitungsteam": {
+          "label": "D1: Bearbeitungsteam / Editors",
+          "cell": "A20:E22",
+          "required": true,
+          "type": "text_multiline",
+          "section": "D1"
+        },
+        "d2_problembeschreibung": {
+          "label": "D2: Problembeschreibung / Problem description",
+          "cell": "A24:H27",
+          "required": true,
+          "type": "text_multiline",
+          "section": "D2"
+        },
+        "d3_sofortmassnahmen": {
+          "label": "D3: Sofortmaßnahmen / Containment actions",
+          "cell": "A30:E32",
+          "required": true,
+          "type": "text_multiline",
+          "section": "D3"
+        },
+        "d3_wer": {
+          "label": "D3: Wer / Who",
+          "cell": "F30:F32",
+          "required": false,
+          "type": "ma_kuerzel"
+        },
+        "d3_wann": {
+          "label": "D3: Wann / When",
+          "cell": "G30:G32",
+          "required": false,
+          "type": "date"
+        },
+        "d3_erledigt": {
+          "label": "D3: erledigt / done",
+          "cell": "H30:H32",
+          "required": false,
+          "type": "checkbox"
+        },
+        "d4_fehlerursache": {
+          "label": "D4: Fehlerursache / Root Cause",
+          "cell": "A35:H37",
+          "required": true,
+          "type": "text_multiline",
+          "section": "D4"
+        },
+        "d5_geplante_massnahmen": {
+          "label": "D5: Geplante Abstellmaßnahmen / Planned corrective actions",
+          "cell": "A40:F42",
+          "required": true,
+          "type": "text_multiline",
+          "section": "D5"
+        },
+        "d6_eingefuehrte_massnahmen": {
+          "label": "D6: Eingeführte Abstellmaßnahmen / Implemented actions",
+          "cell": "A45:E47",
+          "required": false,
+          "type": "text_multiline",
+          "section": "D6"
+        },
+        "d7_fehlerwiederholung_verhindern": {
+          "label": "D7: Fehlerwiederholung verhindern / Prevent recurrence",
+          "cell": "A50:E52",
+          "required": false,
+          "type": "text_multiline",
+          "section": "D7"
+        },
+        "d8_abschluss": {
+          "label": "D8: Abschluss / Conclusion",
+          "cell": "A54:H55",
+          "required": false,
+          "type": "text_multiline",
+          "section": "D8"
+        }
+      },
+      "required_fields": ["vorgangs_nr", "status", "verfasser", "lieferant_kunde", "artikel_nr", "bezeichnung", "menge_reklamiert", "d1_bearbeitungsteam", "d2_problembeschreibung", "d3_sofortmassnahmen", "d4_fehlerursache", "d5_geplante_massnahmen"],
+      "sections": {
+        "D1": "Bearbeitungsteam",
+        "D2": "Problembeschreibung",
+        "D3": "Sofortmaßnahmen",
+        "D4": "Fehlerursache (Root Cause)",
+        "D5": "Geplante Abstellmaßnahmen",
+        "D6": "Eingeführte Abstellmaßnahmen",
+        "D7": "Fehlerwiederholung verhindern",
+        "D8": "Abschluss"
+      }
+    },
+
+    "F_QM_04": {
+      "id": "F_QM_04",
+      "title": "Nacharbeits-/Zusatzauftrag (NZA)",
+      "file": "FQM04_NZA.xlsx",
+      "format": "xlsx",
+      "fields": {
+        "datum": {
+          "label": "Datum",
+          "cell": "F5",
+          "required": true,
+          "type": "date"
+        },
+        "artikelnr": {
+          "label": "Artikel-Nr.",
+          "cell": "C6",
+          "required": true,
+          "type": "text"
+        },
+        "betriebsauftrag": {
+          "label": "Betriebsauftrag",
+          "cell": "F6",
+          "required": true,
+          "type": "text"
+        },
+        "losgroesse": {
+          "label": "Losgröße",
+          "cell": "C7",
+          "required": true,
+          "type": "number"
+        },
+        "ausschuss": {
+          "label": "Ausschuss",
+          "cell": "F7",
+          "required": false,
+          "type": "number"
+        },
+        "verursacher": {
+          "label": "Verursacher",
+          "cell": "C8",
+          "required": true,
+          "type": "ma_kuerzel"
+        },
+        "kostenstelle": {
+          "label": "Kostenstelle",
+          "cell": "F8",
+          "required": false,
+          "type": "text"
+        },
+        "qanummer": {
+          "label": "QA-Nummer",
+          "cell": "C9",
+          "required": false,
+          "type": "text"
+        },
+        "kunden_reklamation": {
+          "label": "Kunden Reklamation",
+          "cell": "D5",
+          "required": false,
+          "type": "checkbox"
+        }
+      },
+      "required_fields": ["datum", "artikelnr", "betriebsauftrag", "losgroesse", "verursacher"],
+      "optional_fields": ["ausschuss", "kostenstelle", "qanummer", "kunden_reklamation"]
+    },
+
+    "F_QM_18": {
+      "id": "F_QM_18",
+      "title": "Erstmusterprüfbericht",
+      "file": "F-QM-18_Erstmusterprüfbericht.xlsx",
+      "format": "xlsx",
+      "purpose": "Erstbemusterung neuer Artikel nach Kundenanforderung",
+      "fields": {
+        "pruefbericht_nr": {
+          "label": "Prüfbericht Nr.",
+          "cell": "A1",
+          "required": true,
+          "type": "text",
+          "pattern": "XXX-XX"
+        },
+        "kunde": {
+          "label": "Kunde",
+          "cell": "A11:G13",
+          "required": true,
+          "type": "text_multiline"
+        },
+        "bemusterungsart": {
+          "label": "Bemusterungsart",
+          "cell": "I5:I15",
+          "required": true,
+          "type": "enum",
+          "values": ["Erstbemusterung", "Nachbemusterung", "Reduzierte Bemusterung"],
+          "note": "Checkbox-Bereich"
+        },
+        "bemusterungsgrund": {
+          "label": "Bemusterungsgrund",
+          "cell": "I8:I15",
+          "required": false,
+          "type": "enum",
+          "values": ["Neuteil", "Produktänderung", "Produktionsverlagerung", "Änderung von Produktionsverfahren", "längeres Aussetzen der Fertigung"]
+        },
+        "dokumentationspflichtig": {
+          "label": "Dokumentationspflichtiges Teil",
+          "cell": "I13",
+          "required": false,
+          "type": "checkbox"
+        },
+        "fertigungsplan_erstellt": {
+          "label": "Fertigungs-/Prüfplan erstellt",
+          "cell": "I14",
+          "required": false,
+          "type": "checkbox"
+        },
+        "fmea_durchgefuehrt": {
+          "label": "FMEA durchgeführt",
+          "cell": "I15",
+          "required": false,
+          "type": "checkbox"
+        },
+        "anlagen_01_funktionspruefung": {
+          "label": "Anlage 01: Funktionsprüfung",
+          "cell": "B18",
+          "required": false,
+          "type": "checkbox"
+        },
+        "anlagen_02_masspruefung": {
+          "label": "Anlage 02: Maßprüfung",
+          "cell": "B19",
+          "required": false,
+          "type": "checkbox"
+        },
+        "anlagen_03_werkstoffpruefung": {
+          "label": "Anlage 03: Werkstoffprüfung",
+          "cell": "B20",
+          "required": false,
+          "type": "checkbox"
+        },
+        "anlagen_04_zuverlaessigkeitspruefung": {
+          "label": "Anlage 04: Zuverlässigkeitsprüfung",
+          "cell": "B21",
+          "required": false,
+          "type": "checkbox"
+        },
+        "kennummer_schneider": {
+          "label": "Kennummer Schneider",
+          "cell": "D23",
+          "required": true,
+          "type": "text"
+        },
+        "kennummer_kunde": {
+          "label": "Kennummer Kunde",
+          "cell": "I23",
+          "required": false,
+          "type": "text"
+        },
+        "sachnummer_schneider": {
+          "label": "Sachnummer Schneider",
+          "cell": "D24",
+          "required": true,
+          "type": "text"
+        },
+        "sachnummer_kunde": {
+          "label": "Sachnummer Kunde",
+          "cell": "I24",
+          "required": false,
+          "type": "text"
+        },
+        "zeichnungsnummer_schneider": {
+          "label": "Zeichnungsnummer Schneider",
+          "cell": "D25",
+          "required": false,
+          "type": "text"
+        },
+        "stand_datum_schneider": {
+          "label": "Stand/Datum Schneider",
+          "cell": "D26",
+          "required": false,
+          "type": "date"
+        },
+        "benennung_schneider": {
+          "label": "Benennung Schneider",
+          "cell": "D28",
+          "required": true,
+          "type": "text"
+        },
+        "bestellabruf_nr": {
+          "label": "Bestellabruf-Nr./-datum",
+          "cell": "D29",
+          "required": false,
+          "type": "text"
+        },
+        "lieferschein_nr": {
+          "label": "Lieferschein-Nr.",
+          "cell": "C30",
+          "required": false,
+          "type": "text"
+        },
+        "lieferdatum": {
+          "label": "Datum (Lieferung)",
+          "cell": "F30",
+          "required": false,
+          "type": "date"
+        },
+        "wareneingangs_nr": {
+          "label": "Wareneingangs-Nr.",
+          "cell": "I30",
+          "required": false,
+          "type": "text"
+        },
+        "liefermenge": {
+          "label": "Liefermenge",
+          "cell": "C31",
+          "required": false,
+          "type": "number"
+        },
+        "chargennummer": {
+          "label": "Chargennummer",
+          "cell": "C32",
+          "required": false,
+          "type": "text"
+        },
+        "mustergewicht": {
+          "label": "Mustergewicht (kg)",
+          "cell": "C33",
+          "required": false,
+          "type": "number"
+        },
+        "bearbeiter": {
+          "label": "Bearbeiter (Name)",
+          "cell": "C41",
+          "required": true,
+          "type": "text"
+        },
+        "bemerkung": {
+          "label": "Bemerkung",
+          "cell": "I41:I45",
+          "required": false,
+          "type": "text_multiline"
+        },
+        "unterschrift_datum": {
+          "label": "Datum Unterschrift",
+          "cell": "D47",
+          "required": true,
+          "type": "date"
+        }
+      },
+      "required_fields": ["pruefbericht_nr", "kunde", "bemusterungsart", "kennummer_schneider", "sachnummer_schneider", "benennung_schneider", "bearbeiter", "unterschrift_datum"],
+      "optional_fields": ["kennummer_kunde", "sachnummer_kunde", "zeichnungsnummer_schneider", "lieferschein_nr", "chargennummer"]
+    },
+
+    "F_QM_32": {
+      "id": "F_QM_32",
+      "title": "Schulungsprotokoll",
+      "file": "F-QM-32_Schulungsprotokoll.xlsx",
+      "format": "xlsx",
+      "fields": {
+        "thema": {
+          "label": "Thema",
+          "cell": "B6",
+          "required": true,
+          "type": "text"
+        },
+        "anlass": {
+          "label": "Anlass",
+          "cell": "B8",
+          "required": false,
+          "type": "text"
+        },
+        "mitgeltende_unterlagen": {
+          "label": "Mitgeltende Unterlagen",
+          "cell": "B10",
+          "required": false,
+          "type": "text"
+        },
+        "moderator": {
+          "label": "Moderator",
+          "cell": "B13",
+          "required": true,
+          "type": "ma_kuerzel"
+        },
+        "abteilung_firma": {
+          "label": "Abteilung / Firma",
+          "cell": "L13",
+          "required": false,
+          "type": "text"
+        },
+        "datum": {
+          "label": "Datum",
+          "cell": "B15",
+          "required": true,
+          "type": "date"
+        },
+        "beginn": {
+          "label": "Beginn",
+          "cell": "H15",
+          "required": true,
+          "type": "time"
+        },
+        "ende": {
+          "label": "Ende",
+          "cell": "L15",
+          "required": true,
+          "type": "time"
+        },
+        "teilnehmer": {
+          "label": "Teilnehmer",
+          "cell": "B18",
+          "required": true,
+          "type": "text_multiline"
+        },
+        "unterschrift_moderator": {
+          "label": "Unterschrift Moderator",
+          "cell": "F40",
+          "required": true,
+          "type": "signature"
+        }
+      },
+      "required_fields": ["thema", "moderator", "datum", "beginn", "ende", "teilnehmer", "unterschrift_moderator"]
+    },
+
+    "F_QM_37": {
+      "id": "F_QM_37",
+      "title": "Wartungs- und Reparaturbericht",
+      "file": "F-QM-37_Wartungsbericht.xlsx",
+      "format": "xlsx",
+      "fields": {
+        "inventarnummer": {
+          "label": "Inventarnummer",
+          "cell": "C5:E5",
+          "required": true,
+          "type": "inventar_nr",
+          "validation": "TM_CORE lookup"
+        },
+        "maschinennummer": {
+          "label": "Maschinennummer/Typ",
+          "cell": "C7:E7",
+          "required": false,
+          "type": "text"
+        },
+        "maschinenbezeichnung": {
+          "label": "Maschinenbezeichnung",
+          "cell": "C9:E9",
+          "required": true,
+          "type": "text"
+        },
+        "standort": {
+          "label": "Standort",
+          "cell": "C11",
+          "required": true,
+          "type": "enum",
+          "values": ["F1", "F2", "F3", "Lager", "Büro"]
+        },
+        "aktueller_zaehlerstand": {
+          "label": "Aktueller Zählerstand",
+          "cell": "C13",
+          "required": false,
+          "type": "number"
+        },
+        "wartung_durchgefuehrt_von": {
+          "label": "Wartung durchgeführt von",
+          "cell": "C15:D15",
+          "required": false,
+          "type": "ma_kuerzel"
+        },
+        "wartung_dauer": {
+          "label": "Dauer (Wartung)",
+          "cell": "F15",
+          "required": false,
+          "type": "text"
+        },
+        "reparatur_durchgefuehrt_von": {
+          "label": "Reparatur durchgeführt von",
+          "cell": "C17:D17",
+          "required": false,
+          "type": "ma_kuerzel"
+        },
+        "reparatur_dauer": {
+          "label": "Dauer (Reparatur)",
+          "cell": "F17",
+          "required": false,
+          "type": "text"
+        }
+      },
+      "required_fields": ["inventarnummer", "maschinenbezeichnung", "standort"],
+      "conditional": "Mindestens Wartung ODER Reparatur muss ausgefüllt werden"
+    },
+
+    "F_QM_39": {
+      "id": "F_QM_39",
+      "title": "Firmenkalibrierschein",
+      "file": "F-QM-39_Firmenkalibrierschein.xlsx",
+      "format": "xlsx",
+      "fields": {
+        "kalibrierschein_nr": {
+          "label": "Kalibrierschein Nr.",
+          "cell": "D5:E5",
+          "required": true,
+          "type": "text"
+        },
+        "pruefmittel_typ": {
+          "label": "Prüfmittel-Typ",
+          "cell": "E7",
+          "required": true,
+          "type": "enum",
+          "values": ["Messschieber", "Bügelmessschraube", "Messuhr", "Endmaß"]
+        },
+        "hersteller": {
+          "label": "Hersteller",
+          "cell": "D9:E9",
+          "required": false,
+          "type": "text"
+        },
+        "serien_nr": {
+          "label": "Serien Nr.",
+          "cell": "D11:E11",
+          "required": true,
+          "type": "text"
+        },
+        "abteilung": {
+          "label": "Abteilung",
+          "cell": "D13:E13",
+          "required": true,
+          "type": "enum",
+          "values": ["F1", "F2", "F3", "Prüffeld", "QM"]
+        },
+        "pruefmittel_nr": {
+          "label": "Prüfmittel Nr.",
+          "cell": "D15:E15",
+          "required": true,
+          "type": "text"
+        },
+        "kalibrierdatum": {
+          "label": "Kalibrierdatum",
+          "cell": "D17:E17",
+          "required": true,
+          "type": "date"
+        },
+        "kalibriert_bis": {
+          "label": "Kalibriert bis",
+          "cell": "D19:E19",
+          "required": true,
+          "type": "date"
+        },
+        "bearbeiter": {
+          "label": "Bearbeiter",
+          "cell": "D21:E21",
+          "required": true,
+          "type": "ma_kuerzel"
+        },
+        "befund": {
+          "label": "Befund",
+          "cell": "C40:E40",
+          "required": true,
+          "type": "enum",
+          "values": ["i.O.", "n.i.O.", "bedingt verwendbar", "gesperrt"]
+        }
+      },
+      "required_fields": ["kalibrierschein_nr", "pruefmittel_typ", "serien_nr", "abteilung", "pruefmittel_nr", "kalibrierdatum", "kalibriert_bis", "bearbeiter", "befund"]
+    },
+
+    "F_QM_50": {
+      "id": "F_QM_50",
+      "title": "Sitzungsprotokoll",
+      "file": "F-QM-50_Sitzungsprotokoll.xlsx",
+      "format": "xlsx",
+      "fields": {
+        "thema": {
+          "label": "Thema",
+          "cell": "B5",
+          "required": true,
+          "type": "text"
+        },
+        "moderator": {
+          "label": "Moderator",
+          "cell": "B12",
+          "required": true,
+          "type": "ma_kuerzel"
+        },
+        "datum": {
+          "label": "Datum",
+          "cell": "H12",
+          "required": true,
+          "type": "date"
+        },
+        "beginn": {
+          "label": "Beginn",
+          "cell": "K12",
+          "required": true,
+          "type": "time"
+        },
+        "ende": {
+          "label": "Ende",
+          "cell": "N12",
+          "required": true,
+          "type": "time"
+        },
+        "teilnehmerliste": {
+          "label": "Teilnehmerliste",
+          "cell": "B15",
+          "required": true,
+          "type": "text_multiline"
+        },
+        "sitzungsinhalt_massnahmen": {
+          "label": "Sitzungsinhalt / Maßnahmen",
+          "cell": "B21",
+          "required": true,
+          "type": "text_multiline"
+        },
+        "unterschrift_moderator": {
+          "label": "Unterschrift Moderator",
+          "cell": "F50",
+          "required": true,
+          "type": "signature"
+        }
+      },
+      "required_fields": ["thema", "moderator", "datum", "beginn", "ende", "teilnehmerliste", "sitzungsinhalt_massnahmen", "unterschrift_moderator"]
+    }
+  },
+
+  "field_types": {
+    "date": "ISO-Format YYYY-MM-DD",
+    "time": "Format HH:MM",
+    "text": "Freitext (einzeilig)",
+    "text_multiline": "Mehrzeiliger Text",
+    "number": "Numerischer Wert",
+    "ma_kuerzel": "MA-Kürzel (validieren gegen HR_CORE)",
+    "inventar_nr": "Inventarnummer (validieren gegen TM_CORE)",
+    "enum": "Wert aus vorgegebener Liste (values)",
+    "checkbox": "Ja/Nein bzw. true/false",
+    "signature": "Digitale Signatur (MA-Kürzel + Zeitstempel)"
+  },
+
+  "statistics": {
+    "total_forms": 8,
+    "total_fields": 112,
+    "total_required_fields": 58
+  }
+}

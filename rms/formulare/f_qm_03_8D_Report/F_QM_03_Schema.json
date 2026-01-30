@@ -1,0 +1,337 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "F-QM-03 Fehleranalyse 8D-Report",
+  "description": "Schema für die halbautomatische Formular-Befüllung im RMS-System - 8D Problemlösungsprozess",
+  "type": "object",
+  "required": [
+    "formblatt_id",
+    "vorgangs_nr",
+    "status",
+    "verfasser",
+    "lieferant_kunde",
+    "d2_problembeschreibung",
+    "d4_fehlerursache"
+  ],
+  "properties": {
+    "formblatt_id": {
+      "type": "string",
+      "const": "F_QM_03",
+      "description": "Eindeutige Formblatt-ID"
+    },
+    "vorgangs_nr": {
+      "type": "string",
+      "pattern": "^QA-\\d{4}-\\d{3}$",
+      "description": "Vorgangsnummer - Verknüpfung zu F-QM-02 Qualitätsabweichung",
+      "examples": ["QA-2025-001"]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Eröffnet / Open",
+        "In Bearbeitung / In Progress",
+        "Abgeschlossen / Closed"
+      ],
+      "description": "Aktueller Status des 8D-Reports"
+    },
+    "verfasser": {
+      "type": "object",
+      "required": ["name", "telefon", "email"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 2,
+          "description": "Name des Verfassers"
+        },
+        "telefon": {
+          "type": "string",
+          "pattern": "^[+]?[0-9\\s\\-/]+$",
+          "description": "Telefonnummer"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email-Adresse"
+        }
+      }
+    },
+    "lieferant_kunde": {
+      "type": "string",
+      "minLength": 2,
+      "description": "Name des betroffenen Lieferanten oder Kunden"
+    },
+    "kunde_nr": {
+      "type": "string",
+      "description": "Kundennummer"
+    },
+    "lieferdaten": {
+      "type": "object",
+      "properties": {
+        "artikel_nr": {
+          "type": "string",
+          "description": "Artikelnummer"
+        },
+        "bezeichnung": {
+          "type": "string",
+          "description": "Artikelbezeichnung"
+        },
+        "lieferschein_nr": {
+          "type": "string",
+          "description": "Lieferscheinnummer"
+        },
+        "lieferdatum": {
+          "type": "string",
+          "format": "date",
+          "description": "Lieferdatum"
+        }
+      }
+    },
+    "reklamationsdaten": {
+      "type": "object",
+      "properties": {
+        "menge_geliefert": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Gelieferte Gesamtmenge"
+        },
+        "menge_reklamiert": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Reklamierte Menge"
+        },
+        "reklamations_nr": {
+          "type": "string",
+          "description": "Externe Reklamationsnummer (Kunde/Lieferant)"
+        }
+      }
+    },
+    "d1_team": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name des Teammitglieds"
+          },
+          "funktion": {
+            "type": "string",
+            "description": "Rolle/Funktion im Team"
+          }
+        }
+      },
+      "description": "D1: Bearbeitungsteam / Editors"
+    },
+    "d2_problembeschreibung": {
+      "type": "string",
+      "minLength": 50,
+      "maxLength": 1000,
+      "description": "D2: Detaillierte Problembeschreibung / Problem Description"
+    },
+    "d3_sofortmassnahmen": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["massnahme", "wer", "wann"],
+        "properties": {
+          "massnahme": {
+            "type": "string",
+            "description": "Beschreibung der Sofortmaßnahme"
+          },
+          "wer": {
+            "type": "string",
+            "pattern": "^[A-Z]{2,3}$",
+            "description": "Verantwortlicher (MA-Kürzel)"
+          },
+          "wann": {
+            "type": "string",
+            "format": "date",
+            "description": "Umsetzungsdatum"
+          }
+        }
+      },
+      "description": "D3: Sofortmaßnahmen / Containment Actions"
+    },
+    "d4_fehlerursache": {
+      "type": "string",
+      "minLength": 30,
+      "maxLength": 1000,
+      "description": "D4: Root Cause Analyse - Fehlerursache"
+    },
+    "d4_methode": {
+      "type": "string",
+      "enum": ["5-Why", "Ishikawa", "Pareto", "FMEA", "Sonstige"],
+      "description": "Verwendete Analysemethode für D4"
+    },
+    "d5_geplante_massnahmen": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["massnahme", "wer", "wann"],
+        "properties": {
+          "massnahme": {
+            "type": "string",
+            "description": "Beschreibung der geplanten Maßnahme"
+          },
+          "wer": {
+            "type": "string",
+            "pattern": "^[A-Z]{2,3}$",
+            "description": "Verantwortlicher (MA-Kürzel)"
+          },
+          "wann": {
+            "type": "string",
+            "format": "date",
+            "description": "Geplantes Datum"
+          }
+        }
+      },
+      "description": "D5: Geplante Abstellmaßnahmen / Planned Corrective Actions"
+    },
+    "d6_eingefuehrte_massnahmen": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["massnahme", "wer", "wann"],
+        "properties": {
+          "massnahme": {
+            "type": "string",
+            "description": "Beschreibung der eingeführten Maßnahme"
+          },
+          "wer": {
+            "type": "string",
+            "pattern": "^[A-Z]{2,3}$",
+            "description": "Verantwortlicher (MA-Kürzel)"
+          },
+          "wann": {
+            "type": "string",
+            "format": "date",
+            "description": "Umsetzungsdatum"
+          }
+        }
+      },
+      "description": "D6: Eingeführte Abstellmaßnahmen / Implemented Corrective Actions"
+    },
+    "d7_praevention": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["massnahme", "wer", "wann"],
+        "properties": {
+          "massnahme": {
+            "type": "string",
+            "description": "Beschreibung der Präventionsmaßnahme"
+          },
+          "wer": {
+            "type": "string",
+            "pattern": "^[A-Z]{2,3}$",
+            "description": "Verantwortlicher (MA-Kürzel)"
+          },
+          "wann": {
+            "type": "string",
+            "format": "date",
+            "description": "Umsetzungsdatum"
+          }
+        }
+      },
+      "description": "D7: Fehlerwiederholung verhindern / Prevent Error Recurrence"
+    },
+    "d8_abschluss": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "D8: Abschlusskommentar / Conclusion"
+    },
+    "signatur": {
+      "type": "object",
+      "properties": {
+        "ort": {
+          "type": "string",
+          "default": "Wissen"
+        },
+        "datum": {
+          "type": "string",
+          "format": "date"
+        },
+        "verfasser": {
+          "type": "string"
+        }
+      }
+    },
+    "erstellt_am": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Zeitstempel der Erstellung"
+    },
+    "aktualisiert_am": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Zeitstempel der letzten Aktualisierung"
+    }
+  },
+  "additionalProperties": false,
+
+  "$defs": {
+    "8d_beschreibungen": {
+      "d1": "Bearbeitungsteam - Wer arbeitet am Problem?",
+      "d2": "Problembeschreibung - Was genau ist das Problem?",
+      "d3": "Sofortmaßnahmen - Was tun wir JETZT zur Eindämmung?",
+      "d4": "Fehlerursache - WARUM ist es passiert? (Root Cause)",
+      "d5": "Geplante Abstellmaßnahmen - Was werden wir tun?",
+      "d6": "Eingeführte Abstellmaßnahmen - Was haben wir getan?",
+      "d7": "Prävention - Wie verhindern wir Wiederholung?",
+      "d8": "Abschluss - Zusammenfassung & Teamwürdigung"
+    },
+    "root_cause_methoden": {
+      "5-Why": "5x Warum fragen bis zur Grundursache",
+      "Ishikawa": "Fischgräten-Diagramm (6M: Mensch, Maschine, Material, Methode, Milieu, Messung)",
+      "Pareto": "80/20-Analyse der häufigsten Ursachen",
+      "FMEA": "Fehlermöglichkeits- und Einflussanalyse"
+    },
+    "status_workflow": {
+      "Eröffnet": "D1 + D2 ausgefüllt, Problem definiert",
+      "In Bearbeitung": "D3-D6 in Arbeit, Maßnahmen laufen",
+      "Abgeschlossen": "D7 + D8 fertig, Prävention etabliert"
+    }
+  },
+
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": { "const": "Abgeschlossen / Closed" }
+        }
+      },
+      "then": {
+        "required": ["d7_praevention", "d8_abschluss"]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "reklamationsdaten": {
+            "properties": {
+              "menge_reklamiert": { "type": "integer" },
+              "menge_geliefert": { "type": "integer" }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "reklamationsdaten": {
+            "properties": {
+              "menge_reklamiert": {
+                "maximum": { "$data": "1/menge_geliefert" }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

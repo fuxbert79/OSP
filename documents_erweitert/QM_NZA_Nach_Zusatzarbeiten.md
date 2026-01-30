@@ -99,9 +99,9 @@ Beispiel: NZA_25_001
 | **F2** | 2000 | Halbautomaten |
 | **F3** | 3000 | Handarbeiten (Montage) |
 | **F5** | 5000 | Sonderfertigung |
-| **PF** | - | Prüffeld |
-| **LAG** | - | Lager/Versand |
-| **VW** | - | Verwaltung |
+| **PF** | 3000 | Prüffeld |
+| **LAG** | Lager | Lager/Versand |
+| **VW** | Verwaltung | Verwaltung |
 
 ### ✅ Kostenerfassung
 

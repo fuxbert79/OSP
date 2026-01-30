@@ -1,0 +1,44 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "description": "MA-Kürzel für Query-Preprocessing",
+    "source": "HR_CORE_Personalstamm.md",
+    "updated": "2025-12-15"
+  },
+  "kuerzel": [
+    "CS", "CA", "SV", "AL", "TS", "MR", "DU", "MD", "DS", "BS",
+    "IB", "SK", "DR", "OK", "ASC", "NR", "SF", "US", "AV", "JR",
+    "JS", "WK", "BB", "FH"
+  ],
+  "patterns": {
+    "wer_ist": {
+      "regex": "^(?:wer\\s+ist|who\\s+is)\\s+([A-Z]{2,3})\\??$",
+      "expansion": "Mitarbeiter Kürzel {kuerzel} Personalstamm HR_CORE Name Funktion Abteilung"
+    },
+    "was_macht": {
+      "regex": "(?:was\\s+macht|what\\s+does)\\s+([A-Z]{2,3})\\??",
+      "expansion": "Mitarbeiter Kürzel {kuerzel} Funktion Aufgaben Zuständigkeit HR_CORE"
+    },
+    "kontakt": {
+      "regex": "([A-Z]{2,3})\\s+(?:kontakt|contact)",
+      "expansion": "Mitarbeiter Kürzel {kuerzel} Telefon E-Mail Kontaktdaten HR_CORE"
+    },
+    "telefon": {
+      "regex": "(?:telefon|tel|phone)\\s+([A-Z]{2,3})",
+      "expansion": "Mitarbeiter Kürzel {kuerzel} Telefonnummer HR_CORE"
+    },
+    "email": {
+      "regex": "(?:e-?mail|mail)\\s+([A-Z]{2,3})",
+      "expansion": "Mitarbeiter Kürzel {kuerzel} E-Mail-Adresse HR_CORE"
+    },
+    "abteilung": {
+      "regex": "([A-Z]{2,3})\\s+(?:abteilung|department)",
+      "expansion": "Mitarbeiter Kürzel {kuerzel} Abteilung Bereich HR_CORE"
+    },
+    "kuerzel_allein": {
+      "regex": "^([A-Z]{2,3})\\s*\\??$",
+      "expansion": "Mitarbeiter Kürzel {kuerzel} HR_CORE Personalstamm"
+    }
+  },
+  "expansion_fallback": "Mitarbeiter Personal Kürzel {kuerzel} HR_CORE"
+}
