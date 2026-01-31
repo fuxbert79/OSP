@@ -1,0 +1,83 @@
+{
+  "name": "NZA-Config-API",
+  "active": false,
+  "versionId": "nza-config-v1",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "nza-config",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [240, 300],
+      "webhookId": "nza-config"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_CONFIG_LIST_ID }}/items?$expand=fields&$top=100",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "options": {}
+      },
+      "id": "get-config",
+      "name": "Get Config",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [460, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.first().json.value || [];\nconst query = $('Webhook').first().json.query || {};\n\nconst config = {};\nconst configList = [];\n\nitems.forEach(item => {\n  const f = item.fields || {};\n  const key = f.Title;\n  let wert = f.Wert;\n  const typ = f.Typ || 'String';\n  \n  // Typ-Konvertierung\n  if (typ === 'Number') {\n    wert = parseFloat(wert) || 0;\n  } else if (typ === 'Boolean') {\n    wert = wert === 'true' || wert === true;\n  } else if (typ === 'JSON') {\n    try {\n      wert = JSON.parse(wert);\n    } catch (e) {\n      // Bleibt String\n    }\n  }\n  \n  config[key] = wert;\n  configList.push({\n    id: item.id,\n    key: key,\n    wert: wert,\n    typ: typ,\n    beschreibung: f.Beschreibung || '',\n    gruppe: f.Gruppe || 'System'\n  });\n});\n\n// Falls ein spezifischer Key angefragt wird\nif (query.key) {\n  return [{ json: { key: query.key, wert: config[query.key] || null } }];\n}\n\nreturn [{ json: { config, configList, count: configList.length } }];"
+      },
+      "id": "transform",
+      "name": "Transform",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" }
+            ]
+          }
+        }
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [900, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Get Config", "type": "main", "index": 0 }]]
+    },
+    "Get Config": {
+      "main": [[{ "node": "Transform", "type": "main", "index": 0 }]]
+    },
+    "Transform": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

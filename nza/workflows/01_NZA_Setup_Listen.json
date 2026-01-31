@@ -1,0 +1,95 @@
+{
+  "name": "NZA-Setup-Listen",
+  "active": false,
+  "versionId": "nza-setup-listen-v1",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "start",
+      "name": "Start",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com:/sites/NZA_NEU",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "options": {}
+      },
+      "id": "get-site-id",
+      "name": "Get Site ID",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [460, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Site ID extrahieren\nconst siteId = $input.first().json.id;\n\n// Listen-Definitionen\nconst lists = [\n  {\n    name: 'nza-kpl',\n    displayName: 'NZA Hauptliste',\n    description: 'Zentrale NZA-Liste mit Stammdaten, Prozessen und Kosten',\n    template: 'genericList'\n  },\n  {\n    name: 'nza-massnahmen',\n    displayName: 'NZA Maßnahmen',\n    description: 'Korrektur- und Vorbeugemaßnahmen zu NZA-Vorgängen',\n    template: 'genericList'\n  },\n  {\n    name: 'nza-bilder',\n    displayName: 'NZA Bilder',\n    description: 'Fehlerbilder und Dokumentation',\n    template: 'genericList'\n  },\n  {\n    name: 'nza-mitarbeiter',\n    displayName: 'NZA Mitarbeiter',\n    description: 'Produktions-Mitarbeiter für Verursacher-Lookup',\n    template: 'genericList'\n  },\n  {\n    name: 'nza-config',\n    displayName: 'NZA Konfiguration',\n    description: 'System-Einstellungen und Minutensätze',\n    template: 'genericList'\n  }\n];\n\nreturn lists.map(list => ({\n  json: {\n    siteId: siteId,\n    ...list\n  }\n}));"
+      },
+      "id": "prepare-lists",
+      "name": "Prepare Lists",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $json.siteId }}/lists",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"displayName\": \"{{ $json.displayName }}\",\n  \"list\": {\n    \"template\": \"{{ $json.template }}\"\n  },\n  \"description\": \"{{ $json.description }}\"\n}",
+        "options": {}
+      },
+      "id": "create-list",
+      "name": "Create List",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [900, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Ergebnisse sammeln\nconst results = $input.all().map(item => ({\n  listName: item.json.displayName || item.json.name,\n  listId: item.json.id,\n  status: item.json.id ? 'created' : 'error'\n}));\n\nreturn [{ json: { results, count: results.length } }];"
+      },
+      "id": "collect-results",
+      "name": "Collect Results",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1120, 300]
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [[{ "node": "Get Site ID", "type": "main", "index": 0 }]]
+    },
+    "Get Site ID": {
+      "main": [[{ "node": "Prepare Lists", "type": "main", "index": 0 }]]
+    },
+    "Prepare Lists": {
+      "main": [[{ "node": "Create List", "type": "main", "index": 0 }]]
+    },
+    "Create List": {
+      "main": [[{ "node": "Collect Results", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

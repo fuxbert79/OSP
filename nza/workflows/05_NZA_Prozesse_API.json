@@ -1,0 +1,272 @@
+{
+  "name": "NZA-Prozesse-API",
+  "active": false,
+  "versionId": "nza-prozesse-api-v1",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "*",
+        "path": "nza-prozesse",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "nza-prozesse"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "rules": [
+            { "operation": "equal", "value1": "={{ $json.headers['x-http-method-override'] || $request.method }}", "value2": "GET" },
+            { "operation": "equal", "value1": "={{ $json.headers['x-http-method-override'] || $request.method }}", "value2": "POST" },
+            { "operation": "equal", "value1": "={{ $json.headers['x-http-method-override'] || $request.method }}", "value2": "PATCH" }
+          ]
+        }
+      },
+      "id": "switch",
+      "name": "Method Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_KPL_LIST_ID }}/items?$expand=fields&$top=200&$orderby=createdDateTime desc",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "options": {}
+      },
+      "id": "get-items",
+      "name": "GET Items",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [700, 100],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.first().json.value || [];\n\nconst result = items.map(item => {\n  const f = item.fields || {};\n  return {\n    id: item.id,\n    nzaId: f.Title,\n    typ: f.field_1,\n    datum: f.field_2,\n    artikel: f.field_3,\n    betriebsauftrag: f.field_4,\n    pruefmenge: f.field_5,\n    davonNio: f.field_6,\n    verursacher: f.field_7,\n    verursacherPersNr: f.field_8,\n    kst: f.field_9,\n    qaId: f.field_10,\n    beschreibung: f.field_14,\n    kategorien: f.field_15 ? (Array.isArray(f.field_15) ? f.field_15 : [f.field_15]) : [],\n    bemerkungen: f.field_16,\n    status: f.status || 'Neu',\n    kostenMaterial: f.field_65 || 0,\n    kostenSonstige: f.field_17 || 0,\n    kostenProzesse: f.kosten_prozesse || 0,\n    kostenGesamt: f.kosten_gesamt || 0,\n    prozesse: [\n      { prozess: f.field_19, werker: f.field_20, kst: f.kostenstelle_1, zeit: f.field_22 },\n      { prozess: f.field_24, werker: f.field_25, kst: f.kostenstelle_2, zeit: f.field_27 },\n      { prozess: f.field_29, werker: f.field_30, kst: f.kostenstelle_3, zeit: f.field_32 },\n      { prozess: f.field_34, werker: f.field_35, kst: f.kostenstelle_4, zeit: f.field_37 },\n      { prozess: f.field_39, werker: f.field_40, kst: f.kostenstelle_5, zeit: f.field_42 }\n    ].filter(p => p.prozess || p.zeit > 0)\n  };\n});\n\nreturn [{ json: { items: result, count: result.length } }];"
+      },
+      "id": "transform-get",
+      "name": "Transform GET",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [920, 100]
+    },
+    {
+      "parameters": {
+        "jsCode": "// POST: Neuen NZA-Vorgang anlegen\nconst body = $('Webhook').first().json.body;\n\n// Minutensätze\nconst MINUTENSATZ = {\n  '1000': 1.98, '2000': 1.21, '3000': 0.93,\n  '4000': 1.02, '5000': 1.02, 'Lager': 1.10, 'Verwaltung': 1.37\n};\n\n// Kosten berechnen\nlet kostenProzesse = 0;\nconst prozesse = body.prozesse || [];\n\nconst prozessFelder = {};\nprozesse.forEach((p, i) => {\n  const idx = i + 1;\n  const zeit = parseFloat(p.zeit) || 0;\n  const faktor = MINUTENSATZ[p.kst] || 0;\n  const kosten = Math.round(zeit * faktor * 100) / 100;\n  kostenProzesse += kosten;\n  \n  if (idx === 1) {\n    prozessFelder.field_19 = p.prozess || '';\n    prozessFelder.field_20 = p.werker || '';\n    prozessFelder.kostenstelle_1 = p.kst || '';\n    prozessFelder.field_22 = zeit;\n  } else if (idx === 2) {\n    prozessFelder.field_24 = p.prozess || '';\n    prozessFelder.field_25 = p.werker || '';\n    prozessFelder.kostenstelle_2 = p.kst || '';\n    prozessFelder.field_27 = zeit;\n  } else if (idx === 3) {\n    prozessFelder.field_29 = p.prozess || '';\n    prozessFelder.field_30 = p.werker || '';\n    prozessFelder.kostenstelle_3 = p.kst || '';\n    prozessFelder.field_32 = zeit;\n  } else if (idx === 4) {\n    prozessFelder.field_34 = p.prozess || '';\n    prozessFelder.field_35 = p.werker || '';\n    prozessFelder.kostenstelle_4 = p.kst || '';\n    prozessFelder.field_37 = zeit;\n  } else if (idx === 5) {\n    prozessFelder.field_39 = p.prozess || '';\n    prozessFelder.field_40 = p.werker || '';\n    prozessFelder.kostenstelle_5 = p.kst || '';\n    prozessFelder.field_42 = zeit;\n  }\n});\n\nconst kostenMaterial = parseFloat(body.kostenMaterial) || 0;\nconst kostenSonstige = parseFloat(body.kostenSonstige) || 0;\nconst kostenGesamt = Math.round((kostenProzesse + kostenMaterial + kostenSonstige) * 100) / 100;\n\n// Payload für SharePoint\nreturn [{\n  json: {\n    fields: {\n      field_1: body.typ,\n      field_2: body.datum,\n      field_3: body.artikel,\n      field_4: body.betriebsauftrag || null,\n      field_5: body.pruefmenge || null,\n      field_6: body.davonNio || null,\n      field_7: body.verursacher || '',\n      field_8: body.verursacherPersNr || null,\n      field_9: body.kst,\n      field_14: body.beschreibung,\n      field_15: body.kategorien,\n      field_16: body.bemerkungen || '',\n      field_17: kostenSonstige,\n      field_65: kostenMaterial,\n      kosten_prozesse: kostenProzesse,\n      kosten_gesamt: kostenGesamt,\n      status: 'Neu',\n      ...prozessFelder\n    },\n    kostenBerechnet: { kostenProzesse, kostenMaterial, kostenSonstige, kostenGesamt }\n  }\n}];"
+      },
+      "id": "prepare-post",
+      "name": "Prepare POST",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [700, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_CONFIG_LIST_ID }}/items?$expand=fields&$filter=fields/Title eq 'NZA_ID_COUNTER'",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "options": {}
+      },
+      "id": "get-counter",
+      "name": "Get Counter",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [920, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const counterItem = $input.first().json.value?.[0];\nconst currentCounter = parseInt(counterItem?.fields?.Wert || '0');\nconst counterId = counterItem?.id;\n\nconst newCounter = currentCounter + 1;\nconst year = new Date().getFullYear().toString().slice(-2);\nconst nzaId = `NZA-${year}-${newCounter.toString().padStart(4, '0')}`;\n\nconst fields = $('Prepare POST').first().json.fields;\nfields.Title = nzaId;\n\nreturn [{ json: { \n  nzaId, \n  newCounter,\n  counterId,\n  fields,\n  kosten: $('Prepare POST').first().json.kostenBerechnet\n}}];"
+      },
+      "id": "generate-id",
+      "name": "Generate NZA-ID",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1140, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_KPL_LIST_ID }}/items",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={ \"fields\": {{ JSON.stringify($json.fields) }} }",
+        "options": {}
+      },
+      "id": "create-item",
+      "name": "Create Item",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1360, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_CONFIG_LIST_ID }}/items/{{ $('Generate NZA-ID').first().json.counterId }}/fields",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={ \"Wert\": \"{{ $('Generate NZA-ID').first().json.newCounter }}\" }",
+        "options": {}
+      },
+      "id": "update-counter",
+      "name": "Update Counter",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1580, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const created = $('Create Item').first().json;\nconst nzaId = $('Generate NZA-ID').first().json.nzaId;\nconst kosten = $('Generate NZA-ID').first().json.kosten;\n\nreturn [{ json: {\n  success: true,\n  nzaId: nzaId,\n  id: created.id,\n  kosten: kosten,\n  message: `NZA ${nzaId} erfolgreich erstellt`\n}}];"
+      },
+      "id": "response-post",
+      "name": "Response POST",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1800, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// PATCH: Vorgang aktualisieren\nconst body = $('Webhook').first().json.body;\nconst itemId = body.id;\n\nif (!itemId) {\n  throw new Error('Item-ID fehlt!');\n}\n\nreturn [{ json: { itemId, updates: body } }];"
+      },
+      "id": "prepare-patch",
+      "name": "Prepare PATCH",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [700, 500]
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_KPL_LIST_ID }}/items/{{ $json.itemId }}/fields",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ (() => {\n  const u = $json.updates;\n  const fields = {};\n  if (u.status) fields.status = u.status;\n  if (u.beschreibung) fields.field_14 = u.beschreibung;\n  if (u.bemerkungen) fields.field_16 = u.bemerkungen;\n  return JSON.stringify(fields);\n})() }}",
+        "options": {}
+      },
+      "id": "update-item",
+      "name": "Update Item",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [920, 500],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { success: true, message: 'NZA aktualisiert' } }];"
+      },
+      "id": "response-patch",
+      "name": "Response PATCH",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1140, 500]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" }
+            ]
+          }
+        }
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [2020, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Method Switch", "type": "main", "index": 0 }]]
+    },
+    "Method Switch": {
+      "main": [
+        [{ "node": "GET Items", "type": "main", "index": 0 }],
+        [{ "node": "Prepare POST", "type": "main", "index": 0 }],
+        [{ "node": "Prepare PATCH", "type": "main", "index": 0 }]
+      ]
+    },
+    "GET Items": {
+      "main": [[{ "node": "Transform GET", "type": "main", "index": 0 }]]
+    },
+    "Transform GET": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    },
+    "Prepare POST": {
+      "main": [[{ "node": "Get Counter", "type": "main", "index": 0 }]]
+    },
+    "Get Counter": {
+      "main": [[{ "node": "Generate NZA-ID", "type": "main", "index": 0 }]]
+    },
+    "Generate NZA-ID": {
+      "main": [[{ "node": "Create Item", "type": "main", "index": 0 }]]
+    },
+    "Create Item": {
+      "main": [[{ "node": "Update Counter", "type": "main", "index": 0 }]]
+    },
+    "Update Counter": {
+      "main": [[{ "node": "Response POST", "type": "main", "index": 0 }]]
+    },
+    "Response POST": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    },
+    "Prepare PATCH": {
+      "main": [[{ "node": "Update Item", "type": "main", "index": 0 }]]
+    },
+    "Update Item": {
+      "main": [[{ "node": "Response PATCH", "type": "main", "index": 0 }]]
+    },
+    "Response PATCH": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

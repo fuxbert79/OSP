@@ -1,0 +1,196 @@
+{
+  "name": "NZA-Notify-API",
+  "active": false,
+  "versionId": "nza-notify-v1",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "nza-notify",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [240, 300],
+      "webhookId": "nza-notify"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body;\n\nif (!body.verantwortlichId && !body.verantwortlichEmail) {\n  throw new Error('Verantwortlicher (ID oder Email) ist ein Pflichtfeld!');\n}\n\nconst dashboardUrl = 'https://osp.schneider-kabelsatzbau.de/nza/';\nconst nzaId = body.nzaId || 'NZA';\nconst massnahmeId = body.massnahmeId || '';\nconst titel = body.titel || 'Neue Maßnahme';\nconst beschreibung = body.beschreibung || '';\nconst termin = body.termin || '';\nconst typ = body.typ || 'Maßnahme';\n\nreturn [{\n  json: {\n    verantwortlichId: body.verantwortlichId,\n    verantwortlichEmail: body.verantwortlichEmail,\n    verantwortlichName: body.verantwortlichName || 'Kollege',\n    notifyTeams: body.notifyTeams !== false,\n    notifyEmail: body.notifyEmail === true,\n    nzaId,\n    massnahmeId,\n    titel,\n    beschreibung,\n    termin,\n    typ,\n    dashboardUrl\n  }\n}];"
+      },
+      "id": "prepare-notify",
+      "name": "Prepare Notify",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.notifyTeams }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ]
+        }
+      },
+      "id": "if-teams",
+      "name": "IF Teams",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [680, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.microsoft.com/v1.0/users/{{ $json.verantwortlichId }}/teamwork/sendActivityNotification",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"topic\": {\n    \"source\": \"text\",\n    \"value\": \"NZA Maßnahme: {{ $json.titel }}\",\n    \"webUrl\": \"{{ $json.dashboardUrl }}\"\n  },\n  \"activityType\": \"taskCreated\",\n  \"previewText\": {\n    \"content\": \"{{ $json.nzaId }}: {{ $json.beschreibung.substring(0, 100) }}\"\n  }\n}",
+        "options": {}
+      },
+      "id": "send-teams",
+      "name": "Send Teams Activity",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [920, 100],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.notifyEmail }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ]
+        }
+      },
+      "id": "if-email",
+      "name": "IF Email",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [680, 400]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.microsoft.com/v1.0/users/nza@schneider-kabelsatzbau.de/sendMail",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"message\": {\n    \"subject\": \"[NZA] {{ $json.typ }}: {{ $json.titel }}\",\n    \"body\": {\n      \"contentType\": \"HTML\",\n      \"content\": \"<h2>{{ $json.titel }}</h2><p><strong>NZA:</strong> {{ $json.nzaId }}</p><p><strong>Typ:</strong> {{ $json.typ }}</p><p><strong>Beschreibung:</strong> {{ $json.beschreibung }}</p>{{ $json.termin ? '<p><strong>Termin:</strong> ' + $json.termin + '</p>' : '' }}<p><a href='{{ $json.dashboardUrl }}'>Zum NZA Dashboard</a></p>\"\n    },\n    \"toRecipients\": [\n      {\n        \"emailAddress\": {\n          \"address\": \"{{ $json.verantwortlichEmail }}\"\n        }\n      }\n    ]\n  },\n  \"saveToSentItems\": false\n}",
+        "options": {}
+      },
+      "id": "send-email",
+      "name": "Send Email",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [920, 400],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const prepareData = $('Prepare Notify').first().json;\n\nreturn [{ json: {\n  success: true,\n  nzaId: prepareData.nzaId,\n  massnahmeId: prepareData.massnahmeId,\n  teamsNotified: prepareData.notifyTeams,\n  emailNotified: prepareData.notifyEmail,\n  message: 'Benachrichtigung(en) gesendet'\n}}];"
+      },
+      "id": "response",
+      "name": "Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1140, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" }
+            ]
+          }
+        }
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1360, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Prepare Notify", "type": "main", "index": 0 }]]
+    },
+    "Prepare Notify": {
+      "main": [
+        [
+          { "node": "IF Teams", "type": "main", "index": 0 },
+          { "node": "IF Email", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "IF Teams": {
+      "main": [
+        [{ "node": "Send Teams Activity", "type": "main", "index": 0 }],
+        [{ "node": "Response", "type": "main", "index": 0 }]
+      ]
+    },
+    "Send Teams Activity": {
+      "main": [[{ "node": "Response", "type": "main", "index": 0 }]]
+    },
+    "IF Email": {
+      "main": [
+        [{ "node": "Send Email", "type": "main", "index": 0 }],
+        [{ "node": "Response", "type": "main", "index": 0 }]
+      ]
+    },
+    "Send Email": {
+      "main": [[{ "node": "Response", "type": "main", "index": 0 }]]
+    },
+    "Response": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

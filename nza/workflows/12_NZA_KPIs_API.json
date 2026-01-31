@@ -1,0 +1,83 @@
+{
+  "name": "NZA-KPIs-API",
+  "active": false,
+  "versionId": "nza-kpis-v1",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "nza-kpis",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [240, 300],
+      "webhookId": "nza-kpis"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_KPL_LIST_ID }}/items?$expand=fields&$top=500",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "options": {}
+      },
+      "id": "get-nza-items",
+      "name": "Get NZA Items",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [460, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.first().json.value || [];\nconst query = $('Webhook').first().json.query || {};\n\nconst now = new Date();\nconst currentYear = now.getFullYear();\nconst currentMonth = now.getMonth();\n\n// Zeitfilter\nconst filterYear = query.year ? parseInt(query.year) : currentYear;\n\n// Statistiken initialisieren\nlet offeneNza = 0;\nlet kostenYtd = 0;\nlet kostenMtd = 0;\nlet kostenGesamt = 0;\nlet anzahlGesamt = 0;\nlet anzahlYtd = 0;\nlet anzahlMtd = 0;\n\nconst typVerteilung = { 'Nacharbeit': 0, 'Neufertigung': 0, 'Ausschuss': 0, 'Sonstiges': 0 };\nconst kstVerteilung = {};\nconst monatsVerteilung = {};\nconst fehlerursachen = {};\n\nitems.forEach(item => {\n  const f = item.fields || {};\n  const datum = new Date(f.field_2 || item.createdDateTime);\n  const itemYear = datum.getFullYear();\n  const itemMonth = datum.getMonth();\n  const status = f.status || 'Neu';\n  const typ = f.field_1 || 'Sonstiges';\n  const kst = f.field_9 || 'Unbekannt';\n  const kostenItem = parseFloat(f.kosten_gesamt) || 0;\n  const fehlerursache = f.Fehlerursache || 'Unbekannt';\n  \n  anzahlGesamt++;\n  kostenGesamt += kostenItem;\n  \n  // Status-Zählung\n  if (status !== 'Abgeschlossen') {\n    offeneNza++;\n  }\n  \n  // Jahresfilter\n  if (itemYear === filterYear) {\n    anzahlYtd++;\n    kostenYtd += kostenItem;\n    \n    // Typ-Verteilung\n    typVerteilung[typ] = (typVerteilung[typ] || 0) + 1;\n    \n    // KST-Verteilung\n    kstVerteilung[kst] = (kstVerteilung[kst] || 0) + 1;\n    \n    // Monats-Verteilung\n    const monatKey = `${itemYear}-${String(itemMonth + 1).padStart(2, '0')}`;\n    if (!monatsVerteilung[monatKey]) {\n      monatsVerteilung[monatKey] = { anzahl: 0, kosten: 0 };\n    }\n    monatsVerteilung[monatKey].anzahl++;\n    monatsVerteilung[monatKey].kosten += kostenItem;\n    \n    // Fehlerursachen\n    fehlerursachen[fehlerursache] = (fehlerursachen[fehlerursache] || 0) + 1;\n    \n    // Aktueller Monat\n    if (itemMonth === currentMonth) {\n      anzahlMtd++;\n      kostenMtd += kostenItem;\n    }\n  }\n});\n\n// Top KST ermitteln\nconst topKst = Object.entries(kstVerteilung)\n  .sort((a, b) => b[1] - a[1])\n  .slice(0, 5)\n  .map(([kst, anzahl]) => ({ kst, anzahl }));\n\n// Top Fehlerursachen\nconst topFehlerursachen = Object.entries(fehlerursachen)\n  .sort((a, b) => b[1] - a[1])\n  .slice(0, 5)\n  .map(([ursache, anzahl]) => ({ ursache, anzahl }));\n\n// Monatstrend sortieren\nconst monatsTrend = Object.entries(monatsVerteilung)\n  .sort((a, b) => a[0].localeCompare(b[0]))\n  .map(([monat, data]) => ({ monat, ...data }));\n\nreturn [{ json: {\n  filter: { year: filterYear },\n  kpis: {\n    offeneNza,\n    anzahlGesamt,\n    anzahlYtd,\n    anzahlMtd,\n    kostenGesamt: Math.round(kostenGesamt * 100) / 100,\n    kostenYtd: Math.round(kostenYtd * 100) / 100,\n    kostenMtd: Math.round(kostenMtd * 100) / 100\n  },\n  charts: {\n    typVerteilung,\n    topKst,\n    topFehlerursachen,\n    monatsTrend\n  }\n}}];"
+      },
+      "id": "berechne-kpis",
+      "name": "Berechne KPIs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" }
+            ]
+          }
+        }
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [900, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Get NZA Items", "type": "main", "index": 0 }]]
+    },
+    "Get NZA Items": {
+      "main": [[{ "node": "Berechne KPIs", "type": "main", "index": 0 }]]
+    },
+    "Berechne KPIs": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

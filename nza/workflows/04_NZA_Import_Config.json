@@ -1,0 +1,118 @@
+{
+  "name": "NZA-Import-Config",
+  "active": false,
+  "versionId": "nza-import-cfg-v1",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "start",
+      "name": "Start",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com:/sites/NZA_NEU",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "options": {}
+      },
+      "id": "get-site",
+      "name": "Get Site",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [460, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $json.id }}/lists?$filter=displayName eq 'NZA Konfiguration'",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "options": {}
+      },
+      "id": "get-list",
+      "name": "Get Config List",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [680, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const siteId = $('Get Site').first().json.id;\nconst listId = $input.first().json.value[0]?.id;\n\nif (!listId) {\n  throw new Error('Liste nza-config nicht gefunden!');\n}\n\n// Config-Einträge\nconst configs = [\n  { Title: 'NZA_ID_COUNTER', Wert: '0', Typ: 'Number', Beschreibung: 'Aktueller NZA-ID Zähler', Gruppe: 'System' },\n  { Title: 'NZA_ID_YEAR', Wert: '26', Typ: 'Number', Beschreibung: 'Aktuelles Jahr (2-stellig)', Gruppe: 'System' },\n  { Title: 'MINUTENSATZ_1000', Wert: '1.98', Typ: 'Number', Beschreibung: 'Minutensatz KST 1000', Gruppe: 'Kosten' },\n  { Title: 'MINUTENSATZ_2000', Wert: '1.21', Typ: 'Number', Beschreibung: 'Minutensatz KST 2000', Gruppe: 'Kosten' },\n  { Title: 'MINUTENSATZ_3000', Wert: '0.93', Typ: 'Number', Beschreibung: 'Minutensatz KST 3000', Gruppe: 'Kosten' },\n  { Title: 'MINUTENSATZ_4000', Wert: '1.02', Typ: 'Number', Beschreibung: 'Minutensatz KST 4000', Gruppe: 'Kosten' },\n  { Title: 'MINUTENSATZ_5000', Wert: '1.02', Typ: 'Number', Beschreibung: 'Minutensatz KST 5000', Gruppe: 'Kosten' },\n  { Title: 'MINUTENSATZ_LAGER', Wert: '1.10', Typ: 'Number', Beschreibung: 'Minutensatz Lager', Gruppe: 'Kosten' },\n  { Title: 'MINUTENSATZ_VERWALTUNG', Wert: '1.37', Typ: 'Number', Beschreibung: 'Minutensatz Verwaltung', Gruppe: 'Kosten' },\n  { Title: 'TEAMS_NOTIFY_ENABLED', Wert: 'true', Typ: 'Boolean', Beschreibung: 'Teams-Benachrichtigung aktiv', Gruppe: 'Benachrichtigung' },\n  { Title: 'EMAIL_NOTIFY_ENABLED', Wert: 'true', Typ: 'Boolean', Beschreibung: 'E-Mail-Benachrichtigung aktiv', Gruppe: 'Benachrichtigung' },\n  { Title: 'TEAMS_CHANNEL_ID', Wert: '', Typ: 'String', Beschreibung: 'Teams Channel für Notifications', Gruppe: 'Benachrichtigung' },\n  { Title: 'SHAREPOINT_SITE_ID', Wert: siteId, Typ: 'String', Beschreibung: 'SharePoint Site ID', Gruppe: 'System' }\n];\n\nreturn configs.map(cfg => ({\n  json: {\n    siteId,\n    listId,\n    fields: cfg\n  }\n}));"
+      },
+      "id": "prepare-config",
+      "name": "Prepare Config",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $json.siteId }}/lists/{{ $json.listId }}/items",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"fields\": {{ JSON.stringify($json.fields) }}\n}",
+        "options": {}
+      },
+      "id": "create-item",
+      "name": "Create Config Item",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1120, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const results = $input.all();\nreturn [{ json: { \n  summary: `${results.length} Config-Einträge importiert`,\n  configs: results.map(r => r.json.fields?.Title || 'unknown')\n}}];"
+      },
+      "id": "summary",
+      "name": "Summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1340, 300]
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [[{ "node": "Get Site", "type": "main", "index": 0 }]]
+    },
+    "Get Site": {
+      "main": [[{ "node": "Get Config List", "type": "main", "index": 0 }]]
+    },
+    "Get Config List": {
+      "main": [[{ "node": "Prepare Config", "type": "main", "index": 0 }]]
+    },
+    "Prepare Config": {
+      "main": [[{ "node": "Create Config Item", "type": "main", "index": 0 }]]
+    },
+    "Create Config Item": {
+      "main": [[{ "node": "Summary", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

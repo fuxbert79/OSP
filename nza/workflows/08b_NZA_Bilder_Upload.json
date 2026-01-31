@@ -1,0 +1,141 @@
+{
+  "name": "NZA-Bilder-Upload",
+  "active": false,
+  "versionId": "nza-bilder-upload-v1",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "nza-bilder-upload",
+        "responseMode": "responseNode",
+        "options": {
+          "rawBody": true
+        }
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [240, 300],
+      "webhookId": "nza-bilder-upload"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body;\n\nif (!body.nzaId) {\n  throw new Error('NZA-ID ist ein Pflichtfeld!');\n}\n\nif (!body.bildData) {\n  throw new Error('Bild-Daten (Base64) fehlen!');\n}\n\n// Dateiname generieren\nconst timestamp = Date.now();\nconst extension = body.extension || 'jpg';\nconst filename = `${body.nzaId}_${timestamp}.${extension}`;\n\n// Ordnerpfad in SharePoint\nconst folderPath = `NZA_Bilder/${body.nzaId}`;\n\nreturn [{\n  json: {\n    nzaId: body.nzaId,\n    filename: filename,\n    folderPath: folderPath,\n    bildData: body.bildData,\n    contentType: body.contentType || 'image/jpeg',\n    kategorie: body.kategorie || 'Fehlerbild',\n    titel: body.titel || 'Fehlerbild',\n    bemerkung: body.bemerkung || '',\n    hochgeladenVon: body.hochgeladenVon || 'System'\n  }\n}];"
+      },
+      "id": "prepare-upload",
+      "name": "Prepare Upload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/drive/root:/{{ $json.folderPath }}/{{ $json.filename }}:/content",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "={{ $json.contentType }}",
+        "body": "={{ Buffer.from($json.bildData, 'base64') }}",
+        "options": {}
+      },
+      "id": "upload-file",
+      "name": "Upload to SharePoint",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [680, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const uploadResult = $input.first().json;\nconst prepareData = $('Prepare Upload').first().json;\n\n// SharePoint-URL zum Bild\nconst bildUrl = uploadResult.webUrl || uploadResult['@microsoft.graph.downloadUrl'] || '';\n\nreturn [{\n  json: {\n    fields: {\n      Title: prepareData.titel,\n      NZA_ID: prepareData.nzaId,\n      Bild_URL: bildUrl,\n      Bild_Thumbnail: bildUrl,\n      Kategorie: prepareData.kategorie,\n      Bemerkung: prepareData.bemerkung,\n      Hochgeladen_Von: prepareData.hochgeladenVon,\n      Hochgeladen_Am: new Date().toISOString()\n    },\n    bildUrl: bildUrl,\n    nzaId: prepareData.nzaId\n  }\n}];"
+      },
+      "id": "prepare-list-entry",
+      "name": "Prepare List Entry",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_BILDER_LIST_ID }}/items",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={ \"fields\": {{ JSON.stringify($json.fields) }} }",
+        "options": {}
+      },
+      "id": "create-list-entry",
+      "name": "Create List Entry",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1120, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const listEntry = $input.first().json;\nconst prepareData = $('Prepare List Entry').first().json;\n\nreturn [{ json: {\n  success: true,\n  nzaId: prepareData.nzaId,\n  bildId: listEntry.id,\n  bildUrl: prepareData.bildUrl,\n  message: 'Bild erfolgreich hochgeladen'\n}}];"
+      },
+      "id": "response",
+      "name": "Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1340, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" }
+            ]
+          }
+        }
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1560, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Prepare Upload", "type": "main", "index": 0 }]]
+    },
+    "Prepare Upload": {
+      "main": [[{ "node": "Upload to SharePoint", "type": "main", "index": 0 }]]
+    },
+    "Upload to SharePoint": {
+      "main": [[{ "node": "Prepare List Entry", "type": "main", "index": 0 }]]
+    },
+    "Prepare List Entry": {
+      "main": [[{ "node": "Create List Entry", "type": "main", "index": 0 }]]
+    },
+    "Create List Entry": {
+      "main": [[{ "node": "Response", "type": "main", "index": 0 }]]
+    },
+    "Response": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

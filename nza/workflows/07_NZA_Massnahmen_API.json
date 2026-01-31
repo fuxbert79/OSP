@@ -1,0 +1,210 @@
+{
+  "name": "NZA-Massnahmen-API",
+  "active": false,
+  "versionId": "nza-massnahmen-v1",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "*",
+        "path": "nza-massnahmen",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "nza-massnahmen"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "rules": [
+            { "operation": "equal", "value1": "={{ $json.headers['x-http-method-override'] || $request.method }}", "value2": "GET" },
+            { "operation": "equal", "value1": "={{ $json.headers['x-http-method-override'] || $request.method }}", "value2": "POST" },
+            { "operation": "equal", "value1": "={{ $json.headers['x-http-method-override'] || $request.method }}", "value2": "PATCH" }
+          ]
+        }
+      },
+      "id": "switch",
+      "name": "Method Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_MASSNAHMEN_LIST_ID }}/items?$expand=fields&$top=500&$orderby=createdDateTime desc{{ $('Webhook').first().json.query.nzaId ? \"&$filter=fields/NZA_ID eq '\" + $('Webhook').first().json.query.nzaId + \"'\" : '' }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "options": {}
+      },
+      "id": "get-massnahmen",
+      "name": "GET Massnahmen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [700, 100],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.first().json.value || [];\n\nconst massnahmen = items.map(item => {\n  const f = item.fields || {};\n  return {\n    id: item.id,\n    nzaId: f.NZA_ID,\n    titel: f.Title,\n    typ: f.Massnahme_Typ,\n    beschreibung: f.Beschreibung,\n    verantwortlichId: f.Verantwortlich_ID,\n    verantwortlichName: f.Verantwortlich_Name,\n    verantwortlichEmail: f.Verantwortlich_Email,\n    termin: f.Termin,\n    status: f.Status || 'Offen',\n    erledigtAm: f.Erledigt_Am,\n    wirksamkeit: f.Wirksamkeit,\n    benachrichtigungTeams: f.Benachrichtigung_Teams === true,\n    benachrichtigungEmail: f.Benachrichtigung_Email === true,\n    erstelltAm: item.createdDateTime\n  };\n});\n\nreturn [{ json: { massnahmen, count: massnahmen.length } }];"
+      },
+      "id": "transform-get",
+      "name": "Transform GET",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [920, 100]
+    },
+    {
+      "parameters": {
+        "jsCode": "// POST: Neue Maßnahme anlegen\nconst body = $('Webhook').first().json.body;\n\nif (!body.nzaId || !body.titel) {\n  throw new Error('NZA-ID und Titel sind Pflichtfelder!');\n}\n\nreturn [{\n  json: {\n    fields: {\n      Title: body.titel,\n      NZA_ID: body.nzaId,\n      Massnahme_Typ: body.typ || 'Sofortmaßnahme',\n      Beschreibung: body.beschreibung || '',\n      Verantwortlich_ID: body.verantwortlichId || '',\n      Verantwortlich_Name: body.verantwortlichName || '',\n      Verantwortlich_Email: body.verantwortlichEmail || '',\n      Termin: body.termin || null,\n      Status: 'Offen',\n      Wirksamkeit: 'Nicht geprüft',\n      Benachrichtigung_Teams: false,\n      Benachrichtigung_Email: false\n    },\n    notifyTeams: body.notifyTeams === true,\n    notifyEmail: body.notifyEmail === true\n  }\n}];"
+      },
+      "id": "prepare-post",
+      "name": "Prepare POST",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [700, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_MASSNAHMEN_LIST_ID }}/items",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={ \"fields\": {{ JSON.stringify($json.fields) }} }",
+        "options": {}
+      },
+      "id": "create-massnahme",
+      "name": "Create Massnahme",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [920, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const created = $input.first().json;\nconst prepareData = $('Prepare POST').first().json;\n\nreturn [{ json: {\n  success: true,\n  id: created.id,\n  nzaId: created.fields.NZA_ID,\n  titel: created.fields.Title,\n  notifyTeams: prepareData.notifyTeams,\n  notifyEmail: prepareData.notifyEmail,\n  verantwortlichId: created.fields.Verantwortlich_ID,\n  verantwortlichEmail: created.fields.Verantwortlich_Email,\n  message: 'Maßnahme erfolgreich erstellt'\n}}];"
+      },
+      "id": "response-post",
+      "name": "Response POST",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1140, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// PATCH: Maßnahme aktualisieren\nconst body = $('Webhook').first().json.body;\nconst itemId = body.id;\n\nif (!itemId) {\n  throw new Error('Item-ID fehlt!');\n}\n\nconst fields = {};\nif (body.status) fields.Status = body.status;\nif (body.beschreibung) fields.Beschreibung = body.beschreibung;\nif (body.termin) fields.Termin = body.termin;\nif (body.wirksamkeit) fields.Wirksamkeit = body.wirksamkeit;\nif (body.status === 'Abgeschlossen' && !body.erledigtAm) {\n  fields.Erledigt_Am = new Date().toISOString();\n}\nif (body.erledigtAm) fields.Erledigt_Am = body.erledigtAm;\n\nreturn [{ json: { itemId, fields } }];"
+      },
+      "id": "prepare-patch",
+      "name": "Prepare PATCH",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [700, 500]
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_MASSNAHMEN_LIST_ID }}/items/{{ $json.itemId }}/fields",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.fields) }}",
+        "options": {}
+      },
+      "id": "update-massnahme",
+      "name": "Update Massnahme",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [920, 500],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { success: true, message: 'Maßnahme aktualisiert' } }];"
+      },
+      "id": "response-patch",
+      "name": "Response PATCH",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1140, 500]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" }
+            ]
+          }
+        }
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1360, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Method Switch", "type": "main", "index": 0 }]]
+    },
+    "Method Switch": {
+      "main": [
+        [{ "node": "GET Massnahmen", "type": "main", "index": 0 }],
+        [{ "node": "Prepare POST", "type": "main", "index": 0 }],
+        [{ "node": "Prepare PATCH", "type": "main", "index": 0 }]
+      ]
+    },
+    "GET Massnahmen": {
+      "main": [[{ "node": "Transform GET", "type": "main", "index": 0 }]]
+    },
+    "Transform GET": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    },
+    "Prepare POST": {
+      "main": [[{ "node": "Create Massnahme", "type": "main", "index": 0 }]]
+    },
+    "Create Massnahme": {
+      "main": [[{ "node": "Response POST", "type": "main", "index": 0 }]]
+    },
+    "Response POST": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    },
+    "Prepare PATCH": {
+      "main": [[{ "node": "Update Massnahme", "type": "main", "index": 0 }]]
+    },
+    "Update Massnahme": {
+      "main": [[{ "node": "Response PATCH", "type": "main", "index": 0 }]]
+    },
+    "Response PATCH": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

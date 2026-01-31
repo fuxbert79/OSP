@@ -1,0 +1,94 @@
+{
+  "name": "NZA-Kosten-API",
+  "active": false,
+  "versionId": "nza-kosten-v1",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "*",
+        "path": "nza-kosten",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "nza-kosten"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "rules": [
+            { "operation": "equal", "value1": "={{ $json.headers['x-http-method-override'] || $request.method }}", "value2": "GET" },
+            { "operation": "equal", "value1": "={{ $json.headers['x-http-method-override'] || $request.method }}", "value2": "POST" }
+          ]
+        }
+      },
+      "id": "switch",
+      "name": "Method Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// GET: Kostenübersicht zu einem NZA-Vorgang\nconst query = $('Webhook').first().json.query || {};\n\n// Minutensätze pro Kostenstelle\nconst MINUTENSATZ = {\n  '1000': 1.98,\n  '2000': 1.21,\n  '3000': 0.93,\n  '4000': 1.02,\n  '5000': 1.02,\n  'Lager': 1.10,\n  'Verwaltung': 1.37\n};\n\nreturn [{ json: { \n  query,\n  minutensaetze: MINUTENSATZ,\n  info: 'Nutze POST um Kosten zu berechnen'\n}}];"
+      },
+      "id": "get-info",
+      "name": "GET Info",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [700, 100]
+    },
+    {
+      "parameters": {
+        "jsCode": "// POST: Kosten berechnen\nconst body = $('Webhook').first().json.body;\n\n// Minutensätze pro Kostenstelle (aus CLAUDE.md / AV_AGK)\nconst MINUTENSATZ = {\n  '1000': 1.98,  // Fertigung F1\n  '2000': 1.21,  // Fertigung F2\n  '3000': 0.93,  // Fertigung F3\n  '4000': 1.02,  // Fertigung F4\n  '5000': 1.02,  // Fertigung F5\n  'Lager': 1.10,\n  'Verwaltung': 1.37\n};\n\n// Prozesse verarbeiten\nconst prozesse = body.prozesse || [];\nlet kostenProzesse = 0;\nconst prozessDetails = [];\n\nprozesse.forEach((p, idx) => {\n  const zeit = parseFloat(p.zeit) || 0;\n  const kst = p.kst || '1000';\n  const faktor = MINUTENSATZ[kst] || MINUTENSATZ['1000'];\n  const kosten = Math.round(zeit * faktor * 100) / 100;\n  kostenProzesse += kosten;\n  \n  prozessDetails.push({\n    nr: idx + 1,\n    prozess: p.prozess || '',\n    werker: p.werker || '',\n    kst: kst,\n    zeit: zeit,\n    minutensatz: faktor,\n    kosten: kosten\n  });\n});\n\n// Zusätzliche Kosten\nconst kostenMaterial = parseFloat(body.kostenMaterial) || 0;\nconst kostenSonstige = parseFloat(body.kostenSonstige) || 0;\n\n// Gesamtkosten\nconst kostenGesamt = Math.round((kostenProzesse + kostenMaterial + kostenSonstige) * 100) / 100;\n\nreturn [{ json: {\n  nzaId: body.nzaId || null,\n  berechnung: {\n    prozesse: prozessDetails,\n    kostenProzesse: Math.round(kostenProzesse * 100) / 100,\n    kostenMaterial: kostenMaterial,\n    kostenSonstige: kostenSonstige,\n    kostenGesamt: kostenGesamt\n  },\n  minutensaetze: MINUTENSATZ\n}}];"
+      },
+      "id": "berechne-kosten",
+      "name": "Berechne Kosten",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [700, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" }
+            ]
+          }
+        }
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [920, 200]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Method Switch", "type": "main", "index": 0 }]]
+    },
+    "Method Switch": {
+      "main": [
+        [{ "node": "GET Info", "type": "main", "index": 0 }],
+        [{ "node": "Berechne Kosten", "type": "main", "index": 0 }]
+      ]
+    },
+    "GET Info": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    },
+    "Berechne Kosten": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

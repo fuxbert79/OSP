@@ -1,0 +1,125 @@
+{
+  "name": "NZA-Setup-Spalten-KPL",
+  "active": false,
+  "versionId": "nza-setup-spalten-v1",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "start",
+      "name": "Start",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com:/sites/NZA_NEU",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "options": {}
+      },
+      "id": "get-site",
+      "name": "Get Site",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [460, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $json.id }}/lists?$filter=displayName eq 'NZA Hauptliste'",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "options": {}
+      },
+      "id": "get-list",
+      "name": "Get List nza-kpl",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [680, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const siteId = $('Get Site').first().json.id;\nconst listId = $input.first().json.value[0]?.id;\n\nif (!listId) {\n  throw new Error('Liste nza-kpl nicht gefunden!');\n}\n\n// Stammdaten-Spalten\nconst columns = [\n  // Stammdaten\n  { name: 'field_1', displayName: 'Reklamationstyp', type: 'choice', choices: ['Interne Reklamation', 'Kunden Reklamation', 'Lieferanten Reklamation'] },\n  { name: 'field_2', displayName: 'Datum', type: 'dateTime' },\n  { name: 'field_3', displayName: 'Artikel_Nr', type: 'text' },\n  { name: 'field_4', displayName: 'Betriebsauftrag', type: 'number' },\n  { name: 'field_5', displayName: 'Pruefmenge', type: 'number' },\n  { name: 'field_6', displayName: 'davon_nio', type: 'number' },\n  { name: 'field_7', displayName: 'Verursacher', type: 'text' },\n  { name: 'field_8', displayName: 'Verursacher_PersNr', type: 'number' },\n  { name: 'field_9', displayName: 'Kostenstelle', type: 'choice', choices: ['1000', '2000', '3000', '4000', '5000', 'Lager', 'Verwaltung', 'Lieferant', 'keine Zuordnung'] },\n  { name: 'field_10', displayName: 'QA_Nummer', type: 'number' },\n  { name: 'field_11', displayName: 'QNr_Extern', type: 'text' },\n  { name: 'field_12', displayName: 'Ersatz_BA', type: 'number' },\n  { name: 'field_13', displayName: 'Gutschrift_Belastung', type: 'text' },\n  { name: 'field_14', displayName: 'Fehler_Beschreibung', type: 'note' },\n  { name: 'field_15', displayName: 'Fehler_Kategorie', type: 'choice', choices: ['Crimpfehler', 'Längenabweichung', 'Verdrahtungsfehler', 'Bearbeitungsfehler', 'Druck fehlerhaft', 'Arbeitsanweisung falsch', 'Kundenzeichnung falsch', 'Falsches Material', 'Materialfehler', 'Werkzeug/Maschinenfehler', 'Lieferantenfehler/Reklamation', 'Sonstige'], allowMultiple: true },\n  { name: 'field_16', displayName: 'Bemerkungen', type: 'note' },\n  { name: 'field_17', displayName: 'kosten_sonstige', type: 'currency' },\n  \n  // Prozess 1\n  { name: 'field_19', displayName: 'Prozess_1', type: 'text' },\n  { name: 'field_20', displayName: 'Werker_1', type: 'text' },\n  { name: 'kostenstelle_1', displayName: 'KST_1', type: 'choice', choices: ['1000', '2000', '3000', '4000', '5000', 'Lager', 'Verwaltung'] },\n  { name: 'field_22', displayName: 'Zeit_1_Min', type: 'number' },\n  \n  // Prozess 2\n  { name: 'field_24', displayName: 'Prozess_2', type: 'text' },\n  { name: 'field_25', displayName: 'Werker_2', type: 'text' },\n  { name: 'kostenstelle_2', displayName: 'KST_2', type: 'choice', choices: ['1000', '2000', '3000', '4000', '5000', 'Lager', 'Verwaltung'] },\n  { name: 'field_27', displayName: 'Zeit_2_Min', type: 'number' },\n  \n  // Prozess 3\n  { name: 'field_29', displayName: 'Prozess_3', type: 'text' },\n  { name: 'field_30', displayName: 'Werker_3', type: 'text' },\n  { name: 'kostenstelle_3', displayName: 'KST_3', type: 'choice', choices: ['1000', '2000', '3000', '4000', '5000', 'Lager', 'Verwaltung'] },\n  { name: 'field_32', displayName: 'Zeit_3_Min', type: 'number' },\n  \n  // Prozess 4\n  { name: 'field_34', displayName: 'Prozess_4', type: 'text' },\n  { name: 'field_35', displayName: 'Werker_4', type: 'text' },\n  { name: 'kostenstelle_4', displayName: 'KST_4', type: 'choice', choices: ['1000', '2000', '3000', '4000', '5000', 'Lager', 'Verwaltung'] },\n  { name: 'field_37', displayName: 'Zeit_4_Min', type: 'number' },\n  \n  // Prozess 5\n  { name: 'field_39', displayName: 'Prozess_5', type: 'text' },\n  { name: 'field_40', displayName: 'Werker_5', type: 'text' },\n  { name: 'kostenstelle_5', displayName: 'KST_5', type: 'choice', choices: ['1000', '2000', '3000', '4000', '5000', 'Lager', 'Verwaltung'] },\n  { name: 'field_42', displayName: 'Zeit_5_Min', type: 'number' },\n  \n  // Kosten\n  { name: 'field_65', displayName: 'kosten_material', type: 'currency' },\n  { name: 'kosten_prozesse', displayName: 'kosten_prozesse', type: 'number' },\n  { name: 'kosten_gesamt', displayName: 'kosten_gesamt', type: 'number' },\n  \n  // Status\n  { name: 'status', displayName: 'Status', type: 'choice', choices: ['Neu', 'In Bearbeitung', 'Abgeschlossen'] }\n];\n\nreturn columns.map(col => ({\n  json: {\n    siteId,\n    listId,\n    ...col\n  }\n}));"
+      },
+      "id": "prepare-columns",
+      "name": "Prepare Columns",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $json.siteId }}/lists/{{ $json.listId }}/columns",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ (() => {\n  const col = $json;\n  let body = {\n    name: col.name,\n    displayName: col.displayName\n  };\n  \n  switch(col.type) {\n    case 'text':\n      body.text = {};\n      break;\n    case 'number':\n      body.number = {};\n      break;\n    case 'currency':\n      body.currency = { locale: 'de-DE' };\n      break;\n    case 'dateTime':\n      body.dateTime = { format: 'dateOnly' };\n      break;\n    case 'note':\n      body.text = { allowMultipleLines: true };\n      break;\n    case 'choice':\n      body.choice = {\n        allowTextEntry: false,\n        choices: col.choices,\n        displayAs: col.allowMultiple ? 'checkBoxes' : 'dropDownMenu'\n      };\n      break;\n  }\n  \n  return JSON.stringify(body);\n})() }}",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "id": "create-column",
+      "name": "Create Column",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1120, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const results = $input.all().map((item, i) => ({\n  column: item.json.name || item.json.displayName || `Column ${i}`,\n  status: item.json.id ? 'created' : (item.json.error?.message || 'exists/error')\n}));\n\nconst created = results.filter(r => r.status === 'created').length;\nconst errors = results.filter(r => r.status !== 'created').length;\n\nreturn [{ json: { \n  summary: `${created} erstellt, ${errors} bereits vorhanden/Fehler`,\n  results \n}}];"
+      },
+      "id": "summary",
+      "name": "Summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1340, 300]
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [[{ "node": "Get Site", "type": "main", "index": 0 }]]
+    },
+    "Get Site": {
+      "main": [[{ "node": "Get List nza-kpl", "type": "main", "index": 0 }]]
+    },
+    "Get List nza-kpl": {
+      "main": [[{ "node": "Prepare Columns", "type": "main", "index": 0 }]]
+    },
+    "Prepare Columns": {
+      "main": [[{ "node": "Create Column", "type": "main", "index": 0 }]]
+    },
+    "Create Column": {
+      "main": [[{ "node": "Summary", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

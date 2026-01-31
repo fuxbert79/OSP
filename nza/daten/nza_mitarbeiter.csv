@@ -1,0 +1,53 @@
+﻿Pers.-Nr.;Kürzel;Name;Vorname;Kst.;Funktion;Eintritt;E-Mail;Bereichsverantwortung [TAG];OSP-User
+GF;CS;Schneider;Christoph;Verwaltung (GF);Kaufmännischer Geschäftsführer;--;c.schneider@schneider-kabelsatzbau.de;ORG, KOM, GF, HR, KST;Ja
+GF;CA;Augst;Christoph;Verwaltung (GF);Technischer Geschäftsführer;--;c.augst@schneider-kabelsatzbau.de;TM, KST;Ja
+--;SV;Vierschilling;Sebastian;Verwaltung (Prokura);Prokurist - Leitung Vertrieb & AV;01.11.2015;s.vierschilling@schneider-kabelsatzbau.de;VT, AV;Ja
+22330;AL;Löhr;Andreas;Verwaltung;QM & KI-Manager;01.11.2018;a.loehr@schneider-kabelsatzbau.de;QM, PM, IT, DMS, RES;Ja
+22348;TS;Schmidt;Tobias;Verwaltung;Strategischer Einkauf;01.10.2021;t.schmidt@schneider-kabelsatzbau.de;EK;Ja
+21801;MR;Rötzel;Markus;Verwaltung;Mitarbeiter AV;08.09.1994;m.roetzel@schneider-kabelsatzbau.de;AV;Ja
+22331;DU;Ullsperger;Dirk;Verwaltung;Compliance Beauftragter;01.12.2018;d.ullsperger@schneider-kabelsatzbau.de;CMS;Ja
+22336;ASC;Schmidt;Andrea;Verwaltung;Verwaltung;11.03.2020;a.schmidt@schneider-kabelsatzbau.de;--;Ja
+21280;NR;Reigl;Nadine;Verwaltung;Verwaltung;17.07.2013;n.reigl@schneider-kabelsatzbau.de;--;Ja
+20402;MD;Dützer;Marcel;1000;Fertigungsleitung Kst. 1000;16.08.1999;m.duetzer@schneider-kabelsatzbau.de;KST (1000), TM;Ja
+21930;DS;Schwarz;David;1000;Stv. Fertigungsleitung Kst. 1000;01.07.2014;d.schwarz@schneider-kabelsatzbau.de;;Ja
+20403;SF;Fehse;Stefan;1000;Produktion;01.08.2023;--;--;Nein
+21922;US;Schmidt;Ulrich;1000;Produktion;06.06.2016;--;--;Nein
+21931;AV;Viehl;Alexander;1000;Produktion;01.10.2021;--;--;Nein
+21902;BS;Stieber;Bettina;2000/3000;Fertigungsleitung Kst. 2000/3000;01.04.1998;b.stieber@schneider-kabelsatzbau.de;KST (2000/3000);Ja
+22302;JR;Röder;Jessica;2000;Einrichterin Kst. 2000;06.04.1999;j.roeder@schneider-kabelsatzbau.de;--;Ja
+22313;BUC;Buchen;Brigitte;2000;Produktion;01.08.2017;--;--;Nein
+20740;HAR;Harder;Valentina;2000;Produktion;02.07.2015;--;--;Nein
+21122;KIT;Kitschke;Iwona;2000;Produktion;01.11.2015;--;--;Nein
+22321;KOLD;Koldys;Weronika;2000;Produktion;13.11.2017;--;--;Nein
+22920;RAH;Shakel;Rahimulah;2000;Produktion;01.03.2022;--;--;Nein
+22308;SER;Sergeew;Olga;2000;Produktion;01.08.2017;--;--;Nein
+22323;SIO;Satzer Sion;Conny;2000;Produktion;01.01.2018;--;--;Nein
+22090;ÜNA;Ünal;Ayse;2000;Produktion;01.12.2010;a.uenal@schneider-kabelsatzbau.de;--;Nein
+20196;IB;Baldus;Iris;3000;Stv. Fertigungsleitung Kst. 2000/3000;01.03.2003;i.baldus@schneider-kabelsatzbau.de;;Nein
+20165;ANK;Ankerstein;Natalia;3000;Produktion;01.01.2015;--;--;Nein
+20175;AYA;Ayaz;Havva;3000;Produktion;01.01.2015;--;--;Nein
+20710;GIE;Giesbrecht;Rita;3000;Produktion;01.01.2015;--;--;Nein
+20742;HAS;Hassel;Nadine;3000;Produktion;01.09.2023;--;--;Nein
+22337;LIN;Lindner;Vivien;3000;Produktion;01.10.2021;--;--;Nein
+22319;MOH;Mohammadi;Roya;3000;Produktion;02.11.2017;--;--;Nein
+21600;PAT;Patz;Raissa;3000;Produktion;02.11.1999;--;--;Nein
+22311;REI;Reifenrath;Ina;3000;Produktion;01.08.2017;--;--;Nein
+21800;RÖT;Röttgen;Uli;3000;Prüffeld;18.10.1999;--;--;Nein
+21920;SCH;Schmidt;Marianna;3000;Produktion;01.05.2014;--;--;Nein
+21895;SEV;Seval;Arzu;3000;Produktion;01.01.2008;--;--;Nein
+22316;WEID;Weidenmüller;Nadine;3000;Produktion;01.12.2017;--;--;Nein
+22317;WIT;Wittig;Beate;3000;Produktion;01.11.2017;--;--;Nein
+21093;SK;Kandorfer;Stefan;5000;Administration Prüffeld;02.05.2002;s.kandorfer@schneider-kabelsatzbau.de;KST (PF);Ja
+21114;DR;Reuber;Daniela;5000;Fertigungsleitung Kst. 5000;16.11.2009;d.reuber@schneider-kabelsatzbau.de;KST (5000);Ja
+21118;TD;Dieler;Torsten;5000;Produktion;01.03.2025;--;--;Nein
+21090;WK;Kaczynski;Wojciech;5000;Lager;01.12.2001;w.kaczynski@schneider-kabelsatzbau.de;--;Ja
+21180;JL;Langenbach;Jens;5000;Produktion, E-Check Beauftragter;16.07.2015;--;--;Nein
+21602;BP;Pawelka;Birgit;5000;Produktion;08.09.2014;--;--;Nein
+21610;EP;Petschulat;Esmira;5000;Produktion;01.12.2015;--;--;Nein
+21605;TP;Petzke;Torsten;5000;Produktion;01.11.2002;--;--;Nein
+21298;NRR;Reifenrath;Nina;5000;Produktion;01.08.2014;--;--;Nein
+21912;SS;Schlawin;Sebastian;5000;Produktion;01.07.2021;--;--;Nein
+22495;JS;Schüürmann;Jonas;5000;Prüffeld;01.04.2023;--;--;Nein
+22333;OK;Kuh;Olaf;Lager;Lagerleiter;01.03.2019;o.kuh@schneider-kabelsatzbau.de;LAG;Ja
+22334;BB;Bunsen;Björn;Lager;Lager;01.03.2019;--;--;Nein
+20795;FH;Henrichs;Frank;Lager;Lager;01.10.2002;--;--;Nein

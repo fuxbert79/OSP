@@ -1,0 +1,61 @@
+{
+  "name": "NZA-Setup-Spalten-KPL-v2",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "start",
+      "name": "Start",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Verwende Umgebungsvariablen\nconst siteId = process.env.NZA_SITE_ID;\nconst listId = process.env.NZA_KPL_LIST_ID;\n\nif (!siteId || !listId) {\n  throw new Error('NZA_SITE_ID oder NZA_KPL_LIST_ID nicht gesetzt!');\n}\n\n// Spalten-Definitionen\nconst columns = [\n  { name: 'field_1', displayName: 'Reklamationstyp', type: 'choice', choices: ['Interne Reklamation', 'Kunden Reklamation', 'Lieferanten Reklamation'] },\n  { name: 'field_2', displayName: 'Datum', type: 'dateTime' },\n  { name: 'field_3', displayName: 'Artikel_Nr', type: 'text' },\n  { name: 'field_4', displayName: 'Betriebsauftrag', type: 'number' },\n  { name: 'field_5', displayName: 'Pruefmenge', type: 'number' },\n  { name: 'field_6', displayName: 'davon_nio', type: 'number' },\n  { name: 'field_7', displayName: 'Verursacher', type: 'text' },\n  { name: 'field_8', displayName: 'Verursacher_PersNr', type: 'number' },\n  { name: 'field_9', displayName: 'Kostenstelle', type: 'choice', choices: ['1000', '2000', '3000', '4000', '5000', 'Lager', 'Verwaltung', 'Lieferant', 'keine Zuordnung'] },\n  { name: 'field_10', displayName: 'QA_Nummer', type: 'number' },\n  { name: 'field_11', displayName: 'QNr_Extern', type: 'text' },\n  { name: 'field_12', displayName: 'Ersatz_BA', type: 'number' },\n  { name: 'field_13', displayName: 'Gutschrift_Belastung', type: 'text' },\n  { name: 'field_14', displayName: 'Fehler_Beschreibung', type: 'note' },\n  { name: 'field_15', displayName: 'Fehler_Kategorie', type: 'choice', choices: ['Crimpfehler', 'Laengenabweichung', 'Verdrahtungsfehler', 'Bearbeitungsfehler', 'Druck fehlerhaft', 'Arbeitsanweisung falsch', 'Kundenzeichnung falsch', 'Falsches Material', 'Materialfehler', 'Werkzeug/Maschinenfehler', 'Lieferantenfehler/Reklamation', 'Sonstige'], allowMultiple: true },\n  { name: 'field_16', displayName: 'Bemerkungen', type: 'note' },\n  { name: 'field_17', displayName: 'kosten_sonstige', type: 'currency' },\n  { name: 'field_19', displayName: 'Prozess_1', type: 'text' },\n  { name: 'field_20', displayName: 'Werker_1', type: 'text' },\n  { name: 'kostenstelle_1', displayName: 'KST_1', type: 'choice', choices: ['1000', '2000', '3000', '4000', '5000', 'Lager', 'Verwaltung'] },\n  { name: 'field_22', displayName: 'Zeit_1_Min', type: 'number' },\n  { name: 'field_24', displayName: 'Prozess_2', type: 'text' },\n  { name: 'field_25', displayName: 'Werker_2', type: 'text' },\n  { name: 'kostenstelle_2', displayName: 'KST_2', type: 'choice', choices: ['1000', '2000', '3000', '4000', '5000', 'Lager', 'Verwaltung'] },\n  { name: 'field_27', displayName: 'Zeit_2_Min', type: 'number' },\n  { name: 'field_29', displayName: 'Prozess_3', type: 'text' },\n  { name: 'field_30', displayName: 'Werker_3', type: 'text' },\n  { name: 'kostenstelle_3', displayName: 'KST_3', type: 'choice', choices: ['1000', '2000', '3000', '4000', '5000', 'Lager', 'Verwaltung'] },\n  { name: 'field_32', displayName: 'Zeit_3_Min', type: 'number' },\n  { name: 'field_34', displayName: 'Prozess_4', type: 'text' },\n  { name: 'field_35', displayName: 'Werker_4', type: 'text' },\n  { name: 'kostenstelle_4', displayName: 'KST_4', type: 'choice', choices: ['1000', '2000', '3000', '4000', '5000', 'Lager', 'Verwaltung'] },\n  { name: 'field_37', displayName: 'Zeit_4_Min', type: 'number' },\n  { name: 'field_39', displayName: 'Prozess_5', type: 'text' },\n  { name: 'field_40', displayName: 'Werker_5', type: 'text' },\n  { name: 'kostenstelle_5', displayName: 'KST_5', type: 'choice', choices: ['1000', '2000', '3000', '4000', '5000', 'Lager', 'Verwaltung'] },\n  { name: 'field_42', displayName: 'Zeit_5_Min', type: 'number' },\n  { name: 'field_65', displayName: 'kosten_material', type: 'currency' },\n  { name: 'kosten_prozesse', displayName: 'kosten_prozesse', type: 'number' },\n  { name: 'kosten_gesamt', displayName: 'kosten_gesamt', type: 'number' },\n  { name: 'status', displayName: 'Status', type: 'choice', choices: ['Neu', 'In Bearbeitung', 'Abgeschlossen'] }\n];\n\nreturn columns.map(col => ({ json: { siteId, listId, ...col } }));"
+      },
+      "id": "prepare-columns",
+      "name": "Prepare Columns",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $json.siteId }}/lists/{{ $json.listId }}/columns",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ (() => { const col = $json; let body = { name: col.name, displayName: col.displayName }; switch(col.type) { case 'text': body.text = {}; break; case 'number': body.number = {}; break; case 'currency': body.currency = { locale: 'de-DE' }; break; case 'dateTime': body.dateTime = { format: 'dateOnly' }; break; case 'note': body.text = { allowMultipleLines: true }; break; case 'choice': body.choice = { allowTextEntry: false, choices: col.choices, displayAs: col.allowMultiple ? 'checkBoxes' : 'dropDownMenu' }; break; } return JSON.stringify(body); })() }}",
+        "options": { "response": { "response": { "neverError": true } } }
+      },
+      "id": "create-column",
+      "name": "Create Column",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [680, 300],
+      "credentials": {
+        "microsoftOAuth2Api": { "id": "Fm3IuAbVYBYDIA4U", "name": "Microsoft account" }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const results = $input.all().map((item, i) => ({ column: item.json.name || item.json.displayName, status: item.json.id ? 'created' : (item.json.error?.message || 'exists/error') }));\nconst created = results.filter(r => r.status === 'created').length;\nconst errors = results.filter(r => r.status !== 'created').length;\nreturn [{ json: { summary: created + ' erstellt, ' + errors + ' bereits vorhanden/Fehler', results } }];"
+      },
+      "id": "summary",
+      "name": "Summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 300]
+    }
+  ],
+  "connections": {
+    "Start": { "main": [[{ "node": "Prepare Columns", "type": "main", "index": 0 }]] },
+    "Prepare Columns": { "main": [[{ "node": "Create Column", "type": "main", "index": 0 }]] },
+    "Create Column": { "main": [[{ "node": "Summary", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" }
+}

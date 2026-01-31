@@ -1,0 +1,156 @@
+{
+  "name": "NZA-Bilder-API",
+  "active": false,
+  "versionId": "nza-bilder-v1",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "*",
+        "path": "nza-bilder",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "nza-bilder"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "rules": [
+            { "operation": "equal", "value1": "={{ $json.headers['x-http-method-override'] || $request.method }}", "value2": "GET" },
+            { "operation": "equal", "value1": "={{ $json.headers['x-http-method-override'] || $request.method }}", "value2": "POST" }
+          ]
+        }
+      },
+      "id": "switch",
+      "name": "Method Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_BILDER_LIST_ID }}/items?$expand=fields&$top=100{{ $('Webhook').first().json.query.nzaId ? \"&$filter=fields/NZA_ID eq '\" + $('Webhook').first().json.query.nzaId + \"'\" : '' }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "options": {}
+      },
+      "id": "get-bilder",
+      "name": "GET Bilder",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [700, 100],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.first().json.value || [];\n\nconst bilder = items.map(item => {\n  const f = item.fields || {};\n  return {\n    id: item.id,\n    nzaId: f.NZA_ID,\n    titel: f.Title,\n    bildUrl: f.Bild_URL,\n    thumbnailUrl: f.Bild_Thumbnail || f.Bild_URL,\n    kategorie: f.Kategorie || 'Fehlerbild',\n    bemerkung: f.Bemerkung || '',\n    hochgeladenVon: f.Hochgeladen_Von,\n    hochgeladenAm: f.Hochgeladen_Am || item.createdDateTime\n  };\n});\n\nreturn [{ json: { bilder, count: bilder.length } }];"
+      },
+      "id": "transform-get",
+      "name": "Transform GET",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [920, 100]
+    },
+    {
+      "parameters": {
+        "jsCode": "// POST: Bild-Metadaten in Liste eintragen\n// Der eigentliche Bild-Upload erfolgt über nza-bilder-upload\nconst body = $('Webhook').first().json.body;\n\nif (!body.nzaId || !body.bildUrl) {\n  throw new Error('NZA-ID und Bild-URL sind Pflichtfelder!');\n}\n\nreturn [{\n  json: {\n    fields: {\n      Title: body.titel || 'Fehlerbild',\n      NZA_ID: body.nzaId,\n      Bild_URL: body.bildUrl,\n      Bild_Thumbnail: body.thumbnailUrl || body.bildUrl,\n      Kategorie: body.kategorie || 'Fehlerbild',\n      Bemerkung: body.bemerkung || '',\n      Hochgeladen_Von: body.hochgeladenVon || 'System',\n      Hochgeladen_Am: new Date().toISOString()\n    }\n  }\n}];"
+      },
+      "id": "prepare-post",
+      "name": "Prepare POST",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [700, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_BILDER_LIST_ID }}/items",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={ \"fields\": {{ JSON.stringify($json.fields) }} }",
+        "options": {}
+      },
+      "id": "create-bild",
+      "name": "Create Bild",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [920, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const created = $input.first().json;\n\nreturn [{ json: {\n  success: true,\n  id: created.id,\n  nzaId: created.fields.NZA_ID,\n  bildUrl: created.fields.Bild_URL,\n  message: 'Bild-Referenz erfolgreich erstellt'\n}}];"
+      },
+      "id": "response-post",
+      "name": "Response POST",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1140, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" }
+            ]
+          }
+        }
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1360, 200]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Method Switch", "type": "main", "index": 0 }]]
+    },
+    "Method Switch": {
+      "main": [
+        [{ "node": "GET Bilder", "type": "main", "index": 0 }],
+        [{ "node": "Prepare POST", "type": "main", "index": 0 }]
+      ]
+    },
+    "GET Bilder": {
+      "main": [[{ "node": "Transform GET", "type": "main", "index": 0 }]]
+    },
+    "Transform GET": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    },
+    "Prepare POST": {
+      "main": [[{ "node": "Create Bild", "type": "main", "index": 0 }]]
+    },
+    "Create Bild": {
+      "main": [[{ "node": "Response POST", "type": "main", "index": 0 }]]
+    },
+    "Response POST": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

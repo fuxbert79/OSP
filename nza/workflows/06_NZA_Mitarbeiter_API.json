@@ -1,0 +1,83 @@
+{
+  "name": "NZA-Mitarbeiter-API",
+  "active": false,
+  "versionId": "nza-ma-api-v1",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "nza-mitarbeiter",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [240, 300],
+      "webhookId": "nza-mitarbeiter"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_MITARBEITER_LIST_ID }}/items?$expand=fields&$top=100",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "options": {}
+      },
+      "id": "get-mitarbeiter",
+      "name": "Get Mitarbeiter",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [460, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "Fm3IuAbVYBYDIA4U",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.first().json.value || [];\nconst query = $('Webhook').first().json.query || {};\n\nlet mitarbeiter = items\n  .filter(item => item.fields?.Aktiv === true || item.fields?.Aktiv === 'true')\n  .map(item => {\n    const f = item.fields || {};\n    return {\n      id: item.id,\n      kuerzel: f.Kuerzel,\n      name: f.Title,\n      abteilung: f.Abteilung,\n      kst: f.KST,\n      funktion: f.Funktion,\n      email: f.Email || '',\n      personalnummer: f.Personalnummer,\n      ospUser: f.OSP_User === true || f.OSP_User === 'true'\n    };\n  })\n  .sort((a, b) => a.name.localeCompare(b.name));\n\n// Filter nach KST wenn angegeben\nif (query.kst) {\n  mitarbeiter = mitarbeiter.filter(m => m.kst === query.kst || m.abteilung === query.kst);\n}\n\n// Filter nach Abteilung\nif (query.abteilung) {\n  mitarbeiter = mitarbeiter.filter(m => m.abteilung === query.abteilung);\n}\n\nreturn [{ json: { mitarbeiter, count: mitarbeiter.length } }];"
+      },
+      "id": "transform",
+      "name": "Transform",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" }
+            ]
+          }
+        }
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [900, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Get Mitarbeiter", "type": "main", "index": 0 }]]
+    },
+    "Get Mitarbeiter": {
+      "main": [[{ "node": "Transform", "type": "main", "index": 0 }]]
+    },
+    "Transform": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

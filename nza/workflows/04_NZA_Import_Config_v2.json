@@ -1,0 +1,61 @@
+{
+  "name": "NZA-Import-Config-v2",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "start",
+      "name": "Start",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const siteId = process.env.NZA_SITE_ID;\nconst listId = process.env.NZA_CONFIG_LIST_ID;\n\nif (!siteId || !listId) {\n  throw new Error('NZA_SITE_ID oder NZA_CONFIG_LIST_ID nicht gesetzt!');\n}\n\nconst config = [\n  { Title: 'MINUTENSATZ_1000', Wert: '1.98', Typ: 'Number', Beschreibung: 'Euro pro Minute KST 1000', Gruppe: 'Kosten' },\n  { Title: 'MINUTENSATZ_2000', Wert: '1.21', Typ: 'Number', Beschreibung: 'Euro pro Minute KST 2000', Gruppe: 'Kosten' },\n  { Title: 'MINUTENSATZ_3000', Wert: '0.93', Typ: 'Number', Beschreibung: 'Euro pro Minute KST 3000', Gruppe: 'Kosten' },\n  { Title: 'MINUTENSATZ_4000', Wert: '1.02', Typ: 'Number', Beschreibung: 'Euro pro Minute KST 4000', Gruppe: 'Kosten' },\n  { Title: 'MINUTENSATZ_5000', Wert: '1.02', Typ: 'Number', Beschreibung: 'Euro pro Minute KST 5000', Gruppe: 'Kosten' },\n  { Title: 'MINUTENSATZ_Lager', Wert: '1.10', Typ: 'Number', Beschreibung: 'Euro pro Minute Lager', Gruppe: 'Kosten' },\n  { Title: 'MINUTENSATZ_Verwaltung', Wert: '1.37', Typ: 'Number', Beschreibung: 'Euro pro Minute Verwaltung', Gruppe: 'Kosten' },\n  { Title: 'NZA_ID_COUNTER', Wert: '1', Typ: 'Number', Beschreibung: 'Naechste NZA-ID Nummer', Gruppe: 'System' },\n  { Title: 'NZA_ID_PREFIX', Wert: 'NZA', Typ: 'String', Beschreibung: 'Praefix fuer NZA-IDs', Gruppe: 'System' },\n  { Title: 'CURRENT_YEAR', Wert: '26', Typ: 'String', Beschreibung: 'Aktuelles Jahr (2-stellig)', Gruppe: 'System' },\n  { Title: 'EMAIL_NOTIFY_ENABLED', Wert: 'true', Typ: 'Boolean', Beschreibung: 'E-Mail-Benachrichtigungen aktiv', Gruppe: 'Benachrichtigung' },\n  { Title: 'TEAMS_NOTIFY_ENABLED', Wert: 'true', Typ: 'Boolean', Beschreibung: 'Teams-Benachrichtigungen aktiv', Gruppe: 'Benachrichtigung' }\n];\n\nreturn config.map(cfg => ({ json: { siteId, listId, fields: cfg } }));"
+      },
+      "id": "prepare-data",
+      "name": "Prepare Config",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $json.siteId }}/lists/{{ $json.listId }}/items",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={ \"fields\": {{ JSON.stringify($json.fields) }} }",
+        "options": { "response": { "response": { "neverError": true } } }
+      },
+      "id": "create-item",
+      "name": "Create Item",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [680, 300],
+      "credentials": {
+        "microsoftOAuth2Api": { "id": "Fm3IuAbVYBYDIA4U", "name": "Microsoft account" }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const results = $input.all();\nconst created = results.filter(r => r.json.id).length;\nconst errors = results.filter(r => !r.json.id).length;\nreturn [{ json: { summary: created + ' Config-Eintraege importiert, ' + errors + ' Fehler', total: results.length, created, errors } }];"
+      },
+      "id": "summary",
+      "name": "Summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 300]
+    }
+  ],
+  "connections": {
+    "Start": { "main": [[{ "node": "Prepare Config", "type": "main", "index": 0 }]] },
+    "Prepare Config": { "main": [[{ "node": "Create Item", "type": "main", "index": 0 }]] },
+    "Create Item": { "main": [[{ "node": "Summary", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" }
+}

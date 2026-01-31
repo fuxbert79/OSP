@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NZA Dashboard - Schneider Kabelsatzbau</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="header-content">
+            <div class="header-left">
+                <img src="img/logo.png" alt="Schneider Logo" class="logo" onerror="this.style.display='none'">
+                <div class="header-text">
+                    <h1>NZA Dashboard</h1>
+                    <p class="header-subtitle">Interne Nacharbeits- und Ausschussverwaltung</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <a href="/rms/" class="btn btn-outline" title="Zum RMS wechseln">RMS</a>
+                <button class="btn btn-primary" onclick="openCreateModal()">+ Neue NZA</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- KPI Cards -->
+    <section class="kpi-section">
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-icon">📋</div>
+                <div class="kpi-content">
+                    <span class="kpi-value" id="kpi-offen">-</span>
+                    <span class="kpi-label">Offene NZA</span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon">💰</div>
+                <div class="kpi-content">
+                    <span class="kpi-value" id="kpi-kosten-mtd">-</span>
+                    <span class="kpi-label">Kosten MTD</span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon">📊</div>
+                <div class="kpi-content">
+                    <span class="kpi-value" id="kpi-kosten-ytd">-</span>
+                    <span class="kpi-label">Kosten YTD</span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon">⏱️</div>
+                <div class="kpi-content">
+                    <span class="kpi-value" id="kpi-bearbeitungszeit">-</span>
+                    <span class="kpi-label">Ø Bearbeitungszeit</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="filter-row">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Suche (NZA-ID, Artikel, Beschreibung...)">
+            </div>
+            <div class="filter-group">
+                <select id="filter-typ">
+                    <option value="">Alle Typen</option>
+                    <option value="Interne Reklamation">Interne Reklamation</option>
+                    <option value="Kunden Reklamation">Kunden Reklamation</option>
+                    <option value="Lieferanten Reklamation">Lieferanten Reklamation</option>
+                </select>
+                <select id="filter-status">
+                    <option value="">Alle Status</option>
+                    <option value="Neu">Neu</option>
+                    <option value="In Bearbeitung">In Bearbeitung</option>
+                    <option value="Abgeschlossen">Abgeschlossen</option>
+                </select>
+                <select id="filter-kst">
+                    <option value="">Alle Kostenstellen</option>
+                    <option value="1000">1000</option>
+                    <option value="2000">2000</option>
+                    <option value="3000">3000</option>
+                    <option value="4000">4000</option>
+                    <option value="5000">5000</option>
+                    <option value="Lager">Lager</option>
+                    <option value="Verwaltung">Verwaltung</option>
+                </select>
+                <select id="filter-zeitraum">
+                    <option value="alle">Alle</option>
+                    <option value="heute">Heute</option>
+                    <option value="woche">Diese Woche</option>
+                    <option value="monat" selected>Dieser Monat</option>
+                    <option value="jahr">Dieses Jahr</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Tabelle -->
+        <section class="table-section">
+            <div class="table-header">
+                <h2>NZA-Vorgänge</h2>
+                <span class="table-count" id="table-count">0 Einträge</span>
+            </div>
+            <div class="table-container">
+                <table id="nza-table">
+                    <thead>
+                        <tr>
+                            <th data-sort="nzaId">NZA-ID</th>
+                            <th data-sort="datum">Datum</th>
+                            <th data-sort="typ">Typ</th>
+                            <th data-sort="artikel">Artikel</th>
+                            <th data-sort="verursacher">Verursacher</th>
+                            <th data-sort="kst">KST</th>
+                            <th data-sort="kategorien">Kategorien</th>
+                            <th data-sort="kosten">Kosten</th>
+                            <th data-sort="status">Status</th>
+                            <th>Aktionen</th>
+                        </tr>
+                    </thead>
+                    <tbody id="nza-table-body">
+                        <tr class="loading-row">
+                            <td colspan="10">Lade Daten...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination" id="pagination">
+                <!-- Pagination wird per JS eingefügt -->
+            </div>
+        </section>
+
+        <!-- Charts -->
+        <section class="charts-section">
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>NZA pro Monat</h3>
+                    <canvas id="chart-trend"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Typ-Verteilung</h3>
+                    <canvas id="chart-typ"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Kostenstellen</h3>
+                    <canvas id="chart-kst"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Kosten pro Monat</h3>
+                    <canvas id="chart-kosten"></canvas>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Create Modal -->
+    <div id="modal-create" class="modal">
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h2>Neue NZA anlegen</h2>
+                <button class="modal-close" onclick="closeCreateModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="form-create-nza">
+                    <!-- Stammdaten -->
+                    <div class="form-section">
+                        <h3>Stammdaten</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="create-typ">Reklamationstyp *</label>
+                                <select id="create-typ" required>
+                                    <option value="Interne Reklamation">Interne Reklamation</option>
+                                    <option value="Kunden Reklamation">Kunden Reklamation</option>
+                                    <option value="Lieferanten Reklamation">Lieferanten Reklamation</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="create-datum">Datum *</label>
+                                <input type="date" id="create-datum" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="create-artikel">Artikel-Nr. *</label>
+                                <input type="text" id="create-artikel" placeholder="z.B. KB-12345" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="create-ba">Betriebsauftrag</label>
+                                <input type="number" id="create-ba" placeholder="6-stellig">
+                            </div>
+                            <div class="form-group">
+                                <label for="create-verursacher">Verursacher</label>
+                                <select id="create-verursacher">
+                                    <option value="">-- Auswählen --</option>
+                                    <!-- Wird per JS befüllt -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="create-kst">Kostenstelle *</label>
+                                <select id="create-kst" required>
+                                    <option value="">-- Auswählen --</option>
+                                    <option value="1000">1000</option>
+                                    <option value="2000">2000</option>
+                                    <option value="3000">3000</option>
+                                    <option value="4000">4000</option>
+                                    <option value="5000">5000</option>
+                                    <option value="Lager">Lager</option>
+                                    <option value="Verwaltung">Verwaltung</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="create-beschreibung">Fehlerbeschreibung *</label>
+                            <textarea id="create-beschreibung" rows="3" required placeholder="Detaillierte Beschreibung des Fehlers..."></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Fehler-Kategorien *</label>
+                            <div class="checkbox-grid" id="create-kategorien">
+                                <label><input type="checkbox" value="Crimpfehler"> Crimpfehler</label>
+                                <label><input type="checkbox" value="Längenabweichung"> Längenabweichung</label>
+                                <label><input type="checkbox" value="Verdrahtungsfehler"> Verdrahtungsfehler</label>
+                                <label><input type="checkbox" value="Bearbeitungsfehler"> Bearbeitungsfehler</label>
+                                <label><input type="checkbox" value="Druck fehlerhaft"> Druck fehlerhaft</label>
+                                <label><input type="checkbox" value="Arbeitsanweisung falsch"> Arbeitsanweisung falsch</label>
+                                <label><input type="checkbox" value="Kundenzeichnung falsch"> Kundenzeichnung falsch</label>
+                                <label><input type="checkbox" value="Falsches Material"> Falsches Material</label>
+                                <label><input type="checkbox" value="Materialfehler"> Materialfehler</label>
+                                <label><input type="checkbox" value="Werkzeug/Maschinenfehler"> Werkzeug/Maschinenfehler</label>
+                                <label><input type="checkbox" value="Lieferantenfehler/Reklamation"> Lieferantenfehler/Reklamation</label>
+                                <label><input type="checkbox" value="Sonstige"> Sonstige</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Prozesse -->
+                    <div class="form-section">
+                        <h3>Ausgeführte Arbeiten</h3>
+                        <div id="prozesse-container">
+                            <!-- Prozess 1 (immer sichtbar) -->
+                            <div class="prozess-row" data-prozess="1">
+                                <input type="text" placeholder="Prozess (z.B. Nachcrimpen)" class="prozess-name">
+                                <select class="prozess-werker">
+                                    <option value="">Werker</option>
+                                </select>
+                                <select class="prozess-kst">
+                                    <option value="">KST</option>
+                                    <option value="1000">1000</option>
+                                    <option value="2000">2000</option>
+                                    <option value="3000">3000</option>
+                                    <option value="4000">4000</option>
+                                    <option value="5000">5000</option>
+                                    <option value="Lager">Lager</option>
+                                </select>
+                                <input type="number" placeholder="Min" class="prozess-zeit" min="0">
+                                <span class="prozess-kosten">0,00 €</span>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="addProzessRow()">+ Weiterer Prozess</button>
+                    </div>
+
+                    <!-- Material/Kosten -->
+                    <div class="form-section">
+                        <h3>Kosten</h3>
+                        <div class="form-grid kosten-grid">
+                            <div class="form-group">
+                                <label for="create-kosten-material">Materialkosten (€)</label>
+                                <input type="number" id="create-kosten-material" step="0.01" min="0" value="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="create-kosten-sonstige">Sonstige Kosten (€)</label>
+                                <input type="number" id="create-kosten-sonstige" step="0.01" min="0" value="0">
+                            </div>
+                            <div class="form-group kosten-summe">
+                                <label>Prozesskosten</label>
+                                <span id="summe-prozesse">0,00 €</span>
+                            </div>
+                            <div class="form-group kosten-summe kosten-gesamt">
+                                <label>Gesamtkosten</label>
+                                <span id="summe-gesamt">0,00 €</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeCreateModal()">Abbrechen</button>
+                <button type="submit" form="form-create-nza" class="btn btn-primary">NZA anlegen</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detail Modal -->
+    <div id="modal-detail" class="modal">
+        <div class="modal-content modal-xl">
+            <div class="modal-header">
+                <h2 id="detail-title">NZA-26-0001</h2>
+                <button class="modal-close" onclick="closeDetailModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Tabs -->
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="uebersicht">Übersicht</button>
+                    <button class="tab-btn" data-tab="bilder">Bilder</button>
+                    <button class="tab-btn" data-tab="massnahmen">Maßnahmen</button>
+                    <button class="tab-btn" data-tab="kosten">Kosten</button>
+                    <button class="tab-btn" data-tab="historie">Historie</button>
+                </div>
+
+                <!-- Tab Contents -->
+                <div id="tab-uebersicht" class="tab-content active">
+                    <!-- Wird per JS befüllt -->
+                </div>
+                <div id="tab-bilder" class="tab-content">
+                    <div class="bilder-header">
+                        <h4>Fehlerbilder</h4>
+                        <button class="btn btn-primary btn-sm" onclick="openBildUpload()">+ Bild hochladen</button>
+                    </div>
+                    <div id="bilder-galerie" class="galerie-grid">
+                        <!-- Wird per JS befüllt -->
+                    </div>
+                </div>
+                <div id="tab-massnahmen" class="tab-content">
+                    <div class="massnahmen-header">
+                        <h4>Maßnahmen</h4>
+                        <button class="btn btn-primary btn-sm" onclick="openMassnahmeModal()">+ Maßnahme anlegen</button>
+                    </div>
+                    <div id="massnahmen-liste">
+                        <!-- Wird per JS befüllt -->
+                    </div>
+                </div>
+                <div id="tab-kosten" class="tab-content">
+                    <!-- Wird per JS befüllt -->
+                </div>
+                <div id="tab-historie" class="tab-content">
+                    <!-- Wird per JS befüllt -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox für Bilder -->
+    <div id="lightbox" class="lightbox" style="display: none;">
+        <img id="lightbox-img" src="">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/charts.js"></script>
+</body>
+</html>

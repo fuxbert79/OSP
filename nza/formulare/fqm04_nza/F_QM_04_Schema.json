@@ -1,0 +1,262 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "F-QM-04 Nach- und Zusatzarbeiten (NZA)",
+  "description": "Schema für die halbautomatische Formular-Befüllung im RMS-System",
+  "type": "object",
+  "required": [
+    "formblatt_id",
+    "datum",
+    "reklamationstyp",
+    "artikel_nr",
+    "losgroesse",
+    "ausschuss",
+    "verursacher",
+    "kostenstelle",
+    "fehler_beschreibung",
+    "fehler_kategorie",
+    "ersteller"
+  ],
+  "properties": {
+    "formblatt_id": {
+      "type": "string",
+      "const": "F_QM_04",
+      "description": "Eindeutige Formblatt-ID"
+    },
+    "nza_id": {
+      "type": "string",
+      "pattern": "^NZA-\\d{4}-\\d{3}$",
+      "description": "NZA-Nummer im Format NZA-YYYY-NNN",
+      "examples": ["NZA-2025-001"]
+    },
+    "datum": {
+      "type": "string",
+      "format": "date",
+      "description": "Erstelldatum der NZA"
+    },
+    "reklamationstyp": {
+      "type": "string",
+      "enum": [
+        "Interne Reklamation",
+        "Kunden Reklamation",
+        "Lieferanten Reklamation"
+      ],
+      "description": "Art der Reklamation"
+    },
+    "artikel_nr": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Schneider-Artikelnummer"
+    },
+    "betriebsauftrag": {
+      "type": "string",
+      "description": "Betriebsauftrag-Nummer"
+    },
+    "losgroesse": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Betroffene Losgröße in Stück"
+    },
+    "ausschuss": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Ausschussmenge in Stück (muss <= losgroesse sein)"
+    },
+    "verursacher": {
+      "type": "string",
+      "enum": [
+        "1000",
+        "2000",
+        "3000",
+        "4000",
+        "5000",
+        "Lager",
+        "Verwaltung",
+        "Lieferant",
+        "keine Zuordnung"
+      ],
+      "description": "Verursachende Kostenstelle"
+    },
+    "kostenstelle": {
+      "type": "string",
+      "enum": [
+        "1000",
+        "2000",
+        "3000",
+        "4000",
+        "5000",
+        "Lager",
+        "Verwaltung"
+      ],
+      "description": "Kostenstelle für Nacharbeit"
+    },
+    "qa_nummer": {
+      "type": "string",
+      "pattern": "^QA-\\d{4}-\\d{3}$",
+      "description": "Verknüpfung zu Qualitätsabweichung F-QM-02"
+    },
+    "q_nr_kunde": {
+      "type": "string",
+      "description": "Reklamationsnummer des Kunden"
+    },
+    "ersatz_ba": {
+      "type": "string",
+      "description": "Ersatz-Betriebsauftrag"
+    },
+    "gutschrift_belastung": {
+      "type": "string",
+      "description": "Buchungsreferenz für Gutschrift/Belastung"
+    },
+    "fehler_beschreibung": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 500,
+      "description": "Detaillierte Beschreibung des Fehlers"
+    },
+    "fehler_kategorie": {
+      "type": "string",
+      "enum": [
+        "Crimpfehler",
+        "Längenabweichung",
+        "Verdrahtungsfehler",
+        "Bearbeitungsfehler",
+        "Druck fehlerhaft",
+        "Arbeitsanweisung falsch",
+        "Kundenzeichnung falsch",
+        "Falsches Material",
+        "Materialfehler",
+        "Werkzeug/Maschinenfehler",
+        "Lieferantenfehler/Reklamation"
+      ],
+      "description": "Fehler-Kategorie aus Katalog"
+    },
+    "bemerkungen": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "Zusätzliche Bemerkungen"
+    },
+    "zusaetzliche_taetigkeiten": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["prozess", "werker", "kostenstelle", "zeit_min"],
+        "properties": {
+          "prozess": {
+            "type": "string",
+            "description": "Beschreibung des Arbeitsgangs"
+          },
+          "werker": {
+            "type": "string",
+            "pattern": "^[A-Z]{2,3}$",
+            "description": "MA-Kürzel (gegen HR_CORE validieren)"
+          },
+          "kostenstelle": {
+            "type": "string",
+            "enum": ["1000", "2000", "3000", "4000", "5000", "Lager", "Verwaltung"]
+          },
+          "zeit_min": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Arbeitszeit in Minuten"
+          }
+        }
+      },
+      "description": "Liste der zusätzlichen Tätigkeiten"
+    },
+    "zusaetzliches_material": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["artikel_nummer", "menge", "einheit"],
+        "properties": {
+          "artikel_nummer": {
+            "type": "string",
+            "description": "Artikelnummer"
+          },
+          "artikel_bezeichnung": {
+            "type": "string",
+            "description": "Artikelbezeichnung"
+          },
+          "menge": {
+            "type": "number",
+            "minimum": 0.01,
+            "description": "Menge"
+          },
+          "einheit": {
+            "type": "string",
+            "enum": ["Meter", "Millimeter", "Stück", "Sonstiges"],
+            "description": "Mengeneinheit"
+          }
+        }
+      },
+      "description": "Liste des zusätzlichen Materials"
+    },
+    "ersteller": {
+      "type": "string",
+      "pattern": "^[A-Z]{2,3}$",
+      "description": "MA-Kürzel des Erstellers",
+      "examples": ["AL", "SK", "MD"]
+    },
+    "erstellt_am": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Zeitstempel der Erstellung"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["offen", "in_bearbeitung", "abgeschlossen"],
+      "default": "offen"
+    },
+    "gesamt_zeit_min": {
+      "type": "integer",
+      "description": "Berechnete Gesamtzeit aller Tätigkeiten in Minuten"
+    }
+  },
+  "additionalProperties": false,
+
+  "$defs": {
+    "kostenstellen_beschreibung": {
+      "1000": "KST F1 - Fertigung 1",
+      "2000": "KST F2 - Fertigung 2",
+      "3000": "KST F3 - Fertigung 3",
+      "4000": "KST 4",
+      "5000": "KST 5",
+      "Lager": "Lager/Logistik",
+      "Verwaltung": "Verwaltung/Büro",
+      "Lieferant": "Externer Lieferant",
+      "keine Zuordnung": "Nicht zuordenbar"
+    },
+    "fehler_kategorien_beschreibung": {
+      "Crimpfehler": "Falsche Crimphöhe, Crimp nicht ok",
+      "Längenabweichung": "Kabel zu kurz/lang",
+      "Verdrahtungsfehler": "Falsche Belegung, Verpolung",
+      "Bearbeitungsfehler": "Abisolierung, Schnitt fehlerhaft",
+      "Druck fehlerhaft": "Beschriftung falsch/unleserlich",
+      "Arbeitsanweisung falsch": "Fehler in der AA",
+      "Kundenzeichnung falsch": "Zeichnung fehlerhaft",
+      "Falsches Material": "Materialverwechslung",
+      "Materialfehler": "Defektes/mangelhaftes Material",
+      "Werkzeug/Maschinenfehler": "Maschine/Werkzeug defekt",
+      "Lieferantenfehler/Reklamation": "Lieferant ist Ursache"
+    }
+  },
+
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "ausschuss": { "type": "integer" },
+          "losgroesse": { "type": "integer" }
+        }
+      },
+      "then": {
+        "properties": {
+          "ausschuss": {
+            "maximum": { "$data": "1/losgroesse" }
+          }
+        }
+      }
+    }
+  ]
+}
