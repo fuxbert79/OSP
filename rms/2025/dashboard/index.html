@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RMS Dashboard 2025 - Schneider Kabelsatzbau</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --primary-blue: #0080C9;
+            --accent-orange: #DC500F;
+            --success-green: #28a745;
+            --warning-yellow: #ffc107;
+            --danger-red: #dc3545;
+            --bg-light: #f8f9fa;
+            --text-dark: #333;
+            --border-radius: 10px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #eee;
+            border-top-color: var(--primary-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-blue), #005a8c);
+            color: white;
+            padding: 20px 30px;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .header-subtitle { opacity: 0.9; font-size: 0.9rem; }
+        .header-company { opacity: 0.7; font-size: 0.8rem; }
+
+        .badge-archiv {
+            background: var(--accent-orange);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .kpi-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .kpi-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .kpi-card h3 {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .kpi-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .kpi-card.kpi-success .kpi-value { color: var(--success-green); }
+
+        .filter-section {
+            background: white;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .filter-section input, .filter-section select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .filter-section input { flex: 1; min-width: 200px; }
+
+        .count-badge {
+            background: var(--primary-blue);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .table-section {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        table { width: 100%; border-collapse: collapse; }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: var(--primary-blue);
+            color: white;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        th:hover { background: #0070b5; }
+        tr:hover { background: #f5f9fc; }
+        tr { cursor: pointer; }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-kunde { background: #e3f2fd; color: #1976d2; }
+        .badge-lieferant { background: #fff3e0; color: #f57c00; }
+        .status-abgeschlossen { background: #e8f5e9; color: #2e7d32; }
+        .status-offen { background: #ffebee; color: #c62828; }
+
+        .charts-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .chart-container h3 {
+            font-size: 1rem;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-blue);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 800px;
+            margin: 50px auto;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .close-btn:hover { color: var(--danger-red); }
+
+        .detail-section {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .detail-section h3 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .detail-table { width: 100%; }
+
+        .detail-table th {
+            background: none;
+            color: #666;
+            text-align: left;
+            padding: 8px 10px;
+            width: 35%;
+            font-weight: 500;
+        }
+
+        .detail-table td { padding: 8px 10px; }
+
+        .file-list { display: flex; flex-direction: column; gap: 8px; }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: var(--text-dark);
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .file-item:hover {
+            background: #e3f2fd;
+            transform: translateX(5px);
+        }
+
+        .file-icon { font-size: 1.2rem; }
+
+        .error-msg {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; gap: 15px; text-align: center; }
+            .filter-section { flex-direction: column; }
+            .filter-section input { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <p style="margin-top:15px;">Lade Daten...</p>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <div class="header-text">
+                <h1>RMS Dashboard 2025</h1>
+                <p class="header-subtitle">Archiv - Externe Reklamationen Geschaeftsjahr 2025</p>
+                <p class="header-company">Rainer Schneider Kabelsatzbau GmbH & Co. KG</p>
+            </div>
+            <div class="badge-archiv">ARCHIV 2025</div>
+        </div>
+    </header>
+
+    <main>
+        <div id="error-container"></div>
+
+        <!-- KPI Cards -->
+        <section class="kpi-cards">
+            <div class="kpi-card kpi-success">
+                <h3>Reklamationen</h3>
+                <span class="kpi-value" id="kpi-gesamt">--</span>
+            </div>
+            <div class="kpi-card">
+                <h3>Kunden</h3>
+                <span class="kpi-value" id="kpi-kunden">--</span>
+            </div>
+            <div class="kpi-card">
+                <h3>Lieferanten</h3>
+                <span class="kpi-value" id="kpi-lieferanten">--</span>
+            </div>
+            <div class="kpi-card kpi-success">
+                <h3>Abschlussquote</h3>
+                <span class="kpi-value" id="kpi-quote">--%</span>
+            </div>
+            <div class="kpi-card">
+                <h3>NZA-Kosten</h3>
+                <span class="kpi-value" id="kpi-kosten">-- EUR</span>
+            </div>
+            <div class="kpi-card kpi-success">
+                <h3>Rekla-Quote</h3>
+                <span class="kpi-value" id="kpi-rekla">--%</span>
+            </div>
+        </section>
+
+        <!-- Filter -->
+        <section class="filter-section">
+            <input type="text" id="search-input" placeholder="Suchen (QA-ID, Absender, Artikel...)" oninput="filterTable()">
+            <select id="filter-typ" onchange="filterTable()">
+                <option value="">Alle Typen</option>
+                <option value="Kunde">Kundenreklamation</option>
+                <option value="Lieferant">Lieferantenreklamation</option>
+            </select>
+            <span id="filtered-count" class="count-badge">-- Eintraege</span>
+        </section>
+
+        <!-- Tabelle -->
+        <section class="table-section">
+            <table>
+                <thead>
+                    <tr>
+                        <th onclick="sortTable('qa_id')">QA-ID</th>
+                        <th onclick="sortTable('typ')">Typ</th>
+                        <th onclick="sortTable('absender')">Absender</th>
+                        <th onclick="sortTable('artikel')">Artikel</th>
+                        <th onclick="sortTable('datum')">Datum</th>
+                        <th>Formular</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <tr><td colspan="7" style="text-align:center;">Lade Daten...</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Charts -->
+        <section class="charts-section">
+            <div class="chart-container">
+                <h3>Reklamationen pro Monat</h3>
+                <canvas id="chart-trend"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Verteilung nach Typ</h3>
+                <canvas id="chart-typ"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Top Absender</h3>
+                <canvas id="chart-absender"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Formular-Nutzung</h3>
+                <canvas id="chart-formular"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <!-- Detail Modal -->
+    <div id="detail-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title">QA-XXXXX</h2>
+            <div id="modal-content"></div>
+        </div>
+    </div>
+
+    
+    <footer>
+        <p>OSP | RMS | Reklamationsmanagementsystem | Archiv 2025 | Andreas Löhr | Qualitätsmanager</p>
+    </footer>
+
+    <script>
+        // API-Konfiguration
+        const API_BASE = '/api/rms2025';
+        // Fallback: Lokale n8n-URL (fuer Tests)
+        // const API_BASE = 'http://localhost:5678/webhook';
+
+        let allReklamationen = [];
+        let chartTrend, chartTyp, chartAbsender, chartFormular;
+
+        // API-Aufruf
+        async function fetchAPI(endpoint) {
+            try {
+                const response = await fetch(`${API_BASE}/${endpoint}`);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                return await response.json();
+            } catch (error) {
+                console.error(`API-Fehler (${endpoint}):`, error);
+                throw error;
+            }
+        }
+
+        // KPIs laden
+        async function loadKPIs() {
+            try {
+                const data = await fetchAPI('kpis');
+                document.getElementById('kpi-gesamt').textContent = data.gesamt || 27;
+                document.getElementById('kpi-kunden').textContent = data.kunden || 16;
+                document.getElementById('kpi-lieferanten').textContent = data.lieferanten || 11;
+                document.getElementById('kpi-quote').textContent = `${data.abschlussquote || 96}%`;
+                document.getElementById('kpi-kosten').textContent = `${(data.nzaKosten || 3847).toLocaleString('de-DE')} EUR`;
+                document.getElementById('kpi-rekla').textContent = `${data.reklamationsquote || 0.24}%`;
+            } catch (e) {
+                showFallbackKPIs();
+            }
+        }
+
+        function showFallbackKPIs() {
+            document.getElementById('kpi-gesamt').textContent = '27';
+            document.getElementById('kpi-kunden').textContent = '16';
+            document.getElementById('kpi-lieferanten').textContent = '11';
+            document.getElementById('kpi-quote').textContent = '96%';
+            document.getElementById('kpi-kosten').textContent = '3.847 EUR';
+            document.getElementById('kpi-rekla').textContent = '0,24%';
+        }
+
+        // Reklamationen laden
+        async function loadReklamationen() {
+            try {
+                const response = await fetchAPI('reklamationen');
+                // API gibt { data: [...], count: N } zurueck
+                allReklamationen = response.data || response;
+                renderTable(allReklamationen);
+            } catch (e) {
+                loadFallbackData();
+            }
+        }
+
+        // Fallback: Eingebettete Daten
+        function loadFallbackData() {
+            allReklamationen = [
+                { qa_id: "QA-25001", typ: "Kunde", absender: "Laserline", artikel: "800606", datum: "2025-01-21", formular: "NZA", status: "Abgeschlossen", fehler: "AA falsch" },
+                { qa_id: "QA-25002", typ: "Kunde", absender: "Siemens NB", artikel: "A5E50613989", datum: "2025-02-04", formular: "8D", status: "Abgeschlossen", fehler: "Fehlende Einpressmutter" },
+                { qa_id: "QA-25003", typ: "Kunde", absender: "Laserline", artikel: "305637", datum: "2025-02-12", formular: "NZA + 8D", status: "Abgeschlossen", fehler: "Kabel zu kurz" },
+                { qa_id: "QA-25004", typ: "Lieferant", absender: "Pueplichhuisen", artikel: "15550900005900", datum: "2025-02-13", formular: "QA", status: "Abgeschlossen", fehler: "Wrap-4-427" },
+                { qa_id: "QA-25005", typ: "Kunde", absender: "Lumberg", artikel: "119660", datum: "2025-02-19", formular: "NZA + 8D", status: "Abgeschlossen", fehler: "Iso-Crimp" },
+                { qa_id: "QA-25006", typ: "Kunde", absender: "Laserline", artikel: "878032", datum: "2025-02-19", formular: "NZA", status: "Abgeschlossen", fehler: "Koerperschluss" },
+                { qa_id: "QA-25007", typ: "Kunde", absender: "Saurer", artikel: "168-655.549", datum: "", formular: "-", status: "Abgeschlossen", fehler: "" },
+                { qa_id: "QA-25008", typ: "Kunde", absender: "Resistec", artikel: "7.10.38", datum: "2025-04-01", formular: "NZA + 8D", status: "Abgeschlossen", fehler: "Verschmutzt" },
+                { qa_id: "QA-25009", typ: "Kunde", absender: "Resistec", artikel: "7.10.39", datum: "2025-04-01", formular: "NZA + 8D", status: "Abgeschlossen", fehler: "Verschmutzt" },
+                { qa_id: "QA-25010", typ: "Kunde", absender: "Stephan", artikel: "111861649", datum: "2025-04-02", formular: "NZA", status: "Abgeschlossen", fehler: "Zeichnung" },
+                { qa_id: "QA-25011", typ: "Lieferant", absender: "AKM", artikel: "B3408-001853", datum: "2025-04-02", formular: "QA", status: "Abgeschlossen", fehler: "Verschraubung" },
+                { qa_id: "QA-25012", typ: "Lieferant", absender: "Sensor Elektrik", artikel: "-", datum: "2025-04-29", formular: "QA", status: "Abgeschlossen", fehler: "" },
+                { qa_id: "QA-25013", typ: "Kunde", absender: "Saurer", artikel: "168-655.551", datum: "2025-04-11", formular: "NZA", status: "Abgeschlossen", fehler: "Codierung" },
+                { qa_id: "QA-25014", typ: "Kunde", absender: "Seuster", artikel: "022792-A", datum: "2025-04-30", formular: "NZA", status: "Abgeschlossen", fehler: "Druck" },
+                { qa_id: "QA-25015", typ: "Kunde", absender: "Saurer", artikel: "188-655.112", datum: "", formular: "-", status: "Abgeschlossen", fehler: "" },
+                { qa_id: "QA-25016", typ: "Lieferant", absender: "Pueplichhuisen", artikel: "15550900005900", datum: "2025-05-27", formular: "QA", status: "Abgeschlossen", fehler: "Wrap" },
+                { qa_id: "QA-25017", typ: "Lieferant", absender: "WAGO", artikel: "-", datum: "2025-05-27", formular: "QA", status: "Abgeschlossen", fehler: "Adermarkierer" },
+                { qa_id: "QA-25018", typ: "Lieferant", absender: "Lapp", artikel: "1110814", datum: "2025-06-04", formular: "QA", status: "Abgeschlossen", fehler: "Oelflex" },
+                { qa_id: "QA-25019", typ: "Lieferant", absender: "Lapp", artikel: "1110147", datum: "2025-06-24", formular: "QA", status: "Abgeschlossen", fehler: "Oelflex" },
+                { qa_id: "QA-25020", typ: "Kunde", absender: "Laserline", artikel: "878018", datum: "", formular: "-", status: "Abgeschlossen", fehler: "" },
+                { qa_id: "QA-25021", typ: "Kunde", absender: "Bosch", artikel: "8-738-808-369", datum: "", formular: "-", status: "Abgeschlossen", fehler: "Sonderfreigabe" },
+                { qa_id: "QA-25022", typ: "Lieferant", absender: "Pueplichhuisen", artikel: "-", datum: "2025-07-04", formular: "QA", status: "Abgeschlossen", fehler: "" },
+                { qa_id: "QA-25024", typ: "Kunde", absender: "Laserline", artikel: "800604", datum: "", formular: "-", status: "Abgeschlossen", fehler: "" },
+                { qa_id: "QA-25026", typ: "Kunde", absender: "Laserline", artikel: "820054", datum: "2025-09-18", formular: "NZA", status: "Abgeschlossen", fehler: "Rohrkabelschuh" },
+                { qa_id: "QA-25027", typ: "Lieferant", absender: "Helu", artikel: "-", datum: "", formular: "QA", status: "Abgeschlossen", fehler: "" },
+                { qa_id: "QA-25028", typ: "Lieferant", absender: "Helu", artikel: "1110186", datum: "2025-10-06", formular: "QA", status: "Abgeschlossen", fehler: "Kabel" },
+                { qa_id: "QA-25029", typ: "Lieferant", absender: "CEL", artikel: "-", datum: "", formular: "-", status: "Offen", fehler: "" }
+            ];
+            renderTable(allReklamationen);
+        }
+
+        // Tabelle rendern
+        function renderTable(data) {
+            const tbody = document.getElementById('table-body');
+            tbody.innerHTML = data.map(r => `
+                <tr onclick="showDetail('${r.qa_id || r.id}')">
+                    <td><strong>${r.qa_id}</strong></td>
+                    <td><span class="badge badge-${(r.typ || '').toLowerCase()}">${r.typ}</span></td>
+                    <td>${r.absender || ''}</td>
+                    <td>${r.artikel || '-'}</td>
+                    <td>${formatDate(r.datum)}</td>
+                    <td>${r.formular || '-'}</td>
+                    <td><span class="badge status-${(r.status || '').toLowerCase().replace(' ', '-')}">${r.status}</span></td>
+                </tr>
+            `).join('');
+            document.getElementById('filtered-count').textContent = `${data.length} Eintraege`;
+        }
+
+        function formatDate(d) {
+            if (!d) return '-';
+            try {
+                return new Date(d).toLocaleDateString('de-DE');
+            } catch (e) {
+                return d;
+            }
+        }
+
+        // Filter
+        function filterTable() {
+            const search = document.getElementById('search-input').value.toLowerCase();
+            const typ = document.getElementById('filter-typ').value;
+
+            const filtered = allReklamationen.filter(r => {
+                const matchSearch = !search ||
+                    (r.qa_id || '').toLowerCase().includes(search) ||
+                    (r.absender || '').toLowerCase().includes(search) ||
+                    (r.artikel || '').toLowerCase().includes(search);
+                const matchTyp = !typ || r.typ === typ;
+                return matchSearch && matchTyp;
+            });
+            renderTable(filtered);
+        }
+
+        // Sortierung
+        let sortDir = {};
+        function sortTable(key) {
+            sortDir[key] = !sortDir[key];
+            allReklamationen.sort((a, b) => {
+                const valA = (a[key] || '').toString();
+                const valB = (b[key] || '').toString();
+                return sortDir[key] ? valA.localeCompare(valB) : valB.localeCompare(valA);
+            });
+            filterTable();
+        }
+
+        // Detail-Modal
+        const SP_BASE = 'https://rainerschneiderkabelsatz.sharepoint.com/sites/RMS/Freigegebene%20Dokumente/2025/';
+
+        function getFileIcon(filename) {
+            const ext = (filename.split('.').pop() || '').toLowerCase();
+            const icons = {
+                'pdf': '📄', 'xlsx': '📊', 'xls': '📊', 'docx': '📝', 'doc': '📝',
+                'pptx': '📽️', 'ppt': '📽️', 'jpg': '🖼️', 'jpeg': '🖼️', 'png': '🖼️',
+                'msg': '📧', 'htm': '🌐', 'html': '🌐'
+            };
+            return icons[ext] || '📎';
+        }
+
+        function buildSharePointUrl(ordner, datei) {
+            return SP_BASE + encodeURIComponent(ordner) + '/' + encodeURIComponent(datei);
+        }
+
+        async function showDetail(id) {
+            const r = allReklamationen.find(x => x.qa_id === id || x.id === id);
+            if (!r) return;
+
+            const dateien = r.dateien || [];
+            const dateiListe = dateien.length > 0
+                ? dateien.map(d => `
+                    <a href="${buildSharePointUrl(r.ordner, d)}" target="_blank" class="file-item">
+                        <span class="file-icon">${getFileIcon(d)}</span>
+                        <span>${d}</span>
+                    </a>
+                `).join('')
+                : '<p style="color:#666;">Keine Dateien vorhanden</p>';
+
+            document.getElementById('modal-title').textContent = `${r.qa_id} - ${r.absender}`;
+            document.getElementById('modal-content').innerHTML = `
+                <div class="detail-section">
+                    <h3>Stammdaten</h3>
+                    <table class="detail-table">
+                        <tr><th>QA-ID</th><td>${r.qa_id}</td></tr>
+                        <tr><th>Typ</th><td>${r.typ}reklamation</td></tr>
+                        <tr><th>Absender</th><td>${r.absender}</td></tr>
+                        <tr><th>Artikel-Nr.</th><td>${r.artikel || '-'}</td></tr>
+                        <tr><th>Datum</th><td>${formatDate(r.datum)}</td></tr>
+                        <tr><th>Formular</th><td>${r.formular || '-'}</td></tr>
+                        <tr><th>Status</th><td>${r.status}</td></tr>
+                    </table>
+                </div>
+                <div class="detail-section">
+                    <h3>Fehlerbeschreibung</h3>
+                    <p>${r.fehler || 'Keine Details verfuegbar'}</p>
+                </div>
+                <div class="detail-section">
+                    <h3>Dateien (${dateien.length})</h3>
+                    <div class="file-list">
+                        ${dateiListe}
+                    </div>
+                </div>
+            `;
+            document.getElementById('detail-modal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('detail-modal').style.display = 'none';
+        }
+
+        // Charts laden
+        async function loadCharts() {
+            try {
+                const data = await fetchAPI('charts');
+                renderCharts(data);
+            } catch (e) {
+                renderFallbackCharts();
+            }
+        }
+
+        function renderCharts(data) {
+            // Trend
+            chartTrend = new Chart(document.getElementById('chart-trend'), {
+                type: 'bar',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mrz', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+                    datasets: [{ label: 'Reklamationen', data: data.monthly || [1,5,0,8,2,2,2,0,1,1,0,0], backgroundColor: '#0080C9' }]
+                },
+                options: { responsive: true, plugins: { legend: { display: false } } }
+            });
+
+            // Typ
+            chartTyp = new Chart(document.getElementById('chart-typ'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Kunden', 'Lieferanten'],
+                    datasets: [{ data: [data.typ?.Kunde || 16, data.typ?.Lieferant || 11], backgroundColor: ['#0080C9', '#DC500F'] }]
+                },
+                options: { responsive: true }
+            });
+
+            // Absender
+            chartAbsender = new Chart(document.getElementById('chart-absender'), {
+                type: 'bar',
+                data: {
+                    labels: data.absender?.labels || ['Laserline', 'Pueplichhuisen', 'Saurer', 'Resistec', 'Lapp', 'Helu'],
+                    datasets: [{ label: 'Anzahl', data: data.absender?.values || [8,3,3,2,2,2], backgroundColor: '#28a745' }]
+                },
+                options: { responsive: true, indexAxis: 'y', plugins: { legend: { display: false } } }
+            });
+
+            // Formular
+            chartFormular = new Chart(document.getElementById('chart-formular'), {
+                type: 'pie',
+                data: {
+                    labels: ['NZA', '8D', 'QA', 'Ohne'],
+                    datasets: [{ data: [data.formular?.NZA || 10, data.formular?.['8D'] || 5, data.formular?.QA || 12, data.formular?.Ohne || 5], backgroundColor: ['#0080C9', '#DC500F', '#ffc107', '#6c757d'] }]
+                },
+                options: { responsive: true }
+            });
+        }
+
+        function renderFallbackCharts() {
+            renderCharts({
+                monthly: [1,5,0,8,2,2,2,0,1,1,0,0],
+                typ: { Kunde: 16, Lieferant: 11 },
+                absender: { labels: ['Laserline', 'Pueplichhuisen', 'Saurer', 'Resistec', 'Lapp', 'Helu'], values: [8,3,3,2,2,2] },
+                formular: { NZA: 10, '8D': 5, QA: 12, Ohne: 5 }
+            });
+        }
+
+        // Modal schliessen bei Klick ausserhalb
+        window.onclick = function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.style.display = 'none';
+            }
+        };
+
+        // Initialisierung
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                await Promise.all([loadKPIs(), loadReklamationen(), loadCharts()]);
+            } catch (e) {
+                console.error('Initialisierungsfehler:', e);
+                showFallbackKPIs();
+                loadFallbackData();
+                renderFallbackCharts();
+            } finally {
+                document.getElementById('loading-overlay').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

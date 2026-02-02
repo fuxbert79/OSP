@@ -1,0 +1,158 @@
+{
+  "name": "RMS-2025-Dashboard-API-Standalone",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "rms2025/kpis",
+        "responseMode": "responseNode",
+        "options": { "allowedOrigins": "*" }
+      },
+      "id": "webhook-kpis",
+      "name": "Webhook KPIs",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [200, 100],
+      "webhookId": "rms2025-kpis"
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "rms2025/reklamationen",
+        "responseMode": "responseNode",
+        "options": { "allowedOrigins": "*" }
+      },
+      "id": "webhook-reklamationen",
+      "name": "Webhook Reklamationen",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [200, 400],
+      "webhookId": "rms2025-reklamationen"
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "rms2025/charts",
+        "responseMode": "responseNode",
+        "options": { "allowedOrigins": "*" }
+      },
+      "id": "webhook-charts",
+      "name": "Webhook Charts",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [200, 700],
+      "webhookId": "rms2025-charts"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{json:{gesamt:27,kunden:16,lieferanten:11,offen:1,abgeschlossen:26,abschlussquote:96,mitNza:10,mit8d:5,nzaKosten:3846.73,reklamationsquote:0.24}}];"
+      },
+      "id": "kpis-data",
+      "name": "KPIs Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 100]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" },
+              { "name": "Content-Type", "value": "application/json" }
+            ]
+          }
+        }
+      },
+      "id": "response-kpis",
+      "name": "Response KPIs",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [700, 100]
+    },
+    {
+      "parameters": {
+        "jsCode": "const r=[{id:1,qa_id:'QA-25001',typ:'Kunde',absender:'Laserline',artikel:'800606',datum:'2025-01-21',formular:'NZA',status:'Abgeschlossen',fehler:'AA falsch - Soll: Raendelschrauben kurz, Ist: Raendelschrauben lang',ordner:'QA-25001 Laserline',dateien:['18007713.pdf','800606_20012025.pdf','NZA QA-25001.xlsx']},{id:2,qa_id:'QA-25002',typ:'Kunde',absender:'Siemens NB',artikel:'A5E50613989',datum:'2025-02-04',formular:'8D',status:'Abgeschlossen',fehler:'Fehlende Einpressmutter bei Stifteinsatz 37 pol.',ordner:'QA-25002 Siemens NB',dateien:['8D QA-25002.xlsx','Q2 200440313 F3 200440311 A5E50613989.pptx']},{id:3,qa_id:'QA-25003',typ:'Kunde',absender:'Laserline',artikel:'305637',datum:'2025-02-12',formular:'NZA + 8D',status:'Abgeschlossen',fehler:'Flachrundkabel beidseitig zu kurz abgemantelt',ordner:'QA-25003 Laserline',dateien:['8D QA-25003 Laserline.xlsx','NZA QA-25003.xlsx']},{id:4,qa_id:'QA-25004',typ:'Lieferant',absender:'Pueplichhuisen',artikel:'15550900005900',datum:'2025-02-13',formular:'QA',status:'Abgeschlossen',fehler:'Qualitaetsabweichung Wrap-4-427',ordner:'QA-25004 Püplichhuisen',dateien:['QA-25004.pdf','QA-25004.xlsx']},{id:5,qa_id:'QA-25005',typ:'Kunde',absender:'Lumberg',artikel:'119660',datum:'2025-02-19',formular:'NZA + 8D',status:'Abgeschlossen',fehler:'Fehlerhafter Iso-Crimp an Flachsteckhuelse',ordner:'QA-25005 Lumberg',dateien:['8D QA-25005 Lumberg.xlsx','NZA QA-25005.xlsx','Schulungsprotokoll Lumberg.pdf']},{id:6,qa_id:'QA-25006',typ:'Kunde',absender:'Laserline',artikel:'878032',datum:'2025-02-19',formular:'NZA',status:'Abgeschlossen',fehler:'Koerperschluss im Anschlussstecker',ordner:'QA-25006 Laserline',dateien:['NZA QA-25006.xlsx']},{id:7,qa_id:'QA-25007',typ:'Kunde',absender:'Saurer',artikel:'168-655.549',datum:'',formular:'-',status:'Abgeschlossen',fehler:'Details in PDF',ordner:'QA-25007 Saurer',dateien:['168-655.549 Kurz.jpeg','EMPB 168-655.549-200383-42856.pdf']},{id:8,qa_id:'QA-25008',typ:'Kunde',absender:'Resistec',artikel:'7.10.38',datum:'2025-04-01',formular:'NZA + 8D',status:'Abgeschlossen',fehler:'Artikel verschmutzt - 269 Neuproduktion',ordner:'QA-25008 Resistec',dateien:['8D QA-25008 Resistec.xlsx','NZA QA-25008.xlsx']},{id:9,qa_id:'QA-25009',typ:'Kunde',absender:'Resistec',artikel:'7.10.39',datum:'2025-04-01',formular:'NZA + 8D',status:'Abgeschlossen',fehler:'Artikel verschmutzt - 98 Neuproduktion',ordner:'QA-25009 Resistec',dateien:['8D QA-25009 Resistec.xlsx','NZA QA-25009.xlsx']},{id:10,qa_id:'QA-25010',typ:'Kunde',absender:'Stephan',artikel:'111861649',datum:'2025-04-02',formular:'NZA',status:'Abgeschlossen',fehler:'Nach veralteter Zeichnung gefertigt',ordner:'QA-25010 Stephan',dateien:['NZA QA-25010.xlsx']},{id:11,qa_id:'QA-25011',typ:'Lieferant',absender:'AKM',artikel:'B3408-001853',datum:'2025-04-02',formular:'QA',status:'Abgeschlossen',fehler:'Verschraubung M20x1,5/24',ordner:'QA-25011 AKM',dateien:['QA-25011.pdf','QA-25011.xlsx']},{id:12,qa_id:'QA-25012',typ:'Lieferant',absender:'Sensor Elektrik',artikel:'-',datum:'2025-04-29',formular:'QA',status:'Abgeschlossen',fehler:'Weiterleitung an Unterlieferant',ordner:'QA-25012 Laserline vs. Sensor elektrik',dateien:['Qualitätsabweichung QA-25012.xlsx']},{id:13,qa_id:'QA-25013',typ:'Kunde',absender:'Saurer',artikel:'168-655.551',datum:'2025-04-11',formular:'NZA',status:'Abgeschlossen',fehler:'Falsche Codierung Steckhuelsengeh.',ordner:'QA-25013 Saurer',dateien:['NZA QA-25013.xlsx']},{id:14,qa_id:'QA-25014',typ:'Kunde',absender:'Seuster',artikel:'022792-A',datum:'2025-04-30',formular:'NZA',status:'Abgeschlossen',fehler:'Falscher Kabel-Druck',ordner:'QA-25014 Seuster',dateien:['NZA QA-25014.xlsx','QA-25014.pdf']},{id:15,qa_id:'QA-25015',typ:'Kunde',absender:'Saurer',artikel:'188-655.112',datum:'',formular:'-',status:'Abgeschlossen',fehler:'Details in PDF',ordner:'QA-25015 Saurer',dateien:['188655112.pdf']},{id:16,qa_id:'QA-25016',typ:'Lieferant',absender:'Pueplichhuisen',artikel:'15550900005900',datum:'2025-05-27',formular:'QA',status:'Abgeschlossen',fehler:'Wiederholter Fehler Wrap-4-427',ordner:'QA-25016 Püplichhuisen',dateien:['QA-25016.pdf','QA-25016.xlsx']},{id:17,qa_id:'QA-25017',typ:'Lieferant',absender:'WAGO',artikel:'-',datum:'2025-05-27',formular:'QA',status:'Abgeschlossen',fehler:'Adermarkierer',ordner:'QA-25017 WAGO',dateien:['QA-25017.pdf','QA-25017.xlsx']},{id:18,qa_id:'QA-25018',typ:'Lieferant',absender:'Lapp',artikel:'1110814',datum:'2025-06-04',formular:'QA',status:'Abgeschlossen',fehler:'Oelflex classic 110 34G1',ordner:'QA-25018 Lapp',dateien:['Gutschrift Lapp.pdf','QA-25018.xlsx']},{id:19,qa_id:'QA-25019',typ:'Lieferant',absender:'Lapp',artikel:'1110147',datum:'2025-06-24',formular:'QA',status:'Abgeschlossen',fehler:'Oelflex classic 110 2x0,5',ordner:'QA-25019 Lapp',dateien:['QA-25019.pdf','QA-25019.xlsx']},{id:20,qa_id:'QA-25020',typ:'Kunde',absender:'Laserline',artikel:'878018',datum:'',formular:'-',status:'Abgeschlossen',fehler:'Details in PDF',ordner:'QA-25020 Laserline',dateien:['18007918 Rekla Laserline.pdf']},{id:21,qa_id:'QA-25021',typ:'Kunde',absender:'Bosch',artikel:'8-738-808-369',datum:'',formular:'-',status:'Abgeschlossen',fehler:'Kabelbaum R2107 - Sonderfreigabe',ordner:'QA-25021 Bosch',dateien:['Sonderfreigabe 001-25  8-738-808-369 Bosch.pdf']},{id:22,qa_id:'QA-25022',typ:'Lieferant',absender:'Pueplichhuisen',artikel:'-',datum:'2025-07-04',formular:'QA',status:'Abgeschlossen',fehler:'Dritter Fall 2025',ordner:'QA-25022 Püplichhuisen',dateien:['QA-25022.pdf','QA-25022.xlsx']},{id:23,qa_id:'QA-25024',typ:'Kunde',absender:'Laserline',artikel:'800604',datum:'',formular:'-',status:'Abgeschlossen',fehler:'Ruecklieferung 18007940',ordner:'QA-25024 Laserline',dateien:['Rückliefgerung 18007940 .pdf']},{id:24,qa_id:'QA-25026',typ:'Kunde',absender:'Laserline',artikel:'820054',datum:'2025-09-18',formular:'NZA',status:'Abgeschlossen',fehler:'Falscher Rohrkabelschuh',ordner:'QA-25026 Laserline',dateien:['18008000.pdf','NZA QA-25026.xlsx']},{id:25,qa_id:'QA-25027',typ:'Lieferant',absender:'Helu',artikel:'-',datum:'',formular:'QA',status:'Abgeschlossen',fehler:'Kostenuebersicht vorhanden',ordner:'QA-25027 Helu',dateien:['Kostenübersicht QA-25027.xlsx']},{id:26,qa_id:'QA-25028',typ:'Lieferant',absender:'Helu',artikel:'1110186',datum:'2025-10-06',formular:'QA',status:'Abgeschlossen',fehler:'F-CY-JZ 4G1,5mm2',ordner:'QA-25028 Helu',dateien:['QA-25028 Helu.pdf','QA-25028 Helu.xlsx']},{id:27,qa_id:'QA-25029',typ:'Lieferant',absender:'CEL',artikel:'-',datum:'',formular:'-',status:'Offen',fehler:'Keine Daten',ordner:'QA-25029 CEL',dateien:[]}];const input=$input.first().json;const query=input.query||{};let result=r;if(query.typ){result=result.filter(x=>x.typ===query.typ);}if(query.search){const s=query.search.toLowerCase();result=result.filter(x=>(x.qa_id||'').toLowerCase().includes(s)||(x.absender||'').toLowerCase().includes(s)||(x.artikel||'').toLowerCase().includes(s));}return[{json:{data:result,count:result.length}}];"
+      },
+      "id": "reklamationen-data",
+      "name": "Reklamationen Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 400]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" },
+              { "name": "Content-Type", "value": "application/json" }
+            ]
+          }
+        }
+      },
+      "id": "response-reklamationen",
+      "name": "Response Reklamationen",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [700, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{json:{monthly:[1,4,0,5,3,2,1,0,1,1,0,0],typ:{Kunde:16,Lieferant:11},absender:{labels:['Laserline','Pueplichhuisen','Saurer','Resistec','Lapp','Helu'],values:[6,3,3,2,2,2]},formular:{NZA:10,'8D':5,QA:12,Ohne:5}}}];"
+      },
+      "id": "charts-data",
+      "name": "Charts Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 700]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" },
+              { "name": "Content-Type", "value": "application/json" }
+            ]
+          }
+        }
+      },
+      "id": "response-charts",
+      "name": "Response Charts",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [700, 700]
+    }
+  ],
+  "connections": {
+    "Webhook KPIs": {
+      "main": [[{ "node": "KPIs Data", "type": "main", "index": 0 }]]
+    },
+    "KPIs Data": {
+      "main": [[{ "node": "Response KPIs", "type": "main", "index": 0 }]]
+    },
+    "Webhook Reklamationen": {
+      "main": [[{ "node": "Reklamationen Data", "type": "main", "index": 0 }]]
+    },
+    "Reklamationen Data": {
+      "main": [[{ "node": "Response Reklamationen", "type": "main", "index": 0 }]]
+    },
+    "Webhook Charts": {
+      "main": [[{ "node": "Charts Data", "type": "main", "index": 0 }]]
+    },
+    "Charts Data": {
+      "main": [[{ "node": "Response Charts", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "meta": { "instanceId": "rms2025-standalone" },
+  "tags": [{ "name": "RMS-2025" }, { "name": "API" }]
+}

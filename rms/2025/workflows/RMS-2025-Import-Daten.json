@@ -1,0 +1,129 @@
+{
+  "name": "RMS-2025-Import-Daten",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "rms2025/import",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-import",
+      "name": "Webhook Import",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [200, 300],
+      "webhookId": "rms2025-import"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Alle 27 Reklamationen 2025\nconst reklamationen = [\n  { qa_id: \"QA-25001\", typ: \"Kunde\", absender: \"Laserline\", artikel: \"800606\", datum: \"2025-01-21\", formular: \"NZA\", status: \"Abgeschlossen\", fehler: \"AA falsch - Soll: Raendelschrauben kurz, Ist: Raendelschrauben lang\", verursacher: \"TS\", kst: \"Verwaltung\", dateien: \"18007713.pdf, 800606_20012025.pdf, NZA QA-25001.xlsx\" },\n  { qa_id: \"QA-25002\", typ: \"Kunde\", absender: \"Siemens NB\", artikel: \"A5E50613989\", datum: \"2025-02-04\", formular: \"8D\", status: \"Abgeschlossen\", fehler: \"Fehlende Einpressmutter bei Stifteinsatz 37 pol.\", verursacher: \"\", kst: \"\", dateien: \"8D QA-25002.xlsx, Q2 200440313.pptx\" },\n  { qa_id: \"QA-25003\", typ: \"Kunde\", absender: \"Laserline\", artikel: \"305637\", datum: \"2025-02-12\", formular: \"NZA + 8D\", status: \"Abgeschlossen\", fehler: \"Flachrundkabel beidseitig zu kurz abgemantelt\", verursacher: \"\", kst: \"Verwaltung\", dateien: \"8D QA-25003 Laserline.xlsx, NZA QA-25003.xlsx\" },\n  { qa_id: \"QA-25004\", typ: \"Lieferant\", absender: \"Pueplichhuisen\", artikel: \"15550900005900\", datum: \"2025-02-13\", formular: \"QA\", status: \"Abgeschlossen\", fehler: \"Qualitaetsabweichung Wrap-4-427 - ca. 3.600 Stueck\", verursacher: \"\", kst: \"\", dateien: \"QA-25004.xlsx, Fehlermeldung.jpg\" },\n  { qa_id: \"QA-25005\", typ: \"Kunde\", absender: \"Lumberg\", artikel: \"119660\", datum: \"2025-02-19\", formular: \"NZA + 8D\", status: \"Abgeschlossen\", fehler: \"Fehlerhafter Iso-Crimp an Flachsteckhuelse\", verursacher: \"US\", kst: \"1000\", dateien: \"8D QA-25005 Lumberg.xlsx, NZA QA-25005.xlsx, Schulungsprotokoll.pdf\" },\n  { qa_id: \"QA-25006\", typ: \"Kunde\", absender: \"Laserline\", artikel: \"878032\", datum: \"2025-02-19\", formular: \"NZA\", status: \"Abgeschlossen\", fehler: \"Koerperschluss im Anschlussstecker\", verursacher: \"NW\", kst: \"3000\", dateien: \"NZA QA-25006.xlsx\" },\n  { qa_id: \"QA-25007\", typ: \"Kunde\", absender: \"Saurer\", artikel: \"168-655.549\", datum: \"\", formular: \"-\", status: \"Abgeschlossen\", fehler: \"Details in PDF\", verursacher: \"\", kst: \"\", dateien: \"168-655.549 Kurz.jpeg, EMPB.pdf\" },\n  { qa_id: \"QA-25008\", typ: \"Kunde\", absender: \"Resistec\", artikel: \"7.10.38\", datum: \"2025-04-01\", formular: \"NZA + 8D\", status: \"Abgeschlossen\", fehler: \"Artikel verschmutzt - 269 Neuproduktion\", verursacher: \"\", kst: \"\", dateien: \"8D QA-25008 Resistec.xlsx, NZA QA-25008.xlsx\" },\n  { qa_id: \"QA-25009\", typ: \"Kunde\", absender: \"Resistec\", artikel: \"7.10.39\", datum: \"2025-04-01\", formular: \"NZA + 8D\", status: \"Abgeschlossen\", fehler: \"Artikel verschmutzt - 98 Neuproduktion\", verursacher: \"\", kst: \"\", dateien: \"8D QA-25009 Resistec.xlsx, NZA QA-25009.xlsx\" },\n  { qa_id: \"QA-25010\", typ: \"Kunde\", absender: \"Stephan\", artikel: \"111861649\", datum: \"2025-04-02\", formular: \"NZA\", status: \"Abgeschlossen\", fehler: \"Nach veralteter Zeichnung gefertigt\", verursacher: \"\", kst: \"Verwaltung\", dateien: \"NZA QA-25010.xlsx\" },\n  { qa_id: \"QA-25011\", typ: \"Lieferant\", absender: \"AKM\", artikel: \"B3408-001853\", datum: \"2025-04-02\", formular: \"QA\", status: \"Abgeschlossen\", fehler: \"Verschraubung M20x1,5/24 - 115/350 Stueck\", verursacher: \"\", kst: \"\", dateien: \"QA-25011.xlsx\" },\n  { qa_id: \"QA-25012\", typ: \"Lieferant\", absender: \"Sensor Elektrik\", artikel: \"-\", datum: \"2025-04-29\", formular: \"QA\", status: \"Abgeschlossen\", fehler: \"Weiterleitung an Unterlieferant\", verursacher: \"\", kst: \"\", dateien: \"Qualitaetsabweichung QA-25012.xlsx\" },\n  { qa_id: \"QA-25013\", typ: \"Kunde\", absender: \"Saurer\", artikel: \"168-655.551\", datum: \"2025-04-11\", formular: \"NZA\", status: \"Abgeschlossen\", fehler: \"Falsche Codierung Steckhuelsengeh. Pos. 100\", verursacher: \"CA\", kst: \"Verwaltung\", dateien: \"NZA QA-25013.xlsx\" },\n  { qa_id: \"QA-25014\", typ: \"Kunde\", absender: \"Seuster\", artikel: \"022792-A\", datum: \"2025-04-30\", formular: \"NZA\", status: \"Abgeschlossen\", fehler: \"Falscher Kabel-Druck (6,5m vs 15,5m)\", verursacher: \"AV\", kst: \"1000\", dateien: \"NZA QA-25014.xlsx\" },\n  { qa_id: \"QA-25015\", typ: \"Kunde\", absender: \"Saurer\", artikel: \"188-655.112\", datum: \"\", formular: \"-\", status: \"Abgeschlossen\", fehler: \"Details in PDF\", verursacher: \"\", kst: \"\", dateien: \"188655112.pdf\" },\n  { qa_id: \"QA-25016\", typ: \"Lieferant\", absender: \"Pueplichhuisen\", artikel: \"15550900005900\", datum: \"2025-05-27\", formular: \"QA\", status: \"Abgeschlossen\", fehler: \"Wiederholter Fehler Wrap-4-427 - 3.100/3.600\", verursacher: \"\", kst: \"\", dateien: \"QA-25016.xlsx\" },\n  { qa_id: \"QA-25017\", typ: \"Lieferant\", absender: \"WAGO\", artikel: \"-\", datum: \"2025-05-27\", formular: \"QA\", status: \"Abgeschlossen\", fehler: \"Adermarkierer\", verursacher: \"\", kst: \"\", dateien: \"QA-25017.xlsx\" },\n  { qa_id: \"QA-25018\", typ: \"Lieferant\", absender: \"Lapp\", artikel: \"1110814\", datum: \"2025-06-04\", formular: \"QA\", status: \"Abgeschlossen\", fehler: \"Oelflex classic 110 34G1 - 100m\", verursacher: \"\", kst: \"\", dateien: \"QA-25018.xlsx, Gutschrift Lapp.pdf\" },\n  { qa_id: \"QA-25019\", typ: \"Lieferant\", absender: \"Lapp\", artikel: \"1110147\", datum: \"2025-06-24\", formular: \"QA\", status: \"Abgeschlossen\", fehler: \"Oelflex classic 110 2x0,5 - 2.000m\", verursacher: \"\", kst: \"\", dateien: \"QA-25019.xlsx\" },\n  { qa_id: \"QA-25020\", typ: \"Kunde\", absender: \"Laserline\", artikel: \"878018\", datum: \"\", formular: \"-\", status: \"Abgeschlossen\", fehler: \"Details in PDF\", verursacher: \"\", kst: \"\", dateien: \"18007918 Rekla Laserline.pdf\" },\n  { qa_id: \"QA-25021\", typ: \"Kunde\", absender: \"Bosch\", artikel: \"8-738-808-369\", datum: \"\", formular: \"-\", status: \"Abgeschlossen\", fehler: \"Kabelbaum R2107 - Sonderfreigabe\", verursacher: \"\", kst: \"\", dateien: \"Sonderfreigabe 001-25.pdf\" },\n  { qa_id: \"QA-25022\", typ: \"Lieferant\", absender: \"Pueplichhuisen\", artikel: \"-\", datum: \"2025-07-04\", formular: \"QA\", status: \"Abgeschlossen\", fehler: \"Dritter Fall 2025\", verursacher: \"\", kst: \"\", dateien: \"QA-25022.xlsx\" },\n  { qa_id: \"QA-25024\", typ: \"Kunde\", absender: \"Laserline\", artikel: \"800604\", datum: \"\", formular: \"-\", status: \"Abgeschlossen\", fehler: \"Ruecklieferung 18007940\", verursacher: \"\", kst: \"\", dateien: \"Rueckliefgerung 18007940.pdf\" },\n  { qa_id: \"QA-25026\", typ: \"Kunde\", absender: \"Laserline\", artikel: \"820054\", datum: \"2025-09-18\", formular: \"NZA\", status: \"Abgeschlossen\", fehler: \"Falscher Rohrkabelschuh (706F8 vs 746F8)\", verursacher: \"O. Sergeew\", kst: \"2000\", dateien: \"NZA QA-25026.xlsx\" },\n  { qa_id: \"QA-25027\", typ: \"Lieferant\", absender: \"Helu\", artikel: \"-\", datum: \"\", formular: \"QA\", status: \"Abgeschlossen\", fehler: \"Kostenuebersicht vorhanden\", verursacher: \"\", kst: \"\", dateien: \"Kostenuebersicht QA-25027.xlsx\" },\n  { qa_id: \"QA-25028\", typ: \"Lieferant\", absender: \"Helu\", artikel: \"1110186\", datum: \"2025-10-06\", formular: \"QA\", status: \"Abgeschlossen\", fehler: \"F-CY-JZ 4G1,5mm2 - 1.250/14.275m\", verursacher: \"\", kst: \"\", dateien: \"QA-25028 Helu.xlsx\" },\n  { qa_id: \"QA-25029\", typ: \"Lieferant\", absender: \"CEL\", artikel: \"-\", datum: \"\", formular: \"-\", status: \"Offen\", fehler: \"Keine Daten\", verursacher: \"\", kst: \"\", dateien: \"\" }\n];\n\nreturn reklamationen.map(r => ({ json: r }));"
+      },
+      "id": "data-source",
+      "name": "Reklamationen 2025 Daten",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "split-batches",
+      "name": "Split In Batches",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [700, 300]
+    },
+    {
+      "parameters": {
+        "resource": "listItem",
+        "operation": "create",
+        "siteId": "rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c",
+        "listId": "={{ $node['Webhook Import'].json.body.listId || 'Reklamationen-2025' }}",
+        "fieldsUi": {
+          "fieldValues": [
+            { "fieldName": "Title", "fieldValue": "={{ $json.qa_id }}" },
+            { "fieldName": "QA_ID", "fieldValue": "={{ $json.qa_id }}" },
+            { "fieldName": "Rekla_Typ", "fieldValue": "={{ $json.typ }}" },
+            { "fieldName": "Absender", "fieldValue": "={{ $json.absender }}" },
+            { "fieldName": "Artikel_Nr", "fieldValue": "={{ $json.artikel }}" },
+            { "fieldName": "Erfassungsdatum", "fieldValue": "={{ $json.datum || null }}" },
+            { "fieldName": "Formular", "fieldValue": "={{ $json.formular }}" },
+            { "fieldName": "Status", "fieldValue": "={{ $json.status }}" },
+            { "fieldName": "Fehler_Beschreibung", "fieldValue": "={{ $json.fehler }}" },
+            { "fieldName": "Verursacher", "fieldValue": "={{ $json.verursacher }}" },
+            { "fieldName": "Kostenstelle", "fieldValue": "={{ $json.kst }}" },
+            { "fieldName": "Dateien", "fieldValue": "={{ $json.dateien }}" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "sp-create-item",
+      "name": "SP Create Item",
+      "type": "n8n-nodes-base.microsoftSharePoint",
+      "typeVersion": 1,
+      "position": [950, 300],
+      "credentials": {
+        "microsoftSharePointOAuth2Api": {
+          "id": "5ZmmOyK1L7PhkJW2",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nreturn [{\n  json: {\n    success: true,\n    message: `${items.length} Reklamationen importiert`,\n    count: items.length\n  }\n}];"
+      },
+      "id": "count-results",
+      "name": "Count Results",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1200, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "response",
+      "name": "Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1450, 300]
+    }
+  ],
+  "connections": {
+    "Webhook Import": {
+      "main": [[{ "node": "Reklamationen 2025 Daten", "type": "main", "index": 0 }]]
+    },
+    "Reklamationen 2025 Daten": {
+      "main": [[{ "node": "Split In Batches", "type": "main", "index": 0 }]]
+    },
+    "Split In Batches": {
+      "main": [
+        [{ "node": "SP Create Item", "type": "main", "index": 0 }],
+        [{ "node": "Count Results", "type": "main", "index": 0 }]
+      ]
+    },
+    "SP Create Item": {
+      "main": [[{ "node": "Split In Batches", "type": "main", "index": 0 }]]
+    },
+    "Count Results": {
+      "main": [[{ "node": "Response", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "instanceId": "rms2025"
+  },
+  "tags": [
+    { "name": "RMS-2025" },
+    { "name": "Import" }
+  ]
+}

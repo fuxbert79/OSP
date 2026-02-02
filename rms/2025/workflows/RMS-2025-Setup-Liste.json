@@ -1,0 +1,93 @@
+{
+  "name": "RMS-2025-Setup-Liste",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "rms2025/setup",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-setup",
+      "name": "Webhook Setup",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [200, 300],
+      "webhookId": "rms2025-setup"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.microsoft.com/v1.0/sites/rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c/lists",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"displayName\": \"Reklamationen-2025\",\n  \"description\": \"Archiv Reklamationen Geschaeftsjahr 2025\",\n  \"columns\": [\n    { \"name\": \"QA_ID\", \"text\": { \"allowMultipleLines\": false } },\n    { \"name\": \"Rekla_Typ\", \"choice\": { \"choices\": [\"Kunde\", \"Lieferant\"] } },\n    { \"name\": \"Absender\", \"text\": { \"allowMultipleLines\": false } },\n    { \"name\": \"Artikel_Nr\", \"text\": { \"allowMultipleLines\": false } },\n    { \"name\": \"Erfassungsdatum\", \"dateTime\": { \"format\": \"dateOnly\" } },\n    { \"name\": \"Formular\", \"text\": { \"allowMultipleLines\": false } },\n    { \"name\": \"Status\", \"choice\": { \"choices\": [\"Abgeschlossen\", \"Offen\"] } },\n    { \"name\": \"Fehler_Beschreibung\", \"text\": { \"allowMultipleLines\": true } },\n    { \"name\": \"Dateien\", \"text\": { \"allowMultipleLines\": true } },\n    { \"name\": \"Team\", \"text\": { \"allowMultipleLines\": false } },\n    { \"name\": \"Verursacher\", \"text\": { \"allowMultipleLines\": false } },\n    { \"name\": \"Kostenstelle\", \"text\": { \"allowMultipleLines\": false } },\n    { \"name\": \"NZA_Kosten\", \"number\": { \"decimalPlaces\": \"two\" } },\n    { \"name\": \"Q_Nr_Kunde\", \"text\": { \"allowMultipleLines\": false } }\n  ],\n  \"list\": {\n    \"template\": \"genericList\"\n  }\n}",
+        "options": {}
+      },
+      "id": "create-list",
+      "name": "Create SharePoint List",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [450, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "TY9l0Fx0mOLQHsc8",
+          "name": "Microsoft account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const response = $input.first().json;\n\nif (response.id) {\n  return [{\n    json: {\n      success: true,\n      message: 'SharePoint-Liste Reklamationen-2025 erfolgreich erstellt',\n      listId: response.id,\n      listName: response.displayName,\n      webUrl: response.webUrl\n    }\n  }];\n} else {\n  return [{\n    json: {\n      success: false,\n      message: 'Fehler beim Erstellen der Liste',\n      error: response\n    }\n  }];\n}"
+      },
+      "id": "format-response",
+      "name": "Format Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [700, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Content-Type", "value": "application/json" }
+            ]
+          }
+        }
+      },
+      "id": "response",
+      "name": "Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [950, 300]
+    }
+  ],
+  "connections": {
+    "Webhook Setup": {
+      "main": [[{ "node": "Create SharePoint List", "type": "main", "index": 0 }]]
+    },
+    "Create SharePoint List": {
+      "main": [[{ "node": "Format Response", "type": "main", "index": 0 }]]
+    },
+    "Format Response": {
+      "main": [[{ "node": "Response", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1",
+  "meta": {
+    "instanceId": "rms2025"
+  },
+  "tags": [
+    { "name": "RMS-2025" },
+    { "name": "Setup" }
+  ]
+}

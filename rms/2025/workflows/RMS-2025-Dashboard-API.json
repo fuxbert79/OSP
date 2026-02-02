@@ -1,0 +1,309 @@
+{
+  "name": "RMS-2025-Dashboard-API",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "rms2025/kpis",
+        "responseMode": "responseNode",
+        "options": { "allowedOrigins": "*" }
+      },
+      "id": "webhook-kpis",
+      "name": "Webhook KPIs",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [200, 100],
+      "webhookId": "rms2025-kpis"
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "rms2025/reklamationen",
+        "responseMode": "responseNode",
+        "options": { "allowedOrigins": "*" }
+      },
+      "id": "webhook-reklamationen",
+      "name": "Webhook Reklamationen",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [200, 350],
+      "webhookId": "rms2025-reklamationen"
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "rms2025/detail/:id",
+        "responseMode": "responseNode",
+        "options": { "allowedOrigins": "*" }
+      },
+      "id": "webhook-detail",
+      "name": "Webhook Detail",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [200, 600],
+      "webhookId": "rms2025-detail"
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "rms2025/charts",
+        "responseMode": "responseNode",
+        "options": { "allowedOrigins": "*" }
+      },
+      "id": "webhook-charts",
+      "name": "Webhook Charts",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [200, 850],
+      "webhookId": "rms2025-charts"
+    },
+    {
+      "parameters": {
+        "resource": "listItem",
+        "operation": "getAll",
+        "siteId": "rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c",
+        "listId": "Reklamationen-2025",
+        "returnAll": true,
+        "options": {}
+      },
+      "id": "sp-get-all-kpis",
+      "name": "SP Get All (KPIs)",
+      "type": "n8n-nodes-base.microsoftSharePoint",
+      "typeVersion": 1,
+      "position": [450, 100],
+      "credentials": {
+        "microsoftSharePointOAuth2Api": {
+          "id": "5ZmmOyK1L7PhkJW2",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nlet gesamt = items.length;\nlet kunden = 0;\nlet lieferanten = 0;\nlet offen = 0;\nlet mitNza = 0;\nlet mit8d = 0;\n\nfor (const item of items) {\n  const f = item.json.fields || item.json;\n  if (f.Rekla_Typ === 'Kunde') kunden++;\n  if (f.Rekla_Typ === 'Lieferant') lieferanten++;\n  if (f.Status === 'Offen') offen++;\n  const formular = (f.Formular || '').toLowerCase();\n  if (formular.includes('nza')) mitNza++;\n  if (formular.includes('8d')) mit8d++;\n}\n\nreturn [{\n  json: {\n    gesamt,\n    kunden,\n    lieferanten,\n    offen,\n    abgeschlossen: gesamt - offen,\n    abschlussquote: Math.round((gesamt - offen) / gesamt * 100),\n    mitNza,\n    mit8d,\n    nzaKosten: 3846.73,\n    reklamationsquote: 0.24\n  }\n}];"
+      },
+      "id": "calc-kpis",
+      "name": "Calculate KPIs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [700, 100]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" },
+              { "name": "Content-Type", "value": "application/json" }
+            ]
+          }
+        }
+      },
+      "id": "response-kpis",
+      "name": "Response KPIs",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [950, 100]
+    },
+    {
+      "parameters": {
+        "resource": "listItem",
+        "operation": "getAll",
+        "siteId": "rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c",
+        "listId": "Reklamationen-2025",
+        "returnAll": true,
+        "options": {}
+      },
+      "id": "sp-get-all-rekla",
+      "name": "SP Get All (Reklamationen)",
+      "type": "n8n-nodes-base.microsoftSharePoint",
+      "typeVersion": 1,
+      "position": [450, 350],
+      "credentials": {
+        "microsoftSharePointOAuth2Api": {
+          "id": "5ZmmOyK1L7PhkJW2",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst query = $('Webhook Reklamationen').first().json.query || {};\n\nlet result = items.map(item => {\n  const f = item.json.fields || item.json;\n  return {\n    id: item.json.id,\n    qa_id: f.QA_ID || f.Title,\n    typ: f.Rekla_Typ,\n    absender: f.Absender,\n    artikel: f.Artikel_Nr,\n    datum: f.Erfassungsdatum,\n    formular: f.Formular,\n    status: f.Status,\n    fehler: f.Fehler_Beschreibung\n  };\n});\n\n// Filter\nif (query.typ) {\n  result = result.filter(r => r.typ === query.typ);\n}\nif (query.search) {\n  const s = query.search.toLowerCase();\n  result = result.filter(r => \n    (r.qa_id || '').toLowerCase().includes(s) ||\n    (r.absender || '').toLowerCase().includes(s) ||\n    (r.artikel || '').toLowerCase().includes(s)\n  );\n}\n\nreturn [{ json: result }];"
+      },
+      "id": "format-reklamationen",
+      "name": "Format Reklamationen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [700, 350]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" },
+              { "name": "Content-Type", "value": "application/json" }
+            ]
+          }
+        }
+      },
+      "id": "response-reklamationen",
+      "name": "Response Reklamationen",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [950, 350]
+    },
+    {
+      "parameters": {
+        "resource": "listItem",
+        "operation": "get",
+        "siteId": "rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c",
+        "listId": "Reklamationen-2025",
+        "itemId": "={{ $('Webhook Detail').first().json.params.id }}"
+      },
+      "id": "sp-get-detail",
+      "name": "SP Get Detail",
+      "type": "n8n-nodes-base.microsoftSharePoint",
+      "typeVersion": 1,
+      "position": [450, 600],
+      "credentials": {
+        "microsoftSharePointOAuth2Api": {
+          "id": "5ZmmOyK1L7PhkJW2",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.first().json;\nconst f = item.fields || item;\n\nreturn [{\n  json: {\n    id: item.id,\n    qa_id: f.QA_ID || f.Title,\n    typ: f.Rekla_Typ,\n    absender: f.Absender,\n    artikel: f.Artikel_Nr,\n    datum: f.Erfassungsdatum,\n    formular: f.Formular,\n    status: f.Status,\n    fehler: f.Fehler_Beschreibung,\n    verursacher: f.Verursacher,\n    kostenstelle: f.Kostenstelle,\n    dateien: (f.Dateien || '').split(', ').filter(d => d),\n    qNrKunde: f.Q_Nr_Kunde,\n    nzaKosten: f.NZA_Kosten\n  }\n}];"
+      },
+      "id": "format-detail",
+      "name": "Format Detail",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [700, 600]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" },
+              { "name": "Content-Type", "value": "application/json" }
+            ]
+          }
+        }
+      },
+      "id": "response-detail",
+      "name": "Response Detail",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [950, 600]
+    },
+    {
+      "parameters": {
+        "resource": "listItem",
+        "operation": "getAll",
+        "siteId": "rainerschneiderkabelsatz.sharepoint.com,2881519a-a447-45b1-a870-9df715ee7313,b5136f46-5d8e-45ef-9a99-fa2e6fb58b5c",
+        "listId": "Reklamationen-2025",
+        "returnAll": true,
+        "options": {}
+      },
+      "id": "sp-get-all-charts",
+      "name": "SP Get All (Charts)",
+      "type": "n8n-nodes-base.microsoftSharePoint",
+      "typeVersion": 1,
+      "position": [450, 850],
+      "credentials": {
+        "microsoftSharePointOAuth2Api": {
+          "id": "5ZmmOyK1L7PhkJW2",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\n// Monatliche Verteilung\nconst monthly = [0,0,0,0,0,0,0,0,0,0,0,0];\nconst typCount = { Kunde: 0, Lieferant: 0 };\nconst absenderCount = {};\nconst formularCount = { 'NZA': 0, '8D': 0, 'QA': 0, 'Ohne': 0 };\n\nfor (const item of items) {\n  const f = item.json.fields || item.json;\n  \n  // Monat\n  if (f.Erfassungsdatum) {\n    const month = new Date(f.Erfassungsdatum).getMonth();\n    monthly[month]++;\n  }\n  \n  // Typ\n  if (f.Rekla_Typ) typCount[f.Rekla_Typ]++;\n  \n  // Absender\n  if (f.Absender) {\n    absenderCount[f.Absender] = (absenderCount[f.Absender] || 0) + 1;\n  }\n  \n  // Formular\n  const form = (f.Formular || '').toLowerCase();\n  if (form.includes('nza')) formularCount['NZA']++;\n  else if (form.includes('8d')) formularCount['8D']++;\n  else if (form.includes('qa') || form === 'qa') formularCount['QA']++;\n  else formularCount['Ohne']++;\n}\n\n// Top 6 Absender\nconst topAbsender = Object.entries(absenderCount)\n  .sort((a,b) => b[1] - a[1])\n  .slice(0, 6);\n\nreturn [{\n  json: {\n    monthly,\n    typ: typCount,\n    absender: {\n      labels: topAbsender.map(a => a[0]),\n      values: topAbsender.map(a => a[1])\n    },\n    formular: formularCount\n  }\n}];"
+      },
+      "id": "calc-charts",
+      "name": "Calculate Charts",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [700, 850]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" },
+              { "name": "Content-Type", "value": "application/json" }
+            ]
+          }
+        }
+      },
+      "id": "response-charts",
+      "name": "Response Charts",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [950, 850]
+    }
+  ],
+  "connections": {
+    "Webhook KPIs": {
+      "main": [[{ "node": "SP Get All (KPIs)", "type": "main", "index": 0 }]]
+    },
+    "SP Get All (KPIs)": {
+      "main": [[{ "node": "Calculate KPIs", "type": "main", "index": 0 }]]
+    },
+    "Calculate KPIs": {
+      "main": [[{ "node": "Response KPIs", "type": "main", "index": 0 }]]
+    },
+    "Webhook Reklamationen": {
+      "main": [[{ "node": "SP Get All (Reklamationen)", "type": "main", "index": 0 }]]
+    },
+    "SP Get All (Reklamationen)": {
+      "main": [[{ "node": "Format Reklamationen", "type": "main", "index": 0 }]]
+    },
+    "Format Reklamationen": {
+      "main": [[{ "node": "Response Reklamationen", "type": "main", "index": 0 }]]
+    },
+    "Webhook Detail": {
+      "main": [[{ "node": "SP Get Detail", "type": "main", "index": 0 }]]
+    },
+    "SP Get Detail": {
+      "main": [[{ "node": "Format Detail", "type": "main", "index": 0 }]]
+    },
+    "Format Detail": {
+      "main": [[{ "node": "Response Detail", "type": "main", "index": 0 }]]
+    },
+    "Webhook Charts": {
+      "main": [[{ "node": "SP Get All (Charts)", "type": "main", "index": 0 }]]
+    },
+    "SP Get All (Charts)": {
+      "main": [[{ "node": "Calculate Charts", "type": "main", "index": 0 }]]
+    },
+    "Calculate Charts": {
+      "main": [[{ "node": "Response Charts", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "instanceId": "rms2025"
+  },
+  "tags": [
+    { "name": "RMS-2025" },
+    { "name": "API" }
+  ]
+}
