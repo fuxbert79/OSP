@@ -142,6 +142,172 @@ App-Registrierung: **OSP-n8n-Integration**
 | openid | Delegiert | Benutzer anmelden |
 | profile | Delegiert | Grundlegendes Profil von Benutzern anzeigen |
 
+### n8n Credentials (Stand: 01.02.2026)
+
+| Credential | Typ | ID | Status |
+|------------|-----|-----|--------|
+| Microsoft SharePoint account | Microsoft SharePoint OAuth2 API | 5ZmmOyK1L7PhkJW2 | ✅ Aktiv |
+| Microsoft Drive account | Microsoft Drive OAuth2 API | RFliYFkYUYpnA7ki | ✅ Aktiv |
+| Microsoft account | Microsoft OAuth2 API | TY9l0Fx0mOLQHsc8 | ✅ Aktiv |
+| Microsoft Outlook Reklamation | Microsoft Outlook OAuth2 API | LfzrHpsvieP4DpIa | ✅ Aktiv |
+| Microsoft Outlook NZA | Microsoft Outlook OAuth2 API | y6bC8aYrlgPO6ZsG | ✅ Aktiv |
+| Microsoft Teams account | Microsoft Teams OAuth2 API | YckMuDdaL97hqHSG | ✅ Aktiv |
+
+#### Azure App
+- **App-Name:** OSP-n8n-Integration
+- **Client ID:** f99f47af-da3a-493c-aa17-e6b30e3b197c
+- **Tenant ID:** 31d02377-b699-4cef-a113-fc66e586df88
+- **Redirect URI:** https://n8n.schneider-kabelsatzbau.de/rest/oauth2-credential/callback
+
+#### Shared Mailboxes
+- reklamation@schneider-kabelsatzbau.de → Microsoft Outlook Reklamation
+- nza@schneider-kabelsatzbau.de → Microsoft Outlook NZA
+
+#### SharePoint
+- Subdomain: schneiderkabelsatzbau
+- NZA Site: /sites/NZA_NEU
+
+---
+
+## NZA (Nach- und Zusatzarbeiten-System)
+
+### Übersicht
+| Parameter | Wert |
+|-----------|------|
+| **Status** | 🟡 In Entwicklung |
+| **Pfad** | /mnt/HC_Volume_104189729/osp/nza/ |
+| **ID-Format** | NZA-JJ-XXXX (z.B. NZA-26-0001) |
+| **Erwartete Einträge** | ~300-500/Jahr |
+| **Hauptnutzer** | AL, MD, BS, SK, DR |
+
+### Abgrenzung RMS vs. NZA
+| Aspekt | RMS | NZA |
+|--------|-----|-----|
+| **Zweck** | Externe Reklamationen | Interne Nacharbeiten/Ausschuss |
+| **Typen** | Kunde, Lieferant | Nacharbeit, Neufertigung, Ausschuss |
+| **E-Mail** | reklamation@... | nza@schneider-kabelsatzbau.de |
+| **SharePoint** | /sites/RMS/ | /sites/NZA_NEU |
+| **ID-Format** | QA-JJNNN | NZA-JJ-XXXX |
+| **Kostenerfassung** | Nein | Ja (Minutensätze × Zeit) |
+| **Verursacher** | Extern | Intern (nza-mitarbeiter) |
+| **Dashboard** | https://osp.schneider-kabelsatzbau.de/rms/ | https://osp.schneider-kabelsatzbau.de/nza/ |
+| **Bilder** | Optional | Wichtig (Fehlerfotos) |
+
+### Microsoft 365 Ressourcen
+| Ressource | Wert |
+|-----------|------|
+| **SharePoint Site** | /sites/NZA_NEU |
+| **M365 Gruppe/Team** | "NZA" |
+| **Team-Email** | NZA1@schneider-kabelsatzbau.de |
+| **Postfach (Import)** | nza@schneider-kabelsatzbau.de |
+| **Credentials** | Gleiche wie RMS (OSP-n8n-Integration) |
+
+### SharePoint-Listen
+
+#### Hauptliste: nza-kpl (52 Felder)
+Die Hauptliste setzt sich zusammen aus drei logischen Bereichen:
+
+| Bereich | Felder | Beschreibung |
+|---------|--------|--------------|
+| **nza-stammdaten** | ~17 | NZA-ID, Datum, Typ, Artikel, Verursacher, KST, Beschreibung |
+| **nza-prozesse** | ~30 | 5× (Prozess, Werker, KST, Zeit, Faktor, Kosten) |
+| **nza-material** | ~5 | kosten_material, kosten_sonstige, kosten_prozesse, kosten_gesamt |
+
+**Kostenberechnung:** `nza-kosten = nza-prozesse + nza-material`
+
+#### Zusätzliche Listen
+| Liste | Zweck | Felder |
+|-------|-------|--------|
+| nza-massnahmen | Korrekturmaßnahmen + Teams-Notify | 13 |
+| nza-bilder | Fehlerfotos (wichtig!) | 8 |
+| nza-mitarbeiter | Verursacher-Lookup (53 MA) | 9 |
+| nza-config | System-Konfiguration | 5 |
+| nza-kpis | Aggregierte Kennzahlen | 7 |
+
+### Minutensätze (Kostenberechnung)
+| Kostenstelle | €/Min | €/h | Beschreibung |
+|--------------|-------|-----|--------------|
+| 1000 | 1,98 | 118,80 | Fertigung F1 |
+| 2000 | 1,21 | 72,60 | Fertigung F2 |
+| 3000 | 0,93 | 55,80 | Fertigung F3 |
+| 4000 | 1,02 | 61,20 | Fertigung F4 |
+| 5000 | 1,02 | 61,20 | Fertigung F5 |
+| Lager | 1,10 | 66,00 | Lagerbereich |
+| Verwaltung | 1,37 | 82,20 | Administration |
+
+### NZA-Verzeichnisse
+| Pfad | Inhalt |
+|------|--------|
+| nza/docs/ | Strategie & Dokumentation |
+| nza/prompts/ | NZA-spezifische Prompts |
+| nza/formulare/ | F-QM-04 Template |
+| nza/workflows/ | n8n Workflow-Exports |
+| nza/daten/ | Stammdaten (CSV-Imports) |
+
+### NZA-Mitarbeiter (aus nza_mitarbeiter.csv)
+| KST | Anzahl | Wichtige MA |
+|-----|--------|-------------|
+| Verwaltung | 9 | CS, CA, SV, AL, TS |
+| 1000 | 5 | MD (FL), DS (Stv.) |
+| 2000 | 9 | BS (FL 2000/3000), JR |
+| 3000 | 13 | IB (Stv. FL) |
+| 5000 | 12 | SK, DR (FL), WK |
+| Lager | 3 | OK (Lagerleiter) |
+| **Gesamt** | **53** | |
+
+### n8n Workflows (NZA)
+| Workflow | Trigger | Priorität |
+|----------|---------|-----------|
+| NZA-Prozesse-API | Webhook GET/POST/PATCH | 🔴 |
+| NZA-Massnahmen-API | Webhook + Teams-Notify | 🔴 |
+| NZA-Bilder-API | Webhook (Upload bis 20MB) | 🔴 |
+| NZA-Mitarbeiter-API | Webhook GET | 🔴 |
+| NZA-Kosten-API | Webhook + Auto-Berechnung | 🔴 |
+| NZA-Email-Import | Schedule (5 Min) | 🟡 |
+| NZA-KPI-Update | Schedule (Täglich) | 🟢 |
+| NZA-Generate-Formblatt | Webhook (F-QM-04 PDF) | ⏸️ Später |
+
+### RMS ↔ NZA Integration
+- **Getrennte Systeme** mit Dashboard-Wechsel möglich
+- **RMS:** Externe Reklamationen (Kunden, Lieferanten)
+- **NZA:** Interne Nacharbeiten und Ausschuss
+- **Verknüpfung:** NZA kann RMS-Bezug haben (QA-ID in Feld `Bezug_RMS`)
+- **F-QM-04 PDF:** Später implementieren
+
+### Nginx-Endpoints (osp.schneider-kabelsatzbau.de)
+
+**RMS Dashboards & APIs:**
+```
+/rms/                         → Dashboard 2026 (aktuell)
+/rms/2025/                    → Dashboard 2025 (Archiv)
+/api/rms/reklamationen        → Liste aller Reklamationen
+/api/rms/kpis                 → KPI-Daten
+/api/rms/charts               → Chart-Daten
+/api/rms/detail               → Einzelne Reklamation
+/api/rms/create               → Neue Reklamation
+/api/rms/update               → Reklamation aktualisieren
+/api/rms/massnahmen           → Maßnahmen CRUD
+/api/rms/files                → Dateien-Liste
+/api/rms/generate-formblatt   → PDF-Generierung
+/api/rms/send-email           → E-Mail senden
+/api/rms/users                → M365-Benutzer
+/api/rms/stammdaten           → Stammdaten
+```
+
+**NZA Dashboards & APIs:**
+```
+/nza/                         → Dashboard
+/api/nza/prozesse             → CRUD Hauptliste
+/api/nza/massnahmen           → Maßnahmen + Notify
+/api/nza/bilder               → Bilder-Galerie
+/api/nza/bilder-upload        → Upload (20MB max)
+/api/nza/mitarbeiter          → Verursacher-Lookup
+/api/nza/kosten               → Kostenerfassung
+/api/nza/config               → Konfiguration
+/api/nza/kpis                 → Kennzahlen
+/api/nza/notify               → Teams-Benachrichtigung
+```
+
 ---
 
 ## OSP_KERN Dateien (12 Stück)
@@ -333,7 +499,11 @@ find Main/ -name "*CORE*.md" -o -name "*WKZ*.md" -o -name "*AGK*.md" -o -name "*
 
 | Ressource | URL/Pfad |
 |-----------|----------|
-| Open WebUI | http://46.224.102.30:3000 |
+| **RMS Dashboard 2026** | https://osp.schneider-kabelsatzbau.de/rms/ |
+| **RMS Dashboard 2025** (Archiv) | https://osp.schneider-kabelsatzbau.de/rms/2025/ |
+| **NZA Dashboard** | https://osp.schneider-kabelsatzbau.de/nza/ |
+| n8n Workflow-Editor | https://n8n.schneider-kabelsatzbau.de/ |
+| Open WebUI | https://osp.schneider-kabelsatzbau.de/ |
 | ChromaDB API | http://46.224.102.30:8000 |
 | Server Logs | /opt/osp/logs/ |
 | Claude API Docs | https://docs.anthropic.com |
@@ -357,6 +527,6 @@ find Main/ -name "*CORE*.md" -o -name "*WKZ*.md" -o -name "*AGK*.md" -o -name "*
 ---
 
 **Erstellt:** 2025-12-14
-**Version:** 1.3
+**Version:** 1.5
 **Autor:** AL (via Claude)
-**Änderung:** Microsoft Graph API Berechtigungen für RMS/n8n-Integration dokumentiert
+**Änderung:** Dashboard-URLs aktualisiert (osp.schneider-kabelsatzbau.de), Nginx-Endpoints für RMS und NZA dokumentiert
