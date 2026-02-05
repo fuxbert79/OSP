@@ -97,10 +97,10 @@ except ImportError as e:
     MA_PREPROCESSING_AVAILABLE = False
 
     # Fallback-Funktion
-    def expand_ma_query(query, json_path=None):
+    def expand_ma_query(query: str, json_path: Optional[str] = None) -> str:
         return query
 
-    def get_preprocessor(json_path=None):
+    def get_preprocessor(json_path: Optional[str] = None):
         return None
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -114,10 +114,10 @@ except ImportError as e:
     logger.warning(f"⚠️ Query-Normalizer nicht verfügbar: {e}")
     QUERY_NORMALIZER_AVAILABLE = False
 
-    def normalize_query(query, path=None):
+    def normalize_query(query: str, path: Optional[str] = None) -> str:
         return query
 
-    def get_normalizer(path=None):
+    def get_normalizer(path: Optional[str] = None):
         return None
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -152,11 +152,11 @@ except ImportError as e:
     logger.warning(f"⚠️ Wartungs-Lookup nicht verfügbar: {e}")
     WARTUNGS_LOOKUP_AVAILABLE = False
 
-    def check_wartungs_lookup(query): return None
-    def get_form_schema_for_query(query): return None
-    def get_wartungs_stats(): return {"verfügbar": False}
-    def reload_wartungs_lookup(): return False
-    def get_wartungs_lookup(path=None): return None
+    def check_wartungs_lookup(query: str) -> Optional[str]: return None
+    def get_form_schema_for_query(query: str) -> Optional[dict]: return None
+    def get_wartungs_stats() -> dict: return {"verfügbar": False}
+    def reload_wartungs_lookup() -> bool: return False
+    def get_wartungs_lookup(path: Optional[Path] = None) -> None: return None
 
 
 class Valves(BaseModel):
@@ -278,14 +278,17 @@ class Pipeline:
         if QUERY_NORMALIZER_AVAILABLE and self.valves.ENABLE_QUERY_NORMALIZATION:
             try:
                 self.query_normalizer = get_normalizer()
-                stats = self.query_normalizer.get_stats()
-                if stats.get('verfügbar'):
-                    logger.info(
-                        f"✅ Query-Normalizer aktiv: "
-                        f"{stats['corrections_count']} Korrekturen"
-                    )
+                if self.query_normalizer is None:
+                    logger.warning("⚠️ Query-Normalizer: Konnte nicht initialisiert werden")
                 else:
-                    logger.warning("⚠️ Query-Normalizer: Keine Korrekturen geladen")
+                    stats = self.query_normalizer.get_stats()
+                    if stats.get('verfügbar'):
+                        logger.info(
+                            f"✅ Query-Normalizer aktiv: "
+                            f"{stats['corrections_count']} Korrekturen"
+                        )
+                    else:
+                        logger.warning("⚠️ Query-Normalizer: Keine Korrekturen geladen")
             except Exception as e:
                 logger.error(f"❌ Query-Normalizer Fehler: {e}")
                 self.query_normalizer = None
@@ -298,15 +301,19 @@ class Pipeline:
         if KEYWORD_FILTER_AVAILABLE and self.valves.ENABLE_KEYWORD_FILTER:
             try:
                 self.keyword_filter = get_keyword_filter(Path(self.valves.DOCUMENTS_PATH))
-                self.keyword_filter_stats = self.keyword_filter.get_stats()
-                if self.keyword_filter_stats.get('verfügbar'):
-                    logger.info(
-                        f"✅ Keyword-Filter aktiv: "
-                        f"{self.keyword_filter_stats['patterns_count']} Patterns, "
-                        f"Pfad: {self.keyword_filter_stats['documents_path']}"
-                    )
+                if self.keyword_filter is None:
+                    self.keyword_filter_stats = {"verfügbar": False, "reason": "Konnte nicht initialisiert werden"}
+                    logger.warning("⚠️ Keyword-Filter: Konnte nicht initialisiert werden")
                 else:
-                    logger.warning("⚠️ Keyword-Filter initialisiert aber Dokumente nicht verfügbar")
+                    self.keyword_filter_stats = self.keyword_filter.get_stats()
+                    if self.keyword_filter_stats.get('verfügbar'):
+                        logger.info(
+                            f"✅ Keyword-Filter aktiv: "
+                            f"{self.keyword_filter_stats['patterns_count']} Patterns, "
+                            f"Pfad: {self.keyword_filter_stats['documents_path']}"
+                        )
+                    else:
+                        logger.warning("⚠️ Keyword-Filter initialisiert aber Dokumente nicht verfügbar")
             except Exception as e:
                 logger.error(f"❌ Keyword-Filter Fehler: {e}")
                 self.keyword_filter = None
@@ -321,7 +328,10 @@ class Pipeline:
         if TAG_ROUTER_AVAILABLE and self.valves.ENABLE_TAG_ROUTING:
             try:
                 self.tag_router = get_tag_router()
-                logger.info(f"✅ Tag-Router aktiv: {len(self.tag_router.compiled_patterns)} TAGs")
+                if self.tag_router is not None:
+                    logger.info(f"✅ Tag-Router aktiv: {len(self.tag_router.compiled_patterns)} TAGs")
+                else:
+                    logger.warning("⚠️ Tag-Router: Konnte nicht initialisiert werden")
             except Exception as e:
                 logger.error(f"❌ Tag-Router Fehler: {e}")
                 self.tag_router = None
@@ -601,6 +611,10 @@ class Pipeline:
                 logger.error("❌ E5-Embedding-Modell nicht verfügbar!")
                 return ""
 
+            if self.chroma_client is None:
+                logger.error("❌ ChromaDB-Client nicht verfügbar!")
+                return ""
+
             # E5-Modelle erfordern "query: " Präfix für Suchanfragen
             query_with_prefix = f"query: {query}"
             query_embedding = self.embedding_model.encode(
@@ -646,15 +660,19 @@ class Pipeline:
                         include=["documents", "metadatas", "distances"]
                     )
 
-                    num_ids = len(results.get('ids', [[]])[0])
-                    has_docs = bool(results.get('documents') and results['documents'][0])
+                    ids_list = results.get('ids', [[]])
+                    num_ids = len(ids_list[0]) if ids_list else 0
+                    documents = results.get('documents')
+                    metadatas = results.get('metadatas')
+                    distances = results.get('distances')
+                    has_docs = bool(documents and documents[0])
                     logger.info(f"  {collection_name}: {num_ids} IDs, docs={has_docs}")
 
-                    if results and results.get('documents') and results['documents'][0]:
+                    if documents and metadatas and distances and documents[0]:
                         for doc, meta, dist in zip(
-                            results['documents'][0],
-                            results['metadatas'][0],
-                            results['distances'][0]
+                            documents[0],
+                            metadatas[0],
+                            distances[0]
                         ):
                             all_results.append({
                                 'document': doc,
@@ -771,15 +789,21 @@ KONTEXT (aus ChromaDB RAG)
 """.format(context=context)
         
         try:
+            if self.llm_client is None:
+                raise RuntimeError("LLM client not initialized")
+
             response = self.llm_client.messages.create(
                 model="claude-sonnet-4-20250514",
                 max_tokens=body.get("max_tokens", 2000),
                 system=system_prompt,
                 messages=[{"role": "user", "content": user_message}]
             )
-            
-            return response.content[0].text
-            
+
+            content_block = response.content[0]
+            if hasattr(content_block, 'text'):
+                return content_block.text  # type: ignore
+            return str(content_block)
+
         except Exception as e:
             logger.error(f"LLM Generation Error: {e}")
             raise

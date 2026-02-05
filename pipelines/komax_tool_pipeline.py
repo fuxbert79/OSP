@@ -104,10 +104,13 @@ class Pipeline:
                 "ALPHA_355": self.pipeline.valves.ALPHA_355_IP,
                 "ALPHA_356": self.pipeline.valves.ALPHA_356_IP
             }
-            
+
             results = []
             for name, ip in machines.items():
                 try:
+                    if self._network_upload is None:
+                        results.append(f"{name} ({ip}): ❌ Modul nicht geladen")
+                        continue
                     is_online = self._network_upload.check_machine_connection(ip)
                     status = "🟢 ONLINE" if is_online else "🔴 OFFLINE"
                     results.append(f"{name} ({ip}): {status}")
@@ -135,9 +138,12 @@ class Pipeline:
                 return "❌ Komax-Module nicht verfügbar"
             
             try:
+                if self._excel_parser is None or self._validator is None:
+                    return "❌ Komax-Module nicht vollständig geladen"
+
                 # Excel parsen
                 df = self._excel_parser.parse_excel_file(file_path, sheet_name)
-                
+
                 # Validieren
                 result = self._validator.validate_data(
                     df,
@@ -200,9 +206,12 @@ class Pipeline:
                 return "❌ Komax-Module nicht verfügbar"
             
             try:
+                if self._excel_parser is None or self._validator is None or self._csv_generator is None:
+                    return "❌ Komax-Module nicht vollständig geladen"
+
                 # Excel parsen
                 df = self._excel_parser.parse_excel_file(file_path, sheet_name)
-                
+
                 # Erst validieren
                 validation = self._validator.validate_data(df)
                 if not validation.is_valid:
@@ -265,10 +274,13 @@ class Pipeline:
                 return f"❌ Unbekannte Maschine: {machine}"
             
             try:
+                if self._network_upload is None:
+                    return "❌ Network-Upload Modul nicht geladen"
+
                 # Verbindung prüfen
                 if not self._network_upload.check_machine_connection(ip):
                     return f"❌ Maschine {machine} ({ip}) nicht erreichbar"
-                
+
                 # Upload durchführen
                 success = self._network_upload.upload_to_komax(
                     csv_path,

@@ -47,9 +47,10 @@ def _load_lookup_data() -> Dict:
     
     try:
         with open(LOOKUP_PATH, 'r', encoding='utf-8') as f:
-            _lookup_cache = json.load(f)
-            logger.info(f"✅ Lookup-Daten geladen: {_lookup_cache['meta']['eintraege_gesamt']} Einträge")
-            return _lookup_cache
+            data = json.load(f)
+            _lookup_cache = data
+            logger.info(f"✅ Lookup-Daten geladen: {data['meta']['eintraege_gesamt']} Einträge")
+            return data
     except FileNotFoundError:
         logger.warning(f"⚠️ Lookup-Datei nicht gefunden: {LOOKUP_PATH}")
         raise
