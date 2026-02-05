@@ -23,7 +23,7 @@ def get_workflow():
     """Lade Workflow"""
     req = urllib.request.Request(
         f"{BASE_URL}/workflows/{WORKFLOW_ID}",
-        headers={"X-N8N-API-KEY": API_KEY}
+        headers={"X-N8N-API-KEY": API_KEY or ""}
     )
     with urllib.request.urlopen(req, timeout=30) as resp:
         return json.load(resp)
@@ -54,7 +54,7 @@ def update_workflow(workflow_data):
         f"{BASE_URL}/workflows/{WORKFLOW_ID}",
         data=json.dumps(filtered).encode('utf-8'),
         headers={
-            "X-N8N-API-KEY": API_KEY,
+            "X-N8N-API-KEY": API_KEY or "",
             "Content-Type": "application/json"
         },
         method="PUT"

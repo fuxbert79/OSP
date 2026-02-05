@@ -15,9 +15,10 @@ import sys
 import shutil
 import os
 from pathlib import Path
+from typing import Optional
 
 
-def convert_to_pdf(input_path: str, output_path: str = None) -> str:
+def convert_to_pdf(input_path: str, output_path: Optional[str] = None) -> Optional[str]:
     """Konvertiert Dokument zu PDF"""
 
     input_file = Path(input_path)

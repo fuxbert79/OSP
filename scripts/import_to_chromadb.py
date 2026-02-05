@@ -165,7 +165,7 @@ def chunk_text(text: str, chunk_size: int = CHUNK_SIZE, overlap: int = CHUNK_OVE
 # =============================================================================
 
 def import_documents(
-    client: chromadb.HttpClient,
+    client: "chromadb.HttpClient",  # type: ignore[type-arg]
     collection_name: str,
     base_path: str,
     embedding_fn: E5EmbeddingFunction,

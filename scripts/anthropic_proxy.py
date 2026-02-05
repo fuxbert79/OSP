@@ -138,6 +138,8 @@ def chat_completions():
                 messages=anthropic_messages
             )
 
+            content_block = response.content[0]
+            text_content = getattr(content_block, 'text', None) or str(content_block)
             return jsonify({
                 "id": "chatcmpl-proxy",
                 "object": "chat.completion",
@@ -147,7 +149,7 @@ def chat_completions():
                     "index": 0,
                     "message": {
                         "role": "assistant",
-                        "content": response.content[0].text
+                        "content": text_content
                     },
                     "finish_reason": "stop"
                 }],

@@ -29,12 +29,15 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # WeasyPrint und Jinja2 imports
+WEASYPRINT_AVAILABLE = False
+HTML = None  # type: ignore[misc]
+Environment = None  # type: ignore[misc]
+FileSystemLoader = None  # type: ignore[misc]
 try:
-    from weasyprint import HTML
-    from jinja2 import Environment, FileSystemLoader
+    from weasyprint import HTML  # type: ignore[no-redef]
+    from jinja2 import Environment, FileSystemLoader  # type: ignore[no-redef]
     WEASYPRINT_AVAILABLE = True
 except ImportError:
-    WEASYPRINT_AVAILABLE = False
     logger.warning("WeasyPrint nicht installiert. Installiere mit: pip install weasyprint jinja2")
 
 # Pfade
@@ -105,11 +108,11 @@ def generate_pdf(data, return_base64=False):
         return None, None, "WeasyPrint nicht verfuegbar"
 
     # Template laden
-    env = Environment(loader=FileSystemLoader(TEMPLATE_DIR))
+    env = Environment(loader=FileSystemLoader(TEMPLATE_DIR))  # type: ignore[misc]
     try:
         template = env.get_template('F_QM_02_template.html')
     except Exception as e:
-        return None, f"Template-Fehler: {str(e)}"
+        return None, None, f"Template-Fehler: {str(e)}"
 
     # Defaults setzen
     if not data.get('abweichungs_nr'):
@@ -147,7 +150,7 @@ def generate_pdf(data, return_base64=False):
     try:
         html_content = template.render(**data)
     except Exception as e:
-        return None, f"Template-Rendering-Fehler: {str(e)}"
+        return None, None, f"Template-Rendering-Fehler: {str(e)}"
 
     # PDF generieren
     filename = f"F-QM-02_{data['abweichungs_nr']}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
@@ -158,8 +161,11 @@ def generate_pdf(data, return_base64=False):
 
     # PDF schreiben
     try:
-        pdf_document = HTML(string=html_content, base_url=TEMPLATE_DIR)
+        pdf_document = HTML(string=html_content, base_url=TEMPLATE_DIR)  # type: ignore[misc]
         pdf_bytes = pdf_document.write_pdf()
+
+        if pdf_bytes is None:
+            return None, None, "PDF-Generierung gab keine Bytes zurück"
 
         # In Datei schreiben
         with open(filepath, 'wb') as f:
@@ -249,7 +255,7 @@ class PDFHandler(BaseHTTPRequestHandler):
                 response = {
                     'success': True,
                     'filepath': filepath,
-                    'filename': os.path.basename(filepath)
+                    'filename': os.path.basename(filepath) if filepath else None
                 }
 
                 # Base64-Inhalt hinzufuegen wenn angefragt

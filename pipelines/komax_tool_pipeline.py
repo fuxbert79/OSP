@@ -75,7 +75,7 @@ class Pipeline:
                 if base_path not in sys.path:
                     sys.path.insert(0, base_path)
                 
-                from modules import excel_parser, csv_generator, validator, network_upload
+                from modules import excel_parser, csv_generator, validator, network_upload  # type: ignore[import-not-found]
                 
                 self._excel_parser = excel_parser
                 self._csv_generator = csv_generator

@@ -17,10 +17,11 @@ except Exception as e:
 print("\n=== Test: ChromaDB Verbindung ===")
 try:
     import chromadb
+    from chromadb.config import Settings
     client = chromadb.HttpClient(
         host="chromadb",
         port=8000,
-        settings=chromadb.config.Settings(anonymized_telemetry=False)
+        settings=Settings(anonymized_telemetry=False)
     )
     print("OK: ChromaDB verbunden")
 

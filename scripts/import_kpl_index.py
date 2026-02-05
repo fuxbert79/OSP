@@ -126,7 +126,7 @@ def main():
 
     collection = client.get_or_create_collection(
         name="osp_kpl",
-        embedding_function=embedding_fn,
+        embedding_function=embedding_fn,  # type: ignore[arg-type]
         metadata={
             "description": "OSP Datei-Index (KPL)",
             "embedding_model": "intfloat/multilingual-e5-large",

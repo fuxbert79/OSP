@@ -18,7 +18,7 @@ sys.path.insert(0, '/opt/osp/pipelines/modules')
 
 import chromadb
 from sentence_transformers import SentenceTransformer
-from tag_router import TagRouter, get_where_filter
+from tag_router import TagRouter, get_where_filter  # type: ignore[import-not-found]
 
 # ═══════════════════════════════════════════════════════════════════════
 # KONFIGURATION
@@ -77,11 +77,11 @@ def run_validation():
     print("-"*40)
 
     sample = collection.get(limit=5, include=["metadatas"])
-    has_tags = all("tag" in m for m in sample["metadatas"])
+    has_tags = all("tag" in m for m in sample["metadatas"])  # type: ignore[union-attr]
 
     if has_tags:
         print("TAG-Feld in Metadaten vorhanden")
-        tags_found = set(m["tag"] for m in sample["metadatas"])
+        tags_found = set(m["tag"] for m in sample["metadatas"])  # type: ignore[union-attr]
         print(f"   Gefundene TAGs: {tags_found}")
     else:
         print("TAG-Feld FEHLT in Metadaten!")
@@ -123,7 +123,7 @@ def run_validation():
             score = 1 - distance
 
             tag_correct = (primary_tag == expected_tag)
-            doc_correct = top_file.startswith(expected_prefix)
+            doc_correct = str(top_file).startswith(expected_prefix)
 
             if tag_correct and doc_correct:
                 status = "PASS"

@@ -24,6 +24,7 @@ import shutil
 from pathlib import Path
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import parse_qs
+from typing import Optional
 
 try:
     from openpyxl import load_workbook
@@ -103,7 +104,7 @@ FIELD_MAPPINGS = {
 }
 
 
-def detect_form_type(filename: str) -> str:
+def detect_form_type(filename: str) -> Optional[str]:
     """Erkennt Formulartyp aus Dateinamen"""
     name = filename.upper()
     if "QM02" in name or "QM_02" in name:
@@ -117,7 +118,7 @@ def detect_form_type(filename: str) -> str:
     return None
 
 
-def fill_xlsx(template_bytes: bytes, data: dict, form_type: str = None, filename: str = "template.xlsx") -> bytes:
+def fill_xlsx(template_bytes: bytes, data: dict, form_type: Optional[str] = None, filename: str = "template.xlsx") -> bytes:
     """Befuellt XLSX-Template mit Daten und gibt befuellte Datei zurueck"""
 
     # Template in temp-Datei schreiben
@@ -153,12 +154,12 @@ def fill_xlsx(template_bytes: bytes, data: dict, form_type: str = None, filename
             if not cell_ref and len(field) <= 4 and field[0].isalpha():
                 cell_ref = field
 
-            if cell_ref:
+            if cell_ref is not None:
                 try:
                     if field.startswith("cb_"):
-                        ws[cell_ref] = "☑" if value in [True, "true", "1", "ja", "yes"] else "☐"
+                        ws[cell_ref] = "☑" if value in [True, "true", "1", "ja", "yes"] else "☐"  # type: ignore[index]
                     else:
-                        ws[cell_ref] = str(value)
+                        ws[cell_ref] = str(value)  # type: ignore[index]
                 except Exception:
                     pass
 

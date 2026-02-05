@@ -618,9 +618,9 @@ class OSPKPLImporter:
             include=["metadatas"]
         )
         
-        for meta in full_docs["metadatas"]:
+        for meta in full_docs["metadatas"] or []:  # type: ignore[union-attr]
             filename = meta.get("filename", "?")
-            keywords = meta.get("keywords", "")
+            keywords = str(meta.get("keywords", ""))
             keyword_count = len(keywords.split(", ")) if keywords else 0
             print(f"   {filename}: {keyword_count} Keywords")
             if keywords:
@@ -646,7 +646,7 @@ class OSPKPLImporter:
             
             if results["ids"][0]:
                 print(f"\n   Query: '{query}'")
-                for i, (meta, dist) in enumerate(zip(results["metadatas"][0], results["distances"][0])):
+                for i, (meta, dist) in enumerate(zip(results["metadatas"][0], results["distances"][0])):  # type: ignore[index]
                     score = 1 - dist
                     filename = meta.get('filename', 'N/A')
                     mode = meta.get('import_mode', 'N/A')
@@ -665,13 +665,13 @@ class OSPKPLImporter:
             # Suche in keywords Feld
             try:
                 results = self.collection.get(
-                    where={"keywords": {"$contains": keyword}},
+                    where={"keywords": {"$contains": keyword}},  # type: ignore[arg-type]
                     include=["metadatas"]
                 )
-                
+
                 if results["ids"]:
                     print(f"\n   Keyword '{keyword}' ({desc}):")
-                    for meta in results["metadatas"][:3]:
+                    for meta in (results["metadatas"] or [])[:3]:  # type: ignore[index]
                         print(f"   → {meta.get('filename', 'N/A')}")
                 else:
                     print(f"\n   Keyword '{keyword}' ({desc}): Nicht gefunden")

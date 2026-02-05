@@ -52,7 +52,7 @@ logger = logging.getLogger(__name__)
 sys.path.insert(0, str(Path(__file__).parent / 'modules'))
 
 try:
-    from kontakt_lookup import check_kontakt_lookup, get_lookup_stats, reload_lookup_cache
+    from kontakt_lookup import check_kontakt_lookup, get_lookup_stats, reload_lookup_cache  # type: ignore[import-not-found]
     LOOKUP_AVAILABLE = True
 except ImportError as e:
     logger.warning(f"⚠️ Kontakt-Lookup Modul nicht verfügbar: {e}")
@@ -67,7 +67,7 @@ except ImportError as e:
 # KEYWORD-FILTER (PRE-RAG)
 # ═══════════════════════════════════════════════════════════════════════
 try:
-    from keyword_filter import (
+    from keyword_filter import (  # type: ignore[import-not-found]
         check_keyword_trigger,
         get_filter_stats,
         reload_filter,
@@ -89,7 +89,7 @@ except ImportError as e:
 # MA-KÜRZEL PREPROCESSING
 # ═══════════════════════════════════════════════════════════════════════
 try:
-    from ma_preprocessing import expand_ma_query, get_preprocessor
+    from ma_preprocessing import expand_ma_query, get_preprocessor  # type: ignore[import-not-found]
     MA_PREPROCESSING_AVAILABLE = True
     logger.info("✅ MA-Preprocessing Modul geladen")
 except ImportError as e:
@@ -97,17 +97,17 @@ except ImportError as e:
     MA_PREPROCESSING_AVAILABLE = False
 
     # Fallback-Funktion
-    def expand_ma_query(query: str, json_path: Optional[str] = None) -> str:
+    def expand_ma_query(query: str, json_path: str = "") -> str:
         return query
 
-    def get_preprocessor(json_path: Optional[str] = None):
+    def get_preprocessor(json_path: str = ""):  # type: ignore[misc]
         return None
 
 # ═══════════════════════════════════════════════════════════════════════
 # QUERY-NORMALISIERUNG
 # ═══════════════════════════════════════════════════════════════════════
 try:
-    from query_normalizer import normalize_query, get_normalizer
+    from query_normalizer import normalize_query, get_normalizer  # type: ignore[import-not-found]
     QUERY_NORMALIZER_AVAILABLE = True
     logger.info("✅ Query-Normalizer Modul geladen")
 except ImportError as e:
@@ -124,7 +124,7 @@ except ImportError as e:
 # TAG-ROUTER (ChromaDB WHERE-Filter)
 # ═══════════════════════════════════════════════════════════════════════
 try:
-    from tag_router import get_tag_router, extract_tags, get_where_filter
+    from tag_router import get_tag_router, extract_tags, get_where_filter  # type: ignore[import-not-found]
     TAG_ROUTER_AVAILABLE = True
     logger.info("✅ Tag-Router Modul geladen")
 except ImportError as e:
@@ -139,7 +139,7 @@ except ImportError as e:
 # WARTUNGS-LOOKUP (WIM/WIW/Form-Schemas)
 # ═══════════════════════════════════════════════════════════════════════
 try:
-    from wartungs_lookup import (
+    from wartungs_lookup import (  # type: ignore[import-not-found]
         get_wartungs_lookup,
         check_wartungs_lookup,
         get_form_schema_for_query,

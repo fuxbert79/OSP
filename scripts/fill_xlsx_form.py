@@ -15,6 +15,7 @@ import argparse
 import json
 import sys
 from pathlib import Path
+from typing import Optional
 
 try:
     from openpyxl import load_workbook
@@ -96,7 +97,7 @@ FIELD_MAPPINGS = {
 }
 
 
-def detect_form_type(filepath: str) -> str:
+def detect_form_type(filepath: str) -> Optional[str]:
     """Erkennt Formulartyp aus Dateinamen"""
     filename = Path(filepath).stem.upper()
 
@@ -140,7 +141,7 @@ def analyze_workbook(filepath: str):
     wb.close()
 
 
-def fill_workbook(template_path: str, output_path: str, data: dict, form_type: str = None):
+def fill_workbook(template_path: str, output_path: str, data: dict, form_type: Optional[str] = None) -> bool:
     """Befuellt ein XLSX-Template mit Daten"""
 
     # Formulartyp erkennen
@@ -179,12 +180,15 @@ def fill_workbook(template_path: str, output_path: str, data: dict, form_type: s
                 print(f"    [SKIP] Kein Mapping fuer Feld: {field}")
                 continue
 
+        if cell_ref is None:
+            continue
+
         try:
             # Checkbox-Handling
             if field.startswith("cb_"):
-                ws[cell_ref] = "☑" if value in [True, "true", "1", "ja", "yes", "☑"] else "☐"
+                ws[cell_ref] = "☑" if value in [True, "true", "1", "ja", "yes", "☑"] else "☐"  # type: ignore[index]
             else:
-                ws[cell_ref] = str(value)
+                ws[cell_ref] = str(value)  # type: ignore[index]
 
             filled_count += 1
             print(f"    [OK] {cell_ref} = {str(value)[:30]}")

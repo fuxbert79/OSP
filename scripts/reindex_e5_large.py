@@ -147,7 +147,7 @@ def chunk_text(text: str, chunk_size: int = CHUNK_SIZE, overlap: int = CHUNK_OVE
 # MAIN FUNCTIONS
 # =============================================================================
 
-def delete_all_collections(client: chromadb.HttpClient) -> None:
+def delete_all_collections(client: "chromadb.HttpClient") -> None:  # type: ignore[type-arg]
     """Lösche alle bestehenden Collections"""
     logger.info("Lösche bestehende Collections...")
 
@@ -160,7 +160,7 @@ def delete_all_collections(client: chromadb.HttpClient) -> None:
 
 
 def import_collection(
-    client: chromadb.HttpClient,
+    client: "chromadb.HttpClient",  # type: ignore[type-arg]
     collection_name: str,
     base_path: str,
     embedding_fn: E5LargeEmbeddingFunction
@@ -274,7 +274,7 @@ def import_collection(
     return total_docs
 
 
-def verify_collections(client: chromadb.HttpClient, embedding_fn: E5LargeEmbeddingFunction) -> None:
+def verify_collections(client: "chromadb.HttpClient", embedding_fn: E5LargeEmbeddingFunction) -> None:  # type: ignore[type-arg]
     """Verifiziere die Collections mit Test-Queries"""
 
     logger.info("\n" + "="*60)
@@ -284,7 +284,7 @@ def verify_collections(client: chromadb.HttpClient, embedding_fn: E5LargeEmbeddi
     collections = client.list_collections()
 
     for col in collections:
-        collection = client.get_collection(col.name, embedding_function=embedding_fn)
+        collection = client.get_collection(col.name, embedding_function=embedding_fn)  # type: ignore[arg-type]
         logger.info(f"\n{col.name}: {collection.count()} Dokumente")
 
     # Test-Queries
@@ -374,7 +374,7 @@ def main():
 
     collections = client.list_collections()
     for col in collections:
-        collection = client.get_collection(col.name, embedding_function=embedding_fn)
+        collection = client.get_collection(col.name, embedding_function=embedding_fn)  # type: ignore[arg-type]
         logger.info(f"  {col.name}: {collection.count()} Dokumente")
 
     logger.info(f"\nGesamt: {total} Dokumente importiert")
