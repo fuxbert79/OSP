@@ -1,0 +1,51 @@
+{
+  "name": "NZA-Kosten-Info",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "nza-kosten",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "nza-kosten-info"
+    },
+    {
+      "parameters": {
+        "jsCode": "const query = $('Webhook').first().json.query || {};\n\nconst MINUTENSATZ = {\n  '1000': 1.98,\n  '2000': 1.21,\n  '3000': 0.93,\n  '4000': 1.02,\n  '5000': 1.02,\n  'Lager': 1.10,\n  'Verwaltung': 1.37\n};\n\nreturn [{ json: { \n  query,\n  minutensaetze: MINUTENSATZ,\n  info: 'Nutze POST /api/nza/kosten-berechnen um Kosten zu berechnen'\n}}];"
+      },
+      "id": "get-info",
+      "name": "GET Info",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [{ "name": "Access-Control-Allow-Origin", "value": "*" }]
+          }
+        }
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [680, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": { "main": [[{ "node": "GET Info", "type": "main", "index": 0 }]] },
+    "GET Info": { "main": [[{ "node": "Respond", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" }
+}

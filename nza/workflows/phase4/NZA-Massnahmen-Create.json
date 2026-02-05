@@ -1,0 +1,148 @@
+{
+  "name": "NZA-Massnahmen-Create",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "nza-massnahmen",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "nza-massnahmen-post"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $('Webhook').first().json.body;\n\nif (!body.nzaId || !body.titel) {\n  throw new Error('NZA-ID und Titel sind Pflichtfelder!');\n}\n\nreturn [{\n  json: {\n    fields: {\n      Title: body.titel,\n      NZA_ID: body.nzaId,\n      Massnahme_Typ: body.typ || 'Sofortmaßnahme',\n      Beschreibung: body.beschreibung || '',\n      Verantwortlich_ID: body.verantwortlichId || '',\n      Verantwortlich_Name: body.verantwortlichName || '',\n      Verantwortlich_Email: body.verantwortlichEmail || '',\n      Termin: body.termin || null,\n      Status: 'Offen',\n      Wirksamkeit: 'Nicht geprüft',\n      Benachrichtigung_Teams: false,\n      Benachrichtigung_Email: false\n    },\n    notifyTeams: body.notifyTeams === true,\n    notifyEmail: body.notifyEmail === true\n  }\n}];"
+      },
+      "id": "prepare",
+      "name": "Prepare",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_MASSNAHMEN_LIST_ID }}/items",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={ \"fields\": {{ JSON.stringify($json.fields) }} }",
+        "options": {}
+      },
+      "id": "create-massnahme",
+      "name": "Create Massnahme",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        680,
+        300
+      ],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "5ZmmOyK1L7PhkJW2",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const created = $input.first().json;\nconst prepareData = $('Prepare').first().json;\n\nreturn [{ json: {\n  success: true,\n  id: created.id,\n  nzaId: created.fields.NZA_ID,\n  titel: created.fields.Title,\n  notifyTeams: prepareData.notifyTeams,\n  notifyEmail: prepareData.notifyEmail,\n  message: 'Maßnahme erfolgreich erstellt'\n}}];"
+      },
+      "id": "response",
+      "name": "Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        }
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Prepare",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare": {
+      "main": [
+        [
+          {
+            "node": "Create Massnahme",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Massnahme": {
+      "main": [
+        [
+          {
+            "node": "Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Response": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

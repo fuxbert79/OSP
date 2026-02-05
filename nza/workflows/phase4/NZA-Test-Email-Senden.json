@@ -1,0 +1,72 @@
+{
+  "name": "NZA-Test-Email-Senden",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "nza-test-email",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "nza-test-email"
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "toRecipients": "nza@schneider-kabelsatzbau.de",
+        "subject": "TEST NZA Import - FQM04 Formular",
+        "bodyContent": "Dies ist ein automatischer Test des NZA E-Mail-Import Workflows.\n\nIm Anhang befindet sich ein ausgefuelltes FQM04 Testformular mit folgenden Daten:\n\n- Artikel-Nr.: TEST-12345\n- Betriebsauftrag: 170001\n- Losgroesse: 100\n- Ausschuss: 5\n- Kostenstelle: 3000\n- Fehlerkategorie: Crimpfehler\n\nDieser Test wurde automatisch gesendet am: {{ $now.format('dd.MM.yyyy HH:mm:ss') }}\n\n--\nOSP NZA System",
+        "additionalFields": {
+          "attachments": {
+            "attachments": [
+              {
+                "name": "FQM04_TEST.xlsx",
+                "path": "/tmp/nza-test/FQM04_TEST.xlsx"
+              }
+            ]
+          }
+        }
+      },
+      "id": "send-email",
+      "name": "Test-Email senden",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "typeVersion": 2,
+      "position": [460, 300],
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "y6bC8aYrlgPO6ZsG",
+          "name": "Microsoft Outlook NZA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { success: true, message: 'Test-Email gesendet an nza@schneider-kabelsatzbau.de', timestamp: $now.toISO() } }}",
+        "options": {}
+      },
+      "id": "respond",
+      "name": "Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [680, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{"node": "Test-Email senden", "type": "main", "index": 0}]]
+    },
+    "Test-Email senden": {
+      "main": [[{"node": "Response", "type": "main", "index": 0}]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

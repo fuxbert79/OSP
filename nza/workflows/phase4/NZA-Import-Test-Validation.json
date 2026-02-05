@@ -1,0 +1,62 @@
+{
+  "name": "NZA-Import-Test-Validation",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "nza-test-validation",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Test Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "nza-test-validation"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Test-Daten vom Webhook (body enthält POST-Daten)\nconst webhookData = $input.first().json;\nconst testData = webhookData.body || webhookData;\n\nconst formData = {\n  artikelNr: String(testData.artikelNr || '').trim(),\n  betriebsauftrag: String(testData.betriebsauftrag || '').trim(),\n  ausschuss: parseInt(testData.ausschuss, 10) || 0,\n  fehlerBeschreibung: String(testData.fehlerBeschreibung || '').trim(),\n  fehlerKategorie: String(testData.fehlerKategorie || '').trim(),\n  zusatzarbeit1_prozess: String(testData.zusatzarbeit1 || '').trim(),\n  emailFrom: 'test@example.com'\n};\n\nreturn [{ json: formData }];"
+      },
+      "id": "prepare-data",
+      "name": "Daten vorbereiten",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// VALIDIERUNG: Pflichtfelder prüfen\nconst formData = $input.first().json;\nconst fehlendeFelder = [];\n\n// 1. Artikel-Nr.\nif (!formData.artikelNr || formData.artikelNr.trim() === '') {\n  fehlendeFelder.push('Artikel-Nr.');\n}\n\n// 2. Betriebsauftrag\nif (!formData.betriebsauftrag || formData.betriebsauftrag.trim() === '') {\n  fehlendeFelder.push('Betriebsauftrag');\n}\n\n// 3. Ausschuss (muss > 0 sein)\nif (!formData.ausschuss || formData.ausschuss <= 0) {\n  fehlendeFelder.push('Ausschuss (muss > 0 sein)');\n}\n\n// 4. Fehlerbeschreibung\nif (!formData.fehlerBeschreibung || formData.fehlerBeschreibung.trim() === '') {\n  fehlendeFelder.push('Fehlerbeschreibung');\n}\n\n// 5. Fehlerkategorie\nif (!formData.fehlerKategorie || formData.fehlerKategorie.trim() === '') {\n  fehlendeFelder.push('Fehlerkategorie');\n}\n\n// 6. Mind. 1 Zusatzarbeit\nif (!formData.zusatzarbeit1_prozess || formData.zusatzarbeit1_prozess.trim() === '') {\n  fehlendeFelder.push('Mindestens 1 Zusatzarbeit-Zeile');\n}\n\nconst isValid = fehlendeFelder.length === 0;\n\nreturn [{\n  json: {\n    ...formData,\n    validierung: {\n      isValid: isValid,\n      fehlendeFelder: fehlendeFelder,\n      fehlerAnzahl: fehlendeFelder.length\n    }\n  }\n}];"
+      },
+      "id": "validate",
+      "name": "Validieren",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "respond",
+      "name": "Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [900, 300]
+    }
+  ],
+  "connections": {
+    "Test Webhook": {"main": [[{"node": "Daten vorbereiten", "type": "main", "index": 0}]]},
+    "Daten vorbereiten": {"main": [[{"node": "Validieren", "type": "main", "index": 0}]]},
+    "Validieren": {"main": [[{"node": "Response", "type": "main", "index": 0}]]}
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

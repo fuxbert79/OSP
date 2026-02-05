@@ -1,0 +1,275 @@
+{
+  "name": "NZA-Email-Import",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 5
+            }
+          ]
+        }
+      },
+      "id": "schedule",
+      "name": "Alle 5 Minuten",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [140, 300]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "returnAll": false,
+        "limit": 20,
+        "filters": {
+          "folderId": "inbox",
+          "readStatus": "unread"
+        }
+      },
+      "id": "get-emails",
+      "name": "Ungelesene E-Mails",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "typeVersion": 2,
+      "position": [360, 300],
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "y6bC8aYrlgPO6ZsG",
+          "name": "Microsoft Outlook NZA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "has-attachment",
+              "leftValue": "={{ $json.hasAttachments }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "id": "filter-nza",
+      "name": "Hat Anhang?",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2,
+      "position": [580, 300]
+    },
+    {
+      "parameters": {
+        "operation": "getAttachment",
+        "messageId": "={{ $json.id }}",
+        "attachmentId": "={{ $json.attachments[0].id }}",
+        "options": {}
+      },
+      "id": "get-attachment",
+      "name": "Anhang laden",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "typeVersion": 2,
+      "position": [800, 300],
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "y6bC8aYrlgPO6ZsG",
+          "name": "Microsoft Outlook NZA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// E-Mail und Anhang-Daten\nconst email = $input.first().json;\nconst emailTimestamp = new Date(email.receivedDateTime || new Date());\n\n// NZA-ID generieren: NZA-JJNNN\nconst year = emailTimestamp.getFullYear().toString().slice(-2);\n// Hole naechste Nummer aus SharePoint (wird spaeter per API geholt)\n// Fuer jetzt: Zufallsnummer als Platzhalter\nconst tempNum = Math.floor(Math.random() * 900) + 100;\nconst nzaId = `NZA-${year}${tempNum.toString().padStart(3, '0')}`;\n\n// Dateiname mit Timestamp\nconst timestamp = emailTimestamp.toISOString().slice(0, 10);\nconst fileName = `${nzaId}_Formular_${timestamp}.xlsx`;\n\n// Metadata fuer SharePoint\nconst result = {\n  nzaId: nzaId,\n  emailId: email.id,\n  emailSubject: email.subject,\n  emailFrom: email.from?.emailAddress?.address || 'unbekannt',\n  emailTimestamp: emailTimestamp.toISOString(),\n  fileName: fileName,\n  attachmentName: email.attachments?.[0]?.name || 'unbekannt',\n  attachmentId: email.attachments?.[0]?.id,\n  // Felder fuer nza-kpl (werden spaeter aus Excel gefuellt)\n  datum: emailTimestamp.toISOString().slice(0, 10),\n  reklamationstyp: 'Interne Reklamation',\n  status: 'Neu',\n  bemerkungen: `Importiert aus E-Mail vom ${emailTimestamp.toLocaleDateString('de-DE')} ${emailTimestamp.toLocaleTimeString('de-DE')}`\n};\n\nreturn [{ json: result }];"
+      },
+      "id": "prepare-data",
+      "name": "Daten vorbereiten",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1020, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_KPL_LIST_ID }}/items?$orderby=id desc&$top=1&$select=id,fields/Title",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "options": {}
+      },
+      "id": "get-last-id",
+      "name": "Letzte NZA-ID holen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1240, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "5ZmmOyK1L7PhkJW2",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst lastIdResponse = $('Letzte NZA-ID holen').first().json;\n\n// Berechne naechste NZA-ID\nconst year = new Date().getFullYear().toString().slice(-2);\nlet nextNum = 1;\n\nif (lastIdResponse.value && lastIdResponse.value.length > 0) {\n  const lastTitle = lastIdResponse.value[0].fields?.Title || '';\n  // Format: NZA-26001 -> extrahiere 001\n  const match = lastTitle.match(/NZA-\\d{2}(\\d{3})/);\n  if (match) {\n    nextNum = parseInt(match[1], 10) + 1;\n  }\n}\n\nconst nzaId = `NZA-${year}${nextNum.toString().padStart(3, '0')}`;\n\nreturn [{\n  json: {\n    ...input,\n    nzaId: nzaId,\n    fileName: `${nzaId}_Formular_${input.datum}.xlsx`\n  }\n}];"
+      },
+      "id": "generate-id",
+      "name": "NZA-ID generieren",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1460, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_KPL_LIST_ID }}/items",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"fields\": {\n    \"Title\": \"{{ $json.nzaId }}\",\n    \"field_1\": \"{{ $json.reklamationstyp }}\",\n    \"field_2\": \"{{ $json.datum }}\",\n    \"status\": \"{{ $json.status }}\",\n    \"field_16\": \"{{ $json.bemerkungen }}\"\n  }\n}",
+        "options": {}
+      },
+      "id": "create-item",
+      "name": "SharePoint Item erstellen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1680, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "5ZmmOyK1L7PhkJW2",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/drive/root:/NZA-Formulare/{{ $json.fileName }}:/content",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "contentType": "binaryData",
+        "inputDataFieldName": "data",
+        "options": {}
+      },
+      "id": "upload-file",
+      "name": "Formular hochladen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1900, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "5ZmmOyK1L7PhkJW2",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_BILDER_LIST_ID }}/items",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"fields\": {\n    \"Title\": \"{{ $json.fileName }}\",\n    \"nza_id\": \"{{ $json.nzaId }}\",\n    \"kategorie\": \"Ursprungsformular\",\n    \"hochgeladen_von\": \"System (E-Mail-Import)\",\n    \"hochgeladen_am\": \"{{ $json.emailTimestamp }}\",\n    \"bemerkung\": \"Automatisch importiert aus E-Mail\"\n  }\n}",
+        "options": {}
+      },
+      "id": "create-bilder-entry",
+      "name": "Dokument-Eintrag erstellen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [2120, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "5ZmmOyK1L7PhkJW2",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "messageId": "={{ $json.emailId }}",
+        "updateFields": {
+          "isRead": true
+        }
+      },
+      "id": "mark-read",
+      "name": "Als gelesen markieren",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "typeVersion": 2,
+      "position": [2340, 300],
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "y6bC8aYrlgPO6ZsG",
+          "name": "Microsoft Outlook NZA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:5678/webhook/nza-notify",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"nzaId\": \"{{ $json.nzaId }}\",\n  \"titel\": \"Neue NZA aus E-Mail-Import\",\n  \"nachricht\": \"NZA {{ $json.nzaId }} wurde automatisch aus E-Mail importiert.\\nAbsender: {{ $json.emailFrom }}\\nBetreff: {{ $json.emailSubject }}\",\n  \"empfaenger\": \"al@schneider-kabelsatzbau.de\"\n}",
+        "options": {}
+      },
+      "id": "notify",
+      "name": "Teams Benachrichtigung",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [2560, 300]
+    }
+  ],
+  "connections": {
+    "Alle 5 Minuten": {
+      "main": [[{"node": "Ungelesene E-Mails", "type": "main", "index": 0}]]
+    },
+    "Ungelesene E-Mails": {
+      "main": [[{"node": "Hat Anhang?", "type": "main", "index": 0}]]
+    },
+    "Hat Anhang?": {
+      "main": [[{"node": "Anhang laden", "type": "main", "index": 0}]]
+    },
+    "Anhang laden": {
+      "main": [[{"node": "Daten vorbereiten", "type": "main", "index": 0}]]
+    },
+    "Daten vorbereiten": {
+      "main": [[{"node": "Letzte NZA-ID holen", "type": "main", "index": 0}]]
+    },
+    "Letzte NZA-ID holen": {
+      "main": [[{"node": "NZA-ID generieren", "type": "main", "index": 0}]]
+    },
+    "NZA-ID generieren": {
+      "main": [[{"node": "SharePoint Item erstellen", "type": "main", "index": 0}]]
+    },
+    "SharePoint Item erstellen": {
+      "main": [[{"node": "Formular hochladen", "type": "main", "index": 0}]]
+    },
+    "Formular hochladen": {
+      "main": [[{"node": "Dokument-Eintrag erstellen", "type": "main", "index": 0}]]
+    },
+    "Dokument-Eintrag erstellen": {
+      "main": [[{"node": "Als gelesen markieren", "type": "main", "index": 0}]]
+    },
+    "Als gelesen markieren": {
+      "main": [[{"node": "Teams Benachrichtigung", "type": "main", "index": 0}]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

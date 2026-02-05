@@ -1,0 +1,86 @@
+{
+  "name": "NZA-Massnahmen-Update",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "PATCH",
+        "path": "nza-massnahmen",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "nza-massnahmen-patch"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $('Webhook').first().json.body;\nconst itemId = body.id;\n\nif (!itemId) {\n  throw new Error('Item-ID fehlt!');\n}\n\nconst fields = {};\nif (body.status) fields.Status = body.status;\nif (body.wirksamkeit) fields.Wirksamkeit = body.wirksamkeit;\nif (body.beschreibung) fields.Beschreibung = body.beschreibung;\nif (body.erledigtAm) fields.Erledigt_Am = body.erledigtAm;\nif (body.benachrichtigungTeams !== undefined) fields.Benachrichtigung_Teams = body.benachrichtigungTeams;\nif (body.benachrichtigungEmail !== undefined) fields.Benachrichtigung_Email = body.benachrichtigungEmail;\n\nreturn [{ json: { itemId, fields } }];"
+      },
+      "id": "prepare",
+      "name": "Prepare",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_MASSNAHMEN_LIST_ID }}/items/{{ $json.itemId }}/fields",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.fields) }}",
+        "options": {}
+      },
+      "id": "update-item",
+      "name": "Update Item",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [680, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "5ZmmOyK1L7PhkJW2",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { success: true, message: 'Maßnahme aktualisiert', id: $('Prepare').first().json.itemId } }];"
+      },
+      "id": "response",
+      "name": "Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [{ "name": "Access-Control-Allow-Origin", "value": "*" }]
+          }
+        }
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1120, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": { "main": [[{ "node": "Prepare", "type": "main", "index": 0 }]] },
+    "Prepare": { "main": [[{ "node": "Update Item", "type": "main", "index": 0 }]] },
+    "Update Item": { "main": [[{ "node": "Response", "type": "main", "index": 0 }]] },
+    "Response": { "main": [[{ "node": "Respond", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" }
+}

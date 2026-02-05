@@ -1,0 +1,121 @@
+{
+  "name": "NZA-Massnahmen-List",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "nza-massnahmen",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "nza-massnahmen-list"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_MASSNAHMEN_LIST_ID }}/items?$expand=fields&$top=500&$orderby=createdDateTime desc{{ $('Webhook').first().json.query.nzaId ? \"&$filter=fields/NZA_ID eq '\" + $('Webhook').first().json.query.nzaId + \"'\" : '' }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "options": {}
+      },
+      "id": "get-massnahmen",
+      "name": "GET Massnahmen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "5ZmmOyK1L7PhkJW2",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.first().json.value || [];\n\nconst massnahmen = items.map(item => {\n  const f = item.fields || {};\n  return {\n    id: item.id,\n    nzaId: f.NZA_ID,\n    titel: f.Title,\n    typ: f.Massnahme_Typ,\n    beschreibung: f.Beschreibung,\n    verantwortlichId: f.Verantwortlich_ID,\n    verantwortlichName: f.Verantwortlich_Name,\n    verantwortlichEmail: f.Verantwortlich_Email,\n    termin: f.Termin,\n    status: f.Status || 'Offen',\n    erledigtAm: f.Erledigt_Am,\n    wirksamkeit: f.Wirksamkeit,\n    benachrichtigungTeams: f.Benachrichtigung_Teams === true,\n    benachrichtigungEmail: f.Benachrichtigung_Email === true,\n    erstelltAm: item.createdDateTime\n  };\n});\n\nreturn [{ json: { massnahmen, count: massnahmen.length } }];"
+      },
+      "id": "transform",
+      "name": "Transform",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        680,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        }
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        900,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "GET Massnahmen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET Massnahmen": {
+      "main": [
+        [
+          {
+            "node": "Transform",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transform": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

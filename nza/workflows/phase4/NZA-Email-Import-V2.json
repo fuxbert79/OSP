@@ -1,0 +1,300 @@
+{
+  "name": "NZA-Email-Import-V2",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [{"field": "minutes", "minutesInterval": 5}]
+        }
+      },
+      "id": "schedule",
+      "name": "Alle 5 Minuten",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [140, 300]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "returnAll": false,
+        "limit": 10,
+        "filters": {
+          "folderId": "inbox",
+          "readStatus": "unread"
+        },
+        "options": {
+          "fields": ["id", "subject", "from", "receivedDateTime", "hasAttachments", "bodyPreview"]
+        }
+      },
+      "id": "get-emails",
+      "name": "Ungelesene E-Mails",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "typeVersion": 2,
+      "position": [360, 300],
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "y6bC8aYrlgPO6ZsG",
+          "name": "Microsoft Outlook NZA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": false, "leftValue": "", "typeValidation": "loose"},
+          "conditions": [
+            {
+              "id": "has-attachment",
+              "leftValue": "={{ $json.hasAttachments }}",
+              "rightValue": true,
+              "operator": {"type": "boolean", "operation": "equals"}
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "filter-attachments",
+      "name": "Mit Anhang",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2,
+      "position": [580, 300]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "messageId": "={{ $json.id }}",
+        "resource": "messageAttachment",
+        "returnAll": true
+      },
+      "id": "list-attachments",
+      "name": "Anhaenge auflisten",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "typeVersion": 2,
+      "position": [800, 300],
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "y6bC8aYrlgPO6ZsG",
+          "name": "Microsoft Outlook NZA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": false},
+          "conditions": [
+            {
+              "id": "is-excel",
+              "leftValue": "={{ $json.name }}",
+              "rightValue": ".xlsx",
+              "operator": {"type": "string", "operation": "endsWith"}
+            }
+          ]
+        }
+      },
+      "id": "filter-excel",
+      "name": "Excel-Dateien",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2,
+      "position": [1020, 300]
+    },
+    {
+      "parameters": {
+        "operation": "getAttachment",
+        "messageId": "={{ $('Ungelesene E-Mails').item.json.id }}",
+        "attachmentId": "={{ $json.id }}",
+        "options": {
+          "binaryPropertyName": "excelFile"
+        }
+      },
+      "id": "download-attachment",
+      "name": "Excel herunterladen",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "typeVersion": 2,
+      "position": [1240, 300],
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "y6bC8aYrlgPO6ZsG",
+          "name": "Microsoft Outlook NZA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {
+          "sheetName": "FQM04"
+        }
+      },
+      "id": "parse-excel",
+      "name": "Excel parsen",
+      "type": "n8n-nodes-base.spreadsheetFile",
+      "typeVersion": 4.5,
+      "position": [1460, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// E-Mail Metadaten\nconst email = $('Ungelesene E-Mails').first().json;\nconst emailTimestamp = new Date(email.receivedDateTime);\nconst excelData = $input.all().map(i => i.json);\n\n// Excel-Felder gemäß FQM04 Mapping extrahieren\n// Zeile 4: Reklamationstyp (C4), Datum (F4)\n// Zeile 5: Artikel-Nr (C5), BA (F5)\n// Zeile 6: Losgroesse (C6), Ausschuss (F6)\n// Zeile 7: Verursacher (C7), KST (F7)\n// etc.\n\nlet formData = {\n  reklamationstyp: '',\n  datum: emailTimestamp.toISOString().slice(0, 10),\n  artikelNr: '',\n  betriebsauftrag: '',\n  losgroesse: 0,\n  ausschuss: 0,\n  verursacher: '',\n  kostenstelle: '',\n  qaNummerRms: '',\n  qNummerKunde: '',\n  ersatzBa: '',\n  gutschriftBelastung: '',\n  fehlerBeschreibung: '',\n  fehlerKategorie: '',\n  bemerkungen: ''\n};\n\n// Versuche Daten aus Excel zu extrahieren\nif (excelData && excelData.length > 0) {\n  // Suche nach bekannten Feldnamen in den Excel-Daten\n  excelData.forEach((row, idx) => {\n    // Zeile 4 (Index 3)\n    if (idx === 3) {\n      formData.reklamationstyp = row['C'] || row['__EMPTY_2'] || 'Interne Reklamation';\n    }\n    // Zeile 5 (Index 4)\n    if (idx === 4) {\n      formData.artikelNr = row['C'] || row['__EMPTY_2'] || '';\n      formData.betriebsauftrag = row['F'] || row['__EMPTY_5'] || '';\n    }\n    // Zeile 6 (Index 5)\n    if (idx === 5) {\n      formData.losgroesse = parseInt(row['C'] || row['__EMPTY_2'] || '0', 10);\n      formData.ausschuss = parseInt(row['F'] || row['__EMPTY_5'] || '0', 10);\n    }\n    // Zeile 7 (Index 6)\n    if (idx === 6) {\n      formData.verursacher = row['C'] || row['__EMPTY_2'] || '';\n      formData.kostenstelle = row['F'] || row['__EMPTY_5'] || '';\n    }\n  });\n}\n\n// Fehler-Kategorie normalisieren (Zeilenumbrüche entfernen)\nconst kategorieMapping = {\n  'Laengen- abweichung': 'Laengenabweichung',\n  'Verdrahtungs- fehler': 'Verdrahtungsfehler',\n  'Bearbeitungs- fehler': 'Bearbeitungsfehler',\n  'Werkzeug/ Maschinenfehler': 'Werkzeug/Maschinenfehler',\n  'Lieferantenfehler/ Reklamation': 'Lieferantenfehler/Reklamation'\n};\nif (kategorieMapping[formData.fehlerKategorie]) {\n  formData.fehlerKategorie = kategorieMapping[formData.fehlerKategorie];\n}\n\nreturn [{\n  json: {\n    ...formData,\n    emailId: email.id,\n    emailSubject: email.subject,\n    emailFrom: email.from?.emailAddress?.address || 'unbekannt',\n    emailTimestamp: emailTimestamp.toISOString(),\n    attachmentName: $('Excel herunterladen').first().json.name,\n    status: 'Neu'\n  }\n}];"
+      },
+      "id": "extract-fields",
+      "name": "Felder extrahieren",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1680, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_KPL_LIST_ID }}/items?$orderby=id desc&$top=1&$select=id,fields/Title",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "options": {}
+      },
+      "id": "get-last-nza",
+      "name": "Letzte NZA-ID",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1900, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "5ZmmOyK1L7PhkJW2",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const formData = $('Felder extrahieren').first().json;\nconst lastIdResponse = $input.first().json;\n\n// Naechste NZA-ID berechnen\nconst year = new Date().getFullYear().toString().slice(-2);\nlet nextNum = 1;\n\nif (lastIdResponse.value && lastIdResponse.value.length > 0) {\n  const lastTitle = lastIdResponse.value[0].fields?.Title || '';\n  const match = lastTitle.match(/NZA-\\d{2}(\\d{3})/);\n  if (match) {\n    nextNum = parseInt(match[1], 10) + 1;\n  }\n}\n\nconst nzaId = `NZA-${year}${nextNum.toString().padStart(3, '0')}`;\nconst fileName = `${nzaId}_Formular_${formData.datum}.xlsx`;\n\nreturn [{\n  json: {\n    ...formData,\n    nzaId: nzaId,\n    fileName: fileName\n  }\n}];"
+      },
+      "id": "generate-nza-id",
+      "name": "NZA-ID generieren",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2120, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_KPL_LIST_ID }}/items",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"fields\": {\n    \"Title\": \"{{ $json.nzaId }}\",\n    \"field_1\": \"{{ $json.reklamationstyp }}\",\n    \"field_2\": \"{{ $json.datum }}\",\n    \"field_3\": \"{{ $json.artikelNr }}\",\n    \"field_4\": \"{{ $json.betriebsauftrag }}\",\n    \"field_5\": {{ $json.losgroesse }},\n    \"field_6\": {{ $json.ausschuss }},\n    \"field_7\": \"{{ $json.verursacher }}\",\n    \"field_9\": \"{{ $json.kostenstelle }}\",\n    \"field_10\": \"{{ $json.qaNummerRms }}\",\n    \"field_14\": \"{{ $json.fehlerBeschreibung }}\",\n    \"field_15\": \"{{ $json.fehlerKategorie }}\",\n    \"field_16\": \"Importiert aus E-Mail vom {{ $json.emailTimestamp }}\",\n    \"status\": \"{{ $json.status }}\"\n  }\n}",
+        "options": {}
+      },
+      "id": "create-nza-item",
+      "name": "NZA in SharePoint",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [2340, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "5ZmmOyK1L7PhkJW2",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/drive/root:/NZA-Dokumente/{{ $json.nzaId }}/{{ $json.fileName }}:/content",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "contentType": "binaryData",
+        "inputDataFieldName": "={{ $('Excel herunterladen').first().binary.excelFile ? 'excelFile' : 'data' }}",
+        "options": {}
+      },
+      "id": "upload-formular",
+      "name": "Formular hochladen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [2560, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "5ZmmOyK1L7PhkJW2",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_BILDER_LIST_ID }}/items",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"fields\": {\n    \"Title\": \"{{ $json.fileName }}\",\n    \"nza_id\": \"{{ $json.nzaId }}\",\n    \"kategorie\": \"Ursprungsformular\",\n    \"hochgeladen_von\": \"System (E-Mail-Import)\",\n    \"email_empfangen\": \"{{ $json.emailTimestamp }}\",\n    \"bemerkung\": \"Automatisch importiert\"\n  }\n}",
+        "options": {}
+      },
+      "id": "create-doc-entry",
+      "name": "Dokument registrieren",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [2780, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "5ZmmOyK1L7PhkJW2",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "messageId": "={{ $('Felder extrahieren').first().json.emailId }}",
+        "updateFields": {
+          "isRead": true
+        }
+      },
+      "id": "mark-as-read",
+      "name": "E-Mail gelesen",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "typeVersion": 2,
+      "position": [3000, 300],
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "y6bC8aYrlgPO6ZsG",
+          "name": "Microsoft Outlook NZA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:5678/webhook/nza-notify",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"nzaId\": \"{{ $('NZA-ID generieren').first().json.nzaId }}\",\n  \"typ\": \"import\",\n  \"titel\": \"Neue NZA importiert\",\n  \"nachricht\": \"{{ $('NZA-ID generieren').first().json.nzaId }} wurde aus E-Mail importiert.\\nArtikel: {{ $('NZA-ID generieren').first().json.artikelNr }}\\nAbsender: {{ $('Felder extrahieren').first().json.emailFrom }}\"\n}",
+        "options": {}
+      },
+      "id": "notify-teams",
+      "name": "Teams Notify",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [3220, 300]
+    }
+  ],
+  "connections": {
+    "Alle 5 Minuten": {"main": [[{"node": "Ungelesene E-Mails", "type": "main", "index": 0}]]},
+    "Ungelesene E-Mails": {"main": [[{"node": "Mit Anhang", "type": "main", "index": 0}]]},
+    "Mit Anhang": {"main": [[{"node": "Anhaenge auflisten", "type": "main", "index": 0}]]},
+    "Anhaenge auflisten": {"main": [[{"node": "Excel-Dateien", "type": "main", "index": 0}]]},
+    "Excel-Dateien": {"main": [[{"node": "Excel herunterladen", "type": "main", "index": 0}]]},
+    "Excel herunterladen": {"main": [[{"node": "Excel parsen", "type": "main", "index": 0}]]},
+    "Excel parsen": {"main": [[{"node": "Felder extrahieren", "type": "main", "index": 0}]]},
+    "Felder extrahieren": {"main": [[{"node": "Letzte NZA-ID", "type": "main", "index": 0}]]},
+    "Letzte NZA-ID": {"main": [[{"node": "NZA-ID generieren", "type": "main", "index": 0}]]},
+    "NZA-ID generieren": {"main": [[{"node": "NZA in SharePoint", "type": "main", "index": 0}]]},
+    "NZA in SharePoint": {"main": [[{"node": "Formular hochladen", "type": "main", "index": 0}]]},
+    "Formular hochladen": {"main": [[{"node": "Dokument registrieren", "type": "main", "index": 0}]]},
+    "Dokument registrieren": {"main": [[{"node": "E-Mail gelesen", "type": "main", "index": 0}]]},
+    "E-Mail gelesen": {"main": [[{"node": "Teams Notify", "type": "main", "index": 0}]]}
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

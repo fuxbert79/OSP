@@ -1,0 +1,79 @@
+{
+  "name": "NZA-Test-Simple",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "nza-test-simple",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "nza-test-simple"
+    },
+    {
+      "parameters": {
+        "filePath": "/var/www/html/nza/2026/test/FQM04_TEST.xlsx"
+      },
+      "id": "read-file",
+      "name": "Excel lesen",
+      "type": "n8n-nodes-base.readBinaryFiles",
+      "typeVersion": 1,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.microsoft.com/v1.0/me/sendMail",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"message\": {\n    \"subject\": \"TEST NZA Import - FQM04 Formular\",\n    \"body\": {\n      \"contentType\": \"Text\",\n      \"content\": \"Dies ist ein Test des NZA E-Mail-Import Workflows.\\n\\nAnhang: FQM04_TEST.xlsx\\n\\nTest-Daten:\\n- Artikel-Nr.: TEST-12345\\n- Losgroesse: 100\\n- Ausschuss: 5\\n- Kostenstelle: 3000\\n\\nGesendet: {{ $now.format('dd.MM.yyyy HH:mm') }}\"\n    },\n    \"toRecipients\": [\n      {\n        \"emailAddress\": {\n          \"address\": \"nza@schneider-kabelsatzbau.de\"\n        }\n      }\n    ],\n    \"attachments\": [\n      {\n        \"@odata.type\": \"#microsoft.graph.fileAttachment\",\n        \"name\": \"FQM04_TEST.xlsx\",\n        \"contentType\": \"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\",\n        \"contentBytes\": \"{{ $binary.data.toBase64() }}\"\n      }\n    ]\n  }\n}",
+        "options": {}
+      },
+      "id": "send-mail",
+      "name": "E-Mail senden",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [680, 300],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "5ZmmOyK1L7PhkJW2",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { success: true, message: 'Test-Email gesendet', timestamp: $now.toISO() } }}",
+        "options": {}
+      },
+      "id": "respond",
+      "name": "Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [900, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{"node": "Excel lesen", "type": "main", "index": 0}]]
+    },
+    "Excel lesen": {
+      "main": [[{"node": "E-Mail senden", "type": "main", "index": 0}]]
+    },
+    "E-Mail senden": {
+      "main": [[{"node": "Response", "type": "main", "index": 0}]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

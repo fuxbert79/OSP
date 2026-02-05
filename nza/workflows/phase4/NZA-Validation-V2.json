@@ -1,0 +1,50 @@
+{
+  "name": "NZA-Validation-V2",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "nza-validate",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "nza-validate"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Webhook liefert: { headers, params, query, body }\nconst webhookInput = $input.first().json;\nconst body = webhookInput.body || {};\n\n// Pflichtfelder prüfen\nconst fehlendeFelder = [];\n\n// 1. Artikel-Nr.\nconst artikelNr = String(body.artikelNr || '').trim();\nif (!artikelNr) fehlendeFelder.push('Artikel-Nr.');\n\n// 2. Betriebsauftrag\nconst betriebsauftrag = String(body.betriebsauftrag || '').trim();\nif (!betriebsauftrag) fehlendeFelder.push('Betriebsauftrag');\n\n// 3. Ausschuss (> 0)\nconst ausschuss = parseInt(body.ausschuss, 10) || 0;\nif (ausschuss <= 0) fehlendeFelder.push('Ausschuss (muss > 0 sein)');\n\n// 4. Fehlerbeschreibung\nconst fehlerBeschreibung = String(body.fehlerBeschreibung || '').trim();\nif (!fehlerBeschreibung) fehlendeFelder.push('Fehlerbeschreibung');\n\n// 5. Fehlerkategorie\nconst fehlerKategorie = String(body.fehlerKategorie || '').trim();\nif (!fehlerKategorie) fehlendeFelder.push('Fehlerkategorie');\n\n// 6. Mind. 1 Zusatzarbeit\nconst zusatzarbeit = String(body.zusatzarbeit1 || body.zusatzarbeit || '').trim();\nif (!zusatzarbeit) fehlendeFelder.push('Mindestens 1 Zusatzarbeit-Zeile');\n\nconst isValid = fehlendeFelder.length === 0;\n\nreturn [{\n  json: {\n    eingabe: body,\n    validierung: {\n      isValid: isValid,\n      fehlendeFelder: fehlendeFelder,\n      fehlerAnzahl: fehlendeFelder.length\n    },\n    formData: {\n      artikelNr,\n      betriebsauftrag,\n      ausschuss,\n      fehlerBeschreibung,\n      fehlerKategorie,\n      zusatzarbeit\n    }\n  }\n}];"
+      },
+      "id": "validate",
+      "name": "Validieren",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "respond",
+      "name": "Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [680, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {"main": [[{"node": "Validieren", "type": "main", "index": 0}]]},
+    "Validieren": {"main": [[{"node": "Response", "type": "main", "index": 0}]]}
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

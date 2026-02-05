@@ -1,0 +1,243 @@
+{
+  "name": "NZA-Prozesse-Create",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "nza-prozesse",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "nza-prozesse-create"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $('Webhook').first().json.body;\n\nconst MINUTENSATZ = {\n  '1000': 1.98, '2000': 1.21, '3000': 0.93,\n  '4000': 1.02, '5000': 1.02, 'Lager': 1.10, 'Verwaltung': 1.37\n};\n\nlet kostenProzesse = 0;\nconst prozesse = body.prozesse || [];\nconst prozessFelder = {};\n\nprozesse.forEach((p, i) => {\n  const idx = i + 1;\n  const zeit = parseFloat(p.zeit) || 0;\n  const faktor = MINUTENSATZ[p.kst] || 0;\n  kostenProzesse += zeit * faktor;\n  \n  if (idx === 1) {\n    prozessFelder.field_19 = p.prozess || '';\n    prozessFelder.field_20 = p.werker || '';\n    prozessFelder.kostenstelle_1 = p.kst || '';\n    prozessFelder.field_22 = zeit;\n  } else if (idx === 2) {\n    prozessFelder.field_24 = p.prozess || '';\n    prozessFelder.field_25 = p.werker || '';\n    prozessFelder.kostenstelle_2 = p.kst || '';\n    prozessFelder.field_27 = zeit;\n  } else if (idx === 3) {\n    prozessFelder.field_29 = p.prozess || '';\n    prozessFelder.field_30 = p.werker || '';\n    prozessFelder.kostenstelle_3 = p.kst || '';\n    prozessFelder.field_32 = zeit;\n  } else if (idx === 4) {\n    prozessFelder.field_34 = p.prozess || '';\n    prozessFelder.field_35 = p.werker || '';\n    prozessFelder.kostenstelle_4 = p.kst || '';\n    prozessFelder.field_37 = zeit;\n  } else if (idx === 5) {\n    prozessFelder.field_39 = p.prozess || '';\n    prozessFelder.field_40 = p.werker || '';\n    prozessFelder.kostenstelle_5 = p.kst || '';\n    prozessFelder.field_42 = zeit;\n  }\n});\n\nconst kostenMaterial = parseFloat(body.kostenMaterial) || 0;\nconst kostenSonstige = parseFloat(body.kostenSonstige) || 0;\nconst kostenGesamt = Math.round((kostenProzesse + kostenMaterial + kostenSonstige) * 100) / 100;\n\nreturn [{\n  json: {\n    fields: {\n      field_1: body.typ,\n      field_2: body.datum,\n      field_3: body.artikel,\n      field_4: body.betriebsauftrag || null,\n      field_5: body.pruefmenge || null,\n      field_6: body.davonNio || null,\n      field_7: body.verursacher || '',\n      field_8: body.verursacherPersNr || null,\n      field_9: body.kst,\n      field_14: body.beschreibung,\n      field_15: body.kategorien,\n      field_16: body.bemerkungen || '',\n      field_17: kostenSonstige,\n      field_65: kostenMaterial,\n      kosten_prozesse: Math.round(kostenProzesse * 100) / 100,\n      kosten_gesamt: kostenGesamt,\n      status: 'Neu',\n      ...prozessFelder\n    },\n    kosten: { kostenProzesse: Math.round(kostenProzesse * 100) / 100, kostenMaterial, kostenSonstige, kostenGesamt }\n  }\n}];"
+      },
+      "id": "prepare",
+      "name": "Prepare",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_CONFIG_LIST_ID }}/items?$expand=fields&$filter=fields/Title eq 'NZA_ID_COUNTER'",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "options": {}
+      },
+      "id": "get-counter",
+      "name": "Get Counter",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        680,
+        300
+      ],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "5ZmmOyK1L7PhkJW2",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const counterItem = $input.first().json.value?.[0];\nconst currentCounter = parseInt(counterItem?.fields?.Wert || '0');\nconst counterId = counterItem?.id;\n\nconst newCounter = currentCounter + 1;\nconst year = new Date().getFullYear().toString().slice(-2);\nconst nzaId = `NZA-${year}-${newCounter.toString().padStart(4, '0')}`;\n\nconst fields = $('Prepare').first().json.fields;\nfields.Title = nzaId;\n\nreturn [{ json: { nzaId, newCounter, counterId, fields, kosten: $('Prepare').first().json.kosten }}];"
+      },
+      "id": "generate-id",
+      "name": "Generate ID",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_KPL_LIST_ID }}/items",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={ \"fields\": {{ JSON.stringify($json.fields) }} }",
+        "options": {}
+      },
+      "id": "create-item",
+      "name": "Create Item",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1120,
+        300
+      ],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "5ZmmOyK1L7PhkJW2",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://graph.microsoft.com/v1.0/sites/{{ $env.NZA_SITE_ID }}/lists/{{ $env.NZA_CONFIG_LIST_ID }}/items/{{ $('Generate ID').first().json.counterId }}/fields",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={ \"Wert\": \"{{ $('Generate ID').first().json.newCounter }}\" }",
+        "options": {}
+      },
+      "id": "update-counter",
+      "name": "Update Counter",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1340,
+        300
+      ],
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "5ZmmOyK1L7PhkJW2",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const created = $('Create Item').first().json;\nconst nzaId = $('Generate ID').first().json.nzaId;\nconst kosten = $('Generate ID').first().json.kosten;\n\nreturn [{ json: { success: true, nzaId, id: created.id, kosten, message: `NZA ${nzaId} erfolgreich erstellt` }}];"
+      },
+      "id": "response",
+      "name": "Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1560,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        }
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1780,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Prepare",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare": {
+      "main": [
+        [
+          {
+            "node": "Get Counter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Counter": {
+      "main": [
+        [
+          {
+            "node": "Generate ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate ID": {
+      "main": [
+        [
+          {
+            "node": "Create Item",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Item": {
+      "main": [
+        [
+          {
+            "node": "Update Counter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Counter": {
+      "main": [
+        [
+          {
+            "node": "Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Response": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

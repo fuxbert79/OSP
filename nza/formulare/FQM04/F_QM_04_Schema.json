@@ -1,0 +1,284 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "F-QM-04 Nach- und Zusatzarbeiten (NZA) - Version 2.0",
+  "description": "Schema fuer die halbautomatische Formular-Befuellung im NZA-System (2026)",
+  "type": "object",
+  "required": [
+    "formblatt_id",
+    "datum",
+    "reklamationstyp",
+    "artikel_nr",
+    "losgroesse",
+    "ausschuss",
+    "verursacher",
+    "kostenstelle",
+    "fehler_beschreibung",
+    "fehler_kategorie"
+  ],
+  "properties": {
+    "formblatt_id": {
+      "type": "string",
+      "const": "F_QM_04",
+      "description": "Eindeutige Formblatt-ID"
+    },
+    "nza_id": {
+      "type": "string",
+      "pattern": "^NZA-\\d{5}$",
+      "description": "NZA-Nummer im Format NZA-JJNNN (auto-generiert, NICHT im Formular!)",
+      "examples": ["NZA-26001", "NZA-26042"]
+    },
+    "datum": {
+      "type": "string",
+      "format": "date",
+      "description": "Erstelldatum der NZA"
+    },
+    "reklamationstyp": {
+      "type": "string",
+      "enum": [
+        "Interne Reklamation",
+        "Kunden Reklamation",
+        "Lieferanten Reklamation"
+      ],
+      "description": "Art der Reklamation"
+    },
+    "artikel_nr": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Schneider-Artikelnummer"
+    },
+    "betriebsauftrag": {
+      "type": "string",
+      "description": "Betriebsauftrag-Nummer"
+    },
+    "losgroesse": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Betroffene Losgroesse in Stueck"
+    },
+    "ausschuss": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Ausschussmenge in Stueck (muss <= losgroesse sein)"
+    },
+    "verursacher": {
+      "type": "string",
+      "enum": [
+        "1000",
+        "2000",
+        "3000",
+        "4000",
+        "5000",
+        "Lager",
+        "Verwaltung",
+        "Lieferant",
+        "keine Zuordnung"
+      ],
+      "description": "Verursachende Kostenstelle"
+    },
+    "kostenstelle": {
+      "type": "string",
+      "enum": [
+        "1000",
+        "2000",
+        "3000",
+        "4000",
+        "5000",
+        "Lager",
+        "Verwaltung"
+      ],
+      "description": "Kostenstelle fuer Nacharbeit"
+    },
+    "qa_nummer": {
+      "type": "string",
+      "pattern": "^QA-\\d{5}$",
+      "description": "Verknuepfung zu Qualitaetsabweichung F-QM-02"
+    },
+    "q_nr_kunde": {
+      "type": "string",
+      "description": "Reklamationsnummer des Kunden"
+    },
+    "ersatz_ba": {
+      "type": "string",
+      "description": "Ersatz-Betriebsauftrag"
+    },
+    "gutschrift_belastung": {
+      "type": "string",
+      "description": "Buchungsreferenz fuer Gutschrift/Belastung"
+    },
+    "fehler_beschreibung": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 500,
+      "description": "Detaillierte Beschreibung des Fehlers"
+    },
+    "fehler_kategorie": {
+      "type": "string",
+      "enum": [
+        "Crimpfehler",
+        "Laengenabweichung",
+        "Verdrahtungsfehler",
+        "Bearbeitungsfehler",
+        "Druck fehlerhaft",
+        "Arbeitsanweisung falsch",
+        "Kundenzeichnung falsch",
+        "Falsches Material",
+        "Materialfehler",
+        "Werkzeug/Maschinenfehler",
+        "Lieferantenfehler/Reklamation"
+      ],
+      "description": "Fehler-Kategorie aus Katalog (normalisiert, ohne Zeilenumbrueche)"
+    },
+    "fehler_kategorie_raw": {
+      "type": "string",
+      "description": "Original-Wert aus Excel (mit moegl. Zeilenumbruechen)"
+    },
+    "bemerkungen": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "Zusaetzliche Bemerkungen"
+    },
+    "zusaetzliche_taetigkeiten": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["prozess", "werker", "kostenstelle", "zeit_min"],
+        "properties": {
+          "prozess": {
+            "type": "string",
+            "description": "Beschreibung des Arbeitsgangs"
+          },
+          "werker": {
+            "type": "string",
+            "pattern": "^[A-Z]{2,3}$",
+            "description": "MA-Kuerzel (gegen HR_CORE pruefen)"
+          },
+          "kostenstelle": {
+            "type": "string",
+            "enum": ["1000", "2000", "3000", "4000", "5000", "Lager", "Verwaltung"]
+          },
+          "zeit_min": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Arbeitszeit in Minuten"
+          }
+        }
+      },
+      "description": "Liste der zusaetzlichen Taetigkeiten"
+    },
+    "zusaetzliches_material": {
+      "type": "array",
+      "maxItems": 7,
+      "items": {
+        "type": "object",
+        "required": ["artikel_nummer", "menge", "einheit"],
+        "properties": {
+          "artikel_nummer": {
+            "type": "string",
+            "description": "Artikelnummer"
+          },
+          "artikel_bezeichnung": {
+            "type": "string",
+            "description": "Artikelbezeichnung"
+          },
+          "menge": {
+            "type": "number",
+            "minimum": 0.01,
+            "description": "Menge"
+          },
+          "einheit": {
+            "type": "string",
+            "enum": ["Meter", "Millimeter", "Stueck", "Sonstiges"],
+            "description": "Mengeneinheit"
+          }
+        }
+      },
+      "description": "Liste des zusaetzlichen Materials (NEU: max 7 Eintraege)"
+    },
+    "ersteller": {
+      "type": "string",
+      "pattern": "^[A-Z]{2,3}$",
+      "description": "MA-Kuerzel des Erstellers",
+      "examples": ["AL", "SK", "MD"]
+    },
+    "erstellt_am": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Zeitstempel der Erstellung"
+    },
+    "email_empfangen": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Zeitstempel des E-Mail-Eingangs (fuer automatischen Import)"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["offen", "in_bearbeitung", "abgeschlossen"],
+      "default": "offen"
+    },
+    "gesamt_zeit_min": {
+      "type": "integer",
+      "description": "Berechnete Gesamtzeit aller Taetigkeiten in Minuten"
+    }
+  },
+  "additionalProperties": false,
+
+  "$defs": {
+    "kostenstellen_beschreibung": {
+      "1000": "KST F1 - Fertigung 1",
+      "2000": "KST F2 - Fertigung 2",
+      "3000": "KST F3 - Fertigung 3",
+      "4000": "KST 4",
+      "5000": "KST 5",
+      "Lager": "Lager/Logistik",
+      "Verwaltung": "Verwaltung/Buero",
+      "Lieferant": "Externer Lieferant",
+      "keine Zuordnung": "Nicht zuordenbar"
+    },
+    "fehler_kategorien_mapping": {
+      "description": "Mapping von Excel-Werten (mit Zeilenumbruechen) zu normalisierten Werten",
+      "Laengen- abweichung": "Laengenabweichung",
+      "Verdrahtungs- fehler": "Verdrahtungsfehler",
+      "Bearbeitungs- fehler": "Bearbeitungsfehler",
+      "Werkzeug/ Maschinenfehler": "Werkzeug/Maschinenfehler",
+      "Lieferantenfehler/ Reklamation": "Lieferantenfehler/Reklamation"
+    },
+    "fehler_kategorien_beschreibung": {
+      "Crimpfehler": "Falsche Crimphoehe, Crimp nicht ok",
+      "Laengenabweichung": "Kabel zu kurz/lang",
+      "Verdrahtungsfehler": "Falsche Belegung, Verpolung",
+      "Bearbeitungsfehler": "Abisolierung, Schnitt fehlerhaft",
+      "Druck fehlerhaft": "Beschriftung falsch/unleserlich",
+      "Arbeitsanweisung falsch": "Fehler in der AA",
+      "Kundenzeichnung falsch": "Zeichnung fehlerhaft",
+      "Falsches Material": "Materialverwechslung",
+      "Materialfehler": "Defektes/mangelhaftes Material",
+      "Werkzeug/Maschinenfehler": "Maschine/Werkzeug defekt",
+      "Lieferantenfehler/Reklamation": "Lieferant ist Ursache"
+    },
+    "nza_id_generator": {
+      "description": "NZA-ID wird vom System generiert",
+      "format": "NZA-JJNNN",
+      "beispiel": "NZA-26001",
+      "logik": "Jahr (2-stellig) + fortlaufende Nummer (3-stellig), ohne Trennstrich"
+    }
+  },
+
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "ausschuss": { "type": "integer" },
+          "losgroesse": { "type": "integer" }
+        }
+      },
+      "then": {
+        "properties": {
+          "ausschuss": {
+            "maximum": { "$data": "1/losgroesse" }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "name": "NZA-Kosten-Berechnen",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "nza-kosten",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "nza-kosten-post"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $('Webhook').first().json.body;\n\nconst MINUTENSATZ = {\n  '1000': 1.98,\n  '2000': 1.21,\n  '3000': 0.93,\n  '4000': 1.02,\n  '5000': 1.02,\n  'Lager': 1.10,\n  'Verwaltung': 1.37\n};\n\nconst prozesse = body.prozesse || [];\nlet kostenProzesse = 0;\nconst prozessDetails = [];\n\nprozesse.forEach((p, idx) => {\n  const zeit = parseFloat(p.zeit) || 0;\n  const kst = p.kst || '1000';\n  const faktor = MINUTENSATZ[kst] || MINUTENSATZ['1000'];\n  const kosten = Math.round(zeit * faktor * 100) / 100;\n  kostenProzesse += kosten;\n  \n  prozessDetails.push({\n    nr: idx + 1,\n    prozess: p.prozess || '',\n    werker: p.werker || '',\n    kst: kst,\n    zeit: zeit,\n    minutensatz: faktor,\n    kosten: kosten\n  });\n});\n\nconst kostenMaterial = parseFloat(body.kostenMaterial) || 0;\nconst kostenSonstige = parseFloat(body.kostenSonstige) || 0;\nconst kostenGesamt = Math.round((kostenProzesse + kostenMaterial + kostenSonstige) * 100) / 100;\n\nreturn [{ json: {\n  nzaId: body.nzaId || null,\n  berechnung: {\n    prozesse: prozessDetails,\n    kostenProzesse: Math.round(kostenProzesse * 100) / 100,\n    kostenMaterial: kostenMaterial,\n    kostenSonstige: kostenSonstige,\n    kostenGesamt: kostenGesamt\n  },\n  minutensaetze: MINUTENSATZ\n}}];"
+      },
+      "id": "berechne-kosten",
+      "name": "Berechne Kosten",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [{ "name": "Access-Control-Allow-Origin", "value": "*" }]
+          }
+        }
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [680, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": { "main": [[{ "node": "Berechne Kosten", "type": "main", "index": 0 }]] },
+    "Berechne Kosten": { "main": [[{ "node": "Respond", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" }
+}
